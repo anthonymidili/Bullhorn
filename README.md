@@ -1,1 +1,1 @@
-hi there
+Ok no idea why that was so hard to push to github. had to push threw the windows github add.
