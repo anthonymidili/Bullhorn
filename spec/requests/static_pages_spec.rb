@@ -32,7 +32,7 @@ describe "Static pages" do
       visit about_path
       page.should have_selector('h1', text: 'About Us')
     end
-    it "should have the title 'Home'" do
+    it "should have the title 'About Us'" do
       visit about_path
       page.should have_selector('title',
                                 text: "Bookkeeping | About Us")
@@ -44,7 +44,7 @@ describe "Static pages" do
       visit contact_path
       page.should have_selector('h1', text: 'Contact')
     end
-    it "should have the title 'Home'" do
+    it "should have the title 'Contact'" do
       visit contact_path
       page.should have_selector('title',
                                 text: "Bookkeeping | Contact")
