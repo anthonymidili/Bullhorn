@@ -7,10 +7,14 @@ describe "Static pages" do
       visit root_path
       page.should have_selector('h1', text: 'Bookkeeping')
     end
-    it "should have the title 'Home'" do
+    it "should have the base title" do
       visit root_path
       page.should have_selector('title',
-                  text: "Bookkeeping | Home")
+                  text: "Bookkeeping")
+    end
+    it "should not have a custom page title" do
+      visit root_path
+      page.should_not have_selector('title', text: '| Home')
     end
   end
 
