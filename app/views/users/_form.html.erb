@@ -21,12 +21,12 @@
         <%= f.submit "Create my account", :class => "btn btn-large btn-primary" %>
       <% else %>
         <%= f.submit "Save changes", :class => "btn btn-large btn-primary" %>
+        <br/>
+        <%= gravatar_for @user %>
+        <a href="http://gravatar.com/emails">Change your Gravatar</a>
       <% end %>
 
     <% end %>
-
-    <%= gravatar_for @user %>
-    <a href="http://gravatar.com/emails">Change your Gravatar</a>
 
   </div>
 </div>
