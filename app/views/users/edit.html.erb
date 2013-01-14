@@ -10,7 +10,7 @@
     <% end %>
 
     <%= gravatar_for @user %>
-    <a href="http://gravatar.com/emails">Change your Gravatar</a>
+    <%= link_to "Change your Gravatar", "http://gravatar.com/emails", target: "_blank" %>
 
   </div>
 </div>
