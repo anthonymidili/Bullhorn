@@ -41,4 +41,7 @@ module SessionsHelper
     session[:return_to] = request.url
   end
 
+  def current_user_feed
+    current_user.feed.paginate(page: params[:page])
+  end
 end
