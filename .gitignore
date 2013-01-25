@@ -14,7 +14,7 @@
 /log/*.log
 /tmp
 
-#ignore other unneeded files
+# Ignore other unneeded files
 doc/
 *.swp
 *~
