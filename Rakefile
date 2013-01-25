@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Bookkeeping::Application.load_tasks
+Atyou::Application.load_tasks

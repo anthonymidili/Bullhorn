@@ -1,4 +1,4 @@
-Bookkeeping::Application.routes.draw do
+Atyou::Application.routes.draw do
   resources :users do
     member do
       get :following, :followers
