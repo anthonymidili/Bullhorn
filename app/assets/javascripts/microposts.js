@@ -1,6 +1,6 @@
 function updateCountdown() {
-// 500 is the max message length
-var remaining = 500 - jQuery('#micropost_content').val().length;
+// 150 is the max message length
+var remaining = 150 - jQuery('#micropost_content').val().length;
 jQuery('.countdown').text(remaining + ' characters remaining');
 }
 
