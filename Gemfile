@@ -1,36 +1,35 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
-gem 'bootstrap-sass', '2.2.2.0'
-gem 'bcrypt-ruby', '3.0.1'
-gem 'faker', '1.0.1'
-gem 'will_paginate', '3.0.3'
-gem 'bootstrap-will_paginate', '0.0.6'
+gem 'rails', '~> 4.2.3'
+gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bcrypt-ruby', '~> 3.1.5'
+gem 'faker', '~> 1.4.3'
+gem 'will_paginate', '~> 3.0.7'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
-  gem 'rspec-rails', '2.11.0'
+  gem 'rspec-rails', '~> 3.3.0'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '3.2.5'
-  gem 'coffee-rails', '3.2.2'
-  gem 'uglifier', '1.2.3'
+  gem 'sass-rails',   '~> 5.0.3'
+  gem 'coffee-rails', '~> 4.1.0'
+  gem 'uglifier', '~> 2.7.1'
 end
 
-gem 'jquery-rails', '2.0.2'
+gem 'jquery-rails', '~> 4.0.4'
 
 group :test do
-  gem 'capybara', '1.1.2'
+  gem 'capybara', '~> 2.4.4'
 end
 
 group :production do
-  gem 'pg', '0.12.2'
+  gem 'pg', '~> 0.18.1'
 end
 
 # To use ActiveModel has_secure_password
@@ -47,3 +46,5 @@ end
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+ruby '2.2.2'
