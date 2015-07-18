@@ -1,16 +1,17 @@
-<% provide(:title, "Edit user") %>
+<% provide(:title, 'Edit user') %>
 <h1>Update your profile</h1>
 
-<div class="row">
-  <div class="col-md-6 offset3">
+<div class='row'>
+  <div class='col-md-6 offset3'>
 
     <%= form_for(@user) do |f| %>
       <%= render 'fields', f: f %>
-      <%= f.button "Save changes", :class => "btn btn-lg btn-primary" %>
+      <%= f.button 'Save changes', class: 'btn btn-lg btn-primary' %>
     <% end %>
 
+    <br/>
     <%= gravatar_for @user %>
-    <%= link_to "Change your Gravatar", "http://gravatar.com/emails", target: "_blank" %>
+    <%= link_to 'Change your Gravatar', 'http://gravatar.com/emails', target: '_blank' %>
 
   </div>
 </div>

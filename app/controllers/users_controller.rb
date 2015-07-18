@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
-  private
+private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

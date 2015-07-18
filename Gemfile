@@ -12,28 +12,17 @@ gem 'bootstrap-will_paginate', '~> 0.0.10'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.3.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 5.0.3'
-  gem 'coffee-rails', '~> 4.1.0'
-  gem 'uglifier', '~> 2.7.1'
-end
+gem 'sass-rails',   '~> 5.0.3'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'uglifier', '~> 2.7.1'
 
 gem 'jquery-rails', '~> 4.0.4'
 
-group :test do
-  gem 'capybara', '~> 2.4.4'
-end
-
-group :production do
-  gem 'pg', '~> 0.18.1'
-end
-
-gem 'better_errors'
-gem 'binding_of_caller'
+gem 'pg', '~> 0.18.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
