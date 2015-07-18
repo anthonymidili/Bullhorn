@@ -126,7 +126,7 @@ footer {
 aside {
   section {
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid lightgray;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -155,8 +155,8 @@ aside {
   overflow: auto;
   a {
     float: left;
-    padding: 0 10px;
-    border-left: 1px solid $grayLighter;
+    padding: 0 10px 0 10px !important;
+    border-left: 1px solid lightgray;
     color: gray;
     &:first-child {
       padding-left: 0;
@@ -164,7 +164,7 @@ aside {
     }
     &:hover {
       text-decoration: none;
-      color: $blue;
+      color: blue;
     }
   }
   strong {
@@ -202,11 +202,6 @@ input {
   }
 }
 
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
-}
-
 /* users index */
 
 .users {
@@ -215,9 +210,9 @@ input {
   li {
     overflow: auto;
     padding: 10px 0;
-    border-top: 1px solid $grayLighter;
+    border-top: 1px solid lightgray;
     &:last-child {
-      border-bottom: 1px solid $grayLighter;
+      border-bottom: 1px solid lightgray;
     }
   }
 }
@@ -238,7 +233,7 @@ input {
 }
 
 .timestamp {
-  color: $grayLight;
+  color: lightgray;
 }
 
 .gravatar {
@@ -258,5 +253,5 @@ aside {
 .countdown {
   display: inline;
   padding-left: 30px;
-  color: $grayLight;
+  color: lightgray;
 }
