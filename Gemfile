@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.4'
+gem 'rails', '~> 4.2.5'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bcrypt-ruby', '~> 3.1.5'
 gem 'faker', '~> 1.5.0'
@@ -41,4 +41,4 @@ gem 'rails_12factor'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-ruby '2.2.2'
+ruby '2.3.0'
