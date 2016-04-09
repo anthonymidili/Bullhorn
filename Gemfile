@@ -1,26 +1,26 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.5'
+gem 'rails', '~> 4.2.6'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bcrypt-ruby', '~> 3.1.5'
-gem 'faker', '~> 1.5.0'
-gem 'will_paginate', '~> 3.0.7'
+gem 'faker', '~> 1.6.3'
+gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.3.0'
+  gem 'rspec-rails', '~> 3.4.2'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
 
 gem 'sass-rails',   '~> 5.0.3'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'uglifier', '~> 2.7.1'
+gem 'uglifier', '~> 3.0.0'
 
-gem 'jquery-rails', '~> 4.0.4'
+gem 'jquery-rails', '~> 4.1.1'
 
 gem 'pg', '~> 0.18.1'
 
