@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.0.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bcrypt', '~> 3.1.5'
-gem 'faker', '~> 1.6.3'
 gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 
@@ -11,20 +10,19 @@ gem 'bootstrap-will_paginate', '~> 0.0.10'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.4.2'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
 
-gem 'sass-rails',   '~> 5.0.3'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'uglifier', '~> 3.0.0'
+gem 'sass-rails',   '~> 5.0.6'
+gem 'coffee-rails', '~> 4.2.1'
+gem 'uglifier', '>= 3.0.2'
 
-gem 'jquery-rails', '~> 4.1.1'
+gem 'jquery-rails', '~> 4.2.1'
 
-gem 'pg', '~> 0.18.1'
+gem 'pg', '~> 0.19.0'
 
-gem 'rails_12factor'
+gem 'rails_12factor', '~> 0.0.3', group: :production
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -41,4 +39,4 @@ gem 'rails_12factor'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-ruby '2.3.1'
+ruby '2.3.3'
