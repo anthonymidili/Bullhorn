@@ -23,3 +23,8 @@ doc/
 bundler_stubs/
 .idea/
 .ruby-version
+# Ignore application configuration
+/config/application.yml
+
+# Ignore personal refferances of past migrations
+db/migration_history
