@@ -37,6 +37,9 @@ gem 'rails_12factor', '~> 0.0.3', group: :production
 # https://github.com/laserlemon/figaro
 gem 'figaro', '~> 1.1.1'
 
+gem 'haml', '~> 4.0.7'
+gem 'haml-rails', '~> 0.9.0'
+gem 'html2haml'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
