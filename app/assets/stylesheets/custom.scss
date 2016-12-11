@@ -252,4 +252,8 @@ aside {
   display: inline;
   padding-left: 30px;
   color: lightgray;
+  /* alert user they are close to the end */
+  &.close_to_end {
+    color: red !important;
+  }
 }
