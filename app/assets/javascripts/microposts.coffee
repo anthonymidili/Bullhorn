@@ -1,13 +1,15 @@
 jQuery ->
+  micropostField = $('#micropost_content')
+  maximumCharacters = micropostField.data('maximum-characters')
+
   updateCountdown = ->
-    # 150 is the max message length
-    remaining = 150 - ($('#micropost_content').val().length)
+    remaining = maximumCharacters - (micropostField.val().length)
     $('.countdown').text remaining + ' characters remaining'
     return
 
   updateCountdown()
 
-  $('#micropost_content').on 'change keyup', ->
+  micropostField.on 'change keyup', ->
     updateCountdown()
     return
 
