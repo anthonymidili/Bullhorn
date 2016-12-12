@@ -7,7 +7,7 @@ gem 'puma', '~> 3.6.0'
 # rack timeout needed for puma
 gem 'rack-timeout', '~> 0.4.2'
 
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap', '~> 4.0.0.alpha5'
 # To use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.5'
 gem 'will_paginate', '~> 3.1.0'

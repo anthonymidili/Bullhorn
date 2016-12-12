@@ -1,21 +1,20 @@
-%nav.navbar.navbar-fixed-top.navbar-inverse
+%nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
   .container
-    = link_to '@you', root_path, id: 'logo'
-    .navbar-header.navbar-right
-      %ul.nav.navbar-nav.navbar-right
-        %li= link_to 'Home', root_path
+    %button.navbar-toggler.hidden-lg-up{aria: {controls: 'navbarResponsive', expanded: 'false', label: 'Toggle navigation'},
+    data: {target: '#navbarResponsive', toggle: 'collapse'}, :type => 'button'}
+    #navbarResponsive.collapse.navbar-toggleable-md
+      = link_to '@you', root_path, id: 'logo', class: 'navbar-brand'
+      %ul.nav.navbar-nav.float-lg-right
+        %li.nav-item= link_to 'Home', root_path, class: 'nav-link'
         - if signed_in?
-          %li= link_to 'Profile', current_user
-          %li= link_to 'Users', users_path
-          %li#fat-menu.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              Account
-              %b.caret
-            %ul.dropdown-menu
-              %li= link_to 'Settings', edit_user_path(current_user)
-              %li.divider
-              %li
-                = link_to 'Sign out', signout_path, method: :delete
+          %li.nav-item= link_to 'Profile', current_user, class: 'nav-link'
+          %li.nav-item= link_to 'Users', users_path, class: 'nav-link'
+          %li.nav-item.dropdown
+            = link_to 'Account', '#', id: 'responsiveNavbarDropdown', class: 'nav-link dropdown-toggle',
+            aria: {expanded: 'false', haspopup: 'true'}, data: {toggle: 'dropdown'}
+            .dropdown-menu{aria: {labelledby: 'responsiveNavbarDropdown'}}
+              = link_to 'Settings', edit_user_path(current_user), class: 'dropdown-item'
+              = link_to 'Sign out', signout_path, method: :delete, class: 'dropdown-item'
         - else
-          %li= link_to 'Sign in', signin_path
-        %li= link_to 'Help', help_path
+          %li.nav-item= link_to 'Sign in', signin_path, class: 'nav-link'
+        %li.nav-item= link_to 'Help', help_path, class: 'nav-link'

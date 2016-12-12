@@ -25,7 +25,7 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 80px;
 }
 
 section {
@@ -39,7 +39,7 @@ textarea {
 .center {
   text-align: center;
   h1 {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
   }
 }
 
@@ -78,14 +78,13 @@ p {
 /* header */
 
 #logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
+  font-size: 1.6em;
   color: #fff;
-  letter-spacing: -1px;
-  padding-top: 9px;
+  letter-spacing: 5px;
   font-weight: bold;
-  line-height: 1;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0 1em 0 0;
   &:hover {
     color: #fff;
     text-decoration: none;
