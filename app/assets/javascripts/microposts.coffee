@@ -16,7 +16,8 @@ document.addEventListener 'turbolinks:load', ->
     return
 
   # Initiate updateCountdown on page load.
-  updateCountdown()
+  if micropostField.length
+    updateCountdown()
 
   # Update the counter when micropostField changes.
   micropostField.on 'change keyup', ->

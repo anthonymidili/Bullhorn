@@ -8,6 +8,10 @@ gem 'puma', '~> 3.6.0'
 gem 'rack-timeout', '~> 0.4.2'
 
 gem 'bootstrap', '~> 4.0.0.alpha5'
+# Tooltips and popovers depend on tether for positioning.                                                                                               source 'https://rails-assets.org' do
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 # To use ActiveModel has_secure_password
 gem 'will_paginate', '~> 3.1.0'
