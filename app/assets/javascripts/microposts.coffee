@@ -1,4 +1,5 @@
-jQuery ->
+# Use this instead of jQuery -> with Turbo links. Turbo links will trigger the ready page:load.
+document.addEventListener 'turbolinks:load', ->
   micropostField = $('#micropost_content')
   maxCharacters = micropostField.data('maximum-characters')
   countdown = $('.countdown')

@@ -8,26 +8,15 @@ gem 'puma', '~> 3.6.0'
 gem 'rack-timeout', '~> 0.4.2'
 
 gem 'bootstrap', '~> 4.0.0.alpha5'
-# To use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.5'
-gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
+# To use ActiveModel has_secure_password
+gem 'will_paginate', '~> 3.1.0'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-group :development, :test do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'rspec-rails', '~> 3.5.0'
-  gem 'capybara', '~> 2.10.1'
-
-end
+gem 'bcrypt', '~> 3.1.5'
 
 gem 'sass-rails',   '~> 5.0.6'
 gem 'coffee-rails', '~> 4.2.1'
 gem 'uglifier', '>= 3.0.2'
-
 gem 'jquery-rails', '~> 4.2.1'
 
 gem 'pg', '~> 0.19.0'
@@ -39,17 +28,15 @@ gem 'figaro', '~> 1.1.1'
 
 gem 'haml', '~> 4.0.7'
 gem 'haml-rails', '~> 0.9.0'
-gem 'html2haml'
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
 
-# Use unicorn as the web server
-# gem 'unicorn'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks', '~> 5.0.1'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+group :development, :test do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'rspec-rails', '~> 3.5.0'
+  gem 'capybara', '~> 2.10.1'
+end
 
 ruby '2.3.3'
