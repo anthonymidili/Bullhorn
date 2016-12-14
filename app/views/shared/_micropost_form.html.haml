@@ -2,5 +2,5 @@
   = render 'shared/error_messages', object: f.object
   .field
     = f.text_area :content, placeholder: 'Compose new micropost...', maxlength: 1000, data:{ maximum_characters: 1000 }
-  = f.button "Post", class: 'button large'
+  = f.button "Post", class: 'button'
   %span.countdown
