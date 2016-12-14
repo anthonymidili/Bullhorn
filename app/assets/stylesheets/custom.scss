@@ -97,6 +97,18 @@ p {
   }
 }
 
+/* Use flex box to center icon vertically */
+.title-bar-right {
+  height: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  span.menu-icon {
+    padding-left: 3em;
+    margin-right: 0.5em;
+  }
+}
+
 #logo {
   font-size: 1.6em;
   color: #fff;
@@ -109,11 +121,6 @@ p {
     color: #fff;
     text-decoration: none;
   }
-}
-
-span.menu-icon {
-  padding-right: 4em;
-  margin-right: 2em;
 }
 
 /* footer */
