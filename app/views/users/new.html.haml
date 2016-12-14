@@ -1,7 +1,7 @@
 = provide(:title, 'Sign up')
 %h1 Sign up
 .row
-  .col-md-6.offset3
+  .medium-6.medium-offset-3
     = form_for(@user) do |f|
       = render 'fields', f: f
-      = f.button 'Create my account', :class => 'btn btn-lg btn-primary'
+      = f.button 'Create my account', :class => 'button large'

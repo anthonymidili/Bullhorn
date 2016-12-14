@@ -1,20 +1,24 @@
-%nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
-  .container
-    %button.navbar-toggler.hidden-lg-up{aria: {controls: 'navbarResponsive', expanded: 'false', label: 'Toggle navigation'},
-    data: {target: '#navbarResponsive', toggle: 'collapse'}, :type => 'button'}
-    #navbarResponsive.collapse.navbar-toggleable-md
-      = link_to '@you', root_path, id: 'logo', class: 'navbar-brand'
-      %ul.nav.navbar-nav.float-lg-right
-        %li.nav-item= link_to 'Home', root_path, class: 'nav-link'
-        - if signed_in?
-          %li.nav-item= link_to 'Profile', current_user, class: 'nav-link'
-          %li.nav-item= link_to 'Users', users_path, class: 'nav-link'
-          %li.nav-item.dropdown
-            = link_to 'Account', '#', id: 'responsiveNavbarDropdown', class: 'nav-link dropdown-toggle',
-            aria: {expanded: 'false', haspopup: 'true'}, data: {toggle: 'dropdown'}
-            .dropdown-menu{aria: {labelledby: 'responsiveNavbarDropdown'}}
-              = link_to 'Settings', edit_user_path(current_user), class: 'dropdown-item'
-              = link_to 'Sign out', signout_path, method: :delete, class: 'dropdown-item'
-        - else
-          %li.nav-item= link_to 'Sign in', signin_path, class: 'nav-link'
-        %li.nav-item= link_to 'Help', help_path, class: 'nav-link'
+.top-bar
+  .row
+    .small-12.columns
+      .top-bar-title
+        %span{data: {hide_for: 'medium', responsive_toggle: 'responsive-menu'}}
+          %span.menu-icon{data: {toggle: true}}
+        .title-bar-title.bizbooks_logo_topbar
+          = link_to '@you', root_path, id: 'logo'
+      #responsive-menu
+        .top-bar-right
+          %ul.menu.mainmenu.vertical.medium-horizontal{data: {responsive_menu: 'accordion medium-dropdown'}}
+            %li= link_to 'Home', root_path
+            - if signed_in?
+              %li= link_to 'Profile', current_user
+              %li= link_to 'Users', users_path
+              / Account dropdown
+              %li
+                = link_to 'Account', '#', remote: true
+                %ul.menu.vertical
+                  %li= link_to 'Settings', edit_user_path(current_user)
+                  %li= link_to 'Sign out', signout_path, method: :delete
+            - else
+              %li= link_to 'Sign in', signin_path
+            %li= link_to 'Help', help_path
