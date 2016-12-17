@@ -3,7 +3,9 @@
     .small-12.columns
       .title-bar-left
         .title-bar-title
-          = link_to 'Bullhorn', root_path, id: 'logo'
+          = link_to root_path, id: 'logo' do
+            = image_tag 'bullhorn-white.svg'
+            Bullhorn
       .title-bar-right
         %span{data: {hide_for: 'medium', responsive_toggle: 'responsive-menu'}}
           %span.menu-icon{data: {toggle: true}}
