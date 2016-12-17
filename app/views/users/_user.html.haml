@@ -5,3 +5,5 @@
 
   - if current_user.admin? && !current_user?(user)
     .float-right= link_to 'Delete USER!', user, method: :delete, confirm: 'Are you sure?', class: 'button tiny alert'
+
+  .float-right= render 'follow_form', user: user

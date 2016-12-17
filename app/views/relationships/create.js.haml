@@ -1,2 +1,2 @@
-$('#follow_form').html("#{j render('users/unfollow')}");
+$("#follow_form_#{@user.id}").html("#{j render('users/unfollow')}");
 $('#followers').html('#{@user.followers.count}');
