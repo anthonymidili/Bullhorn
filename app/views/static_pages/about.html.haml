@@ -1,8 +1,10 @@
 - provide(:title, 'About Us')
-%h1 About Us
-%p
-  Learning
-  \#{link_to '"Ruby on Rails"', 'http://rubyonrails.org/', target: '_blank'}
-  with Michael Hartl's book,
-  \#{link_to '"Ruby on Rails Tutorial"', 'http://ruby.railstutorial.org/', target: '_blank'}.
-= link_to image_tag('rails.png', alt: 'Rails'), 'http://rubyonrails.org/'
+.row
+  .small-12.columns
+    %h1 About Us
+    %p
+      Learning
+      \#{link_to '"Ruby on Rails"', 'http://rubyonrails.org/', target: '_blank'}
+      with Michael Hartl's book,
+      \#{link_to '"Ruby on Rails Tutorial"', 'http://ruby.railstutorial.org/', target: '_blank'}.
+    = link_to image_tag('rails.png', alt: 'Rails'), 'http://rubyonrails.org/'
