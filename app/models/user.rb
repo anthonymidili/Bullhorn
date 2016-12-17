@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def last_post
+    microposts.reverse.last.try(:content)
+  end
+
   private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

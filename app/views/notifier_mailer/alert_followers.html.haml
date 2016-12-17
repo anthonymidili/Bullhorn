@@ -1,0 +1,6 @@
+%p
+  Hi #{@to_user.name},
+  %br/
+  Just thought you might want to know #{@from_user.name} has created a new micropost.
+%blockquote= truncate(@from_user.last_post, length: 88)
+%h3= link_to "Go check it out at @you", root_url

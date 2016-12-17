@@ -5,7 +5,10 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
-      flash[:success] = "Micropost created!"
+      flash[:success] = 'Micropost created!'
+      current_user.followers.find_each do |user|
+        NotifierMailer.alert_followers(user, current_user).deliver_now
+      end
       redirect_to root_path
     else
       @feed_items = current_user_feed
