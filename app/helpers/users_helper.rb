@@ -9,6 +9,6 @@ module UsersHelper
   end
 
   def button_size(param_action)
-    param_action == 'index' ? 'small' : 'large'
+    param_action == 'show' ? 'large' : 'small'
   end
 end

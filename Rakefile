@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Atyou::Application.load_tasks
+Bullhorn::Application.load_tasks
