@@ -32,11 +32,17 @@ gem 'haml-rails', '~> 0.9.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '~> 5.0.1'
 
+# Image uploader and processing
+gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+gem 'rmagick', '~> 2.16.0'
+# Image amazon s3 storage
+gem 'fog-aws', '~> 1.1.0'
+
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rspec-rails', '~> 3.5.0'
-  gem 'capybara', '~> 2.10.1'
+  gem 'capybara', '~> 2.11.0'
 end
 
 ruby '2.3.3'
