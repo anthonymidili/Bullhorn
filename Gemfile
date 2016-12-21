@@ -36,7 +36,7 @@ gem 'turbolinks', '~> 5.0.1'
 gem 'carrierwave', '>= 1.0.0.rc'
 gem 'rmagick', '~> 2.16.0'
 # Image amazon s3 storage
-gem 'fog-aws', '~> 1.1.0'
+gem 'fog', '~> 1.38.0'
 
 group :development, :test do
   gem 'better_errors'
