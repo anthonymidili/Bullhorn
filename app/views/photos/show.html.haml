@@ -1,15 +1,10 @@
 .row
   .small-12.columns
     %p
-      %b User:
-      = @photo.user_id
-    %p
-      %b Image:
-      = image_tag @photo.image.large
+      = link_to 'Edit', edit_photo_path(@photo)
+      \|
+      = link_to 'Back', album_path
     %p
       %b Caption:
       = @photo.caption
-
-    = link_to 'Edit', edit_photo_path(@photo)
-    \|
-    = link_to 'Back', album_path
+    %p= image_tag @photo.image.large

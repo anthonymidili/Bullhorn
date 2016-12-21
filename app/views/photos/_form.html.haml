@@ -1,10 +1,11 @@
 = form_for @photo, html: { multipart: true } do |f|
   = render 'shared/error_messages', object: f.object
+
+  .row
+    .medium-6.columns
+      = f.label :caption
+      = f.text_field :caption
+
+      = f.button 'Save', class: 'button large'
+
   = image_tag @photo.image if @photo.image?
-  = f.label :image
-  = f.file_field :image
-
-  = f.label :caption
-  = f. text_field :caption
-
-  = f.submit 'Save'
