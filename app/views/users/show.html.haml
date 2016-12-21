@@ -5,7 +5,7 @@
       %h4
         = gravatar_for @user, size: 150
         = @user.name
-      %span= link_to 'My photos', album_path
+      %span= link_to_photos(@user)
     %section= render 'shared/stats'
 
   .medium-8.columns

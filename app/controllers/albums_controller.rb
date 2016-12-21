@@ -1,4 +1,6 @@
 class AlbumsController < ApplicationController
+  before_action :signed_in_user
+
   def show
     current_user.create_album unless current_user.album
     @album = current_user.album

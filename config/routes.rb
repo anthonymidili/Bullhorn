@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :following, :followers
+      get :photos, to: 'photos#view_photos', as: :photos
+      get 'photos/:photo_id', to: 'photos#view_photo', as: :photo
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
