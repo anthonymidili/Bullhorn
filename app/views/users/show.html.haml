@@ -5,7 +5,9 @@
       %h4
         = gravatar_for @user, size: 150
         = @user.name
+      %span= link_to 'My photos', album_path
     %section= render 'shared/stats'
+
   .medium-8.columns
     = render 'follow_form', user: @user if signed_in?
     - if @user.microposts.any?

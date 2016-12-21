@@ -33,7 +33,7 @@ gem 'haml-rails', '~> 0.9.0'
 gem 'turbolinks', '~> 5.0.1'
 
 # Image uploader and processing
-gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+gem 'carrierwave', '>= 1.0.0.rc'
 gem 'rmagick', '~> 2.16.0'
 # Image amazon s3 storage
 gem 'fog-aws', '~> 1.1.0'

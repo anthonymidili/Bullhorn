@@ -1,0 +1,6 @@
+= form_for @album, :html => { :multipart => true } do |f|
+  = render 'shared/error_messages', object: f.object
+  = f.fields_for :photos, @album.photos.build do |f_upload|
+    = f_upload.label :image, 'No more than 8 at a time'
+    = f_upload.file_field :image, multiple: true, name: "album[photos_attributes][][image]"
+    = f.button 'Upload', class: 'button large'

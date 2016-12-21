@@ -1,4 +1,4 @@
-class Micropost < ActiveRecord::Base
+class Micropost < ApplicationRecord
   # attr_accessible :content
   belongs_to :user
 

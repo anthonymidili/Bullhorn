@@ -1,0 +1,19 @@
+- provide(:title, 'Your album')
+
+%h1 Your photos
+
+.row
+  .small-12.columns
+    = link_to 'Upload photos', edit_album_path, class: 'button'
+
+.row{data: {equalizer: 'photos'}}
+  - @album.photos.each do |photo|
+    .small-6.medium-4.large-3.columns.end
+      .callout{data: {equalizer_watch: 'photos'}}
+        .float-left= link_to 'Edit', edit_photo_path(photo)
+        .float-right= link_to 'Destroy', photo, method: :delete,
+        data: { confirm: 'Are you sure? You ara about to delete your photo.' }
+        %p
+          = link_to photo do
+            = image_tag photo.image.thumb
+        %p= photo.caption

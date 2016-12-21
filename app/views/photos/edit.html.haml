@@ -1,0 +1,12 @@
+.row
+  .small-12.columns
+    %h1 Editing photo
+
+    = render 'form'
+
+    = link_to 'Show', @photo
+    \|
+    = link_to 'Back', album_path
+    \|
+    = link_to 'Destroy PHOTO!', @photo, method: :delete,
+    data: { confirm: 'Are you sure? You are about to delete your photo.' }

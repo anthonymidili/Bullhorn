@@ -1,13 +1,13 @@
-class User < ActiveRecord::Base
-  # attr_accessible :name, :email, :password, :password_confirmation
+class User < ApplicationRecord
   has_secure_password
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: 'follower_id', dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: 'followed_id',
-           class_name: 'Relationship',
-           dependent: :destroy
+           class_name: 'Relationship', dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+  has_one :album, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
   before_save {|user| user.email, = email.downcase}
   before_save :create_remember_token
@@ -40,7 +40,8 @@ class User < ActiveRecord::Base
     microposts.reverse.last.try(:content)
   end
 
-  private
+private
+
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end

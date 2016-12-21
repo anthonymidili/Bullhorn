@@ -1,0 +1,8 @@
+- provide(:title, 'Upload new photos')
+
+%h1 New upload
+.row
+  .medium-6.columns.medium-offset-3
+    = render 'form'
+
+    = link_to 'Back', album_path
