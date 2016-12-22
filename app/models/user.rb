@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :followers, through: :reverse_relationships, source: :follower
   has_one :album, dependent: :destroy
   has_many :photos, dependent: :destroy
+  belongs_to :avatar, foreign_key: 'avatar_id', class_name: 'Photo'
 
   before_save {|user| user.email, = email.downcase}
   before_save :create_remember_token

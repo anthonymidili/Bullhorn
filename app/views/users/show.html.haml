@@ -3,7 +3,7 @@
   %aside.medium-4.columns
     %section
       %h4
-        = gravatar_for @user, size: 150
+        = avatar_for(@user, 150)
         = @user.name
       %span= link_to_photos(@user)
     %section= render 'shared/stats'

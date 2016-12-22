@@ -5,6 +5,3 @@
     = form_for @user do |f|
       = render 'fields', f: f
       = f.button 'Save changes', class: 'button large'
-    %br/
-    = gravatar_for @user
-    = link_to 'Change your Gravatar', 'http://gravatar.com/emails', target: '_blank'
