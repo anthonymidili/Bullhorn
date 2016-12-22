@@ -17,3 +17,6 @@
           = link_to photo do
             = image_tag photo.image.thumb
         %p= photo.caption
+        %p
+          = form_tag update_user_profile_photo_path(photo), method: :patch do |f|
+            = submit_tag 'Use for profile photo', class: 'button small hollow', name: nil

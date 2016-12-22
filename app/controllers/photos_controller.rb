@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   before_action :signed_in_user
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_photo, only: [:show, :edit, :update, :destroy, :update_user_profile]
 
   # GET /photos/1
   def show
@@ -33,6 +33,13 @@ class PhotosController < ApplicationController
   def view_photo
     @user = User.find(params[:id])
     @photo = @user.photos.find(params[:photo_id])
+  end
+
+  def update_user_profile
+    @avatar_user = current_user.avatar_user || current_user.build_avatar_user
+    @avatar_user.photo = @photo
+    @avatar_user.save
+    redirect_to album_path, notice: 'Your profile photo has been updated.'
   end
 
 private

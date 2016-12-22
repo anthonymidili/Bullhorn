@@ -19,7 +19,7 @@ CarrierWave.configure do |config|
 
     # To let CarrierWave work on heroku
     config.cache_dir = "#{Rails.root}/tmp/uploads"
-  else
+  elsif Rails.env.test? || Rails.env.cucumber?
     # For testing, upload files to local `tmp` folder.
     config.storage = :file
     config.enable_processing = false

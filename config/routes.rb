@@ -20,5 +20,9 @@ Rails.application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
   resource :album, only: [:show, :edit, :update], path_names: { edit: 'upload' }
-  resources :photos, only: [:show, :edit, :update, :destroy]
+  resources :photos, only: [:show, :edit, :update, :destroy] do
+    member do
+      patch :update_user_profile
+    end
+  end
 end
