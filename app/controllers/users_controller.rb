@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, except: [:new, :create]
-  before_filter :correct_user, only: [:edit, :update]
+  before_filter :correct_user, only: [:edit, :update, :update_avatar]
   before_filter :admin_user, only: :destroy
 
   def show
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "You have successfully created your @you account!"
+      flash[:success] = 'You have successfully created your Bullhorn account!'
       redirect_to @user
     else
       render 'new'
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = 'Profile updated'
       sign_in @user
       redirect_to @user
     else
@@ -44,12 +44,12 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
+    flash[:success] = 'User destroyed.'
     redirect_to users_path
   end
 
   def following
-    @title = "Following"
+    @title = 'Following'
     @user = User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])
     render 'show_follow'
@@ -60,6 +60,19 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
+  end
+
+  def update_avatar
+    @photo = @user.photos.find(params[:photo_id])
+    @user.avatar = @photo
+
+    if @user.save(validate: false)
+      sign_in @user
+      redirect_to album_path, notice: 'Your profile photo has been updated.'
+    else
+      flash[:alert] = 'Something went wrong! Please try again.'
+      render 'albums/show'
+    end
   end
 
 private

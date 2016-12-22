@@ -21,11 +21,6 @@ ActiveRecord::Schema.define(version: 20161222002227) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "avatar_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "photo_id"
-  end
-
   create_table "microposts", force: :cascade do |t|
     t.string   "content"
     t.integer  "user_id"
@@ -61,6 +56,7 @@ ActiveRecord::Schema.define(version: 20161222002227) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",           default: false
+    t.integer  "avatar_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["remember_token"], name: "index_users_on_remember_token", using: :btree
   end

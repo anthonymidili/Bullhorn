@@ -14,15 +14,12 @@ Rails.application.routes.draw do
       get :following, :followers
       get :photos, to: 'photos#view_photos', as: :photos
       get 'photos/:photo_id', to: 'photos#view_photo', as: :photo
+      patch 'update_avatar/:photo_id', to: 'users#update_avatar', as: :update_avatar
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
   resource :album, only: [:show, :edit, :update], path_names: { edit: 'upload' }
-  resources :photos, only: [:show, :edit, :update, :destroy] do
-    member do
-      patch :update_user_profile
-    end
-  end
+  resources :photos, only: [:show, :edit, :update, :destroy]
 end
