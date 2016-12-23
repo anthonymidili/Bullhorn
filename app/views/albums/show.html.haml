@@ -18,5 +18,8 @@
             = image_tag photo.image.thumb
         %p= photo.caption
         %p
-          = form_tag update_avatar_user_path(current_user, photo), id: "update_avatar_photo_#{photo.id}", method: :patch do |f|
-            = submit_tag 'Use for profile photo', class: 'button small hollow', name: nil
+          - unless current_user.is_avatar(photo)
+            = form_tag update_avatar_user_path(current_user, photo), id: "update_avatar_photo_#{photo.id}", method: :patch do |f|
+              = submit_tag 'Use for profile photo', class: 'button small hollow', name: nil
+          - else
+            .callout.small.success.center Your profile photo

@@ -41,6 +41,10 @@ class User < ApplicationRecord
     microposts.reverse.last.try(:content)
   end
 
+  def is_avatar(photo)
+    self.avatar == photos.find_by(id: photo.id)
+  end
+
 private
 
   def create_remember_token
