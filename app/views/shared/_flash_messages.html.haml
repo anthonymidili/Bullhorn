@@ -2,7 +2,7 @@
   .small-12.columns
 
     - flash.each do |key, value|
-      %div{class: "callout #{key}", data: {closable: true}} #{value}
-
-      %button.close-button{aria: {label: 'Dismiss alert'}, data: {close: true}, type: 'button'}
-        %span{aria: {hidden: 'true'}} ×
+      %div{class: "#{key} callout", data: {closable: true}}
+        %p #{value}
+        %button.close-button{aria: {label: 'Dismiss alert'}, data: {close: true}, type: 'button'}
+          %span{aria: {hidden: 'true'}} ×
