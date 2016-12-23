@@ -29,6 +29,15 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+  # put this before any other process in the Carrierwave uploader
+  # to orient the uploads properly
+  process :fix_exif_rotation
+  def fix_exif_rotation
+    manipulate! do |img|
+      img.tap(&:auto_orient!)
+    end
+  end
+
   # Create different versions of your uploaded files:
   version :thumb do
     process resize_to_fill: [300, 300]
@@ -49,5 +58,4 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end
