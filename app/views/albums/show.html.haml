@@ -7,16 +7,19 @@
     = link_to 'Upload photos', edit_album_path, class: 'button'
 
 .row{data: {equalizer: 'photos'}}
-  - @album.photos.each do |photo|
+  - @album.photos.by_newest.each do |photo|
     .small-6.medium-4.large-3.columns.end
       .callout{data: {equalizer_watch: 'photos'}}
-        .float-left= link_to 'Edit', edit_photo_path(photo)
-        .float-right= link_to 'Destroy', photo, method: :delete,
-        data: { confirm: 'Are you sure? You ara about to delete your photo.' }
+        .float-right= link_to 'delete', photo, method: :delete,
+        data: { confirm: 'Are you sure? You ara about to delete your photo.' },
+        title: 'Delete your photo'
         %p
           = link_to photo do
             = image_tag photo.image.thumb
-        %p= photo.caption
+        %p
+          = link_to edit_photo_path(photo), title: 'Edit your caption' do
+            %b Caption:
+            = photo.caption
         %p
           - unless current_user.is_avatar(photo)
             = form_tag update_avatar_user_path(current_user, photo), id: "update_avatar_photo_#{photo.id}", method: :patch do |f|

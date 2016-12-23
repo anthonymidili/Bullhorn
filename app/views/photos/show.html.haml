@@ -7,4 +7,6 @@
     %p
       %b Caption:
       = @photo.caption
-    %p= image_tag @photo.image.large
+    %p
+      = link_to full_size_photo_user_path(@photo.user, @photo) do
+        = image_tag @photo.image.large

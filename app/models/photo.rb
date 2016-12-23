@@ -6,6 +6,8 @@ class Photo < ApplicationRecord
 
   before_create :apply_user
 
+  scope :by_newest, -> { order(created_at: :desc) }
+
 private
 
   def apply_user

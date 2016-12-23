@@ -27,10 +27,15 @@ class PhotosController < ApplicationController
 
   def view_photos
     @user = User.find(params[:id])
-    @photos = @user.photos
+    @photos = @user.photos.by_newest
   end
 
   def view_photo
+    @user = User.find(params[:id])
+    @photo = @user.photos.find(params[:photo_id])
+  end
+
+  def full_size
     @user = User.find(params[:id])
     @photo = @user.photos.find(params[:photo_id])
   end

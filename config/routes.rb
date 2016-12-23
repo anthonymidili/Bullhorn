@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :following, :followers
       get :photos, to: 'photos#view_photos', as: :photos
       get 'photos/:photo_id', to: 'photos#view_photo', as: :photo
+      get 'full_size_photos/:photo_id', to: 'photos#full_size', as: :full_size_photo
       patch 'update_avatar/:photo_id', to: 'users#update_avatar', as: :update_avatar
     end
   end
