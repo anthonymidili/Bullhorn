@@ -1,9 +1,8 @@
 - provide(:title, 'Upload new photos')
 
+%h1 New upload
 .row
   .small-12.columns
-    %h1 New photo
-
     = render 'form'
 
-    = link_to 'Back', photos_path
+    = link_to 'Back', user_photos_path(@user)

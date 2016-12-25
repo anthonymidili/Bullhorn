@@ -292,3 +292,21 @@ aside {
     color: red !important;
   }
 }
+
+/* photos */
+
+.photo_tile {
+  height: 400px;
+}
+
+.photo_content {
+  height: 350px;
+  overflow-x: scroll;
+}
+
+.photo_avatar_form {
+  height: 50px;
+  .callout {
+    line-height: 1;
+  }
+}

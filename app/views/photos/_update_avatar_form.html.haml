@@ -1,0 +1,3 @@
+= form_for user, url: update_avatar_user_photo_path(user, photo),
+html: { id: "update_avatar_to_photo_#{photo.id}" }, method: :patch do |f|
+  = f.submit 'Use for profile photo', class: 'button small hollow'

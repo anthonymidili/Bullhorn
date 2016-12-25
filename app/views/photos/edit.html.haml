@@ -3,12 +3,12 @@
 .row
   .small-12.columns
     %p
-      = link_to 'Back', @photo
+      = link_to 'Back', user_photo_path(@user, @photo)
       \|
-      = link_to 'My photos', album_path
+      = link_to 'My photos', user_photos_path(@user)
 
     %p= render 'form'
 
     %p
-      = link_to 'Destroy PHOTO!', @photo, method: :delete,
+      = link_to 'Destroy PHOTO!', [@user, @photo], method: :delete,
       data: { confirm: 'Are you sure? You are about to delete your photo.' }

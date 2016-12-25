@@ -1,5 +1,5 @@
 .row
   .small-12.columns
     %p
-      = link_to photo_path(@photo) do
+      = link_to user_photo_path(@user, @photo) do
         = image_tag @photo.image

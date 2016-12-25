@@ -1,9 +1,28 @@
 class PhotosController < ApplicationController
   before_action :signed_in_user
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
+  before_action :set_photo, only: [:show, :edit, :update, :update_avatar, :destroy, :full_size]
+
+  def index
+    @photos = @user.photos
+  end
 
   # GET /photos/1
   def show
+  end
+
+  def new
+    @photo = @user.photos.build
+  end
+
+  def create
+    @photo = @user.photos.build(photo_params)
+
+    if @photo.save
+      redirect_to user_photos_path(@user), notice: 'Photo upload was successfully.'
+    else
+      render :edit
+    end
   end
 
   # GET /photos/1/edit
@@ -13,41 +32,45 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   def update
     if @photo.update(photo_params)
-      redirect_to album_path, notice: 'Photo was successfully updated.'
+      redirect_to user_photos_path(@user), notice: 'Photo was successfully updated.'
     else
       render :edit
+    end
+  end
+
+  def update_avatar
+    @user.avatar = @photo
+
+    if @user.save(validate: false)
+      sign_in @user
+      redirect_to user_photos_path(@user), notice: 'Your profile photo has been updated.'
+    else
+      flash[:alert] = 'Something went wrong! Please try again.'
+      render 'photos/index'
     end
   end
 
   # DELETE /photos/1
   def destroy
     @photo.destroy
-    redirect_to album_path, notice: 'Photo was successfully destroyed.'
-  end
-
-  def view_photos
-    @user = User.find(params[:id])
-    @photos = @user.photos.by_newest
-  end
-
-  def view_photo
-    @user = User.find(params[:id])
-    @photo = @user.photos.find(params[:photo_id])
+    redirect_to user_photos_path(@user), notice: 'Photo was successfully destroyed.'
   end
 
   def full_size
-    @user = User.find(params[:id])
-    @photo = @user.photos.find(params[:photo_id])
   end
 
 private
   # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
   def set_photo
-    @photo = current_user.photos.find(params[:id])
+    @photo = @user.photos.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def photo_params
-    params.require(:photo).permit(:caption)
+    params.require(:photo).permit(:image, :caption)
   end
 end

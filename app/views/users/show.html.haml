@@ -5,7 +5,7 @@
       %h4
         = avatar_for(@user, 150)
         = @user.name
-      %span= link_to_photos(@user)
+      %span= link_to 'Photos', user_photos_path(@user)
     %section= render 'shared/stats'
 
   .medium-8.columns

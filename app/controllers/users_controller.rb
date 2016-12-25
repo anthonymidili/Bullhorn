@@ -62,19 +62,6 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
-  def update_avatar
-    @photo = @user.photos.find(params[:photo_id])
-    @user.avatar = @photo
-
-    if @user.save(validate: false)
-      sign_in @user
-      redirect_to album_path, notice: 'Your profile photo has been updated.'
-    else
-      flash[:alert] = 'Something went wrong! Please try again.'
-      render 'albums/show'
-    end
-  end
-
 private
 
   def user_params

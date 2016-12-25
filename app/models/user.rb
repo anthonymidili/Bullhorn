@@ -6,7 +6,6 @@ class User < ApplicationRecord
   has_many :reverse_relationships, foreign_key: 'followed_id',
            class_name: 'Relationship', dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
-  has_one :album, dependent: :destroy
   has_many :photos, dependent: :destroy
   belongs_to :avatar, foreign_key: 'avatar_id', class_name: 'Photo'
 
