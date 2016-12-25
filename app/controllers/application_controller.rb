@@ -15,10 +15,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= set_user
+    @current_user ||= set_current_user
   end; helper_method :current_user
 
-  def set_user
+  def set_current_user
     User.find_by(remember_token: cookies[:remember_token])
   end
 

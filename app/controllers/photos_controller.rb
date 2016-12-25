@@ -1,6 +1,7 @@
 class PhotosController < ApplicationController
   before_action :signed_in_user
   before_action :set_user
+  before_action :correct_user, only: [:new, :create, :edit, :update, :update_avatar, :destroy]
   before_action :set_photo, only: [:show, :edit, :update, :update_avatar, :destroy, :full_size]
 
   def index
@@ -63,6 +64,10 @@ private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:user_id])
+  end
+
+  def correct_user
+    redirect_to(root_path) unless current_user?(@user)
   end
 
   def set_photo
