@@ -1,7 +1,0 @@
-.row
-  .small-12.columns
-    %p= link_to "#{@user.name}'s photos", photos_user_path(@user)
-    %p
-      %b Caption:
-      = @photo.caption
-    %p= image_tag @photo.image.large
