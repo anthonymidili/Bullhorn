@@ -1,0 +1,21 @@
+.small-6.medium-4.large-3.columns.end
+  .callout
+    .photo_tile
+      %div{class: photo_content_span(@user)}
+        - if current_user?(@user)
+          .float-right= link_to 'delete', [@user, photo], method: :delete,
+              data: { confirm: 'Are you sure? You ara about to delete your photo.' },
+              title: 'Delete your photo'
+        %p
+          = link_to user_photo_path(@user, photo) do
+            = image_tag photo.image.thumb
+        %p
+          = link_to_if current_user?(@user), caption_for(@user, photo),
+          edit_user_photo_path(@user, photo), title: 'Edit your caption'
+      - if current_user?(@user)
+        .photo_avatar_form
+          %p
+            - unless current_user.is_avatar(photo)
+              = render 'update_avatar_form', user: @user, photo: photo
+            - else
+              .callout.small.success.center Your profile photo

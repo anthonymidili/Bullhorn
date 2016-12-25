@@ -299,8 +299,13 @@ aside {
   height: 400px;
 }
 
-.photo_content {
+.photo_content_owner {
   height: 350px;
+  overflow-x: scroll;
+}
+
+.photo_content_viewer {
+  height: 400px;
   overflow-x: scroll;
 }
 
