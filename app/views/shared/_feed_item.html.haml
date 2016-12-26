@@ -2,7 +2,12 @@
   = link_to avatar_for(feed_item.user, 50), feed_item.user
   %span.user
     = link_to feed_item.user.name, feed_item.user
-  %span.content= wrap(feed_item.content)
+  %span.content
+    = wrap(feed_item.content)
+    - if feed_item.photo
+      %p
+        = link_to full_size_user_photo_path(feed_item.user, feed_item.photo) do
+          = image_tag(feed_item.photo.image.small, class: 'feed_photo')
   %span.timestamp
     Posted #{time_ago_in_words(feed_item.created_at)} ago.
   - if current_user?(feed_item.user)

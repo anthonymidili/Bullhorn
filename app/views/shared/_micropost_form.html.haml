@@ -2,5 +2,9 @@
   = render 'shared/error_messages', object: f.object
   .field
     = f.text_area :content, placeholder: 'Compose new micropost...', maxlength: 1000, data:{ maximum_characters: 1000 }
+    = f.fields_for :photo, @micropost.build_photo do |f_photo|
+      = f_photo.label :image, 'Attach image'
+      = f_photo.file_field :image
+      = f_photo.hidden_field :image_cache
   = f.button "Post", class: 'button'
   %span.countdown

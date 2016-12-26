@@ -4,6 +4,7 @@ class MicropostsController < ApplicationController
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
+    @micropost.photo.user = current_user if @micropost.photo
     if @micropost.save
       flash[:success] = 'Micropost created!'
       current_user.followers.find_each do |user|
@@ -24,7 +25,7 @@ class MicropostsController < ApplicationController
 private
 
   def micropost_params
-    params.require(:micropost).permit(:content)
+    params.require(:micropost).permit(:content, photo_attributes: [:id, :image])
   end
 
   def correct_user
