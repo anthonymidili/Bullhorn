@@ -7,6 +7,7 @@ class User < ApplicationRecord
            class_name: 'Relationship', dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
   has_many :photos, dependent: :destroy
+  has_many :comments, foreign_key: 'created_by_user_id', dependent: :destroy
   belongs_to :avatar, foreign_key: 'avatar_id', class_name: 'Photo'
 
   before_save {|user| user.email, = email.downcase}

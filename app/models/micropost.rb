@@ -3,6 +3,7 @@ class Micropost < ApplicationRecord
   belongs_to :user
   belongs_to :photo
   accepts_nested_attributes_for :photo, reject_if: :all_blank
+  has_many :comments, as: :commentable
 
   validates :content, presence: true, length: {maximum: 1000}
   validates :user_id, presence: true

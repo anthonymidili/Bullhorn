@@ -21,6 +21,11 @@ Rails.application.routes.draw do
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
+  resources :microposts, only: [:create, :destroy] do
+    resources :comments, only: [:create]
+  end
+  resources :comments, only: [:destroy] do
+    resources :comments, only: [:create]
+  end
   resources :relationships, only: [:create, :destroy]
 end
