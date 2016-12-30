@@ -23,3 +23,6 @@ document.addEventListener 'turbolinks:load', ->
   micropostField.on 'change keyup', ->
     updateCountdown()
     return
+
+  $('.showHiddenForm').on 'click', ->
+    $(this).closest('.findHiddenForm').find('.hiddenForm').toggle()

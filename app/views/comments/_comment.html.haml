@@ -1,19 +1,22 @@
 %li
-  = link_to avatar_for(comment.created_by_user, 40), comment.created_by_user
+  = link_to avatar_for(comment.created_by_user, 25), comment.created_by_user
   %span.user
     = link_to comment.created_by_user.name, comment.created_by_user
   %span.content
     = wrap(comment.content)
-  %span.timestamp
-    Posted #{time_ago_in_words(comment.created_at)} ago.
-  - if current_user?(comment.created_by_user)
-    = link_to 'delete', comment, method: :delete,
-    data: { confirm: "Are you sure you want to delete - (#{truncate(comment.content)})?" }
 
-  = form_for [comment, Comment.new] do |f|
-    .row
-      .medium-8.large-12.columns
-        = f.text_field :content, placeholder: 'Add a Reply'
+  .findHiddenForm
+    %span.timestamp
+      Posted #{time_ago_in_words(comment.created_at)} ago.
+      = link_to 'Reply', '#', class: 'showHiddenForm', remote: true
+      - if current_user?(comment.created_by_user)
+        = link_to 'delete', comment, method: :delete,
+        data: { confirm: "Are you sure you want to delete - (#{truncate(comment.content)})?" }
+
+    = form_for [comment, Comment.new], html: { class: 'hiddenForm hidden' } do |f|
+      .row
+        .medium-8.large-12.columns
+          = f.text_field :content, placeholder: 'Add a Reply'
 
   %ul
     = render comment.comments
