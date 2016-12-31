@@ -1,0 +1,8 @@
+- if @commentable.class.name == 'Micropost'
+  $(".add_new_comment_#{@commentable.id}").append("#{j render(@comment)}");
+- if @commentable.class.name == 'Comment'
+  $(".add_new_reply_#{@commentable.id}").append("#{j render(@comment)}");
+  $('.hiddenForm').hide();
+
+$('input.comment_content').val('');
+$('.showHiddenForm').showFormOnClick();

@@ -7,7 +7,11 @@ class CommentsController < ApplicationController
     @comment.created_by_user = current_user
 
     if @comment.save
-      redirect_back fallback_location: root_path, notice: 'Your comment was successfully posted!'
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_path,
+                                    notice: 'Your comment was successfully posted!' }
+        format.js
+      end
     else
       redirect_back fallback_location: root_path, notice: "Your comment wasn't posted!"
     end
