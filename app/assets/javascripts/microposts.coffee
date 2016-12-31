@@ -1,7 +1,3 @@
-jQuery.fn.showFormOnClick = ->
-  $(this).on 'click', ->
-    $(this).closest('.findHiddenForm').find('.hiddenForm').toggle()
-
 # Use this instead of jQuery -> with Turbo links. Turbo links will trigger the ready page:load.
 document.addEventListener 'turbolinks:load', ->
   micropostField = $('#micropost_content')
@@ -27,5 +23,3 @@ document.addEventListener 'turbolinks:load', ->
   micropostField.on 'change keyup', ->
     updateCountdown()
     return
-
-  $('.showHiddenForm').showFormOnClick()

@@ -1,4 +1,4 @@
-%li
+%li{id: "comment_#{comment.id}"}
   = link_to avatar_for(comment.created_by_user, 25), comment.created_by_user
   %span.user
     = link_to comment.created_by_user.name, comment.created_by_user
@@ -19,6 +19,5 @@
           = f.text_field :content, placeholder: 'Add a Reply', class: 'comment_content',
           autocomplete: :off
 
-  %ul
+  %ul{class: "add_new_reply_#{comment.id}"}
     = render comment.comments
-    %div{class: "add_new_reply_#{comment.id}"}

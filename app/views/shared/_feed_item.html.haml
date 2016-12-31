@@ -16,8 +16,7 @@
 
   .comments_box
     Comments
-    %ul
+    %ul{class: "add_new_comment_#{feed_item.id}"}
       = render feed_item.comments
-      %div{class: "add_new_comment_#{feed_item.id}"}
 
     = render 'comments/comment_form', micropost: feed_item
