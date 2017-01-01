@@ -1,10 +1,12 @@
 - if @commentable.class.name == 'Micropost'
   var commentable = $(".add_new_comment_#{@commentable.id}");
+  var commentableForm = $("#new_comment_form_#{@commentable.id}");
 
 - if @commentable.class.name == 'Comment'
   var commentable = $(".add_new_reply_#{@commentable.id}");
+  var commentableForm = $("#new_reply_form_#{@commentable.id}");
 
 commentable.append("#{j render(@comment)}");
-$('input.comment_content').val('');
-$('.hiddenForm').css('display', 'none');
+commentableForm.find('textarea.comment_content').val('');
+$("#new_reply_form_#{@commentable.id}").css('display', 'none');
 $("li#comment_#{@comment.id}").showFormOnClick();

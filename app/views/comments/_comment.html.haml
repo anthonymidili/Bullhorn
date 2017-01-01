@@ -13,11 +13,7 @@
         = link_to 'delete', comment, method: :delete,
         data: { confirm: "Are you sure you want to delete - (#{truncate(comment.content)})?" }
 
-    = form_for [comment, Comment.new], html: { class: 'new_comment hiddenForm hidden' }, remote: true do |f|
-      .row
-        .medium-8.large-12.columns
-          = f.text_field :content, placeholder: 'Add a Reply', class: 'comment_content',
-          autocomplete: :off
+    = render 'comments/reply_form', comment: comment
 
   %ul{class: "add_new_reply_#{comment.id}"}
     = render comment.comments

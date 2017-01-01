@@ -29,7 +29,11 @@ private
   end
 
   def find_commentable
-    @commentable = Comment.find_by(id: params[:comment_id]) if params[:comment_id]
-    @commentable = Micropost.find_by(id: params[:micropost_id]) if params[:micropost_id]
+    @commentable =
+        if params[:comment_id]
+          Comment.find_by(id: params[:comment_id])
+        elsif params[:micropost_id]
+          Micropost.find_by(id: params[:micropost_id])
+        end
   end
 end
