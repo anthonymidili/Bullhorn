@@ -5,6 +5,7 @@ class MicropostsController < ApplicationController
   def show
     @micropost = Micropost.find(params[:id])
     @profile_feed = params[:profile_feed]
+    @show_comments = true
   end
 
   def create

@@ -4,7 +4,12 @@ module MicropostsHelper
     sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(' ')))
   end
 
-  private
+  def count_comments(micropost)
+    count = micropost.comments.count
+    count == 0 ? 'Comment' : pluralize(count, 'Comment')
+  end
+
+private
 
   def wrap_long_string(text, max_width = 30)
     zero_width_space = '&#8203;'
