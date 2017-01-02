@@ -1,5 +1,5 @@
 .comments_box
-  Comments
+  = link_to 'Comments', micropost_path(micropost, profile_feed: @profile_feed)
   %ul{class: "add_new_comment_#{micropost.id}"}
     = render micropost.comments
 
