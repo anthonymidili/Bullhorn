@@ -1,10 +1,7 @@
 jQuery.fn.showFormOnClick = ->
   @find('.showHiddenForm').on 'click', ->
-    $(this).closest('.findHiddenForm')
-      .find('.hiddenForm').toggle()
-      .find('textarea.comment_content').val('')
-  this
+    $(this).closest("li[id^='comment_']").find('form.hidden').toggle()
 
 # Use this instead of jQuery -> with Turbo links. Turbo links will trigger the ready page:load.
 document.addEventListener 'turbolinks:load', ->
-  $('.comments_box').showFormOnClick()
+  $("li[id^='comment_']").showFormOnClick()

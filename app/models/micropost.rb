@@ -8,7 +8,7 @@ class Micropost < ApplicationRecord
   validates :content, presence: true, length: {maximum: 1000}
   validates :user_id, presence: true
 
-  default_scope { order('microposts.created_at DESC') }
+  default_scope { order(created_at: 'DESC') }
 
   scope :from_users_followed_by, -> (user) { followed_by(user) }
 
