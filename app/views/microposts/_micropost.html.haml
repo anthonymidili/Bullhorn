@@ -1,4 +1,8 @@
-%li
+%li{id: "#{micropost.id}"}
+  - unless @profile_feed
+    = link_to avatar_for(micropost.user, 50), micropost.user
+    %span.user
+      = link_to micropost.user.name, micropost.user
   %span.content
     = wrap(micropost.content)
     - if micropost.photo
@@ -10,3 +14,5 @@
   - if current_user?(micropost.user)
     = link_to "delete", micropost, method: :delete,
     data: { confirm: "Are you sure you want to delete - (#{truncate(micropost.content)})?" }
+
+  = render 'comments/comments', micropost: micropost

@@ -5,4 +5,7 @@
     %section= render 'shared/micropost_form'
   .medium-8.columns
     %h3 Micropost Feed
-    = render 'shared/feed'
+    - if @microposts.any?
+      %ul.microposts
+        = render @microposts
+      = will_paginate @microposts
