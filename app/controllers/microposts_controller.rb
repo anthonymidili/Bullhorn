@@ -3,7 +3,7 @@ class MicropostsController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def show
-    @micropost = Micropost.includes([comments: [:created_by_user, :comments]]).find(params[:id])
+    @micropost = Micropost.includes(comments: [:created_by_user, :comments]).find(params[:id])
     @profile_feed = params[:profile_feed]
     @show_comments = true
   end
@@ -37,6 +37,6 @@ private
 
   def correct_user
     @micropost = current_user.microposts.find_by(id: params[:id])
-    redirect_to root_path if @micropost.nil?
+    redirect_to root_path unless @micropost
   end
 end

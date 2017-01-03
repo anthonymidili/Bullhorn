@@ -12,6 +12,10 @@ class Micropost < ApplicationRecord
 
   scope :from_users_followed_by, -> (user) { followed_by(user) }
 
+  def commenters(sender, owner)
+    comments.map(&:created_by_user).uniq - [sender, owner]
+  end
+
 private
 
   def self.followed_by(user)
