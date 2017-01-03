@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = current_user.comments.find(params[:id]).destroy
-    redirect_to root_path, notice: 'Comment was successfully destroyed.'
+    redirect_back fallback_location: root_path, notice: 'Comment was successfully destroyed.'
   end
 
 private
