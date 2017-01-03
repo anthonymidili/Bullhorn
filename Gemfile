@@ -43,6 +43,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'rspec-rails', '~> 3.5.0'
   gem 'capybara', '~> 2.11.0'
+  gem 'bullet'
 end
 
 ruby '2.3.3'

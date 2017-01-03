@@ -5,12 +5,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.paginate(page: params[:page]).includes(:user, :photo)
     @profile_feed = true
   end
 
   def index
-    @users = User.paginate(page: params[:page], per_page: 20)
+    @users = User.paginate(page: params[:page], per_page: 20).includes(:avatar, :microposts)
   end
 
   def new

@@ -3,7 +3,7 @@ class MicropostsController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def show
-    @micropost = Micropost.find(params[:id])
+    @micropost = Micropost.includes([comments: [:created_by_user, :comments]]).find(params[:id])
     @profile_feed = params[:profile_feed]
     @show_comments = true
   end
