@@ -78,15 +78,12 @@ p {
   margin-bottom: 2em;
 
   .mainmenu > li > a {
-    color: #9b9c9d;
+    color: $header-menu-color;
     &:hover {
-      color: #d5d7d8;
+      color: $header-menu-color-hover;
       &::after {
-        border-color: #d5d7d8 transparent transparent !important;
+        border-color: $header-menu-color-hover transparent transparent !important;
       }
-    }
-    &::after {
-      border-color: #9b9c9d transparent transparent !important;
     }
   }
 
