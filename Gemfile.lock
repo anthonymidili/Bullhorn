@@ -171,7 +171,7 @@ GEM
     fog-profitbricks (3.0.0)
       fog-core (~> 1.42)
       fog-json (~> 1.0)
-    fog-rackspace (0.1.2)
+    fog-rackspace (0.1.3)
       fog-core (>= 1.35)
       fog-json (>= 1.0)
       fog-xml (>= 0.1)
@@ -215,7 +215,7 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    foundation-rails (6.2.4.0)
+    foundation-rails (6.3.0.0)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
       sprockets-es6 (>= 0.9.0)
@@ -374,7 +374,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2.1)
   figaro (~> 1.1.1)
   fog (~> 1.38.0)
-  foundation-rails (~> 6.2.4)
+  foundation-rails (~> 6.3.0)
   haml (~> 4.0.7)
   haml-rails (~> 0.9.0)
   jquery-rails (~> 4.2.1)
@@ -394,4 +394,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

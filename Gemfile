@@ -7,7 +7,7 @@ gem 'puma', '~> 3.6.0'
 # rack timeout needed for puma
 gem 'rack-timeout', '~> 0.4.2'
 
-gem 'foundation-rails', '~> 6.2.4'
+gem 'foundation-rails', '~> 6.3.0'
 
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'will_paginate', '~> 3.1.0'
