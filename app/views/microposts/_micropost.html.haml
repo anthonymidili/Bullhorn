@@ -1,8 +1,7 @@
 %li{id: "#{micropost.id}"}
-  - unless @profile_feed
-    = link_to avatar_for(micropost.user, 50), micropost.user
-    %span.user
-      = link_to micropost.user.name, micropost.user
+  = link_to avatar_for(micropost.user, 50), micropost.user
+  %span.user
+    = link_to micropost.user.name, micropost.user
   %span.content
     = wrap(micropost.content)
     - if micropost.photo

@@ -11,6 +11,7 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.photo.user = current_user if @micropost.photo
+
     if @micropost.save
       flash[:success] = 'Micropost created!'
       current_user.followers.find_each do |user|
@@ -18,7 +19,7 @@ class MicropostsController < ApplicationController
       end
       redirect_to root_path
     else
-      @feed_items = current_user_feed
+      @microposts = current_user_feed
       render 'static_pages/home'
     end
   end

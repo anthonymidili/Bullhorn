@@ -22,7 +22,7 @@ class Micropost < ApplicationRecord
 private
 
   def self.followed_by(user)
-    followed_user_ids = %(SELECT followed_id FROM relationships WHERE follower_id = :user_id)
-    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", {user_id: user})
+    followed_user_ids = user.relationships.pluck(:followed_id).uniq
+    where(user_id: followed_user_ids << user.id)
   end
 end
