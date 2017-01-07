@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
+
+  belongs_to :avatar, foreign_key: 'avatar_id', class_name: 'Photo'
+
   has_many :microposts, dependent: :destroy
   has_many :mentions, dependent: :destroy
   has_many :microposts, through: :mentions
@@ -10,8 +13,6 @@ class User < ApplicationRecord
   has_many :followers, through: :reverse_relationships, source: :follower
   has_many :photos, dependent: :destroy
   has_many :comments, foreign_key: 'created_by_user_id', dependent: :destroy
-
-  belongs_to :avatar, foreign_key: 'avatar_id', class_name: 'Photo'
 
   before_save {|user| user.email, = email.downcase}
   before_save :create_remember_token
