@@ -14,6 +14,7 @@ class MicropostsController < ApplicationController
 
     if @micropost.save
       flash[:success] = 'Micropost created!'
+      @micropost.create_mentions(micropost_params[:mentioned])
       current_user.followers.find_each do |user|
         NotifierMailer.alert_followers(user, current_user).deliver_now
       end
@@ -33,7 +34,7 @@ class MicropostsController < ApplicationController
 private
 
   def micropost_params
-    params.require(:micropost).permit(:content, photo_attributes: [:id, :image])
+    params.require(:micropost).permit(:content, :mentioned, photo_attributes: [:id, :image])
   end
 
   def correct_user
