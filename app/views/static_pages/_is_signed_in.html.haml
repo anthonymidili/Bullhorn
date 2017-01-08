@@ -1,8 +1,8 @@
 .row
   %aside.medium-4.columns
-    %section= render 'shared/user_info'
-    %section= render 'shared/stats'
-    %section= render 'shared/micropost_form'
+    %section= render 'users/user_info'
+    %section= render 'users/stats'
+    %section= render 'microposts/micropost_form'
   .medium-8.columns
     %h3 Micropost Feed
     - if @microposts.any?

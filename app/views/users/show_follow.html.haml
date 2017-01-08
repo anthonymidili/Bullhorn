@@ -9,7 +9,7 @@
         %b Microposts:
         = @user.microposts.count
     %section
-      = render 'shared/stats'
+      = render 'users/stats'
       - unless @users.empty?
         .user_avatars
           - @users.each do |user|

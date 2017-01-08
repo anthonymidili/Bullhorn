@@ -6,7 +6,7 @@
         = avatar_for(@user, 150)
         = @user.name
       %span= link_to 'Photos', user_photos_path(@user)
-    %section= render 'shared/stats'
+    %section= render 'users/stats'
 
   .medium-8.columns
     = render 'follow_form', user: @user if signed_in?
