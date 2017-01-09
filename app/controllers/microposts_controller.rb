@@ -14,10 +14,9 @@ class MicropostsController < ApplicationController
 
     if @micropost.save
       flash[:success] = 'Micropost created!'
-      @micropost.create_mentions(micropost_params[:mentioned])
-      current_user.followers.find_each do |user|
-        NotifierMailer.alert_followers(user, current_user).deliver_now
-      end
+      create_mentions!
+      notify_followers!
+      notify_mentioned_users!
       redirect_to root_path
     else
       @microposts = current_user_feed
@@ -40,5 +39,21 @@ private
   def correct_user
     @micropost = current_user.microposts.find_by(id: params[:id])
     redirect_to root_path unless @micropost
+  end
+
+  def create_mentions!
+    @micropost.create_mentions(micropost_params[:mentioned])
+  end
+
+  def notify_followers!
+    current_user.followers_except_mentioned(micropost_params[:mentioned]).each do |user|
+      NotifierMailer.alert_followers(user, current_user, @micropost).deliver_now
+    end
+  end
+
+  def notify_mentioned_users!
+    User.by_mentioned(micropost_params[:mentioned]).each do |user|
+      NotifierMailer.alert_mentioned_users(user, current_user, @micropost).deliver_now
+    end
   end
 end

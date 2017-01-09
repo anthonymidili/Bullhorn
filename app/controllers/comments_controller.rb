@@ -8,11 +8,8 @@ class CommentsController < ApplicationController
     @micropost = Micropost.find(params[:micropost_id])
 
     if @comment.save
-      NotifierMailer.alert_post_owner(@micropost.user, current_user, @micropost).deliver_now
-      @micropost.commenters(current_user, @micropost.user).each do |user|
-        NotifierMailer.alert_commenters(user, current_user, @micropost).deliver_now
-      end
-
+      notify_post_owner!
+      notify_commenters!
       respond_to do |format|
         format.html { redirect_back fallback_location: root_path,
                                     notice: 'Your comment was successfully posted!' }
@@ -41,5 +38,15 @@ private
         elsif params[:micropost_id]
           Micropost.find_by(id: params[:micropost_id])
         end
+  end
+
+  def notify_post_owner!
+    NotifierMailer.alert_post_owner(@micropost.user, current_user, @micropost).deliver_now
+  end
+
+  def notify_commenters!
+    @micropost.commenters(current_user, @micropost.user).each do |user|
+      NotifierMailer.alert_commenters(user, current_user, @micropost).deliver_now
+    end
   end
 end

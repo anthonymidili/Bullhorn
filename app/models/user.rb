@@ -25,6 +25,8 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 6}
   validates :password_confirmation, presence: true
 
+  scope :by_mentioned, -> (names) { where(name: names.split(', ')) }
+
   def feed
     Micropost.from_users_followed_by(self)
   end
@@ -47,6 +49,10 @@ class User < ApplicationRecord
 
   def is_avatar(photo)
     self.avatar == photos.find_by(id: photo.id)
+  end
+
+  def followers_except_mentioned(names)
+    followers - User.by_mentioned(names)
   end
 
 private

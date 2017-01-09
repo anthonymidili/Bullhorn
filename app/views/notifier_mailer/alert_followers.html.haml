@@ -5,4 +5,4 @@
 %blockquote
   #{@from_user.name} wrote -
   = truncate(@from_user.last_post, length: 88)
-%h3= link_to "Go check it out at Bullhorn", root_url
+%h3= link_to 'Go check it out at Bullhorn', micropost_url(@micropost)

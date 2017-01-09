@@ -15,26 +15,18 @@ class Micropost < ApplicationRecord
 
   default_scope { order(created_at: 'DESC') }
 
-  scope :from_users_followed_by, -> (user) { followed_by(user) }
+  scope :from_users_followed_by, -> (user) { own_and_followers(user).or(mentioned_in(user)) }
+  scope :own_and_followers, -> (user) { where(user_id: followed_user_ids(user) << user.id) }
+  scope :followed_user_ids, -> (user) { user.relationships.pluck(:followed_id).uniq }
+  scope :mentioned_in, -> (user) { where(id: user.mentions.pluck(:micropost_id)) }
 
   def commenters(sender, owner)
     comments.map(&:created_by_user).uniq - [sender, owner]
   end
 
-  def create_mentions(users_mentioned)
-    users_names = users_mentioned.split(', ')
-    users_names.each do |name|
-      user = User.find_by(name: name)
-      user.mentions.create(micropost: self) if user
+  def create_mentions(names)
+    User.by_mentioned(names).each do |user|
+      user.mentions.create!(micropost: self)
     end
-  end
-
-private
-
-  def self.followed_by(user)
-    followed_user_ids = user.relationships.pluck(:followed_id).uniq
-    own_and_followers = where(user_id: followed_user_ids << user.id)
-    mentioned_in = where(id: user.mentions.pluck(:micropost_id))
-    own_and_followers.or(mentioned_in)
   end
 end
