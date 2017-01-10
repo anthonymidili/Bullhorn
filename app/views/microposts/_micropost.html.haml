@@ -2,6 +2,13 @@
   = link_to avatar_for(micropost.user, 50), micropost.user
   %span.user
     = link_to micropost.user.name, micropost.user
+  - if micropost.mentioned_users.any?
+    %p.bullhorn
+      %small
+        Bullhorn@
+        - micropost.mentioned_users.each do |user|
+          %span= link_to user.name, user
+          %span>= ', ' unless user == micropost.mentioned_users.last
   %span.content
     = wrap(micropost.content)
     - if micropost.photo

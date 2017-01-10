@@ -29,4 +29,8 @@ class Micropost < ApplicationRecord
       user.mentions.create!(micropost: self)
     end
   end
+
+  def mentioned_users
+    User.where(id: mentions.pluck(:user_id)).order(created_at: 'DESC')
+  end
 end

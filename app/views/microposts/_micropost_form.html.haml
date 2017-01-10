@@ -1,13 +1,14 @@
 = form_for(@micropost) do |f|
   = render 'shared/error_messages', object: f.object
   .field
-    = f.text_area :content, placeholder: 'Compose new micropost...', maxlength: 1000, data:{ maximum_characters: 1000 }
+    = f.label :mentioned, 'Bullhorn@'
+    = f.text_field :mentioned, class: 'autocomplete_text_box', placeholder: 'whoever you want',
+    data: { autocomplete_source: User.all.pluck(:name) }
+    = f.text_area :content, placeholder: 'Compose new micropost...',
+    maxlength: 1000, data:{ maximum_characters: 1000 }
     = f.fields_for :photo, @micropost.build_photo do |f_photo|
       = f_photo.label :image, 'Attach image'
       = f_photo.file_field :image
       = f_photo.hidden_field :image_cache
-    = f.label :mentioned, 'Bullhorn@'
-    = f.text_field :mentioned, class: 'autocomplete_text_box',
-    data: { autocomplete_source: User.all.pluck(:name) }
   = f.button 'Post', class: 'button'
   %span.countdown
