@@ -17,12 +17,11 @@ class User < ApplicationRecord
   before_save {|user| user.email, = email.downcase}
   before_save :create_remember_token
 
-  validates :name, presence: true, length: {maximum: 50}
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
-            format: {with: VALID_EMAIL_REGEX},
-            Uniqueness: {case_sensitive: false}
-  validates :password, length: {minimum: 6}
+            format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
   scope :find_all_with_names, -> (names) { where(name: names.split(', ')) }

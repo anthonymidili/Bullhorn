@@ -10,7 +10,7 @@ class Micropost < ApplicationRecord
 
   attr_accessor :mentioned
 
-  validates :content, presence: true, length: {maximum: 1000}
+  validates :content, presence: true, length: { maximum: 1000 }
   validates :user_id, presence: true
 
   default_scope { order(created_at: 'DESC') }
