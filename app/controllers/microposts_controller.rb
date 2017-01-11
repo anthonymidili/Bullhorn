@@ -52,7 +52,7 @@ private
   end
 
   def notify_mentioned_users!
-    User.by_mentioned(micropost_params[:mentioned]).each do |user|
+    User.find_all_with_names(micropost_params[:mentioned]).each do |user|
       NotifierMailer.alert_mentioned_users(user, current_user, @micropost).deliver_now
     end
   end

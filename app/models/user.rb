@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 6}
   validates :password_confirmation, presence: true
 
-  scope :by_mentioned, -> (names) { where(name: names.split(', ')) }
+  scope :find_all_with_names, -> (names) { where(name: names.split(', ')) }
   scope :by_search, -> (search_terms) { order(name: 'ASC').where('name ILIKE ?', "%#{search_terms}%") }
 
   def feed
@@ -53,7 +53,7 @@ class User < ApplicationRecord
   end
 
   def followers_except_mentioned(names)
-    followers - User.by_mentioned(names)
+    followers - User.find_all_with_names(names)
   end
 
 private

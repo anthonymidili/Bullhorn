@@ -41,7 +41,7 @@ private
   end
 
   def notify_post_owner!
-    NotifierMailer.alert_post_owner(@micropost.user, current_user, @micropost).deliver_now
+    NotifierMailer.alert_post_owner(@micropost.user, current_user, @micropost).deliver_now unless @micropost.user == current_user
   end
 
   def notify_commenters!

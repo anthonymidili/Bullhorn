@@ -25,7 +25,7 @@ class Micropost < ApplicationRecord
   end
 
   def create_mentions(names)
-    User.by_mentioned(names).each do |user|
+    User.find_all_with_names(names).each do |user|
       user.mentions.create!(micropost: self)
     end
   end
