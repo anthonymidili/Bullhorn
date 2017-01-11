@@ -19,6 +19,9 @@ Rails.application.routes.draw do
         get :full_size
       end
     end
+    collection do
+      get :search
+    end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:show, :create, :destroy] do

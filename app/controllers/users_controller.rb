@@ -63,6 +63,11 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  def search
+    @users = User.by_search(params[:term])
+    render json: @users.pluck(:name).as_json
+  end
+
 private
 
   def user_params

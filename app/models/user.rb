@@ -26,6 +26,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true
 
   scope :by_mentioned, -> (names) { where(name: names.split(', ')) }
+  scope :by_search, -> (search_terms) { order(name: 'ASC').where('name ILIKE ?', "%#{search_terms}%") }
 
   def feed
     Micropost.from_users_followed_by(self)

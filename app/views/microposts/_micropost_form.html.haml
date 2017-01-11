@@ -3,7 +3,7 @@
   .field
     = f.label :mentioned, 'Bullhorn@'
     = f.text_field :mentioned, class: 'autocomplete_text_box', placeholder: 'whoever you want',
-    data: { autocomplete_source: User.all.pluck(:name) }
+    data: { autocomplete_source: search_users_path }
     = f.text_area :content, placeholder: 'Compose new micropost...',
     maxlength: 1000, data:{ maximum_characters: 1000 }
     = f.fields_for :photo, @micropost.build_photo do |f_photo|

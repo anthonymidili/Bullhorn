@@ -15,10 +15,14 @@ document.addEventListener 'turbolinks:load', ->
       event.preventDefault()
     return
   ).autocomplete
-    minLength: 0
     source: (request, response) ->
-# delegate back to autocomplete, but extract the last term
-      response $.ui.autocomplete.filter(arraySource, extractLast(request.term))
+      $.getJSON arraySource, { term: extractLast(request.term) }, response
+      return
+    search: ->
+# custom minLength
+      term = extractLast(@value)
+      if term.length < 0
+        return false
       return
     focus: ->
 # prevent value inserted on focus
