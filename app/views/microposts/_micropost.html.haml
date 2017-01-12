@@ -21,4 +21,7 @@
     = link_to "delete", micropost, method: :delete,
     data: { confirm: "Are you sure you want to delete - (#{truncate(micropost.content)})?" }
 
-  = render 'comments/comments', micropost: micropost
+  .comments_box
+    = link_to count_comments(micropost), micropost_path(micropost, profile_feed: @profile_feed)
+    - if @show_comments
+      = render 'comments/comments', micropost: micropost

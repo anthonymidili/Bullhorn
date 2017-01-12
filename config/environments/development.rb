@@ -55,8 +55,8 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV['DEFAULT_URL'] }
 
   config.after_initialize do
-    Bullet.enable = false
-    Bullet.alert = false
+    Bullet.enable = true
+    Bullet.alert = true
 
     # Bullet.bullet_logger = true
     # Bullet.console = true

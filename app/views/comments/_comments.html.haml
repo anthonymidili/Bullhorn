@@ -1,7 +1,4 @@
-.comments_box
-  = link_to count_comments(micropost), micropost_path(micropost, profile_feed: @profile_feed)
-  - if @show_comments
-    %ul{class: "add_new_comment_#{micropost.id}"}
-      = render micropost.comments
+%ul{class: "add_new_comment_#{micropost.id}"}
+  = render micropost.comments
 
-    = render 'comments/comment_form', micropost: micropost
+= render 'comments/comment_form', micropost: micropost
