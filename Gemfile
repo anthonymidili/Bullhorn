@@ -38,6 +38,7 @@ gem 'carrierwave', '>= 1.0.0.rc'
 gem 'rmagick', '~> 2.16.0'
 # Image amazon s3 storage
 gem 'fog', '~> 1.38.0'
+gem 'aws-sdk', '~> 2'
 
 group :development, :test do
   gem 'better_errors'

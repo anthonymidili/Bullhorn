@@ -60,6 +60,11 @@ class PhotosController < ApplicationController
   def full_size
   end
 
+  def presign_upload
+    # pass the limit option if you want to limit the file size
+    render json: UploadPresigner.presign("/photos/image/", params[:filename], limit: 1.megabyte)
+  end
+
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_user

@@ -1,5 +1,5 @@
 CarrierWave.configure do |config|
-  if Rails.env.production?
+  if Rails.env.production? || Rails.env.development?
     config.fog_credentials = {
         # Configuration for Amazon S3 should be made available through an Environment variable.
         # For local installations, export the env variable through the shell OR
@@ -18,7 +18,7 @@ CarrierWave.configure do |config|
     config.fog_directory = ENV['S3_BUCKET_NAME']
 
     # To let CarrierWave work on heroku
-    config.cache_dir = "#{Rails.root}/tmp/uploads"
+    # config.cache_dir = "#{Rails.root}/tmp/uploads"
   elsif Rails.env.test? || Rails.env.cucumber?
     # For testing, upload files to local `tmp` folder.
     config.storage = :file

@@ -18,6 +18,9 @@ Rails.application.routes.draw do
         patch :update_avatar
         get :full_size
       end
+      collection do
+        put :presign_upload
+      end
     end
     collection do
       get :search
