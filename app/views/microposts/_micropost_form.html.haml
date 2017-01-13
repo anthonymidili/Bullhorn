@@ -8,7 +8,12 @@
     maxlength: 1000, data:{ maximum_characters: 1000 }
     = f.fields_for :photo, @micropost.build_photo do |f_photo|
       = f_photo.label :image, 'Attach image'
-      = f_photo.file_field :image
+      = f_photo.hidden_field :image, class: 'js-signed-upload-value'
+      = f_photo.file_field :image, class: 'js-signed-upload', data: {presign_url: presign_upload_user_photos_path(@user)}
+      -#
+        %p.js-signed-upload-status
+          - if f_photo.object.image.present?
+            = link_to 'File attached', user_photo_path(@user, f_photo.object)
       = f_photo.hidden_field :image_cache
   = f.button 'Post', class: 'button'
   %span.countdown
