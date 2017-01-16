@@ -14,10 +14,10 @@ class MicropostsController < ApplicationController
 
     if @micropost.save
       flash[:success] = 'Micropost created!'
+      redirect_to root_path
       create_mentions!
       notify_followers!
       notify_mentioned_users!
-      redirect_to root_path
     else
       @microposts = current_user_feed
       render 'static_pages/home'
