@@ -1,9 +1,9 @@
 class MicropostsController < ApplicationController
   before_action :signed_in_user
+  before_action :set_micropost, only: :show
   before_action :correct_user, only: :destroy
 
   def show
-    @micropost = Micropost.includes(comments: [:created_by_user, :comments]).find(params[:id])
     @profile_feed = params[:profile_feed]
     @show_comments = true
   end
@@ -34,6 +34,11 @@ private
 
   def micropost_params
     params.require(:micropost).permit(:content, :mentioned, photo_attributes: [:id, :image])
+  end
+
+  def set_micropost
+    @micropost = Micropost.includes(comments: [:created_by_user, :comments]).find_by(id: params[:id])
+    redirect_to root_path, alert: 'The micropost you are looking for has been deleted.' unless @micropost
   end
 
   def correct_user
