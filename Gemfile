@@ -48,4 +48,4 @@ group :development, :test do
   gem 'bullet'
 end
 
-ruby '2.3.3'
+ruby '2.3.4'
