@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1.2'
+gem 'rails', '~> 5.1.4'
 
 # puma inplace of Default Webrick
-gem 'puma', '~> 3.9.1'
+gem 'puma', '~> 3.10.0'
 # rack timeout needed for puma
 gem 'rack-timeout', '~> 0.4.2'
 
@@ -37,16 +37,16 @@ gem 'turbolinks', '~> 5.0.1'
 gem 'carrierwave', '>= 1.0.0.rc'
 gem 'rmagick', '~> 2.16.0'
 # Image amazon s3 storage
-gem 'fog', '~> 1.40.0'
-gem 'aws-sdk', '~> 2'
+gem 'fog', '~> 1.42.0'
+gem 'aws-sdk', '~> 3.0.1'
 
 group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'rspec-rails', '~> 3.6.0'
-  gem 'capybara', '~> 2.14.4'
+  gem 'rspec-rails', '~> 3.7.1'
+  gem 'capybara', '~> 2.15.4'
   gem 'bullet'
 end
 
-ruby '2.4.1'
+ruby '2.4.2'
