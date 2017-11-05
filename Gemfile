@@ -24,9 +24,6 @@ gem 'pg', '~> 0.21.0'
 
 gem 'rails_12factor', '~> 0.0.3', group: :production
 
-# https://github.com/laserlemon/figaro
-gem 'figaro', '~> 1.1.1'
-
 gem 'haml', '~> 5.0.1'
 gem 'haml-rails', '~> 1.0.0'
 
