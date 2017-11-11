@@ -53,14 +53,14 @@ $foundation-palette: (
   primary: #1779ba,
   secondary: #767676,
   success: #3adb76,
-  warning: #ffad03,
-  alert: #ff0000,
+  warning: #ffae00,
+  alert: #cc4b37,
 );
 $light-gray: #e6e6e6;
 $medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
 $black: #0a0a0a;
-$white: #ffffff;
+$white: #fefefe;
 $body-background: $white;
 $body-font-color: $black;
 $body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
@@ -618,7 +618,7 @@ $tooltip-radius: $global-radius;
 
 $topbar-padding: 0.5rem;
 $topbar-background: #373a3c;
-$topbar-submenu-background: #ffffff;
+$topbar-submenu-background: $white;
 $topbar-title-spacing: 1rem;
 $topbar-input-width: 200px;
 $topbar-unstack-breakpoint: medium;
