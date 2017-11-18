@@ -219,7 +219,6 @@ aside {
 
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
-  width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   @include box_sizing;
@@ -339,4 +338,9 @@ p.bullhorn {
 
 .red_text {
   color: red;
+}
+
+.delete_user {
+  padding-left: 20px;
+  float: right;
 }
