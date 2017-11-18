@@ -14,7 +14,7 @@ gem 'will_paginate', '~> 3.1.0'
 
 gem 'devise', '~> 4.3.0'
 
-gem 'bcrypt', '~> 3.1.5'
+gem 'bcrypt', '~> 3.1.7'
 
 gem 'sass-rails',   '~> 5.0.6'
 gem 'coffee-rails', '~> 4.2.1'

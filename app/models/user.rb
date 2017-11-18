@@ -4,8 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_secure_password
-
   belongs_to :avatar, foreign_key: 'avatar_id', class_name: 'Photo'
 
   has_many :mentions, dependent: :destroy
@@ -19,15 +17,7 @@ class User < ApplicationRecord
   has_many :photos, dependent: :destroy
   has_many :comments, foreign_key: 'created_by_user_id', dependent: :destroy
 
-  before_save {|user| user.email, = email.downcase}
-  before_save :create_remember_token
-
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true,
-            format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
 
   scope :find_all_with_names, -> (names) { where(name: names.split(', ')) }
   scope :by_search, -> (search_terms) { order(name: 'ASC').where('name ILIKE ?', "%#{search_terms}%") }
@@ -58,11 +48,5 @@ class User < ApplicationRecord
 
   def followers_except_mentioned(names)
     followers - User.find_all_with_names(names)
-  end
-
-private
-
-  def create_remember_token
-    self.remember_token = SecureRandom.urlsafe_base64
   end
 end

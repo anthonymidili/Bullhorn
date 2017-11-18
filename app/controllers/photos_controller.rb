@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :signed_in_user
+  before_action :authenticate_user!
   before_action :set_user
   before_action :correct_user, only: [:new, :create, :edit, :update, :update_avatar, :destroy]
   before_action :set_photo, only: [:show, :edit, :update, :update_avatar, :destroy, :full_size]
