@@ -1,10 +1,14 @@
 %li
-  = link_to user do
-    = avatar_for(user, 52)
-    = truncate("#{user.name} - #{user.last_post || 'Nothing to show yet!'}" , length: 88)
+  .row
+    %div{class: "medium-#{smaller_col_for_admin} columns"}
+      = link_to user do
+        = avatar_for(user, 52)
+        = truncate("#{user.name} - #{user.last_post || 'Nothing to show yet!'}" , length: 88)
 
-  - if current_user.admin? && !current_user?(user)
-    .delete_user= link_to 'Delete USER!', user, method: :delete, confirm: 'Are you sure?',
-    class: 'red_text'
+    .small-6.medium-2.columns
+      .float-right= render 'follow_form', user: user
 
-  .float-right= render 'follow_form', user: user
+    - if current_user.admin? && !current_user?(user)
+      .small-6.medium-2.columns
+        .delete_user= link_to 'Delete USER!', user, method: :delete, confirm: 'Are you sure?',
+        class: 'red_text'

@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     current_user.feed.paginate(page: params[:page])
   end
 
+  def current_user_admin?
+    current_user.admin?
+  end; helper_method :current_user_admin?
+
 protected
 
   def configure_permitted_parameters

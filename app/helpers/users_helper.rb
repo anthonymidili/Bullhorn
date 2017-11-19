@@ -8,6 +8,10 @@ module UsersHelper
     param_action == 'show' ? 'large' : 'small'
   end
 
+  def smaller_col_for_admin
+    current_user_admin? ? 8 : 10
+  end
+
 private
 
   def select_avatar_for(user)
