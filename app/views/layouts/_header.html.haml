@@ -15,7 +15,7 @@
             %li= link_to 'Home', root_path
             - if signed_in?
               %li= link_to 'Profile', current_user
-              %li= link_to 'Users', users_path
+              %li= link_to 'Find users', users_path
               / Account dropdown
               %li
                 = link_to 'Account', '#', remote: true
@@ -24,4 +24,3 @@
                   %li= link_to 'Log out', destroy_user_session_path, method: :delete
             - else
               %li= link_to 'Log in', new_user_session_path
-            %li= link_to 'Help', help_path
