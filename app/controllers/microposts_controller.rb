@@ -26,8 +26,7 @@ class MicropostsController < ApplicationController
 
   def destroy
     @micropost.destroy
-    flash[:notice] = 'Micropost was successfully destroyed.'
-    redirect_back_or root_path
+    redirect_back fallback_location: root_path, notice: 'Micropost was successfully destroyed.'
   end
 
 private

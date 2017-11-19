@@ -24,9 +24,11 @@ Rails.application.routes.draw do
       get :search
     end
   end
+
   resources :microposts, only: [:show, :create, :destroy] do
     resources :comments, only: [:create]
   end
+
   resources :comments, only: [:destroy] do
     resources :comments, only: [:create]
   end
