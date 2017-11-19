@@ -1,5 +1,6 @@
-Bullhorn -- A very striped down version of Twitter. This is the sample app 
-from Michael Hartl's, Ruby on Rails Tutorial. I made some very minor changes.
-But continue to add new functionality.
+**Bullhorn** 
+is a very striped down version of Twitter. This is the sample app 
+from Michael Hartl's, Ruby on Rails Tutorial. I have made quite a 
+few changes and continue to add new functionality and features.
 
 Anthony
