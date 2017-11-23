@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.1.4'
 
 # puma inplace of Default Webrick
-gem 'puma', '~> 3.10.0'
+gem 'puma', '~> 3.11.0'
 # rack timeout needed for puma
 gem 'rack-timeout', '~> 0.4.2'
 
@@ -43,8 +43,8 @@ group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'rspec-rails', '~> 3.7.1'
-  gem 'capybara', '~> 2.15.4'
+  gem 'rspec-rails', '~> 3.7.2'
+  gem 'capybara', '~> 2.16.1'
   gem 'bullet'
 end
 
