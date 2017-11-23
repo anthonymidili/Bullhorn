@@ -1,3 +1,4 @@
-= form_for current_user.relationships.build(followed_id: user.id) do |f|
+= form_for current_user.relationships.build(followed_id: user.id), remote: true do |f|
   = f.hidden_field :followed_id
-  = f.button 'Follow', class: "#{button_size(params[:action])} button"
+  = f.hidden_field :button_size, value: @button_size
+  = f.button 'Follow', class: "#{button_size} button"

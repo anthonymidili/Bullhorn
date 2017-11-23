@@ -6,10 +6,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page]).includes(:user, :photo)
     @profile_feed = true
+    @button_size = 'large'
   end
 
   def index
     @users = User.paginate(page: params[:page], per_page: 20).includes(:avatar, :microposts)
+    @button_size = 'small'
   end
 
   def destroy
