@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show, :destroy, :following, :followers]
   before_action :admin_user, only: :destroy
 
   def show
-    @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page]).includes(:user, :photo)
     @profile_feed = true
     @button_size = 'large'
@@ -15,21 +15,19 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
     flash[:success] = 'User destroyed'
     redirect_to users_path
   end
 
   def following
     @title = 'Following'
-    @user = User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
     @title = 'Followers'
-    @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
@@ -40,6 +38,11 @@ class UsersController < ApplicationController
   end
 
 private
+
+  def set_user
+    session[:profile_user_id] = params[:id]
+    @user = profile_user
+  end
 
   def admin_user
     redirect_to(root_path) unless current_user.admin?

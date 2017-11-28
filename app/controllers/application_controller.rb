@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
     current_user.admin?
   end; helper_method :current_user_admin?
 
+  def profile_user
+    @profile_user ||=
+      User.find_by(id: session[:profile_user_id]) || current_user
+  end; helper_method :profile_user
+
 protected
 
   def configure_permitted_parameters

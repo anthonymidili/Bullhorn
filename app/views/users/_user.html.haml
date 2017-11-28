@@ -10,5 +10,6 @@
 
     - if current_user.admin? && !current_user?(user)
       .small-6.medium-2.columns
-        .delete_user= link_to 'Delete USER!', user, method: :delete, confirm: 'Are you sure?',
+        .delete_user= link_to 'Delete USER!', user, method: :delete,
+        data: { confirm: 'Are you sure? Have they really been so bad that you need to remove them completely?!?' },
         class: 'red_text'
