@@ -133,10 +133,12 @@ p {
 /* footer */
 
 footer {
+  min-height: 150px;
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
-  color: #999;
+  color: #999999;
+  background-color: #999999;
   a {
     color: #555;
     &:hover {
