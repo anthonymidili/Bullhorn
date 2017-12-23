@@ -21,8 +21,6 @@ doc/
 .project
 .DS_Store
 bundler_stubs/
-.idea/
-.ruby-version
 
 # Ignore personal refferances of past migrations
 db/migration_history
