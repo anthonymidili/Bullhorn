@@ -1,8 +1,8 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  # include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   # storage :file if Rails.env.development?
@@ -29,25 +29,26 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  # put this before any other process in the Carrierwave uploader
-  # to orient the uploads properly
-  process :fix_exif_rotation
-  def fix_exif_rotation
-    manipulate! do |img|
-      img.tap(&:auto_orient!)
+  # Rotates the image based on the EXIF Orientation
+  def auto_orient
+    manipulate! do |image|
+      image.tap(&:auto_orient)
     end
   end
 
   # Create different versions of your uploaded files:
   version :thumb do
+    process :auto_orient
     process resize_to_fill: [300, 300]
   end
 
   version :large do
+    process :auto_orient
     process resize_to_limit: [1024, 1024]
   end
 
   version :small do
+    process :auto_orient
     process resize_to_limit: [300, 300]
   end
 

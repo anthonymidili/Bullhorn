@@ -12,7 +12,7 @@ gem 'foundation-rails', '~> 6.3.0'
 gem 'bootstrap-will_paginate', '~> 1.0.0'
 gem 'will_paginate', '~> 3.1.0'
 
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4.6.1'
 
 gem 'bcrypt', '~> 3.1.7'
 
@@ -34,7 +34,7 @@ gem 'turbolinks', '~> 5.0.1'
 
 # Image uploader and processing
 gem 'carrierwave', '>= 1.0.0.rc'
-gem 'rmagick', '~> 2.16.0'
+gem 'mini_magick'
 # Image amazon s3 storage
 gem 'fog', '~> 1.42.0'
 gem 'aws-sdk', '~> 3.0.1'
@@ -48,4 +48,4 @@ group :development, :test do
   gem 'bullet'
 end
 
-ruby '2.4.2'
+ruby '2.6.0'

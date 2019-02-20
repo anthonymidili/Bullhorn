@@ -30,3 +30,4 @@ db/migration_history
 
 # Ignore environment vars
 .env
+.tool-versions
