@@ -31,3 +31,6 @@ db/migration_history
 # Ignore environment vars
 .env
 .tool-versions
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

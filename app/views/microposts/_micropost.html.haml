@@ -14,7 +14,7 @@
     - if micropost.photo
       %p
         = link_to full_size_user_photo_path(micropost.user, micropost.photo) do
-          = image_tag(micropost.photo.image.small, class: 'feed_photo')
+          = image_tag(micropost.photo.image.small.url, class: 'feed_photo')
   %span.timestamp
     Posted #{time_ago_in_words(micropost.created_at)} ago.
   - if current_user?(micropost.user)

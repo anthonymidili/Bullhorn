@@ -8,7 +8,7 @@
               title: 'Delete your photo'
         %p
           = link_to user_photo_path(@user, photo) do
-            = image_tag photo.image.thumb
+            = image_tag photo.image.thumb.url
         %p
           = link_to_if current_user?(@user), caption_for(@user, photo),
           edit_user_photo_path(@user, photo), title: 'Edit your caption'

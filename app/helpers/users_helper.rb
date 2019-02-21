@@ -11,6 +11,6 @@ module UsersHelper
 private
 
   def select_avatar_for(user)
-    user.avatar ? user.avatar.image.thumb : 'default_avatar.svg'
+    user.avatar ? user.avatar.image.thumb.url : 'default_avatar.svg'
   end
 end
