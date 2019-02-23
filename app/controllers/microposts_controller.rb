@@ -11,6 +11,7 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.photo.user = current_user if @micropost.photo
+    @user = current_user
 
     if @micropost.save
       flash[:success] = 'Micropost created!'

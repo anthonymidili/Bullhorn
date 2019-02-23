@@ -31,11 +31,9 @@ gem 'haml-rails', '~> 1.0.0'
 gem 'turbolinks', '~> 5.2.0'
 
 # Image uploader and processing
-gem 'carrierwave-aws'
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick', '~> 4.9.2'
-# Image amazon s3 storage
-gem 'aws-sdk-rails'
+gem 'fog-aws', '~> 3.3.0'
 
 group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
