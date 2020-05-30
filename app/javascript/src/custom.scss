@@ -78,9 +78,14 @@ p {
   margin-bottom: 2em;
 
   .mainmenu > li > a {
-    color: $header-menu-color;
+    $header-menu-color: #9b9c9d;
+    $header-menu-color-hover: #d7d7d8;
+    color: $header-menu-color !important;
+    &::after {
+      border-color: $header-menu-color transparent transparent !important;
+    }
     &:hover {
-      color: $header-menu-color-hover;
+      color: $header-menu-color-hover !important;
       &::after {
         border-color: $header-menu-color-hover transparent transparent !important;
       }
@@ -90,13 +95,18 @@ p {
   .submenu {
     padding: 5px 0 5px 0;
     border-radius: 0.25rem;
+    background-color: $white;
     li > a {
-      color: #373a3c;
+      color: #3c3737;
       padding: 7px 16px 7px 16px;
       &:hover {
         background-color: #f5f5f5;
       }
     }
+  }
+
+  &, ul {
+    background-color: #373a3c;
   }
 }
 

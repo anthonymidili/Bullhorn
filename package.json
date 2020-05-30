@@ -1,0 +1,32 @@
+{
+  "name": "Bullhorn",
+  "version": "2.0.0",
+  "description": "Social media site.",
+  "main": "index.js",
+  "repository": "bullhorn.ttfh.co",
+  "author": "AMidili <tonywinslow@yahoo.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@rails/actioncable": "^6.0.3-1",
+    "@rails/activestorage": "^6.0.3-1",
+    "@rails/ujs": "^6.0.3-1",
+    "@rails/webpacker": "5.1.1",
+    "coffee-loader": "^1.0.0",
+    "coffeescript": "1.12.7",
+    "foundation-sites": "^6.6.3",
+    "jquery": "^3.5.1",
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.43.0",
+    "webpack-jquery-ui": "^2.0.1",
+    "what-input": "^5.2.9"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  },
+  "engines": {
+    "yarn": "1.22.x",
+    "node": "12.x",
+    "npm": "6.x"
+  }
+}

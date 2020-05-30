@@ -1,26 +1,23 @@
 .top-bar
-  .row
-    .small-12.columns
-      .title-bar-left
-        .title-bar-title
-          = link_to root_path, id: 'logo' do
-            = image_tag 'bullhorn-white.svg'
-            Bullhorn
-      .title-bar-right
-        %span{data: {hide_for: 'medium', responsive_toggle: 'responsive-menu'}}
-          %span.menu-icon{data: {toggle: true}}
-      #responsive-menu
-        .top-bar-right
-          %ul.menu.mainmenu.vertical.medium-horizontal{data: {responsive_menu: 'accordion medium-dropdown'}}
-            %li= link_to 'Home', root_path
-            - if signed_in?
-              %li= link_to 'Profile', current_user
-              %li= link_to 'Find users', users_path
-              / Account dropdown
-              %li
-                = link_to 'Account', '#', remote: true
-                %ul.menu.vertical
-                  %li= link_to 'Settings', edit_user_registration_path
-                  %li= link_to 'Log out', destroy_user_session_path, method: :delete
-            - else
-              %li= link_to 'Log in', new_user_session_path
+  .title-bar-left
+    .title-bar-title
+      = link_to root_path, id: 'logo' do
+        = image_pack_tag 'bullhorn-white.svg'
+        Bullhorn
+  .title-bar-right
+    %span{data: {hide_for: 'medium', responsive_toggle: 'responsive-menu'}}
+      %span.menu-icon{data: {toggle: true}}
+  #responsive-menu.top-bar-right
+    %ul.menu.mainmenu.vertical.medium-horizontal{data: {responsive_menu: 'accordion medium-dropdown'}}
+      %li= link_to 'Home', root_path
+      - if signed_in?
+        %li= link_to 'Profile', current_user
+        %li= link_to 'Find users', users_path
+        / Account dropdown
+        %li.has-submenu
+          = link_to 'Account', '#', remote: true
+          %ul.submenu.menu.vertical{data: {submenu: true}}
+            %li= link_to 'Settings', edit_user_registration_path
+            %li= link_to 'Log out', destroy_user_session_path, method: :delete
+      - else
+        %li= link_to 'Log in', new_user_session_path

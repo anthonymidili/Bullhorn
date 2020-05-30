@@ -6,9 +6,6 @@ gem 'rails', '~> 6.0.3'
 # puma inplace of Default Webrick
 gem 'puma', '~> 4.3.5'
 
-gem 'foundation-rails', '~> 6.6.2'
-gem 'autoprefixer-rails'
-
 gem 'bootstrap-will_paginate', '~> 1.0.0'
 gem 'will_paginate', '~> 3.3.0'
 
@@ -18,19 +15,12 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootsnap', '~> 1.4.0', require: false
 
-gem 'sassc-rails'
-gem 'coffee-rails', '~> 5.0.0'
-gem 'uglifier', '>= 3.0.2'
-gem 'jquery-rails', '~> 4.4.0'
-gem 'jquery-ui-rails', '~> 6.0.0'
-
 gem 'pg', '~> 1.2.3'
+
+gem 'webpacker', '~> 5.x'
 
 gem 'haml', '~> 5.1.2'
 gem 'haml-rails', '~> 2.0.1'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 5.2.0'
 
 # Image uploader and processing
 gem 'carrierwave', '~> 2.0'
@@ -45,4 +35,6 @@ group :development, :test do
   gem 'capybara', '~> 3.32.2'
   gem 'bullet'
   gem 'dotenv-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
