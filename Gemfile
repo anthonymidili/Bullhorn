@@ -29,14 +29,15 @@ gem 'carrierwave', '~> 2.0'
 gem 'mini_magick', '~> 4.10.1'
 gem 'fog-aws', '~> 3.6.5'
 
-group :development, :test do
+group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'listen', '~> 3.2.1'
   gem 'rspec-rails', '~> 4.0.1'
   gem 'capybara', '~> 3.32.2'
   gem 'bullet'
-  gem 'dotenv-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
