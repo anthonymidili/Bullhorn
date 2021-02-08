@@ -25,7 +25,7 @@ gem 'haml', '~> 5.1.2'
 gem 'haml-rails', '~> 2.0.1'
 
 # Image uploader and processing
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 gem 'mini_magick', '~> 4.10.1'
 gem 'fog-aws', '~> 3.6.5'
 
