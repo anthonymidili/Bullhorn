@@ -6,7 +6,7 @@ ruby '2.7.1'
 gem 'rails', '~> 6.0.3'
 
 # puma inplace of Default Webrick
-gem 'puma', '~> 4.3.5'
+gem 'puma', '~> 4.3.8'
 
 gem 'bootstrap-will_paginate', '~> 1.0.0'
 gem 'will_paginate', '~> 3.3.0'
