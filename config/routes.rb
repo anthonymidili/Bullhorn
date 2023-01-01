@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'sites#index'
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do

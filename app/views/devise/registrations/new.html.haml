@@ -8,22 +8,24 @@
       = render 'notifications/error_messages', object: f.object
       .field.mb-3
         = f.label :email, class: "form-label"
-        = f.email_field :email, autocomplete: "email", class: "form-control"
+        = f.email_field :email, autocomplete: "username", class: "form-control"
       .field.mb-3
         = f.label :username, class: "form-label"
-        = f.text_field :username, autocomplete: "username nickname",
-        class: "form-control"
+        = f.text_field :username, autocomplete: "off", class: "form-control"
       .field.mb-3
         = f.label :password, class: "form-label"
         - if @minimum_password_length
           %em
             (#{@minimum_password_length} characters minimum)
-        = f.password_field :password, autocomplete: "off",
-        class: "form-control"
+        = f.password_field :password, autocomplete: "off", class: "form-control"
       .field.mb-3
         = f.label :password_confirmation, class: "form-label"
         = f.password_field :password_confirmation, autocomplete: "off",
         class: "form-control"
+      .honeypot.mb-3
+        = label_tag :body, "Body", for: "body", class: "form-label"
+        = text_field_tag :body, nil, id: "body", class: "form-control",
+        placeholder: "!WARNING! Do not fill this out unless you are a BOT!"
       .actions.mb-3
         = f.submit "Sign up", class: 'btn btn-primary'
     .mb-3= render "devise/shared/links"

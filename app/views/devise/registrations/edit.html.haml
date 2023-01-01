@@ -9,11 +9,15 @@
       = render 'notifications/error_messages', object: f.object
       .field.mb-3
         = f.label :email, class: "form-label"
-        = f.email_field :email, autofocus: true, autocomplete: "email",
-        class: "form-control"
+        = f.email_field :email, autocomplete: "username", class: "form-control"
       - if devise_mapping.confirmable? && resource.pending_reconfirmation?
         %div
           Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .field.mb-3
+        = f.label :current_password, class: "form-label"
+        %i (we need your current password to confirm your changes)
+        = f.password_field :current_password, autocomplete: "off",
+        class: "form-control"
       .field.mb-3
         = f.label :password, 'New password', class: "form-label"
         %i (leave blank if you don't want to change it)
@@ -26,11 +30,6 @@
         = f.label :password_confirmation, 'New password confimation',
         class: "form-label"
         = f.password_field :password_confirmation, autocomplete: "off",
-        class: "form-control"
-      .field.mb-3
-        = f.label :current_password, class: "form-label"
-        %i (we need your current password to confirm your changes)
-        = f.password_field :current_password, autocomplete: "off",
         class: "form-control"
       .actions.mb-3
         = f.submit "Update", class: 'btn btn-primary'

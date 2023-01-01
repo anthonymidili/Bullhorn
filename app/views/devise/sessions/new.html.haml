@@ -7,8 +7,7 @@
     data: { turbo: false } do |f|
       .field.mb-3
         = f.label :email, class: "form-label"
-        = f.email_field :email, autofocus: true, autocomplete: "email",
-        class: "form-control"
+        = f.email_field :email, autocomplete: "username", class: "form-control"
       .field.mb-3
         = f.label :password, class: "form-label"
         = f.password_field :password, autocomplete: "off", class: "form-control"
