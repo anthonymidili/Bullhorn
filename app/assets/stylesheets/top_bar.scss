@@ -1,11 +1,18 @@
 nav {
   margin-bottom: 20px;
-  .title-bar-title {
-    a {
-      color: $lasalle-dark;
-    }
-    img {
-      height: 50px;
+  a {
+    color: $lasalle-dark;
+  }
+  img {
+    height: 50px;
+  }
+
+  span.inline {
+    display: inline-block;
+    vertical-align: middle;
+    h1 {
+      margin-bottom: 0;
+      @extend .black_text_link;
     }
   }
 

@@ -2,7 +2,9 @@
   .container-fluid
     -# Left side navbar.
     = link_to root_path do
-      = image_tag 'SkyPatrol_header.svg'
+      %span.inline 
+        %h1 Bullhorn
+      %span.inline= image_tag 'bullhorn.png'
 
     %button.navbar-toggler{aria: {
     controls: "navbarNavDropdown",

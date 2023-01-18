@@ -18849,10 +18849,10 @@ nav.pagination span a {
   color: #b30000;
 }
 
-.black_text_link {
+.black_text_link, nav span.inline h1, nav span.inline .h1 {
   color: black;
 }
-.black_text_link:hover {
+.black_text_link:hover, nav span.inline h1:hover, nav span.inline .h1:hover {
   color: #8a8a8a;
 }
 
@@ -18889,11 +18889,18 @@ nav {
   /* make menu icon larger and easier to click */
   /* on small, make dropdown standout */
 }
-nav .title-bar-title a {
+nav a {
   color: #13395f;
 }
-nav .title-bar-title img {
+nav img {
   height: 50px;
+}
+nav span.inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+nav span.inline h1, nav span.inline .h1 {
+  margin-bottom: 0;
 }
 nav span.menu-icon {
   padding-left: 3em;
@@ -19223,16 +19230,16 @@ html, body {
 }
 
 #main {
-  padding-bottom: 183px; /* must be same height as the footer */
+  padding-bottom: 90px; /* must be same height as the footer */
 }
 
 footer {
   position: relative;
-  margin-top: -183px; /* negative value of footer height */
-  min-height: 183px; /* footer size */
+  margin-top: -90px; /* negative value of footer height */
+  min-height: 90px; /* footer size */
 }
 footer #style_footer {
-  min-height: 183px; /* Remove white space under footer */
+  min-height: 90px; /* Remove white space under footer */
   border-style: solid;
   border-width: 1px;
   border-color: #33312e;
