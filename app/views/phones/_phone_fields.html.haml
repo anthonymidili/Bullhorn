@@ -1,0 +1,17 @@
+.nested-fields.callout
+  .row
+    .col-12.col-md-6
+      = f.label :number
+      .row
+        .col-4
+          = f.select :device,
+          options_for_select(Phone.select_device_options, selected: f.object.device)
+        .col-8
+          = f.telephone_field :number
+    .col-6.col-md-3
+      = f.label :extension
+      = f.text_field :extension
+    .col-6.col-md-3
+      .float-end.remove_link
+        = link_to_remove_association 'Remove number', f,
+        class: 'btn btn-danger btn-sm'

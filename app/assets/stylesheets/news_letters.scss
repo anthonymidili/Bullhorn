@@ -1,0 +1,22 @@
+.news_letter {
+  .header {
+    border: 4px solid $lasalle-dark;
+    background: linear-gradient(35deg, $lasalle-light 60%, lighten($lasalle-dark, 20%));
+  }
+  .article {
+    height: 10rem;
+    overflow-y: hidden;
+  }
+}
+
+img.article_thumb {
+  margin-right: 10px;
+  max-height: 100px;
+  max-width: 100px;
+}
+
+img.article {
+  margin-right: 10px;
+  max-height: 350px;
+  width: auto;
+}

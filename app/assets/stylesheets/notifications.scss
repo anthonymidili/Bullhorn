@@ -1,0 +1,24 @@
+.notification {
+  background-color: $pale-yellow;
+  border-top: 1px solid $light-gray;
+  padding: 10px;
+  font-size: small;
+  li {
+    img {
+      height: 40px;
+    }
+  }
+  .post_user {
+    img {
+      height: 50px;
+    }
+  }
+}
+
+.is_read_false {
+  background-color: #b3e4f9;
+}
+
+.horizontal-buttons li {
+  padding-right: 25px;
+}

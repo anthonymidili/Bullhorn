@@ -1,0 +1,15 @@
+- provide :title, 'Edit company'
+
+.row.center-content
+  .col-12.col-md-8
+    %h1 Editing company
+
+    = render 'form'
+
+    %ul.menu
+      %li
+        = link_to @company, title: 'Show Company' do
+          = fa_icon 'building', text: 'Show Company'
+      %li
+        = link_to companies_path do
+          = fa_icon 'hand-point-left', text: 'Back'

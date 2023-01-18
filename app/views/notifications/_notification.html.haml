@@ -1,0 +1,8 @@
+.p-2.notification{class: "is_read_#{notification.is_read}"}
+  = link_to path_to_notifiable(notification.notifiable), class: "post_user" do
+    - if notification.notifier.avatar.attached?
+      = image_tag thumb_image(notification.notifier.avatar)
+    = notification.notifier.full_name
+    = notification.action
+    .timestamp
+      #{time_ago_in_words(notification.created_at)} ago

@@ -1,0 +1,28 @@
+.post, .photo, .event {
+  border-top: 1px solid $light-gray;
+  padding: 10px 0 10px 0;
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .post_user {
+    img {
+      height: 50px;
+    }
+  }
+  .content {
+    display: block;
+    img {
+      padding-top: 10px;
+    }
+  }
+}
+
+.timestamp {
+  color: $dark-gray;
+}
+
+.size-250 {
+  max-height: 250px;
+  max-width: 250px;
+}

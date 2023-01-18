@@ -1,8 +1,0 @@
-= link_to current_user do
-  = avatar_for(current_user, 100)
-%h4
-  = current_user.name
-%span
-  = link_to 'view my profile', current_user
-%span.small
-  = pluralize(current_user.microposts.count, 'micropost')

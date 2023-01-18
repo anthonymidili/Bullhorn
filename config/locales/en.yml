@@ -16,11 +16,34 @@
 #
 # This would use the information in config/locales/es.yml.
 #
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
   activerecord:
     attributes:
-      user:
-        name: 'Name or Handle'
+      comment:
+        body: 'Compose a comment'
+      company:
+        comp_industry: 'Industry'
+      job_listing:
+        comp_min: 'Compensation min'
+        comp_max: 'Compensation max'
+        comp_per: 'Compensation per'
+        dur_interval: 'List for # of (days, weeks or months)'
+        dur_cal_type: 'Days, Weeks or Months'
+        apply_email: 'Email for applicants to apply'
+      post:
+        images: 'Add images'
+      resume:
+        file: "Resume file (PDFs preferred)"

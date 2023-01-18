@@ -1,0 +1,14 @@
+- provide :title, 'Edit Resume'
+.row.center-content
+  .col-12.col-md-8
+    %h1 Editing resume
+
+    = render 'form'
+
+    %ul.menu
+      %li
+        = link_to resume_user_path(@resume.user) do
+          = fa_icon 'file-alt', text: "Your resume"
+      %li
+        = link_to resumes_path do
+          = fa_icon 'hand-point-left', text: 'Back'

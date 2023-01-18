@@ -1,0 +1,26 @@
+- provide :title, 'Notification settings'
+
+.row.center-content
+  .col-8
+    %h1 Notification settings
+
+    = form_with model: @receive_mail, url: notifications_path, 
+    data: { turbo: false } do |f|
+      = render 'notifications/error_messages', object: f.object
+
+      .mb-3 Receive email notifications when users:
+      .feild.mb-1
+        = f.check_box :for_new_posts, id: 'cb_posts'
+        = f.label :for_new_posts, 'create a new Post', for: 'cb_posts'
+      .feild.mb-1
+        = f.check_box :for_new_events, id: 'cb_events'
+        = f.label :for_new_events, 'create a new Event', for: 'cb_events'
+      .feild.mb-1
+        = f.check_box :for_new_job_listings, id: 'cb_jobs'
+        = f.label :for_new_job_listings, 'create a new Job Listing', for: 'cb_jobs'
+      .feild.mb-3
+        = f.check_box :for_new_comments, id: 'cb_comments'
+        = f.label :for_new_comments,
+        'Comment on something you have posted or commented on', for: 'cb_comments'
+      .actions.mb-3
+        = f.submit 'Update Notification settings', class: 'btn btn-primary'

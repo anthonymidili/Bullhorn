@@ -1,0 +1,15 @@
+- provide :title, 'My Photos'
+.row
+  .col-12
+    %h1= "#{@user.full_name}'s Photos"
+.row
+  - @user.posts.with_images.each do |post|
+    .col-12.col-md-6.col-lg-3
+      = link_to post.record do
+        = image_tag medium_image(post),
+        class: 'thumbnail size-250 mb-3'
+.row
+  .col-12
+    .links.mb-3
+      = link_to @user do
+        = fa_icon 'hand-point-left', text: 'back'

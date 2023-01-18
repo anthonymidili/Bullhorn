@@ -1,0 +1,31 @@
+.row
+  .col-12
+    = f.fields_for :profile do |profile_f|
+      .field
+        = profile_f.label :bio, "Bio (HTML safe)"
+        = profile_f.text_area :bio, rows: 3
+      .row
+        .col-12.col-lg-6
+          .field
+            = profile_f.label :workplace
+            = profile_f.text_field :workplace
+        .col-12.col-lg-6
+          .field
+            = profile_f.label :position
+            = profile_f.text_field :position
+      .row
+        .col-12.col-md-8
+          .field
+            = profile_f.label :birthday
+            .date_select= profile_f.date_select :birthday,
+            start_year: (Date.current - 90.years).year, prompt: true
+        .col-12.col-md-4
+          .field
+            = profile_f.label :graduated_in
+            = profile_f.date_select :graduated_in, discard_day: true, discard_month: true,
+            start_year: (Date.current - 72.years).year, prompt: true
+      .row
+        .col-12
+          .field
+            = profile_f.check_box :show_email
+            = profile_f.label :show_email, 'Display your email'

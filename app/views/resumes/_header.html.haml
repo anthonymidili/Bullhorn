@@ -1,0 +1,7 @@
+.float-right.pad_left
+  - if resume.is_listed
+    .timestamp posted #{time_ago_in_words(resume.updated_at)}
+.resume
+  %h3
+    = resume.title
+  %b= resume.user.full_name

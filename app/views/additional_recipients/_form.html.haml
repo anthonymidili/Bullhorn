@@ -1,0 +1,8 @@
+= form_with model: @additional_recipient do |f|
+  = render 'notifications/error_messages', object: f.object
+
+  .field
+    = f.label :email
+    = f.email_field :email
+  .actions
+    = f.submit 'Save', class: 'btn btn-primary'

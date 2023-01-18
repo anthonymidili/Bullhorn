@@ -1,0 +1,10 @@
+- provide :title, 'Edit comment'
+.row.center-content
+  .col-12.col-md-8
+    = render @commentable, comment: @comment
+    %h3 Editing comment
+    .mb-3= render 'form', commentable: @commentable, comment: @comment
+    = render 'comments/box', commentable: @commentable, comment: (@comment ||= nil)
+
+    = link_to path_to_commentable(@commentable), title: 'Back' do
+      = fa_icon 'hand-point-left', text: 'Back'

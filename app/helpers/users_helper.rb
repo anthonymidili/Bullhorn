@@ -1,14 +1,25 @@
 module UsersHelper
+  def correct_user?(user)
+    current_user == user
+  end
 
-  def avatar_for(user, size)
-    if user.avatar
-      image_tag(user.avatar.image.thumb.url, size: size, alt: user.name, class: 'avatar')
+  def authenticate_admin!
+    redirect_to root_path unless current_user.is_admin
+  end
+
+  def admin_form(user)
+    if user.is_admin
+      'users/remove_admin'
     else
-      image_pack_tag('default_avatar.svg', size: size, alt: user.name, class: 'avatar')
+      'users/add_admin'
     end
   end
 
-  def smaller_col_for_admin
-    current_user_admin? ? 8 : 10
+  def link_to_user_resume(resume)
+    if resume
+      link_to 'Edit your Resume', edit_resume_path(resume), class: 'btn btn-primary'
+    else
+      link_to 'Post your Resume', new_resume_path, class: 'btn btn-primary'
+    end
   end
 end

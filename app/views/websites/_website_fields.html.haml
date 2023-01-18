@@ -1,0 +1,12 @@
+.nested-fields.callout
+  .row
+    .col-12.col-md-3
+      = f.label :name
+      = f.text_field :name
+    .col-12.col-md-6
+      = f.label :address
+      = f.url_field :address
+    .col-12.col-md-3
+      .float-end.remove_link
+        = link_to_remove_association 'Remove website', f,
+        class: 'btn btn-danger btn-sm'

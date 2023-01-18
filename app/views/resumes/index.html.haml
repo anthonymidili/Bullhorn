@@ -1,0 +1,12 @@
+- provide :title, 'Resumes'
+.row
+  .col-12
+    = link_to_user_resume(current_user.resume)
+    %h1 Resumes
+
+.row{data: {equalizer: true, equalize_by_row: "true"}}
+  - @resumes.each do |resume|
+    .col-12.col-md-6
+      .callout{data: {equalizer_watch: true}}
+        = link_to resume_user_path(resume.user) do
+          = render 'resumes/header', resume: resume

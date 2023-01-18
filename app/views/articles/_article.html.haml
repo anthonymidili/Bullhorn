@@ -1,0 +1,12 @@
+%div{id: "article_#{article.id}", class: 'cell column-block'}
+  = link_to news_letter_article_path(news_letter, article) do
+    .callout.black_text_link
+      .article
+        .center
+          %h4= article.title
+        .content
+          - if article.image.attached?
+            .float-left
+              = image_tag medium_image(article.image), class: 'article_thumb'
+          = simple_format(truncate(article.content, escape: false,
+            omission: ' <i><b>(...read more)<b/><i/>', length: 140))

@@ -1,0 +1,13 @@
+.float-right.pad_left
+  - if job_listing.currently_listed?
+    .timestamp posted #{time_ago_in_words(job_listing.updated_at)}
+.job_listing
+  %h3
+    = job_listing.title
+    %small at
+  %h5
+    - if job_listing.company.logo.attached?
+      = image_tag medium_image(job_listing.company.logo)
+    = job_listing.company.name
+- if job_listing.company.address
+  .company_address= job_listing.company.address.city_state_zip

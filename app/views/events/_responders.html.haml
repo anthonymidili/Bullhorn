@@ -1,0 +1,9 @@
+.callout
+  .mb-3
+    = render "events/stats", event: event
+  .row  
+    - event.users.each do |user|
+      .col-12.col-md-6.col-lg-4
+        .status_user
+          = render 'users/post_user', user: user
+          .status_icon= status_icon(event.invitations.user_status(user))

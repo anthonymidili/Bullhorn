@@ -1,0 +1,16 @@
+- provide :title, 'Edit job listings'
+
+.row.center-content
+  .col-12.col-md-8
+    %h1= @job_listing.company.name
+    %h3 Edit or Relist job listing
+
+    = render 'form'
+
+    %ul.menu
+      %li
+        = link_to @job_listing, title: 'Show job listing' do
+          = fa_icon 'building', text: 'Show job listing'
+      %li
+        = link_to @job_listing.company, title: 'Back' do
+          = fa_icon 'hand-point-left', text: 'Back'

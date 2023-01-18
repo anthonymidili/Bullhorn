@@ -1,21 +1,26 @@
-!!! 5
-%html{ :lang => 'en'}
+!!!
+%html{:lang => "en"}
   %head
-    %meta{ :charset => 'utf-8' }
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-
-    = favicon_link_tag asset_pack_path('media/images/favicon.ico')
-    %title= full_title(yield(:title))
+    -# google site verification
+    %meta{:content => "aPBsQ-TJ9O1FnNIISLaOgGvdclvMgOEh3Ub3AEiFSi8", :name => "google-site-verification"}/
+    
+    = favicon_link_tag "favicon.png"
+    %title= content_for?(:title) ? "Sky Patrol Life | #{yield(:title)}" : "Sky Patrol Life"
 
     = csrf_meta_tags
     = csp_meta_tag
-
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    
   %body
-    = render 'layouts/header'
-    = render 'shared/flash_messages'
-    = yield
+    #wrap{class: "#{'sites_home' unless user_signed_in? || @no_background}"}
+      = render 'layouts/top_bar'
+
+      #main
+        = render 'notifications/flash_messages'
+        = yield
+
     = render 'layouts/footer'
-    = debug(params) if Rails.env.development?

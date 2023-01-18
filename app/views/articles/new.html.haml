@@ -1,0 +1,7 @@
+- provide :title, 'News Letter - New article'
+.row
+  .col-12
+    %h1 New Article
+    = render 'articles/form'
+    = link_to news_letters_path do
+      = fa_icon 'hand-point-left', text: 'Back' 

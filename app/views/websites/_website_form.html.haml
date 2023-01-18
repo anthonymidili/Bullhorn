@@ -1,0 +1,10 @@
+.row
+  .col-12
+    %label Websites
+    #website
+      = f.fields_for :websites do |website|
+        = render 'websites/website_fields', f: website
+      .links
+        = link_to_add_association 'Add website', f, :websites,
+        partial: 'websites/website_fields', class: 'btn btn-secondary btn-sm'
+    %br/

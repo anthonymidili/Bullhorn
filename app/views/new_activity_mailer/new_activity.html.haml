@@ -1,0 +1,12 @@
+%h1
+  New #{@notifiable.class.name} - #{@from_user.full_name}
+%p
+  Dear #{@to_user.first_name},
+%p
+  Just thought you might like to know,
+  #{@from_user.full_name} has made a New #{@notifiable.class.name}.
+%p
+  = link_to 'Go check it out', path_to_notifiable(@notifiable)
+%p
+  .center{style: "text-align: center;"}
+    = image_tag attachments['Crest.png'].url, width: '200'

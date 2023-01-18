@@ -1,0 +1,10 @@
+- provide :title, 'New President'
+
+.row
+  .col-12
+    %h1 New president
+
+    = render 'form'
+
+    = link_to history_path(anchor: 'past_presidents') do
+      = fa_icon 'hand-point-left', text: 'Back'

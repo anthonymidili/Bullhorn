@@ -1,18 +1,20 @@
-- provide(:title, @user.name)
+- provide :title, 'My Profile'
 .row
-  %aside.medium-4.columns
-    %section
-      %h4
-        = avatar_for(@user, 150)
-        = @user.name
-      %span= link_to 'Photos', user_photos_path(@user)
-    %section= render 'users/stats'
+  .col-12.col-md-4
+    .profile_head
+      .links-end
+        - if correct_user?(@user)
+          = link_to edit_user_path(@user) do
+            = fa_icon 'edit', text: 'Edit Profile'
+          %br/
+        = link_to photos_user_path(@user) do
+          = fa_icon 'images', text: 'My Photos'
+      = render 'users/avatar_info', user: @user
+    = render 'users/profile_info', user: @user
 
-  .medium-8.columns
-    = render 'follow_form', user: @user if signed_in?
-    - if @user.microposts.any?
-      %h3
-        Microposts (#{@user.microposts.count})
-      %ul.microposts
-        = render @microposts
-      = will_paginate @microposts
+  .col-12.col-md-8
+    %h2 My Posts
+    %hr/
+    .posts
+      = render @posts
+    = paginate @posts

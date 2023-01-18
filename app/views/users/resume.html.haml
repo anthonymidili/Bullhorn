@@ -1,0 +1,32 @@
+- provide :title, 'Resume'
+.row.center-content
+  .col-12.col-md-8
+    %p= render 'resumes/header', resume: @user.resume
+    %p
+      %b Email:
+      = @user.email
+
+    %p
+      %b Job type interested in:
+      #{selected_status(@user.resume.status)},
+      #{selected_classification(@user.resume.classification)}
+
+    - if @user.resume.file.attached?
+      %p
+        %small Resume Preview (click to download)
+        = display_file(@user.resume.file)
+
+    %ul.menu
+      - if correct_user?(@user)
+        %li
+          = link_to edit_resume_path(@user.resume) do
+            = fa_icon 'edit', text: 'Edit'
+        %li
+          = link_to @user.resume,
+          data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
+          class: 'delete_link', title: 'Delete' do
+            = fa_icon 'trash'
+            Remove Resume
+      %li
+        = link_to resumes_path do
+          = fa_icon 'hand-point-left', text: 'Back'

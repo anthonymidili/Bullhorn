@@ -1,0 +1,14 @@
+- provide :title, 'Edit event'
+.row.center-content
+  .col-12.col-md-8
+    %h1 Editing event
+
+    = render 'form'
+
+    %ul.menu
+      %li
+        = link_to @event, title: 'Back' do
+          = fa_icon 'hand-point-left', text: 'Back'
+      %li
+        = link_to events_path, title: 'Events' do
+          = fa_icon 'calendar', text: 'View events', type: :regular

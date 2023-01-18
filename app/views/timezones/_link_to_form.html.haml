@@ -1,0 +1,5 @@
+.center
+  = link_to edit_timezones_path(return_to: return_to),
+  class: 'btn btn-warning' do
+    Your Timezone is
+    = current_user.timezone

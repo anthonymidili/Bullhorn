@@ -1,0 +1,11 @@
+.links.mb-3
+  = link_to events_path, class: 'btn btn-primary secondary' do
+    = fa_icon 'list', text: 'List view'
+  = link_to 'Create a New Event', new_event_path, class: 'btn btn-primary'
+
+= month_calendar attribute: :start_date,
+end_attribute: :end_date, events: @events do |date, events|
+  = date.day # display date on calendar
+
+  - events.each do |event|
+    = link_to event.name, event

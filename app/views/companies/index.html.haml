@@ -1,0 +1,18 @@
+- provide :title, 'Companies'
+
+.row.center-content
+  .col-12.col-md-8
+    %h1 Select company listings
+    = link_to 'New Company', new_company_path, class: 'btn btn-primary'
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Industry
+          %th Has Listings
+      %tbody
+        - @companies.each do |company|
+          %tr
+            %td= link_to company.name, company
+            %td= company.industry.name
+            %td= company.has_listings?

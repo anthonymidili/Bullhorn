@@ -1,0 +1,13 @@
+- provide :title, 'Event'
+.row.center-content
+  .col-12.col-md-8
+    .links.mb-3
+      = link_to events_path, class: 'btn btn-secondary' do
+        = fa_icon 'list', text: 'Events - List view'
+      = link_to calendar_events_path, class: 'btn btn-secondary' do
+        = fa_icon 'calendar', text: 'Events - Calendar view', type: :regular
+    = render @event
+    #responders= render 'events/responders', event: @event
+    = render 'comments/box', commentable: @event, comment: (@comment ||= nil)
+    .mb-3
+    #new_comment= render 'comments/form', commentable: @event, comment: @comment

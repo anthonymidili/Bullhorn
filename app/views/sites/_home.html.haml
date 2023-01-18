@@ -1,0 +1,12 @@
+.row
+  .col-12.col-md-6.col-lg-4
+    .center
+      = image_tag 'Full_Crest.svg'
+      %h3
+        %br/
+        = link_to 'LaSalle University', 'http://www.lasalle.edu', target: '_blank'
+  .col-12.col-md-6.col-lg-8
+    = link_to 'Log in', user_session_path
+    or
+    = link_to 'Sign up', new_user_registration_path
+    to get started

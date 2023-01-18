@@ -1,0 +1,18 @@
+- provide :title, 'Events'
+.row.center-content
+  .col-12.col-md-8
+    %p= render 'timezones/link_to_form', return_to: events_path
+    .links.mb-3
+      = link_to calendar_events_path, class: 'btn btn-secondary' do
+        = fa_icon 'calendar', text: 'Calendar view', type: :regular
+      = link_to 'Create a New Event', new_event_path, class: 'btn btn-primary'
+
+    %h1#upcoming_events Upcoming events
+    - if @future_events.present?
+      = render @future_events
+    - else
+      %h4 No Upcoming Events...
+
+    %h3#past_events Past events
+    = render @past_events
+    = paginate @past_events

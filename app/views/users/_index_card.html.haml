@@ -1,0 +1,3 @@
+.index-card.callout
+  = render 'users/avatar_info', user: user
+  = render admin_form(user), user: user unless @link_to_user

@@ -1,0 +1,3 @@
+- if commentable.comments.exists?
+  .comments_box
+    = render commentable.comments.without_current_comment(comment)

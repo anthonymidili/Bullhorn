@@ -1,0 +1,11 @@
+.past_president
+  - if past_president.avatar.attached?
+    = image_tag thumb_image(past_president.avatar)
+  - else
+    = fa_icon 'user-tie'
+.row
+  .col-12
+    %b= past_president.full_name
+    %br/
+    = past_president.term_started_at.strftime('%Y -')
+    = past_president.term_ended_at.strftime('%Y') if past_president.term_ended_at

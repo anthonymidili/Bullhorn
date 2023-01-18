@@ -1,13 +1,15 @@
-- provide(:title, 'Forgot password')
-
-.row
-  .medium-6.columns.medium-offset-3
-    %h1 Forgot your password?
-    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-      = render 'shared/error_messages', object: f.object
-
-      = f.label :email
-      = f.email_field :email, autofocus: true, placeholder: 'Email'
-
-      = f.submit 'Send me reset password instructions', class: 'button'
-    = render 'devise/shared/links'
+- provide :title, 'Forgot password'
+.row.center-content
+  .col-12.col-md-8
+    %h2 Forgot your password?
+    = form_with model: resource, as: resource_name,
+    url: password_path(resource_name), html: { method: :post }, local: true, 
+    data: { turbo: false } do |f|
+      = render 'notifications/error_messages', object: f.object
+      .field.mb-3
+        = f.label :email, class: "form-label"
+        = f.email_field :email, autofocus: true, autocomplete: "email",
+        class: "form-control"
+      .actions.mb-3
+        = f.submit "Send me reset password instructions", class: 'btn btn-primary'
+    .mb-3= render "devise/shared/links"

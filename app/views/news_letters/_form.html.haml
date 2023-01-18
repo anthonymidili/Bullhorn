@@ -1,0 +1,12 @@
+= form_with model: @news_letter, local: true do |f|
+  = render 'notifications/error_messages', object: f.object
+
+  .row
+    .col-12.col-md-4.col-lg-2
+      = f.label :issue_number
+      = f.number_field :issue_number
+    .col-12.col-md-8.col-lg-10
+      = f.label :issued_on
+      = f.date_select :issued_on
+  .actions
+    = f.submit class: 'btn btn-primary'

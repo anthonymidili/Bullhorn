@@ -1,0 +1,34 @@
+= form_with model: @event, data: { turbo: false } do |f|
+  = render 'notifications/error_messages', object: f.object
+
+  .row
+    .col-12.col-lg-6
+      .field.mb-3
+        = f.label :image, class: "form-label"
+        = f.hidden_field :image, value: f.object.image.signed_id if f.object.image.attached?
+        = f.file_field :image, direct_upload: true, class: "form-control"
+    .col-12.col-lg-6
+      - if f.object.image.attached?
+        .mb-3
+          = image_tag medium_image(f.object.image)
+          = link_to 'Remove image', remove_image_event_path(f.object) if f.object.persisted?
+  .field.mb-3
+    = f.label :name, class: "form-label"
+    = f.text_field :name, class: "form-control"
+  = render 'address/fields', f: f,
+  location_examples: 'Examples - Home, Business, Plaza'
+  .field.mb-3
+    = f.label :description, class: "form-label"
+    = f.text_area :description, rows: 3, class: "form-control"
+  .field.mb-3
+    = f.label :start_date, class: "form-label"
+    = f.datetime_select :start_date, ampm: true, minute_step: 5, class: "form-control"
+  .field.mb-3
+    = f.label :end_date, class: "form-label"
+    = f.datetime_select :end_date, ampm: true, minute_step: 5, class: "form-control"
+  .field.mb-3
+    = f.label :timezone, 'Event timezone', class: "form-label"
+    = f.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones,
+    default: current_user.timezone, class: "form-control"
+  .actions.mb-3
+    = f.submit class: 'btn btn-primary'

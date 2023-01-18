@@ -1,49 +1,42 @@
-- provide(:title, 'Edit user')
-
-.row
-  .medium-6.columns.medium-offset-3
-    %h1 Update your Account
-
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      = render 'shared/error_messages', object: f.object
-
-      .callout
-        %h4 Change Name/Email
-        = f.label :name
-        = f.text_field :name, placeholder: 'Name or Handle'
-
-        = f.label :email
-        = f.email_field :email, placeholder: 'Email'
-
-      .callout
-        %h4 Change Password
-        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-          %div
-            Currently waiting confirmation for: #{resource.unconfirmed_email}
-
-        = f.label :password, 'New password'
-        = f.password_field :password, autocomplete: 'off', placeholder: 'New password'
+- provide :title, 'Edit user'
+.row.center-content
+  .col-12.col-md-8
+    %h2
+      Edit #{resource_name.to_s.humanize}
+    = form_with model: resource, as: resource_name,
+    url: registration_path(resource_name), html: { method: :put }, local: true, 
+    data: { turbo: false } do |f|
+      = render 'notifications/error_messages', object: f.object
+      .field.mb-3
+        = f.label :email, class: "form-label"
+        = f.email_field :email, autofocus: true, autocomplete: "email",
+        class: "form-control"
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .field.mb-3
+        = f.label :password, 'New password', class: "form-label"
+        %i (leave blank if you don't want to change it)
+        = f.password_field :password, autocomplete: "off", class: "form-control"
         - if @minimum_password_length
-          %label
-            %em
-              = @minimum_password_length
-              characters minimum
-
-        = f.label :password_confirmation
-        = f.password_field :password_confirmation, autocomplete: 'off'
-
-      .callout
-        %h4 Confirm your current password to save
-
-        = f.label :current_password
-        = f.password_field :current_password, autocomplete: 'off'
-
-        = f.button 'Save changes', class: 'button large'
-
-    .callout.secondary
-      Unhappy? Sorry to hear that.
-      = link_to 'Cancel your account', registration_path(resource_name),
-      data: { confirm: 'Are you sure?' }, method: :delete,
-      class: 'button alert small'
-
-    = link_to 'Back', :back
+          %em
+            = @minimum_password_length
+            characters minimum
+      .field.mb-3
+        = f.label :password_confirmation, 'New password confimation',
+        class: "form-label"
+        = f.password_field :password_confirmation, autocomplete: "off",
+        class: "form-control"
+      .field.mb-3
+        = f.label :current_password, class: "form-label"
+        %i (we need your current password to confirm your changes)
+        = f.password_field :current_password, autocomplete: "off",
+        class: "form-control"
+      .actions.mb-3
+        = f.submit "Update", class: 'btn btn-primary'
+    %h3 Cancel my account
+    %p
+      Unhappy?
+      = link_to "Cancel my account", registration_path(resource_name),
+      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+    .mb-3= link_to "Back", :back

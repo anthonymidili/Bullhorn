@@ -1,0 +1,13 @@
+#search-box
+  .row.center-content
+    .col-12.col-md-8
+      = form_with url: job_listings_path, method: :get, local: true do
+        .ui-widget
+          .input-group
+            %span.input-group-label
+              = fa_icon 'search'
+            = text_field_tag :search, params[:search], id: 'search_submit',
+            class: 'input-group-field',
+            data: { autocomplete_source: search_job_listings_path }
+            .input-group-button
+              = submit_tag 'Search Job Listings', name: nil, class: 'btn btn-primary'

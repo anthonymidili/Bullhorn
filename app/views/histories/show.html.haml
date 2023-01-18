@@ -1,0 +1,39 @@
+- provide :title, 'History'
+
+.row
+  .col-12
+    %h1 History
+.row
+  .col-12.col-md-3
+    %div#example-tabs.d-flex.flex-column
+      .mb-2= link_to 'About the Fraternity', '#about'
+      .mb-2= link_to 'Photo Album', '#photo_album'
+      .mb-3= link_to 'Past Presidents', '#past_presidents'
+  .col-12.col-md-9
+    .tabs-content{data: {tabs_content: "example-tabs"}}
+      #about.tabs-panel.is-active
+        - if current_user.is_admin
+          .mb-3= link_to 'Edit history content', edit_history_path, class: 'btn btn-primary'
+        %h1 About the Fraternity
+        = simple_format(@history.content)
+      #photo_album.tabs-panel
+        - if current_user.is_admin
+          .mb-3= link_to 'Edit history content', edit_history_path, class: 'btn btn-primary'
+        %h1 Fraternity Photo Album
+        - if @history.images.attached?
+          .row.mb-3
+            - @history.images.each do |image|
+              .col-12.col-md-6.col-lg-4
+                = image_tag medium_image(image),
+                class: 'thumbnail size-250 p-3'
+      #past_presidents.tabs-panel
+        - if current_user.is_admin
+          .mb-3= link_to 'New Past president', new_past_president_path, class: 'btn btn-primary'
+        %h1 Past Presidents
+        .row{data: {equalizer: true, equalize_by_row: "true"}}
+          - @past_presidents.each do |past_president|
+            .col-12.col-md-6
+              = link_to past_president do
+                .callout{data: {equalizer_watch: true}}
+                  .center
+                    = render past_president

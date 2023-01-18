@@ -1,0 +1,29 @@
+= f.fields_for :address do |f_address|
+  .row
+    .col-12.col-md-6
+      .mb-3
+        = f_address.label :location, 'Location', class: "form-label"
+        = f_address.text_field :location, placeholder: location_examples, 
+        class: "form-control"
+  .row
+    .col-12.col-md-6
+      .mb-3
+        = f_address.label :street_1, class: "form-label"
+        = f_address.text_field :street_1, class: "form-control"
+    .col-12.col-md-6
+      .mb-3
+        = f_address.label :street_2, class: "form-label"
+        = f_address.text_field :street_2, class: "form-control"
+  .row
+    .col-12.col-md-6
+      .mb-3
+        = f_address.label :city, class: "form-label"
+        = f_address.text_field :city, class: "form-control"
+    .col-6.col-md-3
+      .mb-3
+        = f_address.label :state, class: "form-label"
+        = f_address.text_field :state, class: "form-control"
+    .col-6.col-md-3
+      .mb-3
+        = f_address.label :zip, class: "form-label"
+        = f_address.text_field :zip, class: "form-control"

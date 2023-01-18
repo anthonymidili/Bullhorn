@@ -1,0 +1,41 @@
+.profile_info
+  - if user.profile.try(:bio).present?
+    .info
+      %b Bio:
+      = simple_format(user.profile.bio)
+  - if user.profile.try(:workplace).present?
+    .info
+      %b Workplace:
+      = user.profile.workplace
+  - if user.profile.try(:position).present?
+    .info
+      %b Position:
+      = user.profile.position
+  - if user.profile.try(:birthday).present?
+    .info
+      %b Birthday:
+      = user.profile.birthday.strftime('%B %d, %Y')
+  - unless user.profile.try(:show_email) == false
+    .info
+      %b Email:
+      = user.email
+  - if user.phones.any?
+    .info
+      %b #{'Phone'.pluralize(user.phones.count)}:
+      = render user.phones
+  - if user.addresses.any?
+    .info
+      %b #{'Address'.pluralize(user.addresses.count)}:
+      = user.addresses.list
+  - if user.websites.any?
+    .info
+      %b #{'Website'.pluralize(user.websites.count)}:
+      = user.websites.list_links
+  - if user.brothers.by_big.any?
+    .info
+      %b #{'Big Brother'.pluralize(user.brothers.by_big.count)}:
+      = user.brothers.by_big.list_names
+  - if user.brothers.by_little.any?
+    .info
+      %b #{'Little Brother'.pluralize(user.brothers.by_little.count)}:
+      = user.brothers.by_little.list_names

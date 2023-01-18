@@ -8,25 +8,31 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@rails/actioncable": "^6.0.3-1",
-    "@rails/activestorage": "^6.0.3-1",
-    "@rails/ujs": "^6.0.3-1",
-    "@rails/webpacker": "5.1.1",
-    "coffee-loader": "^1.0.0",
-    "coffeescript": "^2.0.0",
-    "foundation-sites": "^6.6.3",
-    "jquery": "^3.5.1",
-    "turbolinks": "^5.2.0",
-    "webpack": "^4.43.0",
-    "webpack-jquery-ui": "^2.0.1",
-    "what-input": "^5.2.9"
-  },
-  "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "@hotwired/stimulus": "^3.2.1",
+    "@hotwired/turbo-rails": "^7.2.4",
+    "@popperjs/core": "^2.11.6",
+    "@rails/actioncable": "^7.0.4",
+    "@rails/activestorage": "^7.0.4",
+    "autoprefixer": "^10.4.13",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "cocoon-js": "^0.0.5",
+    "coffeescript": "^2.7.0",
+    "esbuild": "^0.16.12",
+    "jquery": "^3.4.1",
+    "math": "^0.0.3",
+    "postcss": "^8.4.20",
+    "sass": "^1.57.1",
+    "what-input": "^5.2.6"
   },
   "engines": {
     "yarn": "1.22.x",
-    "node": "12.x",
-    "npm": "6.x"
+    "node": "18.x",
+    "npm": "7.x"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   }
 }

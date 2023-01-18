@@ -1,0 +1,11 @@
+- provide :title, 'New job listings'
+
+.row.center-content
+  .col-12.col-md-8.col-12
+    %h1= @job_listing.company.name
+    %h3 New job listing
+
+    = render 'form'
+
+    = link_to @job_listing.company, title: 'Back' do
+      = fa_icon 'hand-point-left', text: 'Back'

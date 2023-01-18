@@ -1,0 +1,10 @@
+.row
+  .col-12
+    %label Brothers
+    #brothers
+      = f.fields_for :brothers do |brother|
+        = render 'brothers/brother_fields', f: brother
+      .links
+        = link_to_add_association 'Add brother', f, :brothers,
+        partial: 'brothers/brother_fields', class: 'btn btn-secondary btn-sm'
+    %br/

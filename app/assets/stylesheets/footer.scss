@@ -1,0 +1,31 @@
+$footer-size: 183px;
+
+html, body {height: 100%;}
+
+#wrap {min-height: 100%;}
+
+#main {
+  padding-bottom: $footer-size; /* must be same height as the footer */
+  @extend .container-xl;
+}
+
+footer {
+  position: relative;
+  margin-top: -$footer-size; /* negative value of footer height */
+  min-height: $footer-size; /* footer size */
+
+  #style_footer {
+    min-height: $footer-size; /* Remove white space under footer */
+    border-style: solid;
+    border-width: 1px;
+    border-color: #33312e;
+    padding: 1.25rem;
+    background: #3e3d3a;
+    color: #cccccc;
+
+    h5 {color: #2ba6cb;}
+
+    a {color: #cccccc;}
+    a:hover {color: #f6f6f6;}
+  }
+}

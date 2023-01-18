@@ -1,8 +1,9 @@
-- provide(:title, 'Find users')
+- provide :title, 'Roster'
+= render 'users/search_box'
 .row
-  .small-12.columns
-    %h1 Find users to follow
-    = will_paginate
-    %ul.users
-      = render @users
-    = will_paginate
+  .col-12
+    %h1 Members Roster
+    %p
+      = @users.count
+      members
+    = render 'users/badge', users: @users

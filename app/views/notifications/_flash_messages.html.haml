@@ -1,0 +1,14 @@
+.hide_on_print
+  - if flash[:alert]
+    .row
+      .col-12
+        .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
+          = sanitize(flash[:alert])
+          %button.btn-close{aria: {label: 'Close'}, data: {bs_dismiss: "alert"}}
+
+  - if flash[:notice]
+    .row
+      .col-12
+        .alert.alert-primary.alert-dismissible.fade.show{role: "alert"}
+          = sanitize(flash[:notice])
+          %button.btn-close{aria: {label: 'Close'}, data: {bs_dismiss: "alert"}}

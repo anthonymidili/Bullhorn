@@ -1,0 +1,22 @@
+- provide :title, 'Job listing'
+
+.row.center-content
+  .col-12.col-md-8
+    = render @job_listing
+
+    %ul.menu
+      - if correct_user?(@job_listing.user)
+        %li
+          = link_to edit_job_listing_path(@job_listing, company_id: @job_listing.company.id),
+          title: 'Edit job listing' do
+            = fa_icon 'edit', text: 'Edit'
+        %li
+          = link_to @job_listing.company, title: 'Back' do
+            = fa_icon 'hand-point-left', text: 'Your listings'
+        %li
+          = link_to job_listings_path, title: 'Job listings' do
+            = fa_icon 'building', text: 'All job listings'
+      - else
+        %li
+          = link_to job_listings_path, title: 'Back' do
+            = fa_icon 'hand-point-left', text: 'Back'

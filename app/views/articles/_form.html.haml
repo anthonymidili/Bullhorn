@@ -1,0 +1,24 @@
+= form_with model: [@news_letter, @article], local: true do |f|
+  = render 'notifications/error_messages', object: f.object
+
+  .row.center-content
+    .col-12.col-md-6
+      .field
+        = f.label :title
+        = f.text_field :title
+  .row
+    .col-12.col-md-3
+      .field
+        - if f.object.image.attached?
+          .photo
+            .content
+              = image_tag medium_image(f.object.image)
+        = f.label :image
+        = f.hidden_field :image, value: f.object.image.signed_id if f.object.image.attached?
+        = f.file_field :image, direct_upload: true
+    .col-12.col-md-9
+      .field
+        = f.label :content
+        = f.text_area :content, rows: '5'
+  .actions
+    = f.submit class: 'btn btn-primary'

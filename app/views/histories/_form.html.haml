@@ -1,0 +1,19 @@
+= form_with model: @history, data: { turbo: false } do |f|
+  = render 'notifications/error_messages', object: f.object
+  %h3 About the Fraternity
+  .field.mb-3
+    = f.label :content, class: "form-label"
+    = f.text_area :content, rows: '5', class: "form-control"
+  %hr/
+  %h3 Fraternity Photo Album
+  .field.mb-3
+    = f.label :images, 'Images (upload only a few at a time)',
+    class: "form-label"
+    - if f.object.images.attached?
+      - f.object.images.uniq.each do |image|
+        = f.hidden_field :images, multiple: true, value: image.signed_id,
+        class: "mb-3"
+    = f.file_field :images, multiple: true, direct_upload: true,
+    class: "form-control"
+  .actions.mb-3
+    = f.submit class: 'btn btn-primary'

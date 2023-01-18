@@ -1,0 +1,5 @@
+%div{id: "publish_form_#{news_letter.id}"}
+  - if news_letter.published
+    = render 'news_letters/un_publish', news_letter: news_letter
+  - else
+    = render 'news_letters/publish', news_letter: news_letter

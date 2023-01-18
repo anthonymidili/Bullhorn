@@ -1,0 +1,23 @@
+.row
+  .col-12
+    %h1 Listing Additional Recipients
+
+    %ul.menu
+      %li= link_to 'New Additional recipient', new_additional_recipient_path
+      %li= link_to 'Back to Newsletters', news_letters_path
+
+    %table
+      %thead
+        %tr
+          %th Email
+          %th
+          %th
+
+      %tbody
+        - @additional_recipients.each do |additional_recipient|
+          %tr
+            %td= additional_recipient.email
+            %td= link_to 'Edit', edit_additional_recipient_path(additional_recipient)
+            %td
+              = link_to 'Destroy', additional_recipient, 
+              data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }
