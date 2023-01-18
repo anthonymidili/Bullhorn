@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       patch :add_admin
       patch :remove_admin
       get :photos
-      get :resume
     end
     collection do
       get :search
@@ -62,8 +61,6 @@ Rails.application.routes.draw do
   end
 
   resources :additional_recipients, except: [:show]
-
-  resources :resumes, except: [:show]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

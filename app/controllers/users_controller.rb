@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!, only: [:destroy, :admins, :add_admin, :remove_admin]
   before_action :set_user,
-  only: [:show, :edit, :update, :destroy, :remove_avatar, :add_admin, :remove_admin, :photos, :resume]
+  only: [:show, :edit, :update, :destroy, :remove_avatar, :add_admin, :remove_admin, :photos]
   before_action :deny_access!, only: [:edit, :update, :remove_avatar],
   unless: -> { correct_user?(@user) }
 

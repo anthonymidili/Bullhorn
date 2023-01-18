@@ -31,7 +31,6 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
   has_many :comments, foreign_key: 'created_by_id', dependent: :destroy
 
-  has_one :resume, dependent: :destroy
   has_one_attached :avatar
 
   validates :first_name, presence: true

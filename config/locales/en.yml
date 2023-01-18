@@ -38,5 +38,3 @@ en:
         comp_industry: 'Industry'
       post:
         images: 'Add images'
-      resume:
-        file: "Resume file (PDFs preferred)"

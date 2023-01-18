@@ -14,12 +14,4 @@ module UsersHelper
       'users/add_admin'
     end
   end
-
-  def link_to_user_resume(resume)
-    if resume
-      link_to 'Edit your Resume', edit_resume_path(resume), class: 'btn btn-primary'
-    else
-      link_to 'Post your Resume', new_resume_path, class: 'btn btn-primary'
-    end
-  end
 end
