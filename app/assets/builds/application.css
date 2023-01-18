@@ -19082,14 +19082,6 @@ nav .nav-items-right a::after {
   background-color: #fefefe;
 }
 
-.job_listing img {
-  height: 60px;
-}
-
-.company_logo img {
-  height: 100px;
-}
-
 .comments {
   padding: 10px 0 10px 30px;
   border-top: 1px solid #c6c9cb;

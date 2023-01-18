@@ -10,8 +10,6 @@ module NotificationsHelper
       post_url(notifiable, anchor: anchor)
     when 'Event'
       event_url(notifiable, anchor: anchor)
-    when 'JobListing'
-      job_listing_url(notifiable, anchor: anchor)
     when 'Comment'
       path_to_notifiable(notifiable.commentable, "comment_#{notifiable.id}")
     end

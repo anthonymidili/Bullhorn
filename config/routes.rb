@@ -41,12 +41,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :job_listings do
-    collection do
-      get :search
-    end
-  end
-
   resource :notifications, only: [:show, :edit, :update], path_names: { edit: 'settings' } do
     patch :mark_all_as_read
   end

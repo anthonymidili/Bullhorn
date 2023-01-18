@@ -72,23 +72,3 @@
                 .col-12
                   .callout
                     = simple_format(event.description)
-
-  - if @job_listings.any?
-    .row
-      .col-12
-        %h3#job_listing Job Listings
-    .row
-      - @job_listings.each do |job_listing|
-        .col-12.column-block
-          = link_to job_listing do
-            .callout
-              .job_listing
-                %h3
-                  = job_listing.title
-                  %small at
-                %h5
-                  - if job_listing.company.logo.attached?
-                    = image_tag medium_image(job_listing.company.logo)
-                  = job_listing.company.name
-              - if job_listing.company.address
-                .company_address= job_listing.company.address.city_state_zip

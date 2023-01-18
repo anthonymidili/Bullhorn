@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = current_user.companies.includes([:industry, :job_listings])
+    @companies = current_user.companies
   end
 
   # GET /companies/1
@@ -33,7 +33,7 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       if @company.save
         session[:current_company_id] = @company.id
-        format.html { redirect_to new_job_listing_path, notice: 'Company was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
       else
         format.html { render :new }

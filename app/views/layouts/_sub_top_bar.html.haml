@@ -11,11 +11,6 @@
             - if Event.in_the_future.any?
               %span.count= Event.in_the_future.count
         %li.nav-item
-          = link_to job_listings_path, title: 'Job Listings', class: "nav-link" do
-            = fa_icon 'building', text: 'Job Listings'
-            - if JobListing.by_currently_listed.any?
-              %span.count= JobListing.by_currently_listed.count
-        %li.nav-item
           = link_to resumes_path, title: 'Resumes', class: "nav-link" do
             = fa_icon 'file-alt', text: 'Resumes'
             - if Resume.by_currently_listed.any?

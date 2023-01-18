@@ -78,8 +78,6 @@ private
       'added a new post'
     when 'Event'
       'created a new event'
-    when 'JobListing'
-      'listed a new job'
     when 'Comment'
       commentable_class_name = notifiable.commentable.class.name.downcase
       "commented on

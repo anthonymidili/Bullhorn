@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_01_170102) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_18_130021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -135,25 +135,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_01_170102) do
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
-  create_table "job_listings", force: :cascade do |t|
-    t.string "title"
-    t.string "classification"
-    t.string "status"
-    t.decimal "comp_min", precision: 9, scale: 2
-    t.decimal "comp_max", precision: 9, scale: 2
-    t.string "comp_per"
-    t.text "description"
-    t.string "apply_email"
-    t.boolean "is_listed", default: true
-    t.bigint "user_id", null: false
-    t.bigint "company_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.date "duration_ends_at", null: false
-    t.index ["company_id"], name: "index_job_listings_on_company_id"
-    t.index ["user_id"], name: "index_job_listings_on_user_id"
-  end
-
   create_table "news_letters", force: :cascade do |t|
     t.integer "issue_number"
     t.date "issued_on"
@@ -225,7 +206,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_01_170102) do
     t.bigint "user_id", null: false
     t.boolean "for_new_posts", default: true
     t.boolean "for_new_events", default: true
-    t.boolean "for_new_job_listings", default: true
     t.boolean "for_new_comments", default: true
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -286,8 +266,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_01_170102) do
   add_foreign_key "events", "users"
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "users"
-  add_foreign_key "job_listings", "companies"
-  add_foreign_key "job_listings", "users"
   add_foreign_key "notifications", "users", column: "notifier_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "posts", "users"

@@ -19,8 +19,6 @@ class NewsLettersController < ApplicationController
   def show
     @future_events = Event.in_the_future.with_attached_image.
     includes([:address, user: [avatar_attachment: :blob]])
-    @job_listings = JobListing.by_currently_listed.
-    includes(company: [:address, logo_attachment: :blob])
   end
 
   # GET /news_letters/1/edit
