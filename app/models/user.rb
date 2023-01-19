@@ -26,7 +26,6 @@ class User < ApplicationRecord
   has_many :invitations, dependent: :destroy
   has_many :events, through: :invitations
   has_many :events, dependent: :destroy
-  has_many :companies, dependent: :destroy
   has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
   has_many :comments, foreign_key: 'created_by_id', dependent: :destroy
 

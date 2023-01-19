@@ -34,7 +34,5 @@ en:
     attributes:
       comment:
         body: 'Compose a comment'
-      company:
-        comp_industry: 'Industry'
       post:
         images: 'Add images'

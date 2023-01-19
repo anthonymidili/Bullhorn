@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :set_timezone
   include UsersHelper
   include CommentsHelper
-  include CompaniesHelper
   include NotificationsHelper
 
   def set_timezone

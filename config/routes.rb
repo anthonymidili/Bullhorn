@@ -31,24 +31,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :companies, param: :company_id do
-    collection do
-      get :search, as: :search_industries
-    end
-    member do
-      get :remove_logo
-    end
-  end
-
   resource :notifications, only: [:show, :edit, :update], path_names: { edit: 'settings' } do
     patch :mark_all_as_read
   end
-
-  resource :history, only: [:show, :edit, :update] do
-    get 'remove_image/:image_id', as: :remove_image, to: 'histories#remove_image'
-  end
-
-  resources :past_presidents, except: [:index]
 
   resource :timezones, only: [:edit, :update]
 

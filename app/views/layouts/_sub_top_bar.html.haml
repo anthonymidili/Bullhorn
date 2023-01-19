@@ -11,9 +11,6 @@
             - if Event.in_the_future.any?
               %span.count= Event.in_the_future.count
         %li.nav-item
-          = link_to history_path, title: 'History', class: "nav-link" do
-            = fa_icon 'book', text: 'History'
-        %li.nav-item
           = link_to notifications_path, title: 'Notifications', class: "nav-link" do
             = fa_icon 'bell'
             %span#recent_unread_count.count= current_user.notifications.recent_unread_count

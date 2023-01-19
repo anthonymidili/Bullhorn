@@ -19192,27 +19192,6 @@ ul.ui-autocomplete li .ui-menu-item-wrapper.ui-state-active {
   padding-right: 25px;
 }
 
-.news_letter .header {
-  border: 4px solid #13395f;
-  background: linear-gradient(35deg, #ffcc00 60%, #246cb4);
-}
-.news_letter .article {
-  height: 10rem;
-  overflow-y: hidden;
-}
-
-img.article_thumb {
-  margin-right: 10px;
-  max-height: 100px;
-  max-width: 100px;
-}
-
-img.article {
-  margin-right: 10px;
-  max-height: 350px;
-  width: auto;
-}
-
 html, body {
   height: 100%;
 }
