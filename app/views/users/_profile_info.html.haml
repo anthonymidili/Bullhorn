@@ -31,11 +31,3 @@
     .info
       %b #{'Website'.pluralize(user.websites.count)}:
       = user.websites.list_links
-  - if user.brothers.by_big.any?
-    .info
-      %b #{'Big Brother'.pluralize(user.brothers.by_big.count)}:
-      = user.brothers.by_big.list_names
-  - if user.brothers.by_little.any?
-    .info
-      %b #{'Little Brother'.pluralize(user.brothers.by_little.count)}:
-      = user.brothers.by_little.list_names

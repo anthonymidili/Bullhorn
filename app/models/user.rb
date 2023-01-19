@@ -15,9 +15,6 @@ class User < ApplicationRecord
   has_many :addresses, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :addresses, reject_if: :all_blank, allow_destroy: true
 
-  has_many :brothers, dependent: :destroy
-  accepts_nested_attributes_for :brothers, reject_if: :all_blank, allow_destroy: true
-
   has_many :websites, dependent: :destroy
   accepts_nested_attributes_for :websites, reject_if: :all_blank, allow_destroy: true
 

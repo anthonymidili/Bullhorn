@@ -93,7 +93,6 @@ private
       phones_attributes: [:id, :number, :device, :extension, :_destroy],
       addresses_attributes: [:id, :street_1, :street_2, :city, :state, :zip,
       :location, :_destroy],
-      brothers_attributes: [:id, :relation, :name, :_destroy],
       websites_attributes: [:id, :name, :address, :_destroy])
   end
 end
