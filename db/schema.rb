@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_18_230410) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_19_000200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,12 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_230410) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "additional_recipients", force: :cascade do |t|
-    t.string "email"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
   create_table "addresses", force: :cascade do |t|
     t.string "street_1"
     t.string "street_2"
@@ -60,15 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_230410) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
-  end
-
-  create_table "articles", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.bigint "news_letter_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["news_letter_id"], name: "index_articles_on_news_letter_id"
   end
 
   create_table "brothers", force: :cascade do |t|
@@ -133,16 +118,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_230410) do
     t.index ["event_id"], name: "index_invitations_on_event_id"
     t.index ["user_id", "event_id"], name: "index_invitations_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_invitations_on_user_id"
-  end
-
-  create_table "news_letters", force: :cascade do |t|
-    t.integer "issue_number"
-    t.date "issued_on"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.boolean "published", default: false
-    t.boolean "is_sent", default: false
-    t.index ["issue_number"], name: "index_news_letters_on_issue_number", unique: true
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -248,7 +223,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_230410) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "articles", "news_letters"
   add_foreign_key "brothers", "users"
   add_foreign_key "companies", "industries"
   add_foreign_key "companies", "users"

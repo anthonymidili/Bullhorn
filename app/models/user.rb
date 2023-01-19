@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  after_commit :remove_additional_recipient, on: [:create, :update]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -55,13 +54,5 @@ class User < ApplicationRecord
 
   def full_name
     [first_name, last_name].join(' ')
-  end
-
-private
-
-  def remove_additional_recipient
-    if additional_recipient = AdditionalRecipient.find_by(email: email)
-      additional_recipient.destroy
-    end
   end
 end

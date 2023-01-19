@@ -17,14 +17,4 @@ class NewActivityMailer < ApplicationMailer
     mail to: @to_user.email,
     subject: "New Activity - #{@from_user.full_name} has made a New #{@notifiable.class.name}"
   end
-
-  def latest_news_letter(recipients_emails, news_letter)
-    @recipients_emails = recipients_emails
-    @news_letter = news_letter
-
-    attachments.inline['Crest.png'] = File.read("#{Rails.root}/app/javascript/images/Crest.png")
-
-    mail to: @recipients_emails,
-    subject: "Latest Newsletter issue: #{@news_letter.issue_number} is now available"
-  end
 end
