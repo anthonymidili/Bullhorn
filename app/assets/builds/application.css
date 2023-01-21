@@ -19002,14 +19002,6 @@ nav .nav-items-right a::after {
   padding-top: 0;
 }
 
-.past_president {
-  height: 250px;
-}
-.past_president svg {
-  margin-top: 10px;
-  font-size: 200px;
-}
-
 .no_avatar {
   display: inline-block;
   height: 42px !important;

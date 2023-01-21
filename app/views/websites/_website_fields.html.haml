@@ -1,11 +1,11 @@
 .nested-fields.callout
   .row
     .col-12.col-md-3
-      = f.label :name
-      = f.text_field :name
+      = f.label :name, class: "form-label"
+      = f.text_field :name, class: "form-control"
     .col-12.col-md-6
-      = f.label :address
-      = f.url_field :address
+      = f.label :address, class: "form-label"
+      = f.url_field :address, class: "form-control"
     .col-12.col-md-3
       .float-end.remove_link
         = link_to_remove_association 'Remove website', f,
