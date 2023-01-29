@@ -64,7 +64,7 @@
   var init_connection_monitor = __esm({
     "node_modules/@rails/actioncable/src/connection_monitor.js"() {
       init_logger();
-      now = () => new Date().getTime();
+      now = () => (/* @__PURE__ */ new Date()).getTime();
       secondsSince = (time) => (now() - time) / 1e3;
       ConnectionMonitor = class {
         constructor(connection) {
@@ -920,7 +920,7 @@
            * Date: 2022-12-19
            */
           function(window3) {
-            var i, support2, Expr, getText, isXML, tokenize2, compile, select, outermostContext, sortInput, hasDuplicate, setDocument, document3, docElem, documentIsHTML, rbuggyQSA, rbuggyMatches, matches, contains2, expando = "sizzle" + 1 * new Date(), preferredDoc = window3.document, dirruns = 0, done = 0, classCache = createCache(), tokenCache = createCache(), compilerCache = createCache(), nonnativeSelectorCache = createCache(), sortOrder = function(a, b) {
+            var i, support2, Expr, getText, isXML, tokenize2, compile, select, outermostContext, sortInput, hasDuplicate, setDocument, document3, docElem, documentIsHTML, rbuggyQSA, rbuggyMatches, matches, contains2, expando = "sizzle" + 1 * /* @__PURE__ */ new Date(), preferredDoc = window3.document, dirruns = 0, done = 0, classCache = createCache(), tokenCache = createCache(), compilerCache = createCache(), nonnativeSelectorCache = createCache(), sortOrder = function(a, b) {
               if (a === b) {
                 hasDuplicate = true;
               }
@@ -7063,7 +7063,7 @@
       var cocoon = function($2) {
         var cocoon_element_counter = 0;
         var create_new_id = function() {
-          return new Date().getTime() + cocoon_element_counter++;
+          return (/* @__PURE__ */ new Date()).getTime() + cocoon_element_counter++;
         };
         var newcontent_braced = function(id2) {
           return "[" + id2 + "]$1";
@@ -8986,7 +8986,7 @@
       }
     }
     recordTimingMetric(metric) {
-      this.timingMetrics[metric] = new Date().getTime();
+      this.timingMetrics[metric] = (/* @__PURE__ */ new Date()).getTime();
     }
     getTimingMetrics() {
       return Object.assign({}, this.timingMetrics);
@@ -11750,7 +11750,7 @@
       }
     }
   };
-  var now2 = () => new Date().getTime();
+  var now2 = () => (/* @__PURE__ */ new Date()).getTime();
   var secondsSince2 = (time) => (now2() - time) / 1e3;
   var ConnectionMonitor2 = class {
     constructor(connection) {
