@@ -1,0 +1,11 @@
+.row
+  .col-12
+    %label Addresses
+    #addresses
+      = f.fields_for :addresses do |address|
+        = render 'addresses/address_fields', f: address
+      .links
+        = link_to_add_association 'Add address', f,
+        :addresses, partial: 'addresses/address_fields',
+        class: 'btn btn-secondary btn-sm'
+    %br/

@@ -1,0 +1,10 @@
+.row
+  .col-12
+    %label Phone numbers
+    #phones
+      = f.fields_for :phones do |phone|
+        = render 'phones/phone_fields', f: phone
+      .links
+        = link_to_add_association 'Add number', f, :phones,
+        partial: 'phones/phone_fields', class: 'btn btn-secondary btn-sm'
+    %br/

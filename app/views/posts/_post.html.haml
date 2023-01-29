@@ -1,0 +1,21 @@
+- if post.persisted?
+  %div{id: "post_#{post.id}", class: 'post'}
+    - if correct_user?(post.user)
+      .links-end
+        = link_to edit_post_path(post), title: 'Edit' do
+          = fa_icon 'edit', text: 'Edit'
+        = link_to post, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
+        class: 'delete_link', title: 'Delete' do
+          = fa_icon 'trash'
+    = render 'users/post_user', user: post.user
+    .content= simple_format(post.body)
+    .content
+      - if post.images.attached?
+        - post.images.each do |image|
+          = image_tag medium_image(image), class: "p-2"
+    .timestamp
+      Posted #{time_ago_in_words(post.created_at)} ago
+    - unless controller_name == 'posts' && action_name == 'show'
+      .row
+        .col-12
+          = link_to comment_count(post), post

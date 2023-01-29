@@ -1,52 +1,83 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_commentable, only: [:create]
+  before_action :set_commentable
+  before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :deny_access!, only: [:edit, :update, :destroy],
+  unless:  -> { correct_user?(@comment.created_by) }
 
+  # GET /comments/new
+  def new
+    @comment = @commentable.comments.build
+  end
+
+  # GET /comments/1/edit
+  def edit
+  end
+
+  # POST /comments
+  # POST /comments.json
   def create
     @comment = @commentable.comments.build(comment_params)
-    @comment.created_by_user = current_user
-    @micropost = Micropost.find(params[:micropost_id])
+    @comment.created_by = current_user
 
-    if @comment.save
-      notify_post_owner!
-      notify_commenters!
-      respond_to do |format|
-        format.html { redirect_back fallback_location: root_path,
-                                    notice: 'Your comment was successfully posted!' }
-        format.js
+    respond_to do |format|
+      if @comment.save
+        format.html {
+          redirect_to @commentable, notice: 'Comment was successfully created.'
+        }
+        format.json { render :show, status: :created, location: @comment }
+      else
+        format.html { render :new }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
-    else
-      redirect_back fallback_location: root_path, notice: "Your comment wasn't posted!"
     end
   end
 
+  # PATCH/PUT /comments/1
+  # PATCH/PUT /comments/1.json
+  def update
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html {
+          redirect_to @commentable, notice: 'Comment was successfully updated.'
+        }
+        format.json { render :show, status: :ok, location: @comment }
+      else
+        format.html { render :edit }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /comments/1
+  # DELETE /comments/1.json
   def destroy
-    @comment = current_user.comments.find(params[:id]).destroy
-    redirect_back fallback_location: root_path, notice: 'Comment was successfully destroyed.'
-  end
-
-private
-
-  def comment_params
-    params.require(:comment).permit(:content)
-  end
-
-  def find_commentable
-    @commentable =
-        if params[:comment_id]
-          Comment.find_by(id: params[:comment_id])
-        elsif params[:micropost_id]
-          Micropost.find_by(id: params[:micropost_id])
-        end
-  end
-
-  def notify_post_owner!
-    NotifierMailer.alert_post_owner(@micropost.user, current_user, @micropost).deliver_now unless @micropost.user == current_user
-  end
-
-  def notify_commenters!
-    @micropost.commenters(current_user, @micropost.user).each do |user|
-      NotifierMailer.alert_commenters(user, current_user, @micropost).deliver_now
+    @comment.destroy
+    respond_to do |format|
+      format.html {
+        redirect_to @commentable, notice: 'Comment was successfully destroyed.'
+      }
+      format.json { head :no_content }
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_commentable
+      @commentable =
+        if post_id = params[:post_id]
+          Post.all.find_by(id: post_id)
+        elsif event_id = params[:event_id]
+          Event.all.find_by(id: event_id)
+        end
+      end
+
+    def set_comment
+      @comment = @commentable.comments.find_by(id: params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def comment_params
+      params.require(:comment).permit(:body)
+    end
 end

@@ -1,0 +1,8 @@
+New Activity
+
+Dear #{@to_user.first_name},
+
+Just thought you might like to know,
+#{@from_user.full_name} has made a New #{@notifiable.class.name}.
+
+= link_to 'Go check it out', path_to_notifiable(@notifiable)

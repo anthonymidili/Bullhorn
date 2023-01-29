@@ -1,0 +1,8 @@
+.row
+  - users.each do |user|
+    .col-12.col-md-6.col-lg-4
+      - if @link_to_user
+        = link_to user do
+          = render 'users/index_card', user: user
+      - else
+        = render 'users/index_card', user: user

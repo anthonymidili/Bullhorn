@@ -1,0 +1,11 @@
+- if object.errors.any?
+  #error_messages.hide_on_print
+    .row
+      .col-12
+        .alert.alert-danger.alert-dismissible{role: "alert"}
+          %h2
+            Form contains #{pluralize(object.errors.count, 'error')}
+          %ul
+            - object.errors.full_messages.each do |msg|
+              %li= msg
+          %button.btn-close{aria: {label: 'Close'}, data: {bs_dismiss: "alert"}}

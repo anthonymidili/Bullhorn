@@ -1,0 +1,7 @@
+.post_user.mb-3
+  = link_to user do
+    - if user.avatar.attached?
+      = image_tag thumb_image(user.avatar)
+    - else
+      = fa_icon 'user', class: 'no_avatar'
+    = user.full_name

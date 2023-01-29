@@ -1,0 +1,13 @@
+#search-box
+  .row.center-content
+    .col-12.col-md-8
+      = form_with method: :get, local: true do
+        .ui-widget
+          .input-group
+            %span.input-group-text
+              = fa_icon 'search'
+            = text_field_tag :search, params[:search], id: 'search_submit',
+            class: 'form-control',
+            data: { autocomplete_source: search_users_path }
+            .input-group-button
+              = submit_tag 'Search Users', name: nil, class: 'btn btn-outline-primary'

@@ -1,43 +1,88 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '3.2.0'
 
-gem 'rails', '~> 6.0.3'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 7.0.4'
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "sprockets-rails"
+# Use postgresql as the database for Active Record
+gem 'pg', '>= 0.18', '< 2.0'
+# Use Puma as the app server
+# gem 'puma', '~> 3.12'
+gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'
+# yarn add @fortawesome/fontawesome-free
+gem 'font_awesome5_rails', '~> 1.5.0'
+# Use Uglifier as compressor for JavaScript assets
+# gem 'uglifier', '>= 1.3.0'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+# Background Jobs
+gem 'sidekiq', '~> 7.0.2'
+gem 'redis', '~> 5.0'
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "stimulus-rails"
+# JavaScript Bundling for Rails
+gem "jsbundling-rails", "~> 1.1"
+# CSS Bundling for Rails
+gem "cssbundling-rails", "~> 1.1"
 
-# puma inplace of Default Webrick
-gem 'puma', '~> 4.3.5'
+# Use ActiveStorage variant
+gem "ruby-vips"
+gem 'image_processing', '~> 1.6'
+gem 'aws-sdk-s3', require: false
+# Validate images
+gem 'file_validators'
 
-gem 'bootstrap-will_paginate', '~> 1.0.0'
-gem 'will_paginate', '~> 3.3.0'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+# Haml and haml generator
+gem 'haml-rails', '~> 2.0'
+# devise
+gem 'devise', '~> 4.8.0'
+# pagination
+gem 'kaminari', '~> 1.2.1'
+# https://github.com/nathanvda/cocoon - Dynamic nested forms using jQuery
+gem 'cocoon', '~> 1.2.8'
+# https://github.com/thoughtbot/scenic - Scenic adds methods to
+# ActiveRecord::Migration to create and manage database views in Rails.
+gem 'scenic', '~> 1.7.0'
+# framework-agnostic XML Sitemap generator
+gem 'sitemap_generator'
+# Scout Ruby Application Monitoring Agent https://scoutapp.com
+gem 'scout_apm'
+gem 'barnes'
 
-gem 'devise', '~> 4.7.1'
+gem 'simple_calendar', '~> 2.0'
 
-gem 'bcrypt', '~> 3.1.7'
+# Add console tables with Hirb.enable.
+gem 'hirb'
+# IRB colors.
+gem 'irbtools', require: 'irbtools/binding'
 
-gem 'bootsnap', '~> 1.4.0', require: false
-
-gem 'pg', '~> 1.2.3'
-
-gem 'webpacker', '~> 5.x'
-
-gem 'haml', '~> 5.1.2'
-gem 'haml-rails', '~> 2.0.1'
-
-# Image uploader and processing
-gem 'carrierwave', '~> 2.0'
-gem 'mini_magick', '~> 4.10.1'
-gem 'fog-aws', '~> 3.6.5'
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'listen', '~> 3.2.1'
-  gem 'rspec-rails', '~> 4.0.1'
-  gem 'capybara', '~> 3.32.2'
-  gem 'bullet'
+  # Better Errors
   gem 'better_errors'
   gem 'binding_of_caller'
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.2.0'
+    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring', '~> 4.0'
+  # N+1 finder
+  gem 'bullet'
 end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

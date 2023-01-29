@@ -1,0 +1,20 @@
+.comments {
+  padding: 10px 0 10px 30px;
+  border-top: 1px solid $light-gray;
+  &:first-child {
+    border-top: 0;
+  }
+  img {
+    height: 25px !important;
+    width: 25px !important;
+  }
+
+  svg {
+    height: 17px !important;
+    width: 17px !important;
+  }
+}
+.comments_box {
+  background-color: lighten($light-gray, 15%);
+  padding: 10px;
+}

@@ -1,0 +1,9 @@
+- provide :title, 'New comment'
+.row.center-content
+  .col-12.col-md-8
+    = render @commentable
+    = render 'comments/box', commentable: @commentable, comment: (@comment ||= nil)
+    = render 'form', commentable: @commentable, comment: @comment
+
+    = link_to path_to_commentable(@commentable), title: 'Back' do
+      = fa_icon 'hand-point-left', text: 'Back'

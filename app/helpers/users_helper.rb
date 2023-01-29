@@ -1,14 +1,17 @@
 module UsersHelper
-
-  def avatar_for(user, size)
-    if user.avatar
-      image_tag(user.avatar.image.thumb.url, size: size, alt: user.name, class: 'avatar')
-    else
-      image_pack_tag('default_avatar.svg', size: size, alt: user.name, class: 'avatar')
-    end
+  def correct_user?(user)
+    current_user == user
   end
 
-  def smaller_col_for_admin
-    current_user_admin? ? 8 : 10
+  def authenticate_admin!
+    redirect_to root_path unless current_user.is_admin
+  end
+
+  def admin_form(user)
+    if user.is_admin
+      'users/remove_admin'
+    else
+      'users/add_admin'
+    end
   end
 end

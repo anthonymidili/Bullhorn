@@ -1,0 +1,45 @@
+%nav.navbar.navbar-expand-lg{style: "background-color: #ffcc00;"}
+  .container-fluid
+    -# Left side navbar.
+    = link_to root_path do
+      %span.inline 
+        %h1 Bullhorn
+      %span.inline= image_tag 'bullhorn.png'
+
+    %button.navbar-toggler{aria: {
+    controls: "navbarNavDropdown",
+    expanded: "false", label: "Toggle navigation" },
+    data: { bs_target: "#navbarNavDropdown",
+    bs_toggle: "collapse" },
+    type: "button"}
+      %span.navbar-toggler-icon
+
+    #navbarNavDropdown.collapse.navbar-collapse
+      -# Right side navbar.
+      %ul.navbar-nav.nav-items-right
+        %li.nav-item
+          = link_to root_path, title: 'Home', class: "nav-link" do
+            = fa_icon 'home'
+        - if user_signed_in?
+          %li.nav-item
+            = link_to current_user, title: 'User Profile', class: "nav-link" do
+              = fa_icon 'user', text: 'Profile'
+          %li.nav-item
+            = link_to edit_user_registration_path, title: 'User Settings', class: "nav-link" do
+              = fa_icon 'cog', text: 'Settings'
+          - if current_user.is_admin
+            %li.nav-item
+              = link_to admins_users_path, title: 'Admin Controls', class: "nav-link" do
+                = fa_icon 'user-tie', text: 'Admins'
+          %li.nav-item
+            = link_to destroy_user_session_path, data: { turbo_method: :delete }, title: 'Sign out', class: "nav-link" do
+              = fa_icon 'sign-out-alt'
+        - else
+          %li.nav-item
+            = link_to new_user_registration_path, title: 'Sign up', class: "nav-link" do
+              = fa_icon 'user-plus', text: 'Sign up'
+          %li.nav-item
+            = link_to user_session_path, title: 'Log in', class: "nav-link" do
+              = fa_icon 'sign-in-alt', text: 'Log in'
+
+= render 'layouts/sub_top_bar' if user_signed_in?

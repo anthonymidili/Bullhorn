@@ -1,0 +1,10 @@
+- provide :title, 'New event'
+.row.center-content
+  .col-12.col-md-8
+    %p= render 'timezones/link_to_form', return_to: new_event_path
+    %h1 New event
+
+    = render 'form'
+
+    = link_to events_path do
+      = fa_icon 'hand-point-left', text: 'Back'

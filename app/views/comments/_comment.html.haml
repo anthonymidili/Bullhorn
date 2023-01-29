@@ -1,18 +1,14 @@
-%li{id: "comment_#{comment.id}"}
-  = link_to avatar_for(comment.created_by_user, 25), comment.created_by_user
-  %span.user
-    = link_to comment.created_by_user.name, comment.created_by_user
-  %span.content
-    = wrap(comment.content)
-
-  %span.timestamp
-    Posted #{time_ago_in_words(comment.created_at)} ago.
-    = link_to 'Reply', '#', class: 'showHiddenForm', remote: true
-    - if current_user?(comment.created_by_user)
-      = link_to 'delete', comment, method: :delete,
-      data: { confirm: "Are you sure you want to delete - (#{truncate(comment.content)})?" }
-
-    = render 'comments/reply_form', comment: comment, micropost: @micropost
-
-  %ul{class: "add_new_reply_#{comment.id}"}
-    = render comment.comments
+- if comment.persisted?
+  .comments{id: "comment_#{comment.id}"}
+    - if correct_user?(comment.created_by)
+      .links-end
+        = link_to [:edit, comment.commentable, comment], title: 'Edit' do
+          = fa_icon 'edit', text: 'Edit'
+        = link_to [comment.commentable, comment],
+        data: { turbo_method: :delete, turbo_confirm: 'Are you sure.' },
+        class: 'delete_link', title: 'Delete' do
+          = fa_icon 'trash'
+    = render 'users/post_user', user: comment.created_by
+    .content= simple_format(comment.body)
+    .timestamp
+      Posted #{time_ago_in_words(comment.created_at)} ago

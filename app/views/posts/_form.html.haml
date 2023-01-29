@@ -1,0 +1,22 @@
+= form_with model: post, local: true do |f|
+  = render 'notifications/error_messages', object: f.object
+
+  .field.mb-3
+    = f.label :body, 'Compose a new post (HTML safe)', 
+    class: "form-label"
+    = f.text_area :body, rows: '3', class: "form-control"
+  .field.mb-3
+    - if f.object.images.attached?
+      .photo
+        .content
+          - f.object.images.uniq.each do |image|
+            = image_tag medium_image(image)
+
+    = f.label :images, class: "form-label"
+    - if f.object.images.attached?
+      - f.object.images.uniq.each do |image|
+        = f.hidden_field :images, multiple: true, value: image.signed_id
+    = f.file_field :images, multiple: true, direct_upload: true, 
+    class: "form-control"
+  .actions.mb-3
+    = f.submit class: 'btn btn-primary'

@@ -1,0 +1,16 @@
+.sub_top_bar
+  %nav.navbar.navbar-expand-lg{style: "background-color: #13395f;"}
+    .container-fluid
+      %ul.navbar-nav
+        %li.nav-item
+          = link_to users_path, title: 'Roster', class: "nav-link" do
+            = fa_icon 'users', text: 'Roster'
+        %li.nav-item
+          = link_to events_path, title: 'Events', class: "nav-link" do
+            = fa_icon 'calendar', text: 'Events', type: :regular
+            - if Event.in_the_future.any?
+              %span.count= Event.in_the_future.count
+        %li.nav-item
+          = link_to notifications_path, title: 'Notifications', class: "nav-link" do
+            = fa_icon 'bell'
+            %span#recent_unread_count.count= current_user.notifications.recent_unread_count

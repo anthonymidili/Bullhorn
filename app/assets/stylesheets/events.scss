@@ -1,0 +1,36 @@
+.event {
+  .event_name {
+    font-size: large;
+    font-weight: bold;
+  }
+  .response {
+    padding: 15px;
+    background-color: $light-gray;
+    @include media-breakpoint-down(sm) {
+      li + li {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.status_user {
+  display: block;
+  position: relative;
+  img {
+    height: 50px;
+    border: 1px solid $dark-gray;
+  }
+  li {
+    height: 78px;
+  }
+  .status_icon {
+    position: absolute;
+    bottom: -4px;
+    svg {
+      padding: 1px;
+      margin: 1px;
+      background-color: $white;
+    }
+  }
+}

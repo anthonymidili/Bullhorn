@@ -1,0 +1,64 @@
+.profile_head {
+  .name, .class_of {
+    line-height: 1;
+    h3 {
+      margin-bottom: 3px;
+    }
+  }
+}
+
+.index-card {
+  overflow: hidden;
+  @include media-breakpoint-up(md) {
+    height: 140px;
+  }
+  .avatar {
+    display: inline-block;
+    margin-right: 10px;
+    img {
+      width: 100px;
+    }
+  }
+  &.callout {
+    border: 2px solid $light-gray;
+    border-radius: 15px;
+  }
+  .avatar-info {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    h3 {
+      font-size: 140%;
+      margin-bottom: 3px;
+    }
+  }
+}
+
+.avatar {
+  img {
+    border: 2px solid $light-gray;
+    border-radius: 50%;
+  }
+}
+
+.profile_info {
+  p {
+    line-height: 1.2;
+  }
+  .info {
+    padding-top: 10px;
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+.no_avatar {
+  display: inline-block;
+  height: 42px !important;
+  width: 42px !important;
+  border: solid 1px #91b3f4;
+  background-color: #cfdefb;
+  padding: 3px;
+  vertical-align: middle;
+}

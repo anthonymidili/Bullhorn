@@ -1,0 +1,10 @@
+- provide :title, 'New post'
+.row.center-content
+  .col-12.col-md-8
+    %h1 New post
+
+    = render 'form', post: @post
+
+    .links.mb-3
+      = link_to root_path, title: 'Back' do
+        = fa_icon 'hand-point-left', text: 'Back'

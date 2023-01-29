@@ -1,0 +1,74 @@
+nav {
+  margin-bottom: 20px;
+  a {
+    color: $lasalle-dark;
+  }
+  img {
+    height: 50px;
+    width: 50px;
+  }
+
+  span.inline {
+    display: inline-block;
+    vertical-align: middle;
+    h1 {
+      margin-bottom: 0;
+      @extend .black_text_link;
+    }
+  }
+
+  /* make menu icon larger and easier to click */
+  span.menu-icon {
+    padding-left: 3em;
+    margin-right: 0.5em;
+  }
+  
+
+  /* on small, make dropdown standout */
+  .accordion-menu {
+    background-color: lighten($topbar-background, 5%);
+  }
+
+  .nav-items-right {
+    margin-left: auto;
+    a {
+      color: $black !important;
+      &:hover {
+        background-color: $black !important;
+        color: $pale-yellow !important;
+        &::after {
+          border-color: $pale-yellow transparent transparent !important;
+        }
+      }
+      &::after {
+        border-color: $black transparent transparent !important;
+      }
+    }
+  }
+
+  .nav-link {
+    @include media-breakpoint-down(lg) {
+      padding-left: 1rem !important;
+    }
+  }
+}
+
+.sub_top_bar {
+  margin-top: -20px;
+  margin-bottom: 20px;
+  & > nav > div > ul > li > a {
+    color: $sub-bar-text;
+    .count {
+      color: lighten($sub-bar-text, 35%);
+    }
+    &:hover {
+      color: darken($sub-bar-text, 10%);
+      .count {
+        color: lighten($sub-bar-text, 15%);
+      }
+    }
+    &::after {
+      border-color: $sub-bar-text transparent transparent !important;
+    }
+  }
+}

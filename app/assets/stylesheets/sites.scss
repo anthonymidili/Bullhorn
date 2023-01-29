@@ -1,0 +1,121 @@
+body {
+  color: $lasalle-dark;
+  background-color: #fefef4;
+}
+
+nav {
+  img {
+    width: 100%;
+  }
+}
+
+footer {
+  img {
+    width: 100%;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.callout {
+  position: relative;
+  margin: 0 0 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(10,10,10,.25);
+  border-radius: 8px;
+  background-color: $callout-background;
+}
+
+.callout_thin {
+  position: relative;
+  margin: 0 0 1rem;
+  padding: 5px;
+  border: 1px solid rgba(10,10,10,.25);
+  border-radius: 6px;
+  background-color: $callout-background;
+}
+
+.sites_home {
+  background-image: image-url('graduation_day.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.center {
+  text-align: center;
+}
+
+select {
+  width: auto;
+}
+
+select.full_width {
+  width: 100%;
+}
+
+.shift_right {
+  padding-left: 30px;
+}
+
+/* Display Kaminari pagination links inline */
+nav.pagination {
+  span {
+    font-size: small;
+    a {
+      color: $dark-gray;
+    }
+    display: inline-block;
+  }
+}
+
+.delete_link {
+  color: red;
+  &:hover {
+    color: darken(red, 15%);
+  }
+}
+
+.black_text_link {
+  color: black;
+  &:hover {
+    color: $dark-gray;
+  }
+}
+
+.green, .true {
+  color: green;
+}
+
+.red, .false {
+  color: red;
+}
+
+.pad_left {
+  padding-left: 10px;
+}
+
+.align-center {
+  li {
+    padding: 0 5px 0 5px;
+  }
+}
+
+.center-content {
+  justify-content: center;
+}
+
+.links {
+  a {
+    margin-right: 20px;
+  }
+}
+
+.links-end {
+  @extend .float-end;
+  a {
+    margin-left: 20px;
+  }
+}

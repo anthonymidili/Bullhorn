@@ -1,36 +1,41 @@
 Rails.application.routes.draw do
-  root to: 'static_pages#home'
+  root to: 'sites#index'
 
   devise_for :users
 
-  get :help, to: 'static_pages#help'
-  get :about, to: 'static_pages#about'
-  get :contact, to: 'static_pages#contact'
-
-  resources :users, except: [:new, :create, :edit, :update] do
+  resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
-      get :following, :followers
-    end
-    resources :photos, path_names: { new: 'upload' } do
-      member do
-        patch :update_avatar
-        get :full_size
-      end
-      collection do
-        put :presign_upload
-      end
+      get :remove_avatar
+      patch :add_admin
+      patch :remove_admin
+      get :photos
     end
     collection do
       get :search
+      get :admins
     end
   end
 
-  resources :microposts, only: [:show, :create, :destroy] do
-    resources :comments, only: [:create]
+  resources :posts, except: [:index] do
+    resources :comments, except: [:index, :show]
   end
 
-  resources :comments, only: [:destroy] do
-    resources :comments, only: [:create]
+  resources :events do
+    resources :invitations, only: [:create, :update]
+    resources :comments, except: [:index, :show]
+    member do
+      get :remove_image
+    end
+    collection do
+      get :calendar
+    end
   end
-  resources :relationships, only: [:create, :destroy]
+
+  resource :notifications, only: [:show, :edit, :update], path_names: { edit: 'settings' } do
+    patch :mark_all_as_read
+  end
+
+  resource :timezones, only: [:edit, :update]
+
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

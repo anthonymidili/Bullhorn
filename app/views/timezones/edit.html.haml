@@ -1,0 +1,6 @@
+.row.center-content
+  .col-12.col-md-8.mb-3
+    %h1 Change your Timezone
+    = render 'timezones/form'
+    = link_to cookies[:return_to] do
+      = fa_icon 'hand-point-left', text: 'Back'

@@ -1,0 +1,21 @@
+.row.center-content
+  .col-12.col-md-8
+    #notifications
+      %h2 Notifications
+      %p
+        .links
+          = link_to 'mark ALL as read', mark_all_as_read_notifications_path,
+          title: 'mark ALL notifications as read', class: 'btn btn-primary', 
+          data: { turbo_method: :patch }
+          = link_to edit_notifications_path,
+          title: 'Notification Settings', class: 'btn btn-primary' do
+            = fa_icon 'cog', text: 'Settings'
+      .d-flex.flex-column.mb-3
+        NEW
+        #unread_notifications_list
+          = render partial: "notifications/notification",
+          collection: @recent_notifications
+        - if @earlier_notifications.any?
+          EARLIER
+          = render partial: "notifications/notification",
+          collection: @earlier_notifications

@@ -1,7 +1,0 @@
-= form_for [micropost, Comment.new], html: { id: "new_comment_form_#{micropost.id}",
-class: 'new_comment' }, remote: true do |f|
-  .row
-    .medium-8.large-12.columns
-      = f.text_area :content, placeholder: 'Add a comment', id: "comment_content_#{micropost.id}",
-      class: 'comment_content', autocomplete: :off
-      = f.button 'Submit', class: 'button small', data: {disable_with: 'Submitting...'}
