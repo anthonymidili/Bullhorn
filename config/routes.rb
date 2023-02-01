@@ -9,12 +9,16 @@ Rails.application.routes.draw do
       patch :add_admin
       patch :remove_admin
       get :photos
+      get :followers
+      get :following
     end
     collection do
       get :search
       get :admins
     end
   end
+
+  resources :relationships, only: [:create, :destroy]
 
   resources :posts, except: [:index] do
     resources :comments, except: [:index, :show]

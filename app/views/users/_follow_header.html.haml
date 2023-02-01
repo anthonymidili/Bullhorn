@@ -1,0 +1,7 @@
+.row
+  .col-12
+    .callout-transparent
+      .center-text
+        %h1.no-background= user.full_name
+        = render 'users/profile_stats', user: user
+        = render 'relationships/form', user: user

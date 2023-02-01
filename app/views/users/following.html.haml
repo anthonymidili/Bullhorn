@@ -1,0 +1,8 @@
+- provide :title, 'Following'
+
+.row
+  .col-12
+    .profile_head
+      = render 'users/avatar_info', user: @user
+    %h3 Following
+    = render "users/badge", users: @user.following

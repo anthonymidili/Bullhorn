@@ -10,7 +10,7 @@
 .index-card {
   overflow: hidden;
   @include media-breakpoint-up(md) {
-    height: 140px;
+    min-height: 151px;
   }
   .avatar {
     display: inline-block;
@@ -49,6 +49,21 @@
     padding-top: 10px;
     &:first-child {
       padding-top: 0;
+    }
+  }
+}
+
+.profile-stats {
+  padding-bottom: 20px;
+  .stat {
+    display: inline-block;
+    font-size: 90%;
+    font-weight: bold;
+    &:not(:first-child) {
+      padding-left: 30px;
+    }
+    span {
+      font-size: 120%;
     }
   }
 }
