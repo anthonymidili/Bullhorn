@@ -2,21 +2,33 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
+
+  # Is following users relationships.
+  has_many :relationships, dependent: :destroy
+  has_many :following, through: :relationships, source: :followed
+  # Followed by users relationships.
+  has_many :reverse_relationships, foreign_key: 'followed_id', 
+    class_name: 'Relationship', dependent: :destroy
+  has_many :followers, through: :reverse_relationships, source: :user
 
   has_one :profile, dependent: :destroy
-  accepts_nested_attributes_for :profile, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :profile, reject_if: :all_blank, 
+    allow_destroy: true
 
   has_one :receive_mail, dependent: :destroy
 
   has_many :phones, as: :callable, dependent: :destroy
-  accepts_nested_attributes_for :phones, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :phones, reject_if: :all_blank, 
+    allow_destroy: true
 
   has_many :addresses, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :addresses, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :addresses, reject_if: :all_blank, 
+    allow_destroy: true
 
   has_many :websites, dependent: :destroy
-  accepts_nested_attributes_for :websites, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :websites, reject_if: :all_blank, 
+    allow_destroy: true
 
   has_many :posts, dependent: :destroy
 
@@ -50,5 +62,9 @@ class User < ApplicationRecord
 
   def full_name
     [first_name, last_name].join(' ')
+  end
+
+  def following?(user)
+    relationships.find_by(followed: user)
   end
 end

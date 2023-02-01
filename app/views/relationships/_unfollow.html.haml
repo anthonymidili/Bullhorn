@@ -1,0 +1,4 @@
+= form_with model: current_user.following?(user), method: :delete,
+id: dom_id(user, "unfollow_form") do |f|
+  .actions.mb-3
+    = f.submit 'Unfollow', class: 'btn btn-secondary btn-sm'

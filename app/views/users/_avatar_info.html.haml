@@ -1,9 +1,13 @@
 - if user.avatar.attached?
   .avatar.mb-1
-    = image_tag thumb_image(user.avatar)
+    = link_to user do
+      = image_tag thumb_image(user.avatar)
 .avatar-info
   .name.mb-1
-    %h3= user.full_name
+    = link_to user, class: "black_text_link" do
+      %h3= user.full_name
+  = render "users/profile_stats", user: user
+  = render "relationships/form", user: user
   - if user.profile.try(:graduated_in).present?
     .class_of.mb-1
       Class of

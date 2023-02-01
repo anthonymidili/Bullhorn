@@ -79,9 +79,9 @@ nav.pagination {
 }
 
 .black_text_link {
-  color: black;
+  color: $black;
   &:hover {
-    color: $dark-gray;
+    color: lighten($black, 25%);
   }
 }
 

@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_admin!, only: [:destroy, :admins, :add_admin, :remove_admin]
+  before_action :authenticate_admin!, only: [:destroy, :admins, 
+  :add_admin, :remove_admin]
   before_action :set_user,
-  only: [:show, :edit, :update, :destroy, :remove_avatar, :add_admin, :remove_admin, :photos]
+  only: [:show, :edit, :update, :destroy, :remove_avatar, :add_admin, 
+  :remove_admin, :photos, :followers, :following]
   before_action :deny_access!, only: [:edit, :update, :remove_avatar],
   unless: -> { correct_user?(@user) }
 
@@ -14,7 +16,6 @@ class UsersController < ApplicationController
       else
         User.by_first_name.with_attached_avatar.includes(:profile)
       end
-    @link_to_user = true
     @show_occupation = true
   end
 
@@ -78,6 +79,12 @@ class UsersController < ApplicationController
   end
 
   def photos
+  end
+
+  def followers
+  end
+
+  def following
   end
 
 private
