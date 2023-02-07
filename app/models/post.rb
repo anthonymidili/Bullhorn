@@ -28,6 +28,11 @@ class Post < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
+  def self.by_following(user)
+    following_ids = user.following.ids << user.id
+    where(user_id: following_ids)
+  end
+
   def self.with_images
     ActiveStorage::Attachment.includes(:record, :blob).
     where(record_type: 'Post', record_id: pluck(:id)).
