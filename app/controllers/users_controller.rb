@@ -21,6 +21,12 @@ class UsersController < ApplicationController
 
   def show
     @posts = @user.posts.with_attached_images.page(params[:page]).per(20)
+
+    # Mark following notification as read.
+    if params[:relationship_id]
+      relationship = Relationship.find_by(id: params[:relationship_id])
+      relationship.read_user_notifications(current_user) if relationship
+    end
   end
 
   def edit
