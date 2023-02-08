@@ -17,6 +17,10 @@ private
       recipients = notifiable.commentable.comments.map(&:created_by)
       recipients << notifiable.commentable.user
       recipients = (recipients - [notifiable.created_by]).uniq
+    elsif notifiable.class.name == "Relationship"
+      [ notifiable.followed ]
+    elsif notifiable.class.name == "Post" || notifiable.class.name == "Event"
+      notifiable.user.followers
     else
       User.all_but_current(notifiable.user)
     end
