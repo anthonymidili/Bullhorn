@@ -68,7 +68,7 @@ GEM
       tzinfo (~> 2.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.708.0)
+    aws-partitions (1.709.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -238,7 +238,7 @@ GEM
     orm_adapter (0.5.0)
     os (1.1.4)
     paint (2.3.0)
-    parser (3.2.0.0)
+    parser (3.2.1.0)
       ast (~> 2.4.1)
     passenger (6.0.17)
       rack
@@ -371,11 +371,11 @@ DEPENDENCIES
   jsbundling-rails (~> 1.1)
   kaminari (~> 1.2.1)
   listen (>= 3.2.0)
-  mini_magick (~> 4.12.0)
   passenger (>= 5.0.25)
   pg (>= 0.18, < 2.0)
   rails (~> 7.0.4)
   redis (~> 5.0)
+  ruby-vips
   scenic (~> 1.7.0)
   scout_apm
   sidekiq (~> 7.0.2)

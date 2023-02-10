@@ -34,8 +34,7 @@ gem "jsbundling-rails", "~> 1.1"
 gem "cssbundling-rails", "~> 1.1"
 
 # Use ActiveStorage variant
-# gem "ruby-vips"
-gem "mini_magick", "~> 4.12.0"
+gem "ruby-vips"
 gem 'image_processing', '~> 1.6'
 gem 'aws-sdk-s3', require: false
 # Validate images
