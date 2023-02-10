@@ -79,7 +79,5 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 # production:
-#   <<: *default
-#   database: Bullhorn_production
-#   username: Bullhorn
-#   password: <%= ENV['BULLHORN_DATABASE_PASSWORD'] %>
+ <<: *default
+ url: <%= ENV['DATABASE_URL'] %>
