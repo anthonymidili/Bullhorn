@@ -22,9 +22,6 @@ doc/
 .DS_Store
 bundler_stubs/
 
-# Ignore personal refferances of past migrations
-db/migration_history
-
 # Ignore carrierwave uploads
 /public/uploads/
 
