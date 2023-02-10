@@ -34,7 +34,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
   # Image variant processor.
-  config.active_storage.variant_processor = :vips # :mini_magick
+  config.active_storage.variant_processor = :mini_magick
   # Prevent replacing files and append to existing files on has many attached.
   config.active_storage.replace_on_assign_to_many = false
 
