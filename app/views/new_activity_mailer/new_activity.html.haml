@@ -1,10 +1,10 @@
 %h1
-  New #{@notifiable.class.name} - #{@from_user.username}
+  #{@action_statement} - #{@from_user.username}
 %p
   Dear #{@to_user.first_name},
 %p
   Just thought you might like to know,
-  #{@from_user.username} has made a New #{@notifiable.class.name}.
+  #{@from_user.username} has #{@action_statement}.
 %p
   = link_to 'Go check it out', path_to_notifiable(@notifiable)
 %p
