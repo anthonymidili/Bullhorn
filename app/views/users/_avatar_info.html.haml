@@ -5,7 +5,7 @@
 .avatar-info
   .name.mb-1
     = link_to user, class: "black_text_link" do
-      %h3= user.full_name
+      %h3= user.username
   = render "users/profile_stats", user: user
   = render "relationships/form", user: user
   - if user.profile.try(:graduated_in).present?
