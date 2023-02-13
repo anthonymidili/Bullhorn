@@ -23,14 +23,6 @@
     .info
       %b Email:
       = user.email
-  - if user.phones.any?
-    .info
-      %b #{'Phone'.pluralize(user.phones.count)}:
-      = render user.phones
-  - if user.addresses.any?
-    .info
-      %b #{'Address'.pluralize(user.addresses.count)}:
-      = user.addresses.list
   - if user.websites.any?
     .info
       %b #{'Website'.pluralize(user.websites.count)}:

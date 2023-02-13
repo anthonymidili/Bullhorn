@@ -100,12 +100,11 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:username, :first_name, :last_name, :avatar, :timezone,
+    params.require(:user).permit(
+      :username, :first_name, :last_name, :avatar, :timezone,
       profile_attributes: [:id, :bio, :workplace, :position, :birthday,
       :graduated_in, :show_email, :user_id, :_destroy],
-      phones_attributes: [:id, :number, :device, :extension, :_destroy],
-      addresses_attributes: [:id, :street_1, :street_2, :city, :state, :zip,
-      :location, :_destroy],
-      websites_attributes: [:id, :name, :address, :_destroy])
+      websites_attributes: [:id, :name, :address, :_destroy]
+    )
   end
 end
