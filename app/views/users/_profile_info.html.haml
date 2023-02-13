@@ -7,6 +7,11 @@
     .info
       %b Bio:
       = simple_format(user.profile.bio)
+  - if user.profile.try(:graduated_in).present?
+    .info
+      %b 
+        Class of
+        = user.profile.graduated_in.strftime('%Y')
   - if user.profile.try(:workplace).present?
     .info
       %b Workplace:

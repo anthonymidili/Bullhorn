@@ -8,8 +8,4 @@
       %h3= user.username
   = render "users/profile_stats", user: user
   = render "relationships/form", user: user
-  - if user.profile.try(:graduated_in).present?
-    .class_of.mb-1
-      Class of
-      = user.profile.graduated_in.strftime('%Y')
   .occupation= user.profile.occupation if user.profile.try(:occupation) && @show_occupation
