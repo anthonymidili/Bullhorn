@@ -9,9 +9,9 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @future_events = Event.in_the_future.with_attached_image.
+    @future_events = current_user.relevant_events.in_the_future.with_attached_image.
     includes([:address, user: [avatar_attachment: :blob]])
-    @past_events = Event.from_the_past.page(params[:page]).per(5).
+    @past_events = current_user.relevant_events.from_the_past.page(params[:page]).per(5).
     with_attached_image.includes([:address, user: [avatar_attachment: :blob]])
   end
 
@@ -79,13 +79,13 @@ class EventsController < ApplicationController
   end
 
   def calendar
-    @events = Event.future_and_past
+    @events = current_user.relevant_events.future_and_past
   end
 
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.includes([comments: :created_by, users: :avatar_attachment]).find_by(id: params[:id])
+    @event = current_user.relevant_events.includes([comments: :created_by, users: :avatar_attachment]).find_by(id: params[:id])
     redirect_to events_path unless @event
   end
 

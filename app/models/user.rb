@@ -70,6 +70,11 @@ class User < ApplicationRecord
   # scope :by_accepts_email, -> { where(receive_email: true) }
   scope :all_but_current, -> (current_user) { where.not(id: current_user) }
 
+  def relevant_events
+    user_ids = following_ids << id
+    Event.where(user: user_ids)
+  end
+  
   def full_name
     if first_name.present? || last_name.present?
       [first_name, last_name].join(' ')
