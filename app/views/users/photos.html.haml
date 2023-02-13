@@ -1,7 +1,7 @@
 - provide :title, 'My Photos'
 .row
   .col-12
-    %h1= "#{@user.full_name}'s Photos"
+    %h1= "#{@user.username}'s Photos"
 .row
   - @user.posts.with_images.each do |post|
     .col-12.col-md-6.col-lg-3

@@ -11,10 +11,10 @@ class UsersController < ApplicationController
   def index
     @users =
       if params[:search]
-        User.by_first_name.search_by(params[:search]).
+        User.by_username.search_by(params[:search]).
         with_attached_avatar.includes(:profile)
       else
-        User.by_first_name.with_attached_avatar.includes(:profile)
+        User.by_username.with_attached_avatar.includes(:profile)
       end
     @show_occupation = true
   end
@@ -59,16 +59,16 @@ class UsersController < ApplicationController
 
   def search
     @users = User.search_by(params[:term])
-    render json: @users.map(&:full_name)
+    render json: @users.search_results
   end
 
   def admins
     @users =
       if params[:search]
-        User.by_first_name.search_by(params[:search]).
+        User.by_username.search_by(params[:search]).
         with_attached_avatar.includes(:profile)
       else
-        User.by_first_name.with_attached_avatar.includes(:profile)
+        User.by_username.with_attached_avatar.includes(:profile)
       end
   end
 
@@ -100,12 +100,11 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :avatar, :timezone,
+    params.require(:user).permit(
+      :username, :first_name, :last_name, :avatar, :timezone,
       profile_attributes: [:id, :bio, :workplace, :position, :birthday,
       :graduated_in, :show_email, :user_id, :_destroy],
-      phones_attributes: [:id, :number, :device, :extension, :_destroy],
-      addresses_attributes: [:id, :street_1, :street_2, :city, :state, :zip,
-      :location, :_destroy],
-      websites_attributes: [:id, :name, :address, :_destroy])
+      websites_attributes: [:id, :name, :address, :_destroy]
+    )
   end
 end

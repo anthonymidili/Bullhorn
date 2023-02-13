@@ -3,13 +3,13 @@
     .container-fluid
       %ul.navbar-nav
         %li.nav-item
-          = link_to users_path, title: 'Roster', class: "nav-link" do
-            = fa_icon 'users', text: 'Roster'
+          = link_to users_path, title: 'Explore Users', class: "nav-link" do
+            = fa_icon 'users', text: 'Explore Users'
         %li.nav-item
           = link_to events_path, title: 'Events', class: "nav-link" do
             = fa_icon 'calendar', text: 'Events', type: :regular
-            - if Event.in_the_future.any?
-              %span.count= Event.in_the_future.count
+            - if current_user.relevant_events.in_the_future.any?
+              %span.count= current_user.relevant_events.in_the_future.count
         %li.nav-item
           = link_to notifications_path, title: 'Notifications', class: "nav-link" do
             = fa_icon 'bell'

@@ -7,14 +7,15 @@ class NewActivityMailer < ApplicationMailer
   #
   #   en.new_activity_mailer.new_post.subject
   #
-  def new_activity(to, from, notifiable)
+  def new_activity(to, from, notifiable, action_statement)
     @to_user = to
     @from_user = from
     @notifiable = notifiable
+    @action_statement = action_statement
 
     attachments.inline['bullhorn.png'] = File.read("#{Rails.root}/app/assets/images/bullhorn.png")
 
     mail to: @to_user.email,
-    subject: "New Activity - #{@from_user.full_name} has made a New #{@notifiable.class.name}"
+    subject: "New Activity - #{@from_user.username} has #{@action_statement}"
   end
 end

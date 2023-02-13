@@ -40,28 +40,47 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :avatar, file_content_type: {
     allow: ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
   }, if: -> { avatar.attached? }
 
-  scope :search_by, -> (term) {
-    where("first_name ILIKE :search
+  def self.search_by(term)
+    where(
+      "first_name ILIKE :search
       OR last_name ILIKE :search
+      OR username ILIKE :search
       OR first_name || \' \' || last_name ILIKE :search
-      OR last_name || \' \' || first_name ILIKE :search",
-      search: "%#{term}%")
-    }
+      OR last_name || \' \' || first_name ILIKE :search
+      OR username || \' \' || first_name || \' \' || last_name ILIKE :search
+      OR username || \' - \' || first_name || \' \' || last_name ILIKE :search",
+      search: "%#{term}%"
+    )
+  end
 
-  scope :by_first_name, -> { order(first_name: :asc) }
+  def self.search_results
+    all.map do |user|
+      [user.username, user.full_name].compact.join(" - ")
+    end
+  end
+
+  scope :by_username, -> { order(username: :asc) }
   scope :by_admin, -> { where(is_admin: true) }
   scope :by_other_user, -> { where(is_admin: false) }
   # scope :by_accepts_email, -> { where(receive_email: true) }
   scope :all_but_current, -> (current_user) { where.not(id: current_user) }
 
+  def relevant_events
+    user_ids = following_ids << id
+    Event.where(user: user_ids)
+  end
+  
   def full_name
-    [first_name, last_name].join(' ')
+    if first_name.present? || last_name.present?
+      [first_name, last_name].join(' ')
+    else
+      nil
+    end
   end
 
   def following?(user)

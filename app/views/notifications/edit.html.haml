@@ -8,16 +8,19 @@
     data: { turbo: false } do |f|
       = render 'notifications/error_messages', object: f.object
 
-      .mb-3 Receive email notifications when users:
+      .mb-3 Receive email notifications when users you follow:
       .feild.mb-1
         = f.check_box :for_new_posts, id: 'cb_posts'
         = f.label :for_new_posts, 'create a new Post', for: 'cb_posts'
       .feild.mb-1
         = f.check_box :for_new_events, id: 'cb_events'
         = f.label :for_new_events, 'create a new Event', for: 'cb_events'
-      .feild.mb-3
+      .feild.mb-1
         = f.check_box :for_new_comments, id: 'cb_comments'
         = f.label :for_new_comments,
         'Comment on something you have posted or commented on', for: 'cb_comments'
+      .feild.mb-3
+        = f.check_box :for_new_relationships, id: 'cb_relationships'
+        = f.label :for_new_relationships, 'start following you', for: 'cb_relationships'
       .actions.mb-3
         = f.submit 'Update Notification settings', class: 'btn btn-primary'

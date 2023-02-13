@@ -1,7 +1,10 @@
-= form_with model: user, local: true do |f|
+= form_with model: user, data: {turbo: false} do |f|
   = render 'notifications/error_messages', object: f.object
   .row
     .col-12.col-lg-6
+      .field.mb-3
+        = f.label :username, class: "form-label"
+        = f.text_field :username, class: "form-control"
       .field.mb-3
         = f.label :first_name, class: "form-label"
         = f.text_field :first_name, class: "form-control"
@@ -20,8 +23,6 @@
             = link_to 'Remove avatar', remove_avatar_user_path(f.object),
             class: "btn btn-danger btn-sm"
   = render 'profile/form', f: f
-  = render 'phones/phone_form', f: f
-  = render 'addresses/address_form', f: f
   = render 'websites/website_form', f: f
   .row
     .col-12

@@ -32,7 +32,8 @@ private
       NewActivityMailer.new_activity(
         recipient,
         notifier,
-        notifiable
+        notifiable,
+        action_statement(notifiable)
       ).deliver_now
     end
   end
@@ -79,18 +80,18 @@ private
   def action_statement(notifiable)
     case notifiable.class.name
     when 'Post'
-      'added a new post'
+      'Added a New Post'
     when 'Event'
-      'created a new event'
+      'Created a New Event'
     when 'Relationship'
-      'started following you'
+      'Started Following You'
     when 'Comment'
       commentable_class_name = notifiable.commentable.class.name.downcase
-      "commented on
+      "Commented on
       #{an_or_a(commentable_class_name)}
       #{commentable_class_name}"
     else
-      'posted something new'
+      'Posted Something New'
     end
   end
 
