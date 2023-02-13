@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_admin!, only: [:destroy, :admins, 
+  before_action :authenticate_admin!, only: [:destroy, :site_admins, 
   :add_admin, :remove_admin]
   before_action :set_user,
   only: [:show, :edit, :update, :destroy, :remove_avatar, :add_admin, 
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     @user.destroy
     respond_to do |format|
       format.html {
-        redirect_to admins_users_path,
+        redirect_to site_admins_users_path,
         notice: 'User was successfully destroyed.'
       }
       format.json { head :no_content }
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     render json: @users.search_results
   end
 
-  def admins
+  def site_admins
     @users =
       if params[:search]
         User.by_username.search_by(params[:search]).
@@ -75,13 +75,13 @@ class UsersController < ApplicationController
   def add_admin
     @user.is_admin = true
     @user.save
-    redirect_to admins_users_path
+    redirect_to site_admins_users_path
   end
 
   def remove_admin
     @user.is_admin = false
     @user.save
-    redirect_to admins_users_path
+    redirect_to site_admins_users_path
   end
 
   def photos

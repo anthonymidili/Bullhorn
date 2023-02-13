@@ -29,7 +29,7 @@
               = fa_icon 'cog', text: 'Settings'
           - if current_user.is_admin
             %li.nav-item
-              = link_to admins_users_path, title: 'Admin Controls', class: "nav-link" do
+              = link_to site_admins_users_path, title: 'Admin Controls', class: "nav-link" do
                 = fa_icon 'user-tie', text: 'Admins'
           %li.nav-item
             = link_to destroy_user_session_path, data: { turbo_method: :delete }, title: 'Sign out', class: "nav-link" do

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :search
-      get :admins
+      get :site_admins
     end
   end
 
