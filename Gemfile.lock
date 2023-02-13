@@ -68,7 +68,7 @@ GEM
       tzinfo (~> 2.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.709.0)
+    aws-partitions (1.710.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -345,7 +345,7 @@ GEM
       paint (>= 0.9, < 3.0)
     yard (0.9.28)
       webrick (~> 1.7.0)
-    zeitwerk (2.6.6)
+    zeitwerk (2.6.7)
 
 PLATFORMS
   ruby
@@ -388,7 +388,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 3.2.0p0
+   ruby 3.2.1p31
 
 BUNDLED WITH
    2.4.6
