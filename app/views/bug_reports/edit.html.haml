@@ -1,0 +1,16 @@
+.row
+  .col-12
+    %h1 Editing Bug Report
+
+    .mb-3
+      %b Name: 
+      = @bug_report.user.try(:name) || @bug_report.name
+    .mb-3
+      %b Email:
+      = @bug_report.user.try(:email) || @bug_report.email
+
+    = render 'form', bug_report: @bug_report
+
+    .links.mb-3
+      = link_to 'Show', @bug_report
+      = link_to 'Back', bug_reports_path

@@ -1,6 +1,10 @@
 - provide :title, 'Admins'
 = render 'users/search_box'
 .row
+  .col-12.mb-3
+    = link_to bug_reports_path, class: "btn btn-outline-primary" do
+      = pluralize(BugReport.count, 'Open bug report')
+.row
   .col-12
     %h1 Admins
     = render 'users/badge', users: @users.by_admin

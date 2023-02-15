@@ -1,0 +1,21 @@
+.row
+  .col-12
+    .mb-3
+      %b Date:
+      = @bug_report.created_at.strftime("%D - %r")
+    .mb-3
+      %b Username: 
+      = @bug_report.user.try(:username) || @bug_report.name
+    .mb-3
+      %b Email:
+      = @bug_report.user.try(:email) || @bug_report.email
+    .mb-3
+      %b Subject:
+      = @bug_report.subject
+    .mb-3
+      %b Body:
+      = @bug_report.body
+
+    .links
+      = link_to 'Edit', edit_bug_report_path(@bug_report)
+      = link_to 'Back', bug_reports_path

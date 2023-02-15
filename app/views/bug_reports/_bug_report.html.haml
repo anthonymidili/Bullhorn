@@ -1,0 +1,20 @@
+.callout.mb-3
+  .mb-3
+    %b Date:
+    = bug_report.created_at.strftime("%D - %r")
+  .mb-3
+    %b Username: 
+    = bug_report.user.try(:username) || bug_report.name
+  .mb-3
+    %b Email:
+    = bug_report.user.try(:email) || bug_report.email
+  .mb-3
+    %b Subject:
+    = bug_report.subject
+  .mb-3
+    %b Body:
+    = bug_report.body
+  .links.mb-3
+    = link_to 'Show', bug_report
+    = link_to 'Edit', edit_bug_report_path(bug_report)
+    = link_to 'Destroy', bug_report, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }

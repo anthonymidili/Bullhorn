@@ -6,7 +6,4 @@
           = image_tag 'TinFoilHat_WebDesign_LetterHead.svg'
       .col-6.col-md-9.col-lg-10
         .float-end
-          = mail_to 'bugs@ttfh.co',
-          'Find a bug? Report it!',
-          subject: 'Reporting a bug - Bullhorn',
-          body: 'Please describe the bug with as much detail as possible...'
+          = link_to 'Find a bug? Report it!', new_bug_report_path

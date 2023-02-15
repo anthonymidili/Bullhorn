@@ -1,0 +1,24 @@
+= form_with model: bug_report, data: { turbo: false } do |f|
+  = render 'notifications/error_messages', object: f.object
+
+  - unless user_signed_in?
+    .row
+      .col-12.col-md-6
+        .field.mb-3
+          = f.label :username, class: "form-label"
+          = f.text_field :username, class: "form-control"
+      .col-12.col-md-6
+        .field.mb-3
+          = f.label :email, class: "form-label"
+          = f.email_field :email, class: "form-control"
+  .row
+    .col-12
+      .field.mb-3
+        = f.label :subject, class: "form-label"
+        = f.text_field :subject, class: "form-control"
+      .field.mb-3
+        = f.label :body, class: "form-label"
+        = f.text_area :body, class: "form-control"
+      
+      .actions.mb-3
+        = f.submit class: "btn btn-primary"

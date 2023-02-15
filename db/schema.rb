@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_12_220734) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_14_000900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -55,6 +55,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_220734) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+  end
+
+  create_table "bug_reports", force: :cascade do |t|
+    t.string "subject"
+    t.text "body"
+    t.bigint "user_id"
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bug_reports_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -194,6 +205,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_220734) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bug_reports", "users"
   add_foreign_key "events", "users"
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "users"
