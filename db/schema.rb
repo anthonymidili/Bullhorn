@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_000900) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_18_010631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_000900) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "new", null: false
     t.index ["user_id"], name: "index_bug_reports_on_user_id"
   end
 

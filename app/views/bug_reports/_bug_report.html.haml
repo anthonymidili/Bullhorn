@@ -3,6 +3,9 @@
     %b Date:
     = bug_report.created_at.strftime("%D - %r")
   .mb-3
+    %b Status:
+    = bug_report.status.humanize
+  .mb-3
     %b Username: 
     = bug_report.user.try(:username) || bug_report.name
   .mb-3

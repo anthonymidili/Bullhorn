@@ -5,6 +5,7 @@ class BugReportsController < ApplicationController
   # GET /bug_reports or /bug_reports.json
   def index
     @bug_reports = BugReport.by_created_at
+    @status = params[:status] || "new"
   end
 
   # GET /bug_reports/1 or /bug_reports/1.json
@@ -67,6 +68,6 @@ class BugReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bug_report_params
-      params.require(:bug_report).permit(:subject, :body, :name, :email)
+      params.require(:bug_report).permit(:subject, :body, :name, :email, :status)
     end
 end

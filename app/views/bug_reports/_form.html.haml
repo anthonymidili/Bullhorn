@@ -19,6 +19,14 @@
       .field.mb-3
         = f.label :body, class: "form-label"
         = f.text_area :body, class: "form-control"
+  .row 
+    .col-12
+      - if current_user.try(:is_admin)
+        .field.mb-3
+          = f.label :status, class: "form-label"
+          = f.select :status, 
+          options_for_select(f.object.status_options, f.object.status), {}, 
+          {class: "form-select"}
       
       .actions.mb-3
         = f.submit class: "btn btn-primary"
