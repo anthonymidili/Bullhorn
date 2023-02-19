@@ -16,7 +16,7 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
     
   %body
-    #wrap{class: "#{'sites_home' unless user_signed_in? || @no_background}"}
+    #wrap
       = render 'layouts/top_bar'
 
       #main
