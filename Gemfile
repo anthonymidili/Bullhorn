@@ -20,7 +20,7 @@ gem 'font_awesome5_rails', '~> 1.5.0'
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # Background Jobs
-gem 'sidekiq', '~> 7.0.2'
+gem 'sidekiq', '~> 7.0.8'
 gem 'redis', '~> 5.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
