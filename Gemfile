@@ -59,7 +59,7 @@ gem 'sitemap_generator'
 gem 'scout_apm'
 gem 'barnes'
 
-gem 'simple_calendar', '~> 2.0'
+gem 'simple_calendar', '~> 3.0'
 
 # Add console tables with Hirb.enable.
 gem 'hirb'
