@@ -19,3 +19,4 @@
       .row
         .col-12
           = link_to comment_count(post), post
+    = render "likes/form", likeable: post, like: @like

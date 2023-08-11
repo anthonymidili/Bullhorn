@@ -31,6 +31,7 @@ class User < ApplicationRecord
     allow_destroy: true
 
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   has_many :invitations, dependent: :destroy
   has_many :events, through: :invitations
@@ -85,5 +86,9 @@ class User < ApplicationRecord
 
   def following?(user)
     relationships.find_by(followed: user)
+  end
+
+  def has_liked?(likeable)
+    likes.find_by(likeable_type: likeable.class.name, likeable_id: likeable.id)
   end
 end

@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     patch :mark_all_as_read
   end
 
+  resources :likes, only: [:create, :destroy]
+
   resource :timezones, only: [:edit, :update]
 
   resources :bug_reports
