@@ -12,6 +12,8 @@ module NotificationsHelper
       event_url(notifiable, anchor: anchor)
     when 'Relationship'
       user_url(notifiable.user, relationship_id: notifiable.id)
+    when "Like"
+      path_to_notifiable(notifiable.likeable)
     when 'Comment'
       path_to_notifiable(notifiable.commentable, "comment_#{notifiable.id}")
     else root_url

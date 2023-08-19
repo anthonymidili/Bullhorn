@@ -44,6 +44,7 @@ private
 
   def receive_mail_params
     params.require(:receive_mail).permit(:for_new_posts,
-      :for_new_events, :for_new_comments, :for_new_relationships)
+      :for_new_events, :for_new_comments, :for_new_relationships, 
+      :for_new_likes)
   end
 end

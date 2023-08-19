@@ -1,4 +1,5 @@
 = button_to like_path(likeable, 
 like: { likeable_type: likeable.class.name, likeable_id: likeable.id }), 
-method: :delete, class: "btn btn-link delete_link", title: "Unlike" do
+method: :delete, class: "btn btn-link delete-link", title: "Unlike" do
   %i{class: "bi bi-heart-fill"}
+  = likeable.likes.count

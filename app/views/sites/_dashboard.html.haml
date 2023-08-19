@@ -5,7 +5,7 @@
         - unless @user.try(:is_admin) && @users && @users.by_admin.count < 2
           = link_to @user,
           data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will PERMANENTLY delete the user and all the user's related data." },
-          class: 'delete_link', title: 'Delete user permanently' do
+          class: 'delete-link', title: 'Delete user permanently' do
             = fa_icon 'trash', text: 'Delete User'
           %br/
         = link_to @user, class: "mb-1" do

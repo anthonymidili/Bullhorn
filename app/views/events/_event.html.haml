@@ -6,7 +6,7 @@
           = fa_icon 'edit', text: 'Edit'
         = link_to event,
         data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
-        class: 'delete_link', title: 'Delete' do
+        class: 'delete-link', title: 'Delete' do
           = fa_icon 'trash'
     - if event.image.attached?
       .row

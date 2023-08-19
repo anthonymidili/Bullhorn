@@ -19,8 +19,11 @@
         = f.check_box :for_new_comments, id: 'cb_comments'
         = f.label :for_new_comments,
         'Comment on something you have posted or commented on', for: 'cb_comments'
-      .feild.mb-3
+      .feild.mb-1
         = f.check_box :for_new_relationships, id: 'cb_relationships'
         = f.label :for_new_relationships, 'start following you', for: 'cb_relationships'
+      .feild.mb-3
+        = f.check_box :for_new_likes, id: 'cb_likes'
+        = f.label :for_new_likes, 'liked your content', for: 'cb_likes'
       .actions.mb-3
         = f.submit 'Update Notification settings', class: 'btn btn-primary'

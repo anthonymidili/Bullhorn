@@ -13,14 +13,17 @@ class CreateNotifications
 private
 
   def get_recipients(notifiable)
-    if notifiable.class.name == "Comment"
+    case notifiable.class.name
+    when "Comment"
       recipients = notifiable.commentable.comments.map(&:created_by)
       recipients << notifiable.commentable.user
-      recipients = (recipients - [notifiable.created_by]).uniq
-    elsif notifiable.class.name == "Relationship"
+      recipients = (recipients - [ notifiable.created_by ]).uniq
+    when "Relationship"
       [ notifiable.followed ]
-    elsif notifiable.class.name == "Post" || notifiable.class.name == "Event"
+    when "Post", "Event"
       notifiable.user.followers
+    when "Like"
+      [ notifiable.likeable.user ] - [ notifiable.user ]
     else
       User.all_but_current(notifiable.user)
     end
@@ -90,6 +93,8 @@ private
       "Commented on
       #{an_or_a(commentable_class_name)}
       #{commentable_class_name}"
+    when "Like"
+      "Liked your #{notifiable.likeable_type}"
     else
       'Posted Something New'
     end

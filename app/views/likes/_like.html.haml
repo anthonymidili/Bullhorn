@@ -1,3 +1,4 @@
 = button_to likes_path(like: { likeable_type: likeable.class.name, likeable_id: likeable.id }), 
-class: "btn btn-link delete_link", title: "Like" do
+class: "btn btn-link delete-link", title: "Like" do
   %i{class: "bi bi-heart"}
+  = likeable.likes.count

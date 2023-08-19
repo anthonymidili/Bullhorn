@@ -64,7 +64,7 @@ nav.pagination {
   }
 }
 
-.delete_link {
+.delete-link {
   color: red;
   &:hover {
     color: darken(red, 15%);
@@ -114,4 +114,8 @@ nav.pagination {
   a {
     margin-left: 20px;
   }
+}
+
+.btn-link {
+  text-decoration: none;
 }
