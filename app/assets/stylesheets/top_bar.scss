@@ -54,21 +54,12 @@ nav {
 }
 
 .sub_top_bar {
+  background-color: #13395f;
   margin-top: -20px;
   margin-bottom: 20px;
-  & > nav > div > ul > li > a {
-    color: $sub-bar-text;
-    .count {
-      color: lighten($sub-bar-text, 35%);
-    }
-    &:hover {
-      color: darken($sub-bar-text, 10%);
-      .count {
-        color: lighten($sub-bar-text, 15%);
-      }
-    }
-    &::after {
-      border-color: $sub-bar-text transparent transparent !important;
-    }
+  padding-top: 2px;
+  padding-bottom: 2px;
+  a {
+    margin: 0 10px 0 10px;
   }
 }

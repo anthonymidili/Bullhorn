@@ -17,9 +17,6 @@
     #navbarNavDropdown.collapse.navbar-collapse
       -# Right side navbar.
       %ul.navbar-nav.nav-items-right
-        %li.nav-item
-          = link_to root_path, title: 'Home', class: "nav-link" do
-            = fa_icon 'home'
         - if user_signed_in?
           %li.nav-item
             = link_to current_user, title: 'User Profile', class: "nav-link" do
@@ -27,6 +24,9 @@
           %li.nav-item
             = link_to edit_user_registration_path, title: 'User Settings', class: "nav-link" do
               = fa_icon 'cog', text: 'Settings'
+          %li.nav-item
+            = link_to users_path, title: 'Explore Users', class: "nav-link" do
+              = fa_icon 'users', text: 'Explore Users'
           - if current_user.is_admin
             %li.nav-item
               = link_to site_admins_users_path, title: 'Admin Controls', class: "nav-link" do

@@ -1,16 +1,11 @@
-.sub_top_bar
-  %nav.navbar.navbar-expand-lg{style: "background-color: #13395f;"}
-    .container-fluid
-      %ul.navbar-nav
-        %li.nav-item
-          = link_to users_path, title: 'Explore Users', class: "nav-link" do
-            = fa_icon 'users', text: 'Explore Users'
-        %li.nav-item
-          = link_to events_path, title: 'Events', class: "nav-link" do
-            = fa_icon 'calendar', text: 'Events', type: :regular
-            - if current_user.relevant_events.in_the_future.any?
-              %span.count= current_user.relevant_events.in_the_future.count
-        %li.nav-item
-          = link_to notifications_path, title: 'Notifications', class: "nav-link" do
-            = fa_icon 'bell'
-            %span#recent_unread_count.count= current_user.notifications.recent_unread_count
+.sub_top_bar.sticky-top
+  .d-flex.justify-content-between.justify-content-lg-start
+    = link_to root_path, title: 'Home', class: "btn btn-link" do
+      = fa_icon 'home'
+    = link_to notifications_path, title: 'Notifications', class: "btn btn-link" do
+      = fa_icon 'bell'
+      %span#recent_unread_count.count= current_user.notifications.recent_unread_count
+    = link_to events_path, title: 'Events', class: "btn btn-link" do
+      = fa_icon 'calendar', text: 'Events', type: :regular
+      - if current_user.relevant_events.in_the_future.any?
+        %span.count= current_user.relevant_events.in_the_future.count
