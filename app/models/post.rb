@@ -16,17 +16,12 @@ class Post < ApplicationRecord
 
   include ReadNotifications
   # def read_user_notifications(current_user)
-  #   notifications.by_unread.where(recipient: current_user).
+  #   self.notifications.by_unread.where(recipient: current_user).
   #   update_all(is_read: true)
-  #   read_comment_notifications(current_user)
+  #   read_comment_notifications(current_user) if self.try(:comments)
+  #   read_like_notifications(current_user) if self.try(:likes)
   # end
-  # def read_comment_notifications(current_user)
-  #   comments.each do |comment|
-  #     comment.notifications.by_unread.where(recipient: current_user).
-  #     update_all(is_read: true)
-  #   end
-  # end
-
+  
   default_scope { order(created_at: :desc) }
 
   def self.by_following(user)

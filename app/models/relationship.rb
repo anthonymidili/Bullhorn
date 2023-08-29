@@ -12,14 +12,9 @@ class Relationship < ApplicationRecord
 
   include ReadNotifications
   # def read_user_notifications(current_user)
-  #   notifications.by_unread.where(recipient: current_user).
+  #   self.notifications.by_unread.where(recipient: current_user).
   #   update_all(is_read: true)
-  #   read_comment_notifications(current_user)
-  # end
-  # def read_comment_notifications(current_user)
-  #   comments.each do |comment|
-  #     comment.notifications.by_unread.where(recipient: current_user).
-  #     update_all(is_read: true)
-  #   end
+  #   read_comment_notifications(current_user) if self.try(:comments)
+  #   read_like_notifications(current_user) if self.try(:likes)
   # end
 end
