@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   resources :likes, only: [:create, :destroy]
 
-  get "posts/:id/likes", to: "posts#likes", as: "post_likes"
+  get "posts/:id/who_liked", to: "posts#who_liked", as: "post_who_liked"
 
   resource :timezones, only: [:edit, :update]
 

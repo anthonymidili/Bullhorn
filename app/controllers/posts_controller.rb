@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :likes]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :who_liked]
   before_action :deny_access!, only: [:edit, :update, :destroy],
   unless:  -> { correct_user?(@post.user) }
   before_action :set_as_read!, only: [:show]
@@ -69,7 +69,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def likes
+  def who_liked
     @likeable = @post
   end
 
