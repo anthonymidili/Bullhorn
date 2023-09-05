@@ -68,7 +68,7 @@ GEM
       tzinfo (~> 2.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.812.0)
+    aws-partitions (1.816.0)
     aws-sdk-core (3.181.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -138,8 +138,8 @@ GEM
     font_awesome5_rails (1.5.0)
       nokogiri (>= 1.11.3)
       railties (>= 4.2)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     haml (6.1.2)
       temple (>= 0.8.2)
       thor
@@ -244,7 +244,7 @@ GEM
     passenger (6.0.18)
       rack
       rake (>= 0.8.1)
-    pg (1.5.3)
+    pg (1.5.4)
     racc (1.7.1)
     rack (2.2.8)
     rack-test (2.1.0)
@@ -393,4 +393,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.14
+   2.4.19

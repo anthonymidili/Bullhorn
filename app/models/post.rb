@@ -21,6 +21,12 @@ class Post < ApplicationRecord
   #   read_comment_notifications(current_user) if self.try(:comments)
   #   read_like_notifications(current_user) if self.try(:likes)
   # end
+
+  include LikeableUsers
+  # def users_who_liked
+  #   users = self.likes.pluck(:user_id)
+  #   User.where(id: users)
+  # end
   
   default_scope { order(created_at: :desc) }
 

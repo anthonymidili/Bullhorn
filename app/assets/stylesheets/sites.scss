@@ -71,8 +71,11 @@ nav.pagination {
   }
 }
 
-.black_text_link {
+.black {
   color: $black;
+  &::before {
+    font-weight: bold !important;
+  }
   &:hover {
     color: lighten($black, 25%);
   }

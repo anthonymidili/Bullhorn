@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   resources :likes, only: [:create, :destroy]
 
+  get "posts/:id/likes", to: "posts#likes", as: "post_likes"
+
   resource :timezones, only: [:edit, :update]
 
   resources :bug_reports

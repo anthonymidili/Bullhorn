@@ -1,0 +1,8 @@
+.row
+  .col-12
+    %h1 Who liked this #{@likeable.class.name.downcase}
+    = link_to "Back to #{@likeable.class.name.downcase}", @likeable
+    %p
+      = @likeable.users_who_liked.count
+      users
+    = render 'users/badge', users: @likeable.users_who_liked

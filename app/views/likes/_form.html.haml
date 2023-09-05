@@ -3,3 +3,7 @@
     = render "likes/unlike", likeable: likeable
   - else
     = render "likes/like", likeable: likeable
+  - if likeable.likes.any?
+    %span.likes-count
+      = link_to path_to_likes(likeable), data: { turbo: false } do
+        = pluralize(likeable.likes.count, 'like')
