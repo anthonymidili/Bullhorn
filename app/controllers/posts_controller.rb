@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :who_liked]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :deny_access!, only: [:edit, :update, :destroy],
   unless:  -> { correct_user?(@post.user) }
   before_action :set_as_read!, only: [:show]
@@ -67,10 +67,6 @@ class PostsController < ApplicationController
       }
       format.json { head :no_content }
     end
-  end
-
-  def who_liked
-    @likeable = @post
   end
 
 private

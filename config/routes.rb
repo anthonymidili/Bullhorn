@@ -39,9 +39,11 @@ Rails.application.routes.draw do
     patch :mark_all_as_read
   end
 
-  resources :likes, only: [:create, :destroy]
-
-  get "posts/:id/who_liked", to: "posts#who_liked", as: "post_who_liked"
+  resources :likes, only: [:create, :destroy] do
+    collection do
+      get :who
+    end
+  end
 
   resource :timezones, only: [:edit, :update]
 

@@ -44,6 +44,9 @@ class LikesController < ApplicationController
     end
   end
 
+  def who
+  end
+
 private
 
   def like_params

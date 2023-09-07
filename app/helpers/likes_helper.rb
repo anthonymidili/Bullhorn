@@ -1,5 +1,8 @@
 module LikesHelper
   def path_to_who_liked(likeable)
-    ("/#{likeable.class.name.tableize}/#{likeable.id}/who_liked").html_safe
+    who_likes_path(like: { 
+      likeable_type: likeable.class.name, 
+      likeable_id: likeable.id 
+    })
   end
 end
