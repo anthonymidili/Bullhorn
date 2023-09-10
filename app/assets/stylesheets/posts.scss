@@ -1,5 +1,5 @@
 .post, .photo, .event {
-  border-top: 1px solid $light-gray;
+  border-top: 1px solid $border-color;
   padding: 10px 0 10px 0;
   &:first-child {
     border-top: 0;
@@ -19,7 +19,7 @@
 }
 
 .timestamp {
-  color: $dark-gray;
+  color: $dark-gray-color;
 }
 
 .size-250 {

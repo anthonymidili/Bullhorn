@@ -58,7 +58,7 @@ nav.pagination {
   span {
     font-size: small;
     a {
-      color: $dark-gray;
+      color: $pagination-text;
     }
     display: inline-block;
   }
@@ -67,26 +67,26 @@ nav.pagination {
 .delete-link {
   color: $delete-link-color;
   &:hover {
-    color: darken($red, 15%);
+    color: darken($delete-link-color, 15%);
   }
 }
 
 .black {
-  color: $black;
+  color: $black-color;
   &::before {
     font-weight: bold !important;
   }
   &:hover {
-    color: lighten($black, 25%);
+    color: lighten($black-color, 25%);
   }
 }
 
 .green, .true {
-  color: $green;
+  color: $green-color;
 }
 
 .red, .false {
-  color: $red;
+  color: $red-color;
 }
 
 .pad_left {

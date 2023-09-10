@@ -20,7 +20,7 @@
     }
   }
   &.callout {
-    border: 2px solid $light-gray;
+    border: 2px solid $callout-border;
     border-radius: 15px;
   }
   .avatar-info {
@@ -36,7 +36,7 @@
 
 .avatar {
   img {
-    border: 2px solid $light-gray;
+    border: 2px solid $avatar-border;
     border-radius: 50%;
   }
 }
@@ -72,8 +72,8 @@
   display: inline-block;
   height: 42px !important;
   width: 42px !important;
-  border: solid 1px #91b3f4;
-  background-color: #cfdefb;
+  border: solid 1px $no-avatar-border;
+  background-color: $no-avatar-background;
   padding: 3px;
   vertical-align: middle;
 }

@@ -14,9 +14,9 @@
 
 /* Modal Content/Box */
 .modal_content {
-  background-color: #fefefe;
+  background-color: $modal-background;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid $modal-border;
   margin: 5% auto; /* from the top and centered */
   /* Modal width */
   width: 95%;

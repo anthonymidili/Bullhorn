@@ -1,6 +1,5 @@
 // Color palette
 $light-gray: #c6c9cb;
-$medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
 $black: #010101;
 $white: #fefefe;
@@ -19,12 +18,25 @@ $dark-blue: #13395f;
 $blue: #1d92e2;
 $troy-blue: #1552a2;
 $shakespear: #55acd9;
-$blue-ting: #f9f9f9;
+$blue-ting: #fafafb;
+
+// Standards
+$standard-font: $black;
+$site-background: $off-white;
+$delete-link-color: $red;
+$background-color: $blue-ting;
+$border-color: $light-gray;
+$black-color: $black;
+$white-color: $white;
+$green-color: $green;
+$red-color: $red;
+$dark-gray-color: $dark-gray;
+
 
 // Topbar
 $topbar-background: $troy-blue;
-$topbar-text: $off-white;
 $topbar-background-hover: $dark-blue;
+$topbar-text: $off-white;
 $topbar-text-hover: $ice-blue;
 $topbar-logo: $off-white;
 $topbar-logo-hover: $ice-blue;
@@ -36,20 +48,39 @@ $toggler-icon-color: $off-white-rgb;
 $subbar-background: $ice-blue;
 $subbar-text: $troy-blue;
 
-// Standards
-$standard-font: $black;
-$site-background: $off-white;
-$delete-link-color: $red;
-
 // Callouts
-$callout-border: $medium-gray;
-$callout-background: $blue-ting;
+$callout-background: $background-color;
+$callout-border: $border-color;
 
 // Notifications
-$notifications-background: $blue-ting;
-$notifications-border: $light-gray;
+$notifications-background: $background-color;
+$notifications-border: $border-color;
 $notifications-unread: $green-ting;
 
 // Comments
-$comments-background: $blue-ting;
-$comments-border: $light-gray;
+$comments-background: $background-color;
+$comments-border: $border-color;
+
+// Autocomplete
+$autocomplete-background: $background-color;
+$autocomplete-background-hover: $green-ting;
+$autocomplete-border: $border-color;
+
+// Avatar
+$avatar-background: $background-color;
+$avatar-border: $border-color;
+$no-avatar-background: $background-color;
+$no-avatar-border: $border-color;
+
+// Pagination
+$pagination-text: $dark-gray;
+
+// Modal
+$modal-background: $site-background;
+$modal-border: $border-color;
+
+
+// Events
+$event-response-background: $site-background;
+$event-description-background: $site-background;
+$event-border: $border-color;

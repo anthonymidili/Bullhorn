@@ -31,7 +31,7 @@
 }
 
 .direct-upload--error {
-  border-color: red;
+  border-color: $red-color;
 }
 
 input[type=file][data-direct-upload-url][disabled] {
