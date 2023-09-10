@@ -1,4 +1,4 @@
-$pale-yellow: #fff6d1;
+// Color palette
 $light-gray: #c6c9cb;
 $medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
@@ -13,6 +13,7 @@ $off-white: #fffff4;
 $off-white-rgb: rgb(255, 255, 244);
 $red: #ff0000;
 $green: #008000;
+$green-ting: #daf7da;
 $ice-blue: #d4e6f0;
 $dark-blue: #13395f;
 $blue: #1d92e2;
@@ -20,7 +21,7 @@ $troy-blue: #1552a2;
 $shakespear: #55acd9;
 $blue-ting: #f9f9f9;
 
-// Light theme
+// Topbar
 $topbar-background: $troy-blue;
 $topbar-text: $off-white;
 $topbar-background-hover: $dark-blue;
@@ -30,11 +31,25 @@ $topbar-logo-hover: $ice-blue;
 $toggler-border: $off-white;
 $toggler-clicked: $ice-blue;
 $toggler-icon-color: $off-white-rgb;
+
+// Subbar
 $subbar-background: $ice-blue;
-$sub-bar-text: $troy-blue;
+$subbar-text: $troy-blue;
+
+// Standards
 $standard-font: $black;
 $site-background: $off-white;
+$delete-link-color: $red;
+
+// Callouts
 $callout-border: $medium-gray;
 $callout-background: $blue-ting;
-$delete-link-color: $red;
-$notifications-background: $pale-yellow;
+
+// Notifications
+$notifications-background: $blue-ting;
+$notifications-border: $light-gray;
+$notifications-unread: $green-ting;
+
+// Comments
+$comments-background: $blue-ting;
+$comments-border: $light-gray;

@@ -10,12 +10,14 @@
           = link_to edit_notifications_path,
           title: 'Notification Settings', class: 'btn btn-primary' do
             = fa_icon 'cog', text: 'Settings'
-      .d-flex.flex-column.mb-3
-        NEW
-        #unread_notifications_list
-          = render partial: "notifications/notification",
-          collection: @recent_notifications
+      .notifications-box.d-flex.flex-column.mb-3
+        - if @recent_notifications.any?
+          %h6.list NEW
+          #unread_notifications_list
+            = render partial: "notifications/notification",
+            collection: @recent_notifications
         - if @earlier_notifications.any?
-          EARLIER
-          = render partial: "notifications/notification",
-          collection: @earlier_notifications
+          %h6.list EARLIER
+          #unread_notifications_list
+            = render partial: "notifications/notification",
+            collection: @earlier_notifications

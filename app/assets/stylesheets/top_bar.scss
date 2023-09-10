@@ -75,13 +75,13 @@ nav.navbar {
   margin-bottom: 20px;
   padding-top: 2px;
   padding-bottom: 2px;
-  border-top: 1px solid $sub-bar-text;
-  border-bottom: 1px solid $sub-bar-text;
+  border-top: 1px solid $subbar-text;
+  border-bottom: 1px solid $subbar-text;
   a {
     margin: 0 10px 0 10px;
-    color: $sub-bar-text;
+    color: $subbar-text;
     &:hover {
-      color: darken($color: $sub-bar-text, $amount: 15%);
+      color: darken($color: $subbar-text, $amount: 15%);
     }
   }
 }

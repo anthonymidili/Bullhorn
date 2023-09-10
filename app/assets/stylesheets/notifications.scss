@@ -1,7 +1,10 @@
 .notification {
-  background-color: $notifications-background;
-  border-top: 1px solid $light-gray;
-  padding: 10px;
+  
+  border-top: 1px solid $notifications-border;
+  &:first-child {
+    border-top: none;
+  }
+  padding: 10px 0 10px 30px;
   font-size: small;
   li {
     img {
@@ -15,10 +18,26 @@
   }
 }
 
+.notifications-box {
+  background-color: $notifications-background;
+  border: 1px solid $notifications-border;
+  border-radius: 8px;
+  padding: 10px;
+}
+
 .is_read_false {
-  background-color: #b3e4f9;
+  background-color: $notifications-unread;
 }
 
 .horizontal-buttons li {
   padding-right: 25px;
+}
+
+#notifications {
+  .list {
+    margin-top: 25px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
 }
