@@ -14,6 +14,6 @@
         - if page.display_tag?
           %li.page-item= page_tag page
         - elsif !page.was_truncated?
-          %li= gap_tag
+          %li.page-item= gap_tag
       %li.page-item= next_page_tag unless current_page.last?
       %li.page-item= last_page_tag unless current_page.last?
