@@ -1,0 +1,19 @@
+-#  The container tag
+-#  available local variables
+-#    current_page:  a page object for the currently displayed page
+-#    total_pages:   total number of pages
+-#    per_page:      number of items to fetch per page
+-#    remote:        data-remote
+-#    paginator:     the paginator that renders the pagination tags inside
+= paginator.render do
+  %nav{aria: { label: "Page navigation example" }}
+    %ul.pagination.justify-content-center.justify-content-md-start
+      %li.page-item= first_page_tag unless current_page.first?
+      %li.page-item= prev_page_tag unless current_page.first?
+      - each_page do |page|
+        - if page.display_tag?
+          %li.page-item= page_tag page
+        - elsif !page.was_truncated?
+          %li= gap_tag
+      %li.page-item= next_page_tag unless current_page.last?
+      %li.page-item= last_page_tag unless current_page.last?
