@@ -1,6 +1,6 @@
 body {
-  color: $lasalle-dark;
-  background-color: #fefef4;
+  color: $standard-font;
+  background-color: $site-background;
 }
 
 nav {
@@ -23,7 +23,7 @@ a {
   position: relative;
   margin: 0 0 1rem;
   padding: 1rem;
-  border: 1px solid rgba(10,10,10,.25);
+  border: 1px solid $callout-border;
   border-radius: 8px;
   background-color: $callout-background;
 }
@@ -32,7 +32,7 @@ a {
   position: relative;
   margin: 0 0 1rem;
   padding: 5px;
-  border: 1px solid rgba(10,10,10,.25);
+  border: 1px solid $callout-border;
   border-radius: 6px;
   background-color: $callout-background;
 }
@@ -65,9 +65,9 @@ nav.pagination {
 }
 
 .delete-link {
-  color: red;
+  color: $delete-link-color;
   &:hover {
-    color: darken(red, 15%);
+    color: darken($red, 15%);
   }
 }
 
@@ -82,11 +82,11 @@ nav.pagination {
 }
 
 .green, .true {
-  color: green;
+  color: $green;
 }
 
 .red, .false {
-  color: red;
+  color: $red;
 }
 
 .pad_left {

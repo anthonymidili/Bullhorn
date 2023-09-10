@@ -1,47 +1,63 @@
-nav {
+nav.navbar {
+  background-color: $topbar-background;
   margin-bottom: 20px;
-  a {
-    color: $lasalle-dark;
-  }
-  img {
-    height: 50px;
-    width: 50px;
-  }
-
+  
   span.inline {
     display: inline-block;
     vertical-align: middle;
     h1 {
       margin-bottom: 0;
-      @extend .black;
     }
   }
 
-  /* make menu icon larger and easier to click */
-  span.menu-icon {
-    padding-left: 3em;
-    margin-right: 0.5em;
+  .topbar-logo {
+    h1 {
+      color: $topbar-logo;
+      &::before {
+        font-weight: bold !important;
+      }
+    }
+    img, svg {
+      margin-left: 4px;
+      height: 50px;
+      width: 50px;
+      fill: $topbar-logo;
+    }
+    &:hover {
+      h1 {
+        color: $topbar-logo-hover;
+      }
+      img, svg {
+        fill: $topbar-logo-hover;
+      }
+    }
+  }
+
+  .navbar-toggler {
+    color: $toggler-clicked;
+    border: 2px solid $toggler-border;
+    .navbar-toggler-icon {
+      // Change bootstrap hamburger icon color with rgb format.
+      background-image: url(
+        "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$toggler-icon-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"
+      );
+    }
   }
   
-
-  /* on small, make dropdown standout */
-  .accordion-menu {
-    background-color: lighten($topbar-background, 5%);
-  }
-
   .nav-items-right {
     margin-left: auto;
     a {
-      color: $black !important;
+      border-radius: 8px;
+      color: $topbar-text !important;
       &:hover {
-        background-color: $black !important;
-        color: $pale-yellow !important;
+        background-color: $topbar-background-hover !important;
+        color: $topbar-text-hover !important;
         &::after {
-          border-color: $pale-yellow transparent transparent !important;
+          border-color: $topbar-text-hover transparent transparent !important;
         }
       }
       &::after {
-        border-color: $black transparent transparent !important;
+        border-color: $topbar-background-hover transparent transparent !important;
       }
     }
   }
@@ -54,12 +70,18 @@ nav {
 }
 
 .sub_top_bar {
-  background-color: #13395f;
+  background-color: $subbar-background;
   margin-top: -20px;
   margin-bottom: 20px;
   padding-top: 2px;
   padding-bottom: 2px;
+  border-top: 1px solid $sub-bar-text;
+  border-bottom: 1px solid $sub-bar-text;
   a {
     margin: 0 10px 0 10px;
+    color: $sub-bar-text;
+    &:hover {
+      color: darken($color: $sub-bar-text, $amount: 15%);
+    }
   }
 }

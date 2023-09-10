@@ -1,10 +1,11 @@
-%nav.navbar.navbar-expand-lg{style: "background-color: #ffcc00;"}
+%nav.navbar.navbar-expand-lg
   .container-fluid
     -# Left side navbar.
-    = link_to root_path do
+    = link_to root_path, class: "topbar-logo" do
       %span.inline 
         %h1 Bullhorn
-      %span.inline= image_tag 'bullhorn.png'
+      %span.inline
+        = render inline: Rails.root.join('app/assets/images/bullhorn.svg').read
 
     %button.navbar-toggler{aria: {
     controls: "navbarNavDropdown",
