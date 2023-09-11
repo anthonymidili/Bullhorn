@@ -1,4 +1,6 @@
 .simple-calendar {
+  overflow-y: scroll;
+
   table {
     -webkit-border-horizontal-spacing: 0px;
     -webkit-border-vertical-spacing: 0px;
@@ -15,6 +17,7 @@
   }
 
   th {
+    min-width: 120px;
     padding: 6px;
     border-bottom: 2px solid #dddddd;
     border-collapse: collapse;

@@ -10,8 +10,8 @@
     .col-12.col-lg-6
       - if f.object.image.attached?
         .mb-3
-          = image_tag medium_image(f.object.image)
-          = link_to 'Remove image', remove_image_event_path(f.object) if f.object.persisted?
+          .image= image_tag medium_image(f.object.image)
+          .remove= link_to 'Remove image', remove_image_event_path(f.object) if f.object.persisted?
   .field.mb-3
     = f.label :name, class: "form-label"
     = f.text_field :name, class: "form-control"
