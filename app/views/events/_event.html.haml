@@ -15,7 +15,7 @@
         .col-12
           .center.mb-3
             = link_to event do
-              = image_tag medium_image(event.image)
+              = image_tag medium_image(event.image), class: "img-thumbnail"
     .row
       .col-12.col-md-4
         .start_date.mb-3= event.start_date.strftime('%A, %b %-d, %Y')
