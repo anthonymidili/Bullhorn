@@ -6,7 +6,6 @@ $white: #fefefe;
 $tundora: #424242;
 $gray: #868686;
 $christine: #f26c09;
-$silver: #c9c9c9;
 $goldenrod: #fbcc6c;
 $off-white: #fffff4;
 $off-white-rgb: rgb(255, 255, 244);
@@ -25,7 +24,7 @@ $standard-font: $black;
 $site-background: $off-white;
 $delete-link-color: $red;
 $background-color: $blue-ting;
-$border-color: $light-gray;
+$border-color: $gray;
 $black-color: $black;
 $white-color: $white;
 $green-color: $green;
@@ -68,7 +67,7 @@ $autocomplete-border: $border-color;
 
 // Avatar
 $avatar-background: $background-color;
-$avatar-border: $border-color;
+$avatar-border: $troy-blue;
 $no-avatar-background: $background-color;
 $no-avatar-border: $border-color;
 
@@ -83,3 +82,6 @@ $modal-border: $border-color;
 $event-response-background: $site-background;
 $event-description-background: $site-background;
 $event-border: $border-color;
+
+// Forms
+$form-input-border: $gray;

@@ -10,7 +10,7 @@
     .col-12.col-lg-6
       - if f.object.image.attached?
         .mb-3
-          .image= image_tag medium_image(f.object.image)
+          .image= image_tag medium_image(f.object.image), class: "img-thumbnail"
           .remove= link_to 'Remove image', remove_image_event_path(f.object) if f.object.persisted?
   .field.mb-3
     = f.label :name, class: "form-label"

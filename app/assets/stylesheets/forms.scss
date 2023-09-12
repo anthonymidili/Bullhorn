@@ -9,3 +9,7 @@
 .likes-count {
   margin-left: -10px;
 }
+
+.form-control, .form-check-input, .form-select, .input-group-text {
+  border-color: $form-input-border;
+}

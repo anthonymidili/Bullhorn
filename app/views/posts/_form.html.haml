@@ -10,7 +10,7 @@
       .photo
         .content
           - f.object.images.uniq.each do |image|
-            = image_tag medium_image(image)
+            = image_tag medium_image(image), class: "img-thumbnail"
 
     = f.label :images, class: "form-label"
     - if f.object.images.attached?
