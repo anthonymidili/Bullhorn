@@ -7,10 +7,9 @@
     = f.text_area :body, rows: '3', class: "form-control"
   .field.mb-3
     - if f.object.images.attached?
-      .photo
-        .content
-          - f.object.images.uniq.each do |image|
-            = image_tag medium_image(image), class: "img-thumbnail"
+      - f.object.images.uniq.each do |image|
+        .photo
+          = image_tag medium_image(image), class: "img-thumbnail"
 
     = f.label :images, class: "form-label"
     - if f.object.images.attached?

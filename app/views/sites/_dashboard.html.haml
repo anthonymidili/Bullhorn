@@ -15,7 +15,6 @@
       = render 'posts/form', post: @post
   .col-12.col-md-7.col-lg-8
     %h2 Community Feed
-    %hr/
     .posts
       = render @posts
     = paginate @posts, window: 2
