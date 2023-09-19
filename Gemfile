@@ -55,11 +55,9 @@ gem 'cocoon', '~> 1.2.8'
 gem 'scenic', '~> 1.7.0'
 # framework-agnostic XML Sitemap generator
 gem 'sitemap_generator'
-# Scout Ruby Application Monitoring Agent https://scoutapp.com
-gem 'scout_apm'
-gem 'barnes'
 
 gem 'simple_calendar', '~> 3.0'
+gem 'sib-api-v3-sdk'
 
 # Add console tables with Hirb.enable.
 gem 'hirb'

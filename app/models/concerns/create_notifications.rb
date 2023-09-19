@@ -17,6 +17,9 @@ private
     when "Comment"
       recipients = notifiable.commentable.comments.map(&:created_by)
       recipients << notifiable.commentable.user
+      if notifiable.commentable.class.name == "Event"
+        recipients + notifiable.commentable.invitations.by_going_maybe.map(&:user)
+      end
       recipients = (recipients - [ notifiable.created_by ]).uniq
     when "Relationship"
       [ notifiable.followed ]
@@ -83,24 +86,39 @@ private
   def action_statement(notifiable)
     case notifiable.class.name
     when 'Post'
-      'Added a New Post'
+      "Added a New Post - #{notifiable.body.truncate(40)}"
     when 'Event'
-      'Created a New Event'
+      "Created a New Event - #{notifiable.name}"
     when 'Relationship'
       'Started Following You'
     when 'Comment'
-      commentable_class_name = notifiable.commentable.class.name.downcase
       "Commented on
-      #{an_or_a(commentable_class_name)}
-      #{commentable_class_name}"
+      #{commentable_action_statement(notifiable.commentable)}
+      (Comment - #{notifiable.body.truncate(40)})"
     when "Like"
-      "Liked your #{notifiable.likeable_type}"
+      "Liked your #{likeable_action_statement(notifiable.likeable)}"
     else
       'Posted Something New'
     end
   end
 
-  def an_or_a(commentable_class_name)
-    commentable_class_name == 'event' ? 'an' : 'a'
+  def commentable_action_statement(commentable)
+    case commentable.class.name
+    when "Post"
+      "a Post - #{commentable.body.truncate(40)}"
+    when "Event"
+      "an Event - #{commentable.name}"
+    else
+      "Commented on something"
+    end
+  end
+
+  def likeable_action_statement(likeable)
+    case likeable.class.name
+    when "Post"
+      "Post - #{likeable.body.truncate(40)}"
+    else
+      "Liked something"
+    end
   end
 end
