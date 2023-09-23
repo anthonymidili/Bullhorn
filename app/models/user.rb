@@ -71,9 +71,9 @@ class User < ApplicationRecord
   # scope :by_accepts_email, -> { where(receive_email: true) }
   scope :all_but_current, -> (current_user) { where.not(id: current_user) }
 
+  # Only show events user created or was invited to.
   def relevant_events
-    user_ids = following_ids << id
-    Event.where(user: user_ids)
+    Event.joins(:invitations).where(invitations: { user: self })
   end
   
   def full_name
@@ -90,5 +90,10 @@ class User < ApplicationRecord
 
   def has_liked?(likeable)
     likes.find_by(likeable_type: likeable.class.name, likeable_id: likeable.id)
+  end
+
+  # All user relationships both followers and following.
+  def all_relationships
+    (followers + following).uniq
   end
 end

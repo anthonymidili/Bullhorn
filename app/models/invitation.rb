@@ -4,5 +4,5 @@ class Invitation < ApplicationRecord
 
   scope :responce, -> (status) { where(status: status) }
   scope :by_going_maybe, -> { where.not(status: 'cant_go') }
-  scope :user_status, -> (user) { by_going_maybe.find_by(user_id: user).try(:status) }
+  scope :user_status, -> (user) { find_by(user_id: user).try(:status) }
 end

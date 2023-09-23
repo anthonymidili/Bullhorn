@@ -30,5 +30,24 @@
     = f.label :timezone, 'Event timezone', class: "form-label"
     = f.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones,
     default: current_user.timezone, class: "form-control"
+  .field.links{data: { controller: "check-box-select-all" }}
+    .mb-3
+      %h3 Who are you inviting?
+      = button_tag "Select all", 
+      { data: { action: "click->check-box-select-all#selectAll" },
+      type: "button", class: "btn btn-outline-primary btn-sm" }
+      = button_tag "Clear all", 
+      { data: { action: "click->check-box-select-all#clearAll" },
+      type: "button", class: "btn btn-outline-secondary btn-sm" }
+      #check_boxes.row
+    -# Add event creator into user_ids so creator does not have to be
+    -# selected as going.
+    = hidden_field_tag "event[user_ids][]", f.object.user.id
+    
+    -# Render followers and following check box array to select
+    -# who will be invited.
+    .row
+      - f.object.user.all_relationships.each do |user|
+        = render 'invitations/check_box', event: f.object, user: user
   .actions.mb-3
     = f.submit class: 'btn btn-primary'

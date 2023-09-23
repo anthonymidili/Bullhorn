@@ -1,0 +1,16 @@
+.col-12.col-md-6.col-lg-4
+  .post_user.mb-3
+    .form-check{id: "invitation_check_box_#{user.id}"}
+      = label_tag "check_box_#{user.id}", class: "form-check-label" do
+        = check_box_tag "event[user_ids][]", 
+        user.id,
+        event.users.include?(user),
+        id: "check_box_#{user.id}",
+        class: "form-check-input",
+        data: { check_box_select_all_target: "child" }
+        .status_user
+          - if user.avatar.attached?
+            = image_tag thumb_image(user.avatar)
+          - else
+            = fa_icon 'user', class: 'no_avatar'
+          = user.username

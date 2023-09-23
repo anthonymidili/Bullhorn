@@ -9,8 +9,10 @@ module InvitationsHelper
       fa_icon 'check-circle', style: 'color: green'
     when 'maybe'
       fa_icon 'question-circle', style: 'color: #ffa933;'
-    else
+    when 'cant_go'
       fa_icon 'times-circle', style: 'color: red'
+    else
+      ''
     end
   end
 end

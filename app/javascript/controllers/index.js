@@ -4,5 +4,5 @@
 
 import { application } from "./application"
 
-// import DropzoneController from "./dropzone_controller"
-// application.register("dropzone", DropzoneController)
+import CheckBoxSelectAllController from "./check_box_select_all_controller"
+application.register("check-box-select-all", CheckBoxSelectAllController)

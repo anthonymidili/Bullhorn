@@ -63,7 +63,8 @@ class Event < ApplicationRecord
 private
 
   def set_as_going
-    self.invitations.create(user: self.user, status: 'going')
+    creators_invitation = self.invitations.find_or_create_by(user: self.user)
+    creators_invitation.update_attribute(:status, 'going')
   end
 
   def future_start_date?

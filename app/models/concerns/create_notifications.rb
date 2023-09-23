@@ -23,12 +23,14 @@ private
       recipients = (recipients - [ notifiable.created_by ]).uniq
     when "Relationship"
       [ notifiable.followed ]
-    when "Post", "Event"
+    when "Post"
       notifiable.user.followers
+    when "Event"
+      notifiable.users - [ notifiable.user ]
     when "Like"
       [ notifiable.likeable.user ] - [ notifiable.user ]
     else
-      User.all_but_current(notifiable.user)
+      notifiable.user.all_relationships - [ notifiable.user ]
     end
   end
 

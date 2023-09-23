@@ -37,6 +37,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(event_params)
     @event.address || @event.build_address
+
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -96,7 +97,7 @@ private
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:name, :description, :start_date, :end_date,
-      :timezone, :image,
+      :timezone, :image, user_ids: [],
       address_attributes: [:id, :street_1, :street_2, :city, :state, :zip,
       :location, :_destroy])
   end
