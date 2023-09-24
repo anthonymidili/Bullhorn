@@ -5,11 +5,12 @@
         .col-12
           .links-end
             = link_to edit_event_path(event), title: 'Edit' do
-              = fa_icon 'edit', text: 'Edit'
+              %i.fa-solid.fa-pen-to-square
+              Edit
             = link_to event,
             data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
             class: 'delete-link', title: 'Delete' do
-              = fa_icon 'trash'
+              %i.fa-solid.fa-trash
     - if event.image.attached?
       .row
         .col-12

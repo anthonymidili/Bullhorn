@@ -39,4 +39,7 @@
       Unhappy?
       = link_to "Cancel my account", registration_path(resource_name),
       data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
-    .mb-3= link_to "Back", :back
+    .mb-3
+      = link_to :back do
+        %i.fa-solid.fa-hand-point-left
+        Back

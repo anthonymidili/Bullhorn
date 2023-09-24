@@ -7,6 +7,8 @@
 
     .links.mb-3
       = link_to @event, title: 'Back' do
-        = fa_icon 'hand-point-left', text: 'Back'
+        %i.fa-solid.fa-hand-point-left
+        Back
       = link_to events_path, title: 'Events' do
-        = fa_icon 'calendar', text: 'View events', type: :regular
+        %i.fa-regular.fa-calendar
+        View events

@@ -1,11 +1,12 @@
 .sub_top_bar.sticky-top
   .d-flex.justify-content-between.justify-content-lg-start
     = link_to root_path, title: 'Home', class: "btn btn-link" do
-      = fa_icon 'home'
+      %i.fa-solid.fa-house
     = link_to notifications_path, title: 'Notifications', class: "btn btn-link" do
-      = fa_icon 'bell'
+      %i.fa-solid.fa-bell
       %span#recent_unread_count.count= current_user.notifications.recent_unread_count
     = link_to events_path, title: 'Events', class: "btn btn-link" do
-      = fa_icon 'calendar', text: 'Events', type: :regular
+      %i.fa-regular.fa-calendar
       - if current_user.relevant_events.in_the_future.any?
         %span.count= current_user.relevant_events.in_the_future.count
+      

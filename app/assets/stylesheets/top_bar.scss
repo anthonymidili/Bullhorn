@@ -46,7 +46,7 @@ nav.navbar {
   
   .nav-items-right {
     margin-left: auto;
-    a {
+    a, button {
       border-radius: 8px;
       color: $topbar-text !important;
       &:hover {

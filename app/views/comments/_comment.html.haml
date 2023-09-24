@@ -3,11 +3,12 @@
     - if correct_user?(comment.created_by)
       .links-end
         = link_to [:edit, comment.commentable, comment], title: 'Edit' do
-          = fa_icon 'edit', text: 'Edit'
+          %i.fa-solid.fa-pen-to-square
+          Edit
         = link_to [comment.commentable, comment],
         data: { turbo_method: :delete, turbo_confirm: 'Are you sure.' },
         class: 'delete-link', title: 'Delete' do
-          = fa_icon 'trash'
+          %i.fa-solid.fa-trash
     = render 'users/post_user', user: comment.created_by
     .content= simple_format(comment.body)
     .timestamp

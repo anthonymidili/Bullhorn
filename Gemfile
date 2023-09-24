@@ -12,8 +12,6 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 # gem 'puma', '~> 3.12'
 gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'
-# yarn add @fortawesome/fontawesome-free
-gem 'font_awesome5_rails', '~> 1.5.0'
 # Use Uglifier as compressor for JavaScript assets
 # gem 'uglifier', '>= 1.3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

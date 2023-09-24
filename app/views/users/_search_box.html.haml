@@ -1,11 +1,11 @@
 #search-box
-  .row.center-content
+  .row.center-content.mb-3
     .col-12.col-md-8
       = form_with method: :get, local: true do
         .ui-widget
           .input-group
             %span.input-group-text
-              = fa_icon 'search'
+              %i.fa-solid.fa-magnifying-glass
             = text_field_tag :search, params[:search], id: 'search_submit',
             class: 'form-control',
             data: { autocomplete_source: search_users_path }

@@ -7,4 +7,5 @@
     = render 'comments/box', commentable: @commentable, comment: (@comment ||= nil)
 
     = link_to path_to_commentable(@commentable), title: 'Back' do
-      = fa_icon 'hand-point-left', text: 'Back'
+      %i.fa-solid.fa-hand-point-left
+      Back

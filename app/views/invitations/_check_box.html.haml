@@ -12,5 +12,5 @@
           - if user.avatar.attached?
             = image_tag thumb_image(user.avatar)
           - else
-            = fa_icon 'user', class: 'no_avatar'
+            %i.fa-solid.fa-user.no_avatar
           = user.username

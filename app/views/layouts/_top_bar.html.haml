@@ -21,26 +21,34 @@
         - if user_signed_in?
           %li.nav-item
             = link_to current_user, title: 'User Profile', class: "nav-link" do
-              = fa_icon 'user', text: 'Profile'
+              %i.fa-solid.fa-user
+              Profile
           %li.nav-item
             = link_to edit_user_registration_path, title: 'User Settings', class: "nav-link" do
-              = fa_icon 'cog', text: 'Settings'
+              %i.fa-solid.fa-gear
+              Settings
           %li.nav-item
             = link_to users_path, title: 'Explore Users', class: "nav-link" do
-              = fa_icon 'users', text: 'Explore Users'
+              %i.fa-solid.fa-users
+              Explore Users
           - if current_user.is_admin
             %li.nav-item
               = link_to site_admins_users_path, title: 'Admin Controls', class: "nav-link" do
-                = fa_icon 'user-tie', text: 'Admins'
+                %i.fa-solid.fa-user-tie
+                Admins
           %li.nav-item
-            = link_to destroy_user_session_path, data: { turbo_method: :delete }, title: 'Sign out', class: "nav-link" do
-              = fa_icon 'sign-out-alt'
+            = button_to destroy_user_session_path, 
+            method: :delete, form: {  data: { turbo: :false } },
+            title: 'Sign out', class: "nav-link" do
+              %i.fa-solid.fa-sign-out-alt
         - else
           %li.nav-item
             = link_to new_user_registration_path, title: 'Sign up', class: "nav-link" do
-              = fa_icon 'user-plus', text: 'Sign up'
+              %i.fa-solid.fa-user-plus
+              Sign up
           %li.nav-item
             = link_to user_session_path, title: 'Log in', class: "nav-link" do
-              = fa_icon 'sign-in-alt', text: 'Log in'
+              %i.fa-solid.fa-sign-in-alt
+              Log in
 
 = render 'layouts/sub_top_bar' if user_signed_in?

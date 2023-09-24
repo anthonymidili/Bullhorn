@@ -9,7 +9,8 @@
           data: { turbo_method: :patch }
           = link_to edit_notifications_path,
           title: 'Notification Settings', class: 'btn btn-primary' do
-            = fa_icon 'cog', text: 'Settings'
+            %i.fa-solid.fa-gear
+            Settings
       .notifications-box.d-flex.flex-column.mb-3
         - if @recent_notifications.any?
           %h6.list NEW

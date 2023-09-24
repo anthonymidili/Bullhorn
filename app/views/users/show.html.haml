@@ -5,10 +5,12 @@
       .links-end
         - if correct_user?(@user)
           = link_to edit_user_path(@user) do
-            = fa_icon 'edit', text: 'Edit Profile'
+            %i.fa-solid.fa-pen-to-square
+            Edit Profile
           %br/
         = link_to photos_user_path(@user) do
-          = fa_icon 'images', text: 'My Photos'
+          %i.fa-solid.fa-images
+          My Photos
       = render 'users/avatar_info', user: @user
     = render 'users/profile_info', user: @user
 

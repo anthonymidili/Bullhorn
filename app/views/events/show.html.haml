@@ -3,9 +3,11 @@
   .col-12.col-md-8
     .links.mb-3
       = link_to events_path, class: 'btn btn-secondary' do
-        = fa_icon 'list', text: 'Events - List view'
+        %i.fa-solid.fa-list
+        Events - List view
       = link_to calendar_events_path, class: 'btn btn-secondary' do
-        = fa_icon 'calendar', text: 'Events - Calendar view', type: :regular
+        %i.fa-regular.fa-calendar
+        Events - Calendar view
     = render @event
     #responders= render 'events/responders', event: @event
     = render 'comments/box', commentable: @event, comment: (@comment ||= nil)

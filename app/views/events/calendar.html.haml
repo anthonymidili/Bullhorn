@@ -1,6 +1,7 @@
 .links.mb-3
   = link_to events_path, class: 'btn btn-primary secondary' do
-    = fa_icon 'list', text: 'List view'
+    %i.fa-solid.fa-list
+    List view
   = link_to 'Create a New Event', new_event_path, class: 'btn btn-primary'
 
 = month_calendar attribute: :start_date,

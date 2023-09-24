@@ -7,7 +7,9 @@
 
     .links.mb-3
       = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do
-        = fa_icon 'hand-point-left', text: 'Back'
+        %i.fa-solid.fa-hand-point-left
+        Back
       - if @post.images.attached?
         = link_to photos_user_path(@post.user), title: "#{@post.user.username} Photos" do
-          = fa_icon 'image', text: "#{@post.user.username} Photos"
+          %i.fa-solid.fa-images
+          #{@post.user.username} Photos

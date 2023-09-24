@@ -1,7 +1,8 @@
-= turbo_stream.append "posts" do
-  = render @posts
+- if user_signed_in?
+  = turbo_stream.append "posts" do
+    = render @posts
 
-- if @next_page.present?
-  = turbo_stream.replace "load_more" do
-    = turbo_frame_tag "load_more", 
-    src: root_path(page: @next_page, format: :turbo_stream), loading: :lazy
+  - if @next_page.present?
+    = turbo_stream.replace "load_more" do
+      = turbo_frame_tag "load_more", 
+      src: root_path(page: @next_page, format: :turbo_stream), loading: :lazy

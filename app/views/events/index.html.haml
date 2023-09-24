@@ -4,7 +4,8 @@
     %p= render 'timezones/link_to_form', return_to: events_path
     .links.mb-3
       = link_to calendar_events_path, class: 'btn btn-secondary' do
-        = fa_icon 'calendar', text: 'Calendar view', type: :regular
+        %i.fa-regular.fa-calendar
+        Calendar view
       = link_to 'Create a New Event', new_event_path, class: 'btn btn-primary'
 
     %h1#upcoming_events Upcoming events
