@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
   resources :posts, except: [:index] do
     resources :comments, except: [:index, :show]
+    collection do
+      get :new_link
+    end
   end
 
   resources :events do

@@ -9,4 +9,6 @@
       %i.fa-regular.fa-calendar
       - if current_user.relevant_events.in_the_future.any?
         %span.count= current_user.relevant_events.in_the_future.count
+    = turbo_frame_tag "new_post" do
+      = render "posts/new_link"
       

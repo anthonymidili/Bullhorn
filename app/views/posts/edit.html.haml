@@ -1,11 +1,13 @@
-- provide :title, 'Edit post'
-.row.center-content
-  .col-12.col-md-8
-    %h1 Editing post
+= turbo_frame_tag @post do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12.col-md-8
+          %h1 Editing post
 
-    = render 'form', post: @post
+          = render 'form', post: @post
 
-    .links.mb-3
-      = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do
-        %i.fa-solid.fa-hand-point-left
-        Back
+          .links.mb-3
+            = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do
+              %i.fa-solid.fa-hand-point-left
+              Back

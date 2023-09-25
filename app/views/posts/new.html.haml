@@ -1,11 +1,11 @@
-- provide :title, 'New post'
-.row.center-content
-  .col-12.col-md-8
-    %h1 New post
-
-    = render 'form', post: @post
-
-    .links.mb-3
-      = link_to root_path, title: 'Back' do
-        %i.fa-solid.fa-hand-point-left
-        Back
+= turbo_frame_tag "new_post" do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12.col-md-8
+          %h1 New post
+          = render 'form', post: @post
+          .links.mb-3
+            = link_to new_link_posts_path, data: { turbo_stream: "new_post" }, title: 'Back' do
+              %i.fa-solid.fa-hand-point-left
+              Back

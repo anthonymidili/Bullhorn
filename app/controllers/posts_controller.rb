@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @comment = @post.comments.build
+    @hidden = true
   end
 
   # GET /posts/new
@@ -27,12 +28,25 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.prepend("posts", partial: "posts/post", 
+            locals: { post: @post }),
+            turbo_stream.update("new_post", partial: "posts/new_link")
+          ]
+        end
         format.html {
           redirect_to root_path(anchor: "post_#{@post.id}"),
           notice: 'Post was successfully created.'
         }
         format.json { render :show, status: :created, location: @post }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form", 
+            locals: { post: @post })
+          ]
+        end
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -44,12 +58,24 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@post, partial: "posts/post", 
+            locals: { post: @post })
+          ]
+        end
         format.html {
           redirect_to root_path(anchor: "post_#{@post.id}"),
           notice: 'Post was successfully updated.'
         }
         format.json { render :show, status: :ok, location: @post }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form", 
+            locals: { post: @post })
+          ]
+        end
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -61,11 +87,24 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
+      format.turbo_stream { 
+        render turbo_stream: turbo_stream.remove(@post) 
+      }
       format.html {
         redirect_to root_path,
         notice: 'Post was successfully destroyed.'
       }
       format.json { head :no_content }
+    end
+  end
+
+  def new_link
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.update("new_post", partial: "posts/new_link")
+        ]
+      end
     end
   end
 

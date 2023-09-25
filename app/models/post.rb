@@ -10,6 +10,7 @@ class Post < ApplicationRecord
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
+  # validates :body, presence: true
   validates :images, file_content_type: {
     allow: ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
   }, if: -> { images.attached? }

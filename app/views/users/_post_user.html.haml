@@ -1,5 +1,5 @@
 .post_user.mb-3
-  = link_to user do
+  = link_to user, data: { turbo: false } do
     - if user.avatar.attached?
       = image_tag thumb_image(user.avatar)
     - else

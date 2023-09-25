@@ -13,11 +13,9 @@
           %i.fa-solid.fa-user
           view my profile
       = render 'users/avatar_info', user: @user
-    .callout-thin
-      = render 'posts/form', post: @post
   .col-12.col-md-7.col-lg-8
     %h2 Community Feed
-    #posts
+    = turbo_frame_tag "posts" do
       = render @posts
     -# Infinate scroll posts with turbo.
     - if @next_page
