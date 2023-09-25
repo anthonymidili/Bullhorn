@@ -1,4 +1,6 @@
 class SitesController < ApplicationController
+  before_action :render_new_link
+
   def index
     if user_signed_in?
       @user = current_user
@@ -16,6 +18,14 @@ class SitesController < ApplicationController
       if all_posts.count > page_limit * @current_page + page_limit
         @next_page = @current_page + 1 
       end
+    end
+  end
+
+private
+
+  def render_new_link
+    if params[:new_link]
+      @render_new_link = true
     end
   end
 end

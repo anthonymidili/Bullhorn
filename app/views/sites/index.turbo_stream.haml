@@ -5,3 +5,7 @@
   = turbo_stream.replace "load_more" do
     = turbo_frame_tag "load_more", 
     src: root_path(page: @next_page, format: :turbo_stream), loading: :lazy
+
+- if @render_new_link
+  = turbo_stream.update "new_post" do
+    = render "posts/new_link"
