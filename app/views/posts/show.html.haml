@@ -1,10 +1,7 @@
-- provide :title, 'Comment'
+- provide :title, 'Comments'
 .row.center-content
   .col-12.col-md-8
     = render @post
-    .mb-3= render 'comments/box', commentable: @post, comment: (@comment ||= nil)
-    = render 'comments/form', commentable: @post, comment: @comment
-
     .links.mb-3
       = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do
         %i.fa-solid.fa-hand-point-left
@@ -13,3 +10,6 @@
         = link_to photos_user_path(@post.user), title: "#{@post.user.username} Photos" do
           %i.fa-solid.fa-images
           #{@post.user.username} Photos
+    %h3 Comments
+    .mb-5= render 'comments/form', commentable: @post, comment: @comment
+    .mb-3= render 'comments/box', commentable: @post, comment: (@comment ||= nil)

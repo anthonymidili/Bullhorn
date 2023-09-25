@@ -19,8 +19,7 @@
                 = image_tag medium_image(image), class: "img-thumbnail"
           .timestamp
             Posted #{time_ago_in_words(post.created_at)} ago
-        - unless @hidden
-          .row
-            .col-12
-              = link_to comment_count(post), post, data: { turbo: false }
-        = render "likes/form", likeable: post
+        .d-flex.justify-content-between.align-items-center
+          - unless @hidden
+            = render "comments/count", commentable: post
+          = render "likes/form", likeable: post
