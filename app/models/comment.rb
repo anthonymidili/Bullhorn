@@ -10,7 +10,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
-  default_scope { order(created_at: :asc) }
+  default_scope { order(created_at: :desc) }
 
   # Remove comment if comment var is set
   scope :without_current_comment, -> (comment) { where.not(id: comment.try(:id)) }  

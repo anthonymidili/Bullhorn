@@ -25,8 +25,13 @@
   }
 }
 
-.close_btn {
+.close-btn {
   float: right;
-  font-size: 2rem;
   @extend .red;
+  height: 1em;
+  svg {
+    height: 1em;
+    width: unset;
+    font-size: 2rem;
+  }
 }

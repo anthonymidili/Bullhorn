@@ -22,11 +22,28 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.prepend("comments", 
+            partial: "comments/comment",
+            locals: { comment: @comment }),
+            turbo_stream.replace("form_comment", 
+            partial: "comments/form",
+            locals: { commentable: @commentable, comment: @commentable.comments.build })
+          ]
+        end
         format.html {
           redirect_to @commentable, notice: 'Comment was successfully created.'
         }
         format.json { render :show, status: :created, location: @comment }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("form_comment", 
+            partial: "comments/form",
+            locals: { commentable: @commentable, comment: @comment })
+          ]
+        end
         format.html { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
@@ -38,11 +55,25 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@comment, 
+            partial: "comments/comment",
+            locals: { comment: @comment })
+          ]
+        end
         format.html {
           redirect_to @commentable, notice: 'Comment was successfully updated.'
         }
         format.json { render :show, status: :ok, location: @comment }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(helpers.dom_id(@comment, "form"), 
+            partial: "comments/form",
+            locals: { commentable: @commentable, comment: @comment })
+          ]
+        end
         format.html { render :edit }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
@@ -54,6 +85,9 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
+      format.turbo_stream { 
+        render turbo_stream: turbo_stream.remove(@comment) 
+      }
       format.html {
         redirect_to @commentable, notice: 'Comment was successfully destroyed.'
       }

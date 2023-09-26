@@ -1,3 +1,4 @@
 - if commentable.comments.exists?
   .comments_box.mb-3
-    = render commentable.comments.without_current_comment(comment)
+    = turbo_frame_tag "comments" do
+      = render commentable.comments.without_current_comment(comment)

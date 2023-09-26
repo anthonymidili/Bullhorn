@@ -1,5 +1,5 @@
 - if comment.persisted?
-  .comments{id: "comment_#{comment.id}"}
+  = turbo_frame_tag comment, class: "comments" do
     - if correct_user?(comment.created_by)
       .links-end
         = link_to [:edit, comment.commentable, comment], title: 'Edit' do

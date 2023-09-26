@@ -1,12 +1,8 @@
-- provide :title, 'Edit comment'
-.row.center-content
-  .col-12.col-md-8
-    .mb-3= render @commentable, comment: @comment
-    %h3 Edit Comment
-    .mb-3= render 'form', commentable: @commentable, comment: @comment
-    %h3 Comments
-    = render 'comments/box', commentable: @commentable, comment: (@comment ||= nil)
-    .links.mb-3
-      = link_to path_to_commentable(@commentable), title: 'Back' do
-        %i.fa-solid.fa-hand-point-left
-        Back
+= turbo_frame_tag @comment, class: "comments" do
+  = link_to @commentable, class: "close-btn", title: 'Close' do
+    %i.fa-solid.fa-xmark
+  = render 'users/post_user', user: @comment.created_by
+  %h3 Edit Comment
+  = render 'form', commentable: @commentable, comment: @comment
+  .timestamp
+    Posted #{time_ago_in_words(@comment.created_at)} ago
