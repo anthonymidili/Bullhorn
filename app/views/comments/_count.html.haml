@@ -1,4 +1,5 @@
-= link_to commentable, data: { turbo: false } do
+= link_to polymorphic_path(commentable.class.name.downcase, 
+id: commentable.id, anchor: "new_comment"), data: { turbo: false } do
   %i.fa-regular.fa-comment.fa-xl
   - if commentable.comments.any?
     %span.comments-count

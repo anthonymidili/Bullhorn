@@ -11,6 +11,6 @@
           %i.fa-solid.fa-images
           #{@post.user.username} Photos
     .mb-3
-      = render 'comments/form', commentable: @post, comment: @comment
+      #new_comment= render 'comments/form', commentable: @post, comment: @comment
     %h3 Comments
     = render 'comments/box', commentable: @post, comment: (@comment ||= nil)

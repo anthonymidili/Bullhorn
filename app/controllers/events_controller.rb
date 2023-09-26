@@ -19,6 +19,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @comment = @event.comments.build
+    @hidden = true
   end
 
   # GET /events/new

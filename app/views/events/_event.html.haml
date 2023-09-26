@@ -1,5 +1,5 @@
 .callout
-  .event
+  .event{id: "event_#{event.id}"}
     - if correct_user?(event.user)
       .row
         .col-12
@@ -40,14 +40,15 @@
             = simple_format(event.description)
     .row
       .col-12
-        Your event response is:
+        Your response is:
         = render 'events/response', event: event
           
-    - unless controller_name == 'events' && action_name == 'show'
+    - unless @hidden
       .row
         .col-12
           .d-flex.justify-content-md-center
             = link_to event_path(event, anchor: "responders"), class: "mt-3" do
               = render "events/stats", event: event
-          = link_to event_path(event, anchor: "new_comment") do
-            = comment_count(event)
+          .post-stats.d-flex.justify-content-between.align-items-center
+            -# = render "likes/form", likeable: event
+            = render "comments/count", commentable: event

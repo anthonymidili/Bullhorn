@@ -2,7 +2,8 @@
 .row.center-content
   .col-12.col-md-8
     .links.mb-3
-      = link_to events_path, class: 'btn btn-secondary' do
+      = link_to events_path(anchor: "event_#{@event.id}"), 
+      class: 'btn btn-secondary' do
         %i.fa-solid.fa-list
         Events - List view
       = link_to calendar_events_path, class: 'btn btn-secondary' do
@@ -10,6 +11,11 @@
         Events - Calendar view
     = render @event
     #responders= render 'events/responders', event: @event
-    = render 'comments/box', commentable: @event, comment: (@comment ||= nil)
     .mb-3
-    #new_comment= render 'comments/form', commentable: @event, comment: @comment
+      = link_to events_path(anchor: "event_#{@event.id}"), title: 'Back' do
+        %i.fa-solid.fa-hand-point-left
+        Back
+    .mb-3
+      #new_comment= render 'comments/form', commentable: @event, comment: @comment
+    %h3 Comments
+    = render 'comments/box', commentable: @event, comment: (@comment ||= nil)
