@@ -1,11 +1,12 @@
 - provide :title, 'Edit comment'
 .row.center-content
   .col-12.col-md-8
-    = render @commentable, comment: @comment
-    %h3 Editing comment
+    .mb-3= render @commentable, comment: @comment
+    %h3 Edit Comment
     .mb-3= render 'form', commentable: @commentable, comment: @comment
+    %h3 Comments
     = render 'comments/box', commentable: @commentable, comment: (@comment ||= nil)
-
-    = link_to path_to_commentable(@commentable), title: 'Back' do
-      %i.fa-solid.fa-hand-point-left
-      Back
+    .links.mb-3
+      = link_to path_to_commentable(@commentable), title: 'Back' do
+        %i.fa-solid.fa-hand-point-left
+        Back

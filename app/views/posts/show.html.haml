@@ -10,6 +10,6 @@
         = link_to photos_user_path(@post.user), title: "#{@post.user.username} Photos" do
           %i.fa-solid.fa-images
           #{@post.user.username} Photos
+    .mb-3= render 'comments/form', commentable: @post, comment: @comment
     %h3 Comments
-    .mb-5= render 'comments/form', commentable: @post, comment: @comment
-    .mb-3= render 'comments/box', commentable: @post, comment: (@comment ||= nil)
+    = render 'comments/box', commentable: @post, comment: (@comment ||= nil)
