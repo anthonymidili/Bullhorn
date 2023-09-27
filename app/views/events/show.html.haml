@@ -17,5 +17,4 @@
         Back
     .mb-3
       #new_comment= render 'comments/form', commentable: @event, comment: @comment
-    %h3 Comments
     = render 'comments/box', commentable: @event, comment: (@comment ||= nil)

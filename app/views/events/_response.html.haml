@@ -1,23 +1,36 @@
 .response
   = form_with model: [event, find_or_init_invitation(event)],
-  class: 'hide_and_submit', local: true do |f|
+  id: dom_id(event, "response_form"), class: 'hide_and_submit', 
+  data: { controller: "autosubmit-form" } do |f|
     .d-flex.flex-column.flex-md-row.justify-content-md-evenly
       .p-2
         .form-check
-          = f.label :status, for: 'invitation_status_going', class: "form-check-label" do
-            = f.radio_button :status, 'going', id: 'invitation_status_going', class: "form-check-input"
+          = f.label :status, for: "invitation_#{f.object.id}_status_going", 
+          class: "form-check-label" do
+            = f.radio_button :status, 'going', 
+            id: "invitation_#{f.object.id}_status_going", 
+            class: "form-check-input",
+            data: {action: "click->autosubmit-form#submitChange"}
             = status_icon('going')
             Going
       .p-2
         .form-check
-          = f.label :status, for: 'invitation_status_maybe', class: "form-check-label" do
-            = f.radio_button :status, 'maybe', id: 'invitation_status_maybe', class: "form-check-input"
+          = f.label :status, for: "invitation_#{f.object.id}_status_maybe", 
+          class: "form-check-label" do
+            = f.radio_button :status, 'maybe', 
+            id: "invitation_#{f.object.id}_status_maybe", 
+            class: "form-check-input",
+            data: {action: "click->autosubmit-form#submitChange"}
             = status_icon('maybe')
             Maybe
       .p-2
         .form-check
-          = f.label :status, for: 'invitation_status_cant_go', class: "form-check-label" do
-            = f.radio_button :status, 'cant_go', id: 'invitation_status_cant_go', class: "form-check-input"
+          = f.label :status, for: "invitation_#{f.object.id}_status_cant_go", 
+          class: "form-check-label" do
+            = f.radio_button :status, 'cant_go', 
+            id: "invitation_#{f.object.id}_status_cant_go", 
+            class: "form-check-input",
+            data: {action: "click->autosubmit-form#submitChange"}
             = status_icon('cant_go')
             Can't go
     = f.submit

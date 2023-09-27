@@ -14,7 +14,6 @@ import "./packs/jquery-ui"
 import './packs/autocomplete'
 import './packs/autocompleteSubmit'
 import './packs/direct_uploads'
-import './packs/forms'
 
 // fontawesome setup.
 import '@fortawesome/fontawesome-free/js/all'

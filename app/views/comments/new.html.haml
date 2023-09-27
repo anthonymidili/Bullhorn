@@ -7,6 +7,5 @@
         %i.fa-solid.fa-hand-point-left
         Back
     .mb-3= render 'form', commentable: @commentable, comment: @comment
-    %h3 Comments
     = render 'comments/box', commentable: @commentable, comment: (@comment ||= nil)
     

@@ -12,5 +12,4 @@
           #{@post.user.username} Photos
     .mb-3
       #new_comment= render 'comments/form', commentable: @post, comment: @comment
-    %h3 Comments
     = render 'comments/box', commentable: @post, comment: (@comment ||= nil)

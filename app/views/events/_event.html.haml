@@ -41,7 +41,8 @@
     .row
       .col-12
         Your response is:
-        = render 'events/response', event: event
+        = turbo_frame_tag dom_id(event, "response") do
+          = render 'events/response', event: event
           
     - unless @hidden
       .row

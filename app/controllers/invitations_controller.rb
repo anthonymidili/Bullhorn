@@ -7,18 +7,34 @@ class InvitationsController < ApplicationController
     @invitation = current_user.invitations.build(invitation_params)
     @invitation.event = @event
 
-    if @invitation.save
-      redirect_to @event, notice: 'Invitation was successfully created.'
-    else
-      redirect_to @event, notice: 'Invitation was not successfully created.'
+    respond_to do |format|
+      if @invitation.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(helpers.dom_id(@event, "response"), 
+            partial: "events/response", locals: { event: @event })
+          ]
+        end
+        format.html { redirect_to @event, notice: 'Invitation was successfully created.' }
+      else
+        format.html { redirect_to @event, notice: 'Invitation was not successfully created.' }
+      end
     end
   end
 
   def update
-    if @invitation.update(invitation_params)
-      redirect_to @event, notice: 'Invitation was successfully updated.'
-    else
-      redirect_to @event, notice: 'Invitation was not successfully updated.'
+    respond_to do |format|
+      if @invitation.update(invitation_params)
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(helpers.dom_id(@event, "response"), 
+            partial: "events/response", locals: { event: @event })
+          ]
+        end
+        format.html { redirect_to @event, notice: 'Invitation was successfully updated.' }
+      else
+        format.html { redirect_to @event, notice: 'Invitation was not successfully updated.' }
+      end
     end
   end
 
