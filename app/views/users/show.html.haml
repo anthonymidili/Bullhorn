@@ -19,6 +19,4 @@
     = turbo_frame_tag "posts" do
       = render @posts
     -# Infinate scroll posts with turbo.
-    - if @next_page
-      = turbo_frame_tag "load_more", 
-      src: user_path(@user, page: @next_page, format: :turbo_stream), loading: :lazy
+    = render "infinate_scroll/load_more"

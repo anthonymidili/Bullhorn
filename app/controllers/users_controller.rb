@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
+  include InfiniteScroll
+
   before_action :authenticate_user!
   before_action :authenticate_admin!, only: [:destroy, :site_admins, 
   :add_admin, :remove_admin]
   before_action :set_user,
-  only: [:show, :edit, :update, :destroy, :remove_avatar, :add_admin, 
+  only: [:edit, :update, :destroy, :remove_avatar, :add_admin, 
   :remove_admin, :photos, :followers, :following]
   before_action :deny_access!, only: [:edit, :update, :remove_avatar],
   unless: -> { correct_user?(@user) }
@@ -20,18 +22,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # Set number of posts to load at a time.
-    page_limit = 10
-    # Set current page # from params or return 0.
-    @current_page = params[:page].to_i
-    # Load all the users that user is following .
-    all_posts = @user.posts.with_attached_images
-    # Set @posts with the first 10, 20, ect. posts depending on the page #.
-    @posts = all_posts.offset(page_limit * @current_page).limit(page_limit)
-    # Set next page if all posts count is greater than 10+10, 20+10, ect.
-    if all_posts.count > page_limit * @current_page + page_limit
-      @next_page = @current_page + 1 
-    end
+    @posts = @scrolled_objects # Returned objects in batches of 10.
 
     # Mark following notification as read.
     if params[:relationship_id]

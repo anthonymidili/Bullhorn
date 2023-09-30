@@ -1,0 +1,8 @@
+= turbo_stream.append @append_to do
+  = render @scrolled_objects
+
+- if @next_page
+  = turbo_stream.replace "load_more" do
+    = turbo_frame_tag "load_more", 
+    src: infinate_scroll_index_path(from_controller: @from_controller, 
+    page: @next_page, id: @id, format: :turbo_stream), loading: :lazy
