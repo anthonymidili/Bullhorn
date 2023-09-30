@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  include InfiniteScroll
+
   before_action :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy, :remove_image]
   before_action :deny_access!, only: [:edit, :update, :destroy, :remove_image],
@@ -10,9 +12,8 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @future_events = current_user.relevant_events.in_the_future.with_attached_image.
-    includes([:address, user: [avatar_attachment: :blob]])
-    @past_events = current_user.relevant_events.from_the_past.page(params[:page]).per(5).
-    with_attached_image.includes([:address, user: [avatar_attachment: :blob]])
+    includes(:comments, :address, user: [avatar_attachment: :blob])
+    @past_events = @scrolled_objects # Returned objects in batches of 10.
   end
 
   # GET /events/1
@@ -87,7 +88,7 @@ class EventsController < ApplicationController
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = current_user.relevant_events.includes([comments: :created_by, users: :avatar_attachment]).find_by(id: params[:id])
+    @event = current_user.relevant_events.with_attached_image.includes(comments: :created_by, users: [avatar_attachment: :blob]).find_by(id: params[:id])
     redirect_to events_path unless @event
   end
 

@@ -14,6 +14,8 @@
     - else
       %h4 No Upcoming Events...
 
-    %h3#past_events Past events
-    = render @past_events
-    = paginate @past_events, window: 2
+    %h3 Past events
+    = turbo_frame_tag "past_events" do
+      = render @past_events
+    -# Infinate scroll posts with turbo.
+    = render "infinate_scroll/load_more"

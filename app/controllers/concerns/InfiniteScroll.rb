@@ -17,15 +17,16 @@ module InfiniteScroll
       sites_objects
     elsif @from_controller == "users" && @from_action == "show"
       users_objects
+    elsif @from_controller == "events" && @from_action == "index"
+      events_objects
     end
   end
 
   def sites_objects
     setup_page
     @objects =
-      Post.by_following(current_user)
-      .with_attached_images
-      .includes(user: [avatar_attachment: :blob])
+      Post.by_following(current_user).with_attached_images
+      .includes(:likes, :comments, user: [avatar_attachment: :blob])
     @append_to = "posts"
     set_scrolled_objects
     set_next_page
@@ -34,8 +35,20 @@ module InfiniteScroll
   def users_objects
     setup_page
     @user = User.find_by(id: @id)
-    @objects = @user.posts.with_attached_images
+    @objects = 
+      @user.posts.with_attached_images
+      .includes(:likes, :comments, user: [avatar_attachment: :blob])
     @append_to = "posts"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def events_objects
+    setup_page
+    @objects = 
+      current_user.relevant_events.from_the_past.
+      with_attached_image.includes(:comments, :address, user: [avatar_attachment: :blob])
+    @append_to = "past_events"
     set_scrolled_objects
     set_next_page
   end
