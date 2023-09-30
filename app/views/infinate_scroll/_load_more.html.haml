@@ -1,4 +1,5 @@
 - if @next_page
   = turbo_frame_tag "load_more", 
   src: infinate_scroll_index_path(from_controller: @from_controller, 
-  page: @next_page, id: @id, format: :turbo_stream), loading: :lazy
+  from_action: @from_action, page: @next_page, id: @id, 
+  format: :turbo_stream), loading: :lazy

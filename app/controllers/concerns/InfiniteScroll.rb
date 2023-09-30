@@ -2,35 +2,48 @@ module InfiniteScroll
   extend ActiveSupport::Concern
 
   included do
-    before_action :setup_page
+    before_action :set_from_controller
     before_action :set_objects
-    before_action :set_scrolled_objects
-    before_action :set_next_page
   end
 
-  def setup_page
+  def set_from_controller
     @from_controller = params[:from_controller] || self.controller_name
-    @page_limit = 10
-    @current_page = params[:page].to_i
-    @id = params[:id]
+    @from_action = params[:from_action] || self.action_name
   end
     
   # Load objects to infinately scroll and where to append them.
   def set_objects
-    case @from_controller
-    when "sites"
-      @objects =
-        Post.by_following(current_user)
-        .with_attached_images
-        .includes(user: [avatar_attachment: :blob])
-      @append_to = "posts"
-    when "users"
-      @user = User.find_by(id: params[:id])
-      @objects = @user.posts.with_attached_images
-      @append_to = "posts"
-    else
-      raise StandardError.new "Could not find object to set in app/controllers/concerns/InfiniteScroll.rb set_objects"
+    if @from_controller == "sites" && @from_action == "index"
+      sites_objects
+    elsif @from_controller == "users" && @from_action == "show"
+      users_objects
     end
+  end
+
+  def sites_objects
+    setup_page
+    @objects =
+      Post.by_following(current_user)
+      .with_attached_images
+      .includes(user: [avatar_attachment: :blob])
+    @append_to = "posts"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def users_objects
+    setup_page
+    @user = User.find_by(id: @id)
+    @objects = @user.posts.with_attached_images
+    @append_to = "posts"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def setup_page
+    @page_limit = 10
+    @current_page = params[:page].to_i
+    @id = params[:id]
   end
 
   # Return @scrolled_objects in batches of page_limit(10).
