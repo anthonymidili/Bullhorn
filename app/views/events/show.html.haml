@@ -15,6 +15,5 @@
       = link_to events_path(anchor: "event_#{@event.id}"), title: 'Back' do
         %i.fa-solid.fa-hand-point-left
         Back
-    .mb-3
-      #new_comment= render 'comments/form', commentable: @event, comment: @comment
-    = render 'comments/box', commentable: @event, comment: (@comment ||= nil)
+    = render 'comments/form', commentable: @event, comment: @comment
+    = render 'comments/box', commentable: @event

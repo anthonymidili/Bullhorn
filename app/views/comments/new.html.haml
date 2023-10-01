@@ -6,6 +6,6 @@
       = link_to path_to_commentable(@commentable), title: 'Back' do
         %i.fa-solid.fa-hand-point-left
         Back
-    .mb-3= render 'form', commentable: @commentable, comment: @comment
-    = render 'comments/box', commentable: @commentable, comment: (@comment ||= nil)
+    = render 'form', commentable: @commentable, comment: @comment
+    = render 'comments/box', commentable: @commentable
     

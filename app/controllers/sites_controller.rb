@@ -1,5 +1,6 @@
 class SitesController < ApplicationController
   include InfiniteScroll
+  
   before_action :render_new_link
 
   def index

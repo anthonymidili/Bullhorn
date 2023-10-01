@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    # @user set in in InfiniteScroll.rb.
     @posts = @scrolled_objects # Returned objects in batches of 10.
 
     # Mark following notification as read.

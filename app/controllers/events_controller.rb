@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   include InfiniteScroll
 
   before_action :authenticate_user!
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :remove_image]
+  before_action :set_event, only: [:edit, :update, :destroy, :remove_image]
   before_action :deny_access!, only: [:edit, :update, :destroy, :remove_image],
     unless:  -> { correct_user?(@event.user) }
   before_action :set_timezone, only: [:create, :update]
@@ -19,6 +19,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    # @event set in InfiniteScroll.rb.
     @comment = @event.comments.build
     @hidden = true
   end

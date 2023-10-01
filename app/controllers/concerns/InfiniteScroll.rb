@@ -19,6 +19,10 @@ module InfiniteScroll
       users_objects
     elsif @from_controller == "events" && @from_action == "index"
       events_objects
+    elsif @from_controller == "posts" && @from_action == "show"
+      post_comment_objects
+    elsif @from_controller == "events" && @from_action == "show"
+      event_comment_objects
     end
   end
 
@@ -49,6 +53,26 @@ module InfiniteScroll
       current_user.relevant_events.from_the_past.
       with_attached_image.includes(:comments, :address, user: [avatar_attachment: :blob])
     @append_to = "past_events"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def post_comment_objects
+    setup_page
+    @post = Post.with_attached_images.includes(comments: :created_by).find_by(id: @id)
+    @objects = @post.comments
+    @append_to = "comments"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def event_comment_objects
+    setup_page
+    @event = current_user.relevant_events.with_attached_image.
+    includes(comments: :created_by, users: [avatar_attachment: :blob]).
+    find_by(id: params[:id])
+    @objects = @event.comments
+    @append_to = "comments"
     set_scrolled_objects
     set_next_page
   end
