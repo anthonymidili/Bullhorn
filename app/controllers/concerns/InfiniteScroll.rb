@@ -13,7 +13,7 @@ module InfiniteScroll
     
   # Load objects to infinately scroll and where to append them.
   def set_objects
-    if @from_controller == "sites" && @from_action == "index"
+    if user_signed_in? && @from_controller == "sites" && @from_action == "index"
       sites_objects
     elsif @from_controller == "users" && @from_action == "show"
       users_objects
