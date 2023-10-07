@@ -51,5 +51,7 @@ Rails.application.routes.draw do
 
   resources :infinate_scroll, only: [:index]
 
+  get 'set_theme', to: 'theme#update'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

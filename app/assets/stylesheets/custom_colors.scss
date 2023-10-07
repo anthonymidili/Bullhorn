@@ -1,87 +1,222 @@
-// Color palette
-$light-gray: #c6c9cb;
-$dark-gray: #8a8a8a;
-$black: #010101;
-$white: #fefefe;
-$tundora: #424242;
-$gray: #868686;
-$christine: #f26c09;
-$goldenrod: #fbcc6c;
-$off-white: #fffff4;
-$off-white-rgb: rgb(255, 255, 244);
-$red: #ff0000;
-$green: #008000;
-$green-ting: #daf7da;
-$ice-blue: #d4e6f0;
-$dark-blue: #13395f;
-$blue: #1d92e2;
-$troy-blue: #1552a2;
-$shakespear: #55acd9;
-$blue-ting: #fafafb;
+:root {
+  // Customize bootstrap
+  --bs-border-width: 2px;
+  // Color palette
+  --light-gray: #c6c9cb;
+  --dark-gray: #595959;
+  --black: #010101;
+  --white: #fefefe;
+  --tundora: #424242;
+  --gray: #868686;
+  --christine: #f26c09;
+  --dark-christine: #cb5908;
+  --light-goldenrod: #FFFFC0;
+  --goldenrod: #fbcc6c;
+  --off-white: #fffff4;
+  --dark-off-white: #d9d9d3;
+  --light-red: #fb6363;
+  --red: #ff0000;
+  --dark-red: #c50606;
+  --green: #008000;
+  --green-ting: #daf7da;
+  --dark-green-ting: #3a713a;
+  --ice-blue: #d4e6f0;
+  --dark-blue: #13395f;
+  --light-blue: #85d5ff;
+  --dark-light-blue: #24b4ff;
+  --blue: #0d6efd;
+  --troy-blue: #1552a2;
+  --dark-troy-blue: #104182;
+  --shakespear: #55acd9;
+  --blue-ting: #fafafb;
+}
 
-// Standards
-$standard-font: $black;
-$site-background: $off-white;
-$delete-link-color: $red;
-$background-color: $blue-ting;
-$border-color: $gray;
-$black-color: $black;
-$white-color: $white;
-$green-color: $green;
-$red-color: $red;
-$dark-gray-color: $dark-gray;
+// Light theme
+@mixin light-theme {
+  // Standards
+  --standard-font: var(--black);
+  --site-background: var(--off-white);
+  --link-color: var(--bs-link-color);
+  --link-color-hover: var(--bs-link-hover-color);
+  --delete-link-color: var(--red);
+  --delete-link-color-hover: var(--dark-red);
+  --background-color: var(--blue-ting);
+  --border-color: var(--gray);
+  --black-color: var(--black);
+  --black-color-hover: var(--gray);
+  --white-color: var(--white);
+  --green-color: var(--green);
+  --green-ting-color: var(--green-ting);
+  --red-color: var(--red);
+  --dark-gray-color: var(--dark-gray);
+  --header-color: var(--troy-blue);
 
+  // Topbar
+  --topbar-background: var(--troy-blue);
+  --topbar-background-hover: var(--dark-blue);
+  --topbar-text: var(--off-white);
+  --topbar-text-hover: var(--ice-blue);
+  --topbar-logo: var(--off-white);
+  --topbar-logo-hover: var(--ice-blue);
+  --toggler-color: var(--off-white);
+  --toggler-clicked: var(--ice-blue);
 
-// Topbar
-$topbar-background: $troy-blue;
-$topbar-background-hover: $dark-blue;
-$topbar-text: $off-white;
-$topbar-text-hover: $ice-blue;
-$topbar-logo: $off-white;
-$topbar-logo-hover: $ice-blue;
-$toggler-border: $off-white;
-$toggler-clicked: $ice-blue;
-$toggler-icon-color: $off-white-rgb;
+  // Subbar
+  --subbar-background: var(--ice-blue);
+  --subbar-text: var(--troy-blue);
+  --subbar-text-hover: var(--dark-troy-blue);
+  --subbar-border: var(--topbar-background);
 
-// Subbar
-$subbar-background: $ice-blue;
-$subbar-text: $troy-blue;
+  // Callouts
+  --callout-background: var(--background-color);
+  --callout-border: var(--border-color);
 
-// Callouts
-$callout-background: $background-color;
-$callout-border: $border-color;
+  // Notifications
+  --notifications-background: var(--background-color);
+  --notifications-border: var(--border-color);
+  --notifications-unread: var(--green-ting-color);
 
-// Notifications
-$notifications-background: $background-color;
-$notifications-border: $border-color;
-$notifications-unread: $green-ting;
+  // Comments
+  --comments-background: var(--background-color);
+  --comments-border: var(--border-color);
 
-// Comments
-$comments-background: $background-color;
-$comments-border: $border-color;
+  // Autocomplete
+  --autocomplete-background: var(--background-color);
+  --autocomplete-background-hover: var(--green-ting-color);
+  --autocomplete-border: var(--border-color);
 
-// Autocomplete
-$autocomplete-background: $background-color;
-$autocomplete-background-hover: $green-ting;
-$autocomplete-border: $border-color;
+  // Avatar
+  --avatar-background: var(--background-color);
+  --avatar-border: var(--troy-blue);
+  --no-avatar-background: var(--background-color);
+  --no-avatar-border: var(--border-color);
 
-// Avatar
-$avatar-background: $background-color;
-$avatar-border: $troy-blue;
-$no-avatar-background: $background-color;
-$no-avatar-border: $border-color;
+  // Pagination
+  --pagination-text: var(--dark-gray);
 
-// Pagination
-$pagination-text: $dark-gray;
+  // Modal
+  --modal-background: var(--site-background);
+  --modal-border: var(--border-color);
 
-// Modal
-$modal-background: $site-background;
-$modal-border: $border-color;
+  // Events
+  --event-response-background: var(--site-background);
+  --event-description-background: var(--site-background);
+  --event-border: var(--border-color);
 
-// Events
-$event-response-background: $site-background;
-$event-description-background: $site-background;
-$event-border: $border-color;
+  // Forms
+  --form-input-border: var(--gray);
 
-// Forms
-$form-input-border: $gray;
+  // Tables
+  --table-background: var(--background-color);
+  --table-border: var(--border-color);
+  --table-prev-next-background: var(--light-gray);
+  --table-today-background: var(--light-goldenrod);
+  --table-link-color: var(--link-color);
+  --table-link-color-hover: var(--link-color-hover);
+}
+
+// Dark theme
+@mixin dark-theme {
+  // Standards
+  --standard-font: var(--off-white);
+  --site-background: var(--tundora);
+  --link-color: var(--light-blue);
+  --link-color-hover: var(--dark-light-blue);
+  --delete-link-color: var(--light-red);
+  --delete-link-color-hover: var(--red);
+  --background-color: var(--dark-gray);
+  --border-color: var(--christine);
+  --black-color: var(--off-white);
+  --black-color-hover: var(--dark-off-white);
+  --white-color: var(--black);
+  --green-color: var(--green);
+  --green-ting-color: var(--dark-green-ting);
+  --red-color: var(--red);
+  --dark-gray-color: var(--black);
+  --header-color: var(--goldenrod);
+
+  // Topbar
+  --topbar-background: var(--black);
+  --topbar-background-hover: var(--dark-blue);
+  --topbar-text: var(--off-white);
+  --topbar-text-hover: var(--ice-blue);
+  --topbar-logo: var(--off-white);
+  --topbar-logo-hover: var(--ice-blue);
+  --toggler-color: var(--off-white);
+  --toggler-clicked: var(--ice-blue);
+
+  // Subbar
+  --subbar-background: var(--dark-troy-blue);
+  --subbar-text: var(--ice-blue);
+  --subbar-text-hover: var(--shakespear);
+  --subbar-border: var(--topbar-background);
+
+  // Callouts
+  --callout-background: var(--background-color);
+  --callout-border: var(--border-color);
+
+  // Notifications
+  --notifications-background: var(--background-color);
+  --notifications-border: var(--border-color);
+  --notifications-unread: var(--green-ting-color);
+
+  // Comments
+  --comments-background: var(--background-color);
+  --comments-border: var(--border-color);
+
+  // Autocomplete
+  --autocomplete-background: var(--background-color);
+  --autocomplete-background-hover: var(--dark-gray);
+  --autocomplete-border: var(--border-color);
+
+  // Avatar
+  --avatar-background: var(--background-color);
+  --avatar-border: var(--border-color);
+  --no-avatar-background: var(--background-color);
+  --no-avatar-border: var(--border-color);
+
+  // Pagination
+  --pagination-text: var(--dark-gray);
+
+  // Modal
+  --modal-background: var(--site-background);
+  --modal-border: var(--border-color);
+
+  // Events
+  --event-response-background: var(--site-background);
+  --event-description-background: var(--site-background);
+  --event-border: var(--border-color);
+
+  // Forms
+  --form-input-border: var(--gray);
+
+  // Tables
+  --table-background: var(--light-gray);
+  --table-border: var(--border-color);
+  --table-prev-next-background: var(--goldenrod);
+  --table-today-background: var(--light-goldenrod);
+  --table-link-color: var(--red);
+  --table-link-color-hover: var(--dark-red);
+}
+
+// System theme dark
+@media (prefers-color-scheme: dark) {
+  body {
+    @include dark-theme;
+  }
+  // Force to light theme
+  body.light {
+    @include light-theme;
+  }
+}
+
+// System theme light
+@media (prefers-color-scheme: light) {
+  body {
+    @include light-theme;
+  }
+  // Force to dark theme
+  body.dark {
+    @include dark-theme;
+  }
+}

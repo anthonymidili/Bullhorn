@@ -1,7 +1,7 @@
 .comments {
   display: block;
   padding: 10px 0 10px 0;
-  border-top: 1px solid $comments-border;
+  border-top: 1px solid var(--comments-border);
   &:first-child {
     border-top: 0;
   }
@@ -16,8 +16,8 @@
   }
 }
 .comments_box {
-  background-color: $comments-background;
-  border: 1px solid $comments-border;
+  background-color: var(--comments-background);
+  border: 2px solid var(--comments-border);
   border-radius: 8px;
   padding: 10px;
 }

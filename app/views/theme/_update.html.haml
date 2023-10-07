@@ -1,0 +1,21 @@
+.dropdown
+  .btn-group
+    = button_tag class: "dropdown-toggle nav-link dropdown-toggle", 
+    type: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false" do
+      %i.fa-solid.fa-palette
+    %ul{class: "dropdown-menu dropdown-menu-end dropdown-menu-dark "}
+      %li
+        = link_to set_theme_path(theme: 'light'),
+        class: "dropdown-item #{return_active_for_current_theme(:light)}" do
+          %i.fa-solid.fa-sun
+          Light
+      %li
+        = link_to set_theme_path(theme: 'dark'),
+        class: "dropdown-item #{return_active_for_current_theme(:dark)}" do
+          %i.fa-regular.fa-moon
+          Dark
+      %li
+        = link_to set_theme_path,
+        class: "dropdown-item #{return_active_for_current_theme(:system)}" do
+          %i.fa-solid.fa-clone
+          System

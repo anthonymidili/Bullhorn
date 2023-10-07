@@ -1,5 +1,5 @@
 nav.navbar {
-  background-color: $topbar-background;
+  background-color: var(--topbar-background);
   margin-bottom: 20px;
   
   span.inline {
@@ -12,7 +12,7 @@ nav.navbar {
 
   .topbar-logo {
     h1 {
-      color: $topbar-logo;
+      color: var(--topbar-logo);
       &::before {
         font-weight: bold !important;
       }
@@ -21,26 +21,23 @@ nav.navbar {
       margin-left: 4px;
       height: 50px;
       width: 50px;
-      fill: $topbar-logo;
+      fill: var(--topbar-logo);
     }
     &:hover {
       h1 {
-        color: $topbar-logo-hover;
+        color: var(--topbar-logo-hover);
       }
       img, svg {
-        fill: $topbar-logo-hover;
+        fill: var(--topbar-logo-hover);
       }
     }
   }
 
   .navbar-toggler {
-    color: $toggler-clicked;
-    border: 2px solid $toggler-border;
-    .navbar-toggler-icon {
-      // Change bootstrap hamburger icon color with rgb format.
-      background-image: url(
-        "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$toggler-icon-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"
-      );
+    color: var(--toggler-color);
+    border: 2px solid var(--toggler-color);
+    .toggler-icon {
+      color: var(--toggler-icon-color);
     }
   }
   
@@ -48,17 +45,28 @@ nav.navbar {
     margin-left: auto;
     a, button {
       border-radius: 8px;
-      color: $topbar-text !important;
+      color: var(--topbar-text) !important;
       &:hover {
-        background-color: $topbar-background-hover !important;
-        color: $topbar-text-hover !important;
+        background-color: var(--topbar-background-hover) !important;
+        color: var(--topbar-text-hover) !important;
         &::after {
-          border-color: $topbar-text-hover transparent transparent !important;
+          border-color: var(--topbar-text-hover) transparent transparent !important;
         }
       }
       &::after {
-        border-color: $topbar-background-hover transparent transparent !important;
+        color: var(--topbar-text-hover) !important;
+        border-color: var(--topbar-text) transparent transparent !important;
       }
+    }
+
+    .btn-group {
+      width: 100%;
+      display: block !important;
+    }
+
+    button.nav-link {
+      width: 100%;
+      display: flex !important;
     }
   }
 
@@ -70,18 +78,25 @@ nav.navbar {
 }
 
 .sub_top_bar {
-  background-color: $subbar-background;
+  background-color: var(--subbar-background);
   margin-top: -20px;
   margin-bottom: 20px;
   padding-top: 2px;
   padding-bottom: 2px;
-  border-top: 1px solid $subbar-text;
-  border-bottom: 1px solid $subbar-text;
+  border-top: 1px solid var(--subbar-border);
+  border-bottom: 1px solid var(--subbar-border);
   a {
     margin: 0 10px 0 10px;
-    color: $subbar-text;
+    &.dropdown-item { 
+      margin: unset;
+     }
+    color: var(--subbar-text);
     &:hover {
-      color: darken($color: $subbar-text, $amount: 15%);
+      color: var(--subbar-text-hover);
     }
   }
+}
+
+.dropdown-menu {
+  z-index: 1030;
 }

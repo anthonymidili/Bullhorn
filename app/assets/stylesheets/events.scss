@@ -5,8 +5,8 @@
   }
   .response {
     padding: 15px;
-    background-color: $event-response-background;
-    border: 1px solid $event-border;
+    background-color: var(--event-response-background);
+    border: 1px solid var(--event-border);
     @include media-breakpoint-down(sm) {
       li + li {
         margin-left: 0;
@@ -14,7 +14,7 @@
     }
   }
   .callout-thin {
-    background-color: $event-description-background;
+    background-color: var(--event-description-background);
   }
 }
 
@@ -23,7 +23,7 @@
   position: relative;
   img {
     height: 50px;
-    border: 1px solid $event-border;
+    border: 1px solid var(--event-border);
   }
   li {
     height: 78px;
@@ -34,7 +34,7 @@
     svg {
       padding: 1px;
       margin: 1px;
-      background-color: $white-color;
+      background-color: var(--white-color);
     }
   }
 }

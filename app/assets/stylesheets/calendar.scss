@@ -4,8 +4,8 @@
   table {
     -webkit-border-horizontal-spacing: 0px;
     -webkit-border-vertical-spacing: 0px;
-    background-color: #00000000;
-    border: 1px solid #dddddd;
+    background-color: var(--table-background);
+    border: 1px solid var(--table-border);
     border-collapse: collapse;
     box-sizing: border-box;
     max-width: 100%;
@@ -19,13 +19,14 @@
   th {
     min-width: 120px;
     padding: 6px;
-    border-bottom: 2px solid #dddddd;
+    border-bottom: 2px solid var(--table-border);
     border-collapse: collapse;
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
+    border-left: 1px solid var(--table-border);
+    border-right: 1px solid var(--table-border);
     border-top: 0px none #333333;
     box-sizing: border-box;
     text-align: left;
+    background-color: var(--table-background);
   }
 
   td {
@@ -33,19 +34,20 @@
     vertical-align: top;
     width: 14%;
 
-    border: 1px solid #dddddd;
-    border-top-color: #dddddd;
+    border: 1px solid var(--table-border);
+    border-top-color: var(--table-border);
     border-top-style: solid;
     border-top-width: 1px;
-    border-right-color: #dddddd;
+    border-right-color: var(--table-border);
     border-right-style: solid;
     border-right-width: 1px;
-    border-bottom-color: #dddddd;
+    border-bottom-color: var(--table-border);
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    border-left-color: #dddddd;
+    border-left-color: var(--table-border);
     border-left-style: solid;
     border-left-width: 1px;
+    background-color: var(--table-background);
   }
 
   .day {
@@ -61,7 +63,7 @@
   // .wday-6 {}
 
   .today {
-    background: #FFFFC0
+    background: var(--table-today-background);
   }
 
   // .past {}
@@ -70,14 +72,21 @@
   // .start-date {}
 
   .prev-month {
-    background: #dddddd;
+    background: var(--table-prev-next-background);
   }
   .next-month {
-    background: #dddddd;
+    background: var(--table-prev-next-background);
   }
   // .current-month {}
 
   // .has-events {}
+
+  a {
+    color: var(--table-link-color);
+    &:hover {
+      color: var(--table-link-color-hover);
+    }
+  }
 
   nav {
     a {
@@ -85,6 +94,9 @@
       padding-right: 20px;
       &:last-child {
         padding-right: 0;
+      }
+      &:hover {
+        color: var(--link-color-hover);
       }
     }
   }

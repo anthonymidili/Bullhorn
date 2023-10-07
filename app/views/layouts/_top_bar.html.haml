@@ -13,7 +13,8 @@
     data: { bs_target: "#navbarNavDropdown",
     bs_toggle: "collapse" },
     type: "button"}
-      %span.navbar-toggler-icon
+      %span.toggler-icon
+        %i.fa-solid.fa-bars.fa-xl
 
     #navbarNavDropdown.collapse.navbar-collapse
       -# Right side navbar.
@@ -37,6 +38,8 @@
                 %i.fa-solid.fa-user-tie
                 Admins
           %li.nav-item
+            = render "theme/update"
+          %li.nav-item.dropdown
             = button_to destroy_user_session_path, 
             method: :delete, form: {  data: { turbo: :false } },
             title: 'Sign out', class: "nav-link" do

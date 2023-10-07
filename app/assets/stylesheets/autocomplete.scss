@@ -3,10 +3,10 @@ ul.ui-autocomplete {
   list-style: none;
   margin: 0;
   padding: 0;
-  border: solid 1px $autocomplete-border;
+  border: solid 2px var(--autocomplete-border);
   cursor: default;
   li {
-    background-color: $autocomplete-background;
+    background-color: --autocomplete-background;
     margin: 0;
     padding: 0 5px 0 5px;
     a {
@@ -15,7 +15,7 @@ ul.ui-autocomplete {
       padding: 3px;
     }
     .ui-menu-item-wrapper.ui-state-active {
-      background-color: $autocomplete-background-hover;
+      background-color: var(--autocomplete-background-hover);
       padding: 0 5px 0 5px;
     }
   }

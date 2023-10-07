@@ -3,5 +3,5 @@
 }
 
 .form-control, .form-check-input, .form-select, .input-group-text {
-  border-color: $form-input-border;
+  border-color: var(--form-input-border);
 }

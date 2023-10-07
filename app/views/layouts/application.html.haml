@@ -1,5 +1,5 @@
 !!!
-%html{:lang => "en"}
+%html{lang: "en"}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
@@ -13,7 +13,7 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
     
-  %body
+  %body{class: "#{cookies[:theme]}"}
     #wrap
       = render 'layouts/top_bar'
 

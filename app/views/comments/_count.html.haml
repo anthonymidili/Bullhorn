@@ -3,5 +3,5 @@ id: commentable.id, anchor: "new_comment"), data: { turbo: false } do
   %i.fa-regular.fa-comment.fa-xl
   - if commentable.comments.any?
     %span.comments-count
-      = pluralize(commentable.comments.count, "comment")
+      = commentable.comments.count
       

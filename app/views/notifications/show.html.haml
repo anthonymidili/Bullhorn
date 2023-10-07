@@ -1,7 +1,6 @@
 .row.center-content
   .col-12.col-md-8
     #notifications
-      %h2 Notifications
       %p
         .links
           = link_to 'mark ALL as read', mark_all_as_read_notifications_path,
@@ -12,6 +11,7 @@
             %i.fa-solid.fa-gear
             Settings
       .notifications-box.d-flex.flex-column.mb-3
+        %h2 Notifications
         - if @recent_notifications.any?
           %h6.list NEW
           #unread_notifications_list
