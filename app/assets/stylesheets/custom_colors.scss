@@ -1,34 +1,35 @@
 :root {
   // Customize bootstrap
   --bs-border-width: 2px;
+
   // Color palette
-  --light-gray: #c6c9cb;
-  --dark-gray: #595959;
-  --black: #010101;
   --white: #fefefe;
-  --tundora: #424242;
-  --gray: #868686;
-  --christine: #f26c09;
-  --dark-christine: #cb5908;
-  --light-goldenrod: #FFFFC0;
-  --goldenrod: #fbcc6c;
   --off-white: #fffff4;
   --dark-off-white: #d9d9d3;
+  --light-gray: #c6c9cb;
+  --gray: #868686;
+  --dark-gray: #595959;
+  --tundora: #212020;
+  --light-black: #1b1b1b;
+  --black: #010101;
+  --light-goldenrod: #fefef2;
+  --goldenrod: #fbcc6c;
+  --christine: #f26c09;
+  --dark-christine: #cb5908;
   --light-red: #fb6363;
   --red: #ff0000;
   --dark-red: #c50606;
-  --green: #008000;
   --green-ting: #daf7da;
+  --green: #008000;
   --dark-green-ting: #3a713a;
+  --blue-ting: #fafafb;
   --ice-blue: #d4e6f0;
-  --dark-blue: #13395f;
   --light-blue: #85d5ff;
-  --dark-light-blue: #24b4ff;
+  --shakespear: #55acd9;
   --blue: #0d6efd;
   --troy-blue: #1552a2;
   --dark-troy-blue: #104182;
-  --shakespear: #55acd9;
-  --blue-ting: #fafafb;
+  --dark-blue: #13395f;
 }
 
 // Light theme
@@ -121,19 +122,19 @@
   --standard-font: var(--off-white);
   --site-background: var(--tundora);
   --link-color: var(--light-blue);
-  --link-color-hover: var(--dark-light-blue);
+  --link-color-hover: var(--shakespear);
   --delete-link-color: var(--light-red);
   --delete-link-color-hover: var(--red);
   --background-color: var(--dark-gray);
-  --border-color: var(--christine);
+  --border-color: var(--light-goldenrod);
   --black-color: var(--off-white);
   --black-color-hover: var(--dark-off-white);
   --white-color: var(--black);
   --green-color: var(--green);
   --green-ting-color: var(--dark-green-ting);
   --red-color: var(--red);
-  --dark-gray-color: var(--black);
-  --header-color: var(--goldenrod);
+  --dark-gray-color: var(--dark-gray);
+  --header-color: var(--off-white);
 
   // Topbar
   --topbar-background: var(--black);
@@ -146,22 +147,22 @@
   --toggler-clicked: var(--ice-blue);
 
   // Subbar
-  --subbar-background: var(--dark-troy-blue);
+  --subbar-background: var(--light-black);
   --subbar-text: var(--ice-blue);
   --subbar-text-hover: var(--shakespear);
   --subbar-border: var(--topbar-background);
 
   // Callouts
-  --callout-background: var(--background-color);
+  --callout-background: var(--black);
   --callout-border: var(--border-color);
 
   // Notifications
-  --notifications-background: var(--background-color);
+  --notifications-background: var(--black);
   --notifications-border: var(--border-color);
   --notifications-unread: var(--green-ting-color);
 
   // Comments
-  --comments-background: var(--background-color);
+  --comments-background: var(--black);
   --comments-border: var(--border-color);
 
   // Autocomplete

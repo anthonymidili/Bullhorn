@@ -136,3 +136,71 @@ nav.pagination {
 h1, h2, h3, h4, h5, h6 {
   color: var(--header-color);
 }
+
+// Header shadow for dark theme
+// System theme dark
+@media (prefers-color-scheme: dark) {
+  h1, h2, h3, h4, h5, h6 {
+    text-shadow:
+      0 0 2px #ffffff,
+      0 0 5px #bc13fe,
+      0 0 7px #bc13fe
+  }
+  // Force to light theme
+  .light {
+    h1, h2, h3, h4, h5, h6 {
+      text-shadow: unset;
+    }
+  }
+}
+
+// System theme light
+@media (prefers-color-scheme: light) {
+  h1, h2, h3, h4, h5, h6 {
+    text-shadow: unset;
+  }
+  // Force to dark theme
+  .dark {
+    h1, h2, h3, h4, h5, h6 {
+      text-shadow:
+      0 0 2px #ffffff,
+      0 0 5px #bc13fe,
+      0 0 7px #bc13fe
+    }
+  }
+}
+
+// Border shadow for dark theme
+// System theme dark
+@media (prefers-color-scheme: dark) {
+  .callout, .callout-thin, .notifications-box, .comments_box, .avatar img {
+    box-shadow:
+      0 0 2px #ffffff,
+      0 0 2px #ffffff,
+      0 0 5px #ffb24d,
+      0 0 6px #ffb24d
+  }
+  // Force to light theme
+  .light {
+    .callout, .callout-thin, .notifications-box, .comments_box, .avatar img {
+      box-shadow: unset;
+    }
+  }
+}
+
+// System theme light
+@media (prefers-color-scheme: light) {
+  .callout, .callout-thin, .notifications-box, .comments_box, .avatar img {
+    box-shadow: unset;
+  }
+  // Force to dark theme
+  .dark {
+    .callout, .callout-thin, .notifications-box, .comments_box, .avatar img {
+      box-shadow:
+        0 0 2px #ffffff,
+        0 0 2px #ffffff,
+        0 0 5px #ffb24d,
+        0 0 6px #ffb24d
+    }
+  }
+}

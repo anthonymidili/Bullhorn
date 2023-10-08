@@ -1,6 +1,10 @@
 class ThemeController < ApplicationController
   def update
-    cookies[:theme] = params[:theme]
+    if params[:theme].blank?
+      cookies.delete(:theme)
+    else
+      cookies[:theme] = params[:theme]
+    end
     redirect_to(request.referrer || root_path)
   end
 end
