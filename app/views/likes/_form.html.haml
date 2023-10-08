@@ -3,8 +3,3 @@
     = render "likes/unlike", likeable: likeable
   - else
     = render "likes/like", likeable: likeable
-  - if likeable.likes.any?
-    %span.likes-count
-      = turbo_frame_tag dom_id(likeable, "who_liked") do
-        = link_to path_to_who_liked(likeable) do
-          = pluralize(likeable.likes.count, 'like')

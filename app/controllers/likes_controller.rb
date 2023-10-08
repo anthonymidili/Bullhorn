@@ -11,6 +11,10 @@ class LikesController < ApplicationController
             turbo_stream.replace(
               helpers.dom_id(@likeable, "likes_form"),
               partial: "likes/form", locals: { likeable: @likeable }
+            ),
+            turbo_stream.replace(
+              helpers.dom_id(@likeable, "who_liked"),
+              partial: "likes/count", locals: { likeable: @likeable }
             )
           ]      
         end
@@ -35,6 +39,10 @@ class LikesController < ApplicationController
           turbo_stream.replace(
             helpers.dom_id(@likeable, "likes_form"),
             partial: "likes/form", locals: { likeable: @likeable }
+          ),
+          turbo_stream.replace(
+            helpers.dom_id(@likeable, "who_liked"),
+            partial: "likes/count", locals: { likeable: @likeable }
           )
         ]      
       end

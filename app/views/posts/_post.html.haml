@@ -20,6 +20,7 @@
           .timestamp
             Posted #{time_ago_in_words(post.created_at)} ago
         .post-stats.d-flex.justify-content-between.align-items-center
-          = render "likes/form", likeable: post
           - unless @hidden
             = render "comments/count", commentable: post
+          = render "likes/count", likeable: post
+          = render "likes/form", likeable: post

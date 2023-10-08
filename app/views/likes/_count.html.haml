@@ -1,0 +1,4 @@
+= turbo_frame_tag dom_id(likeable, "who_liked") do
+  - if likeable.likes.any?
+    = link_to path_to_who_liked(likeable) do
+      = pluralize(likeable.likes.count, 'like')
