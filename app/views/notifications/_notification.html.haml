@@ -2,6 +2,8 @@
   = link_to path_to_notifiable(notification.notifiable), class: "post_user" do
     - if notification.notifier.avatar.attached?
       = image_tag thumb_image(notification.notifier.avatar)
+    - else
+      = image_tag "default_avatar"
     = notification.notifier.username
     = notification.action
     .timestamp

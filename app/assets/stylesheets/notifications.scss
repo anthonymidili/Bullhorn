@@ -1,5 +1,4 @@
 .notification {
-  
   border-top: 1px solid var(--notifications-border);
   &:first-child {
     border-top: none;
@@ -13,7 +12,10 @@
   }
   .post_user {
     img {
-      height: 50px;
+      width: 33px;
+      height: 33px;
+      border: solid 1px var(--avatar-border);
+      background-color: var(--avatar-background);
     }
   }
 }

@@ -5,6 +5,12 @@
       margin-bottom: 3px;
     }
   }
+  .avatar {
+    img {
+      width: 254px;
+      height: 254px;
+    }
+  }
 }
 
 .index-card {
@@ -17,6 +23,7 @@
     margin-right: 10px;
     img {
       width: 100px;
+      height: 100px;
     }
   }
   &.callout {
@@ -66,14 +73,4 @@
       font-size: 120%;
     }
   }
-}
-
-.no_avatar {
-  display: inline-block;
-  height: 42px !important;
-  width: 42px !important;
-  border: solid 1px var(--no-avatar-border);
-  background-color: var(--no-avatar-background);
-  padding: 3px;
-  vertical-align: middle;
 }

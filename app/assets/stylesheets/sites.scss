@@ -90,7 +90,10 @@ nav.pagination {
 }
 
 .red, .false {
-  color: var(--red-color);
+  color: var(--red-color) !important;
+  &:hover {
+    color: var(--dark-red-color) !important;
+  }
 }
 
 .pad_left {

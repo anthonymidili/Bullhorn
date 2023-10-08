@@ -1,6 +1,6 @@
 - provide :title, 'Comments'
 .row.center-content
-  .col-12.col-md-8
+  .col-12.col-md-10
     = render @post
     .links.mb-3
       = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do

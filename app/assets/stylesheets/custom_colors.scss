@@ -9,7 +9,7 @@
   --light-gray: #c6c9cb;
   --gray: #868686;
   --dark-gray: #595959;
-  --tundora: #212020;
+  --tundora: #2a2828;
   --light-black: #1b1b1b;
   --black: #010101;
   --light-goldenrod: #fefef2;
@@ -21,7 +21,7 @@
   --dark-red: #c50606;
   --green-ting: #daf7da;
   --green: #008000;
-  --dark-green-ting: #3a713a;
+  --dark-green-ting: #011b01;
   --blue-ting: #fafafb;
   --ice-blue: #d4e6f0;
   --light-blue: #85d5ff;
@@ -49,6 +49,7 @@
   --green-color: var(--green);
   --green-ting-color: var(--green-ting);
   --red-color: var(--red);
+  --dark-red-color: var(--dark-red);
   --dark-gray-color: var(--dark-gray);
   --header-color: var(--troy-blue);
 
@@ -88,9 +89,7 @@
 
   // Avatar
   --avatar-background: var(--background-color);
-  --avatar-border: var(--troy-blue);
-  --no-avatar-background: var(--background-color);
-  --no-avatar-border: var(--border-color);
+  --avatar-border: var(--border-color);
 
   // Pagination
   --pagination-text: var(--dark-gray);
@@ -114,6 +113,8 @@
   --table-today-background: var(--light-goldenrod);
   --table-link-color: var(--link-color);
   --table-link-color-hover: var(--link-color-hover);
+
+  --bs-body-bg: var(--white);
 }
 
 // Dark theme
@@ -133,6 +134,7 @@
   --green-color: var(--green);
   --green-ting-color: var(--dark-green-ting);
   --red-color: var(--red);
+  --dark-red-color: var(--dark-red);
   --dark-gray-color: var(--dark-gray);
   --header-color: var(--off-white);
 
@@ -173,8 +175,6 @@
   // Avatar
   --avatar-background: var(--background-color);
   --avatar-border: var(--border-color);
-  --no-avatar-background: var(--background-color);
-  --no-avatar-border: var(--border-color);
 
   // Pagination
   --pagination-text: var(--dark-gray);
@@ -198,6 +198,8 @@
   --table-today-background: var(--light-goldenrod);
   --table-link-color: var(--red);
   --table-link-color-hover: var(--dark-red);
+
+  --bs-body-bg: var(--light-gray);
 }
 
 // System theme dark

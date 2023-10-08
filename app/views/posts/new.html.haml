@@ -2,11 +2,9 @@
   .modal
     .modal_content
       .row.center-content
-        .col-12.col-md-8
+        .col-12
+          = link_to root_path(new_link: true), class: "close-btn", 
+          data: { turbo_stream: "new_post" }, title: 'Close' do
+            %i.fa-solid.fa-xmark
           %h1 New post
           = render 'form', post: @post
-          .links.mb-3
-            = link_to root_path(new_link: true), 
-            data: { turbo_stream: "new_post" }, title: 'Back' do
-              %i.fa-solid.fa-hand-point-left
-              Back
