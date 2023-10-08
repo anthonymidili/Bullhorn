@@ -3,9 +3,9 @@
     #notifications
       %p
         .links
-          = link_to 'mark ALL as read', mark_all_as_read_notifications_path,
+          = button_to 'mark ALL as read', mark_all_as_read_notifications_path,
           title: 'mark ALL notifications as read', class: 'btn btn-primary', 
-          data: { turbo_method: :patch }
+          method: :patch, data: { turbo: false }
           = link_to edit_notifications_path,
           title: 'Notification Settings', class: 'btn btn-primary' do
             %i.fa-solid.fa-gear
