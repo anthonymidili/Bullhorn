@@ -1,8 +1,9 @@
 = form_with model: current_user, url: timezones_path,
-html: { class: :hide_and_submit }, local: true do |f|
+data: { controller: "autosubmit-form" } do |f|
   .input-group.mb-3
     = f.label :timezone, "your timezone", 
     class: "input-group-text", for: "time_zone_select"
     = f.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones,
-    {}, { class: "form-select", id: "time_zone_select" }
+    {}, { class: "form-select", id: "time_zone_select",
+    data: {action: "change->autosubmit-form#submitChange"} }
   = f.submit

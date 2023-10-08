@@ -1,6 +1,6 @@
 .response
   = form_with model: [event, find_or_init_invitation(event)],
-  id: dom_id(event, "response_form"), class: 'hide_and_submit', 
+  id: dom_id(event, "response_form"), 
   data: { controller: "autosubmit-form" } do |f|
     .d-flex.flex-column.flex-md-row.justify-content-md-evenly
       .p-2
