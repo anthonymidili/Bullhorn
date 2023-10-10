@@ -66,7 +66,6 @@ private
   end
 
   def set_like
-    @like = 
-      current_user.has_liked?(@likeable) || current_user.likes.build(like_params)
+    @like = current_user.has_liked?(@likeable) || current_user.likes.build(like_params)
   end
 end

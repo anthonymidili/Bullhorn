@@ -28,7 +28,7 @@ private
     when "Event"
       notifiable.users - [ notifiable.user ]
     when "Like"
-      [ notifiable.likeable.user ] - [ notifiable.user ]
+      [ notifiable.likeable.send(comment_or_other_user(notifiable.likeable)) ] - [ notifiable.user ]
     else
       notifiable.user.all_relationships - [ notifiable.user ]
     end
@@ -122,6 +122,8 @@ private
     case likeable.class.name
     when "Post"
       "Post - #{likeable.body.truncate(40)}"
+    when "Comment"
+      "Comment - #{likeable.body.truncate(40)}"
     else
       "Liked something"
     end
