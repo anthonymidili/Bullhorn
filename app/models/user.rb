@@ -96,12 +96,4 @@ class User < ApplicationRecord
   def all_relationships
     (followers + following).uniq
   end
-
-  def recent_email_timed_out?
-    if time = last_email_notification_received
-      (time + 3.days) < Time.current 
-    else
-      true
-    end
-  end
 end

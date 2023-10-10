@@ -35,18 +35,17 @@ private
   end
 
   def mail_notification(notifiable, recipient, notifier)
+    r_r_m = recipient.receive_mail || recipient.create_receive_mail
     if mail_permitted?(notifiable, recipient) &&
     (!recipient.notifications.has_recent_unread? ||
-    recipient.recent_email_timed_out?)
+    r_r_m.recent_mail_timed_out?)
       NewActivityMailer.new_activity(
         recipient,
         notifier,
         notifiable,
         action_statement(notifiable)
       ).deliver_now
-      recipient.update_attribute(
-        :last_email_notification_received, Time.current
-      )
+      r_r_m.update_last_mail_received
     end
   end
   
