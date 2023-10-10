@@ -11,6 +11,14 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
+  include ReadNotifications
+  # def read_user_notifications(current_user)
+  #   self.notifications.by_unread.where(recipient: current_user).
+  #   update_all(is_read: true)
+  #   read_comment_notifications(current_user) if self.try(:comments)
+  #   read_like_notifications(current_user) if self.try(:likes)
+  # end
+  
   include LikeableUsers
   # def users_who_liked
   #   users = self.likes.pluck(:user_id)

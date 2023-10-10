@@ -8,12 +8,13 @@ module ReadNotifications
     read_like_notifications(current_user) if self.try(:likes)
   end
 
-private
+protected
 
   def read_comment_notifications(current_user)
     comments.each do |comment|
       comment.notifications.by_unread.where(recipient: current_user).
       update_all(is_read: true)
+      comment.read_like_notifications(current_user)
     end
   end
 
