@@ -57,19 +57,11 @@ private
         action: action_statement(notifiable)
       )
     
-    NotifierChannel.broadcast_to recipient, 
-    unread_notifications_count: recipient.notifications.recent_unread_count,
-    notification_partial: render_notification(notification)
-  end
-
-  def render_notification(notification)
-    renderer = ApplicationController.renderer.new(
-      http_host: ENV.fetch("DEFAULT_URL_HOST", "localhost:3000"),
-      https: false # false so image is not broken
+    Turbo::StreamsChannel.broadcast_render_later_to(
+      "notifications_channel:#{recipient.to_gid_param}",
+      partial: "notifications/new",
+      locals: { user: recipient, notification: notification }
     )
-
-    renderer.render partial: 'notifications/notification',
-    locals: { notification: notification }
   end
 
   def comment_or_other_user(notifiable)

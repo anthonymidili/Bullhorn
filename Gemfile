@@ -20,6 +20,9 @@ gem 'jbuilder', '~> 2.5'
 # Background Jobs
 gem 'sidekiq', '~> 7.1.2'
 gem 'redis', '~> 5.0'
+# Use kredis encapsulates higher-level types and 
+# data structures around a single key for Redis
+# gem "kredis", "~>1.5.0"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -58,8 +61,8 @@ gem 'simple_calendar', '~> 3.0'
 gem 'sib-api-v3-sdk'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  # gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Call 'binding.b or debugger' anywhere in the code to stop execution and get a debugger console
+  gem "debug", ">= 1.0.0"
 end
 
 group :development do

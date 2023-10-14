@@ -40,6 +40,10 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def new_frame
+    @notification = current_user.notifications.find_by(id: params[:id])
+  end
+
 private
 
   def receive_mail_params

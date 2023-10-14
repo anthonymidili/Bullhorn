@@ -14,11 +14,9 @@
         %h2 Notifications
         - if @recent_notifications.any?
           %h6.list NEW
-          #unread_notifications_list
-            = render partial: "notifications/notification",
-            collection: @recent_notifications
+          = turbo_frame_tag "unread_notifications_list" do
+            = render @recent_notifications
         - if @earlier_notifications.any?
           %h6.list EARLIER
           #unread_notifications_list
-            = render partial: "notifications/notification",
-            collection: @earlier_notifications
+            = render @earlier_notifications

@@ -2,4 +2,3 @@
 // Channel files must be named *_channel.js.
 
 // import "./some_channel"
-import "./notifier_channel"
