@@ -37,7 +37,6 @@ Rails.application.routes.draw do
 
   resource :notifications, only: [:show, :edit, :update], path_names: { edit: 'settings' } do
     patch :mark_all_as_read
-    get "/:id/new_frame", as: :new_frame, to: "notifications#new_frame"
   end
 
   resources :likes, only: [:create, :destroy] do

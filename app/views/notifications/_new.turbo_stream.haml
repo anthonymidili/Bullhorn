@@ -2,6 +2,5 @@
   = render "notifications/count", user: user
 
 = turbo_stream.prepend "unread_notifications_list" do
-  = turbo_frame_tag notification, 
-  src: new_frame_notifications_path(notification)
+  = render notification
   

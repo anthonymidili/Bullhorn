@@ -4,7 +4,7 @@ module ImageProcessingHelper
   end
 
   def thumb_image(image)
-    image.variant(resize_to_fill: [250, 250])
+    image.variant(resize_to_fill: [250, 250]).processed.url
   end
 
   def display_file(file)
