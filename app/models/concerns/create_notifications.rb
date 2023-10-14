@@ -36,7 +36,7 @@ private
 
   def mail_notification(notifiable, recipient, notifier)
     r_r_m = recipient.receive_mail || recipient.create_receive_mail
-    if mail_permitted?(notifiable, recipient) &&
+    if mail_permitted?(notifiable, recipient) && !recipient.online &&
     (!recipient.notifications.has_recent_unread? ||
     r_r_m.recent_mail_timed_out?)
       NewActivityMailer.new_activity(
