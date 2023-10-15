@@ -6,9 +6,19 @@
     }
   }
   .avatar {
+    display: inline-block;
+    position: relative;
     img {
       width: 254px;
       height: 254px;
+    }
+    .avatar-status {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      svg {
+        height: 1.3em;
+      }
     }
   }
 }
@@ -20,10 +30,16 @@
   }
   .avatar {
     display: inline-block;
+    position: relative;
     margin-right: 10px;
     img {
       width: 100px;
       height: 100px;
+    }
+    .avatar-status {
+      position: absolute;
+      top: -6px;
+      left: -6px;
     }
   }
   &.callout {

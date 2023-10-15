@@ -1,11 +1,15 @@
 .avatar.mb-1
-  = link_to user, data: { turbo: false } do
+  = link_to user, data: { turbo: false }, 
+  title: (user.online ? "Online" : "Offline" ) do
     - if user.avatar.attached?
       = image_tag thumb_image(user.avatar)
     - else
       = image_tag "default_avatar.png"
+    - if user.online
+      .avatar-status.green
+        %i.fa-solid.fa-circle
 .avatar-info
-  .name.mb-1
+  .name
     = link_to user, class: "black", data: { turbo: false } do
       %h3= user.username
   = render "users/profile_stats", user: user

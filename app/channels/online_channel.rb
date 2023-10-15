@@ -1,6 +1,5 @@
 class OnlineChannel < Turbo::StreamsChannel
   def subscribed
-    super
     return unless current_user
     current_user.update_attribute(:online, true)
   end
