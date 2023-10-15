@@ -13,6 +13,8 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
     
+  = turbo_stream_from "online_users", channel: OnlineChannel
+  = turbo_stream_from ["notifications_channel", current_user]
   %body{class: "#{cookies[:theme]}"}
     #wrap
       = render 'layouts/top_bar'

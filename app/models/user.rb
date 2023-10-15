@@ -97,8 +97,13 @@ class User < ApplicationRecord
     (followers + following).uniq
   end
 
-  def online?
+  def self.users_online
     users_online = Kredis.unique_list "users_online"
-    users_online.elements.include?(id)
+    where(id: users_online.elements)
+  end
+
+  def online?
+    users_online_ids = User.users_online.ids
+    users_online_ids.include?(id)
   end
 end
