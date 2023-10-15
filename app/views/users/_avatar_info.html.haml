@@ -4,7 +4,8 @@
       = image_tag thumb_image(user.avatar)
     - else
       = image_tag "default_avatar.png"
-    = turbo_frame_tag "user_#{user.id}_status"
+    = turbo_frame_tag "user_#{user.id}_status" do
+      = render "users/status", user: user
 .avatar-info
   .name
     = link_to user, class: "black", data: { turbo: false } do
