@@ -1,9 +1,9 @@
 {
-  "name": "Bullhorn",
+  "name": "Bullhorn-XL",
   "version": "2.0.2",
   "description": "Social media site.",
   "main": "index.js",
-  "repository": "bullhorn.ttfh.co",
+  "repository": "bullhornxl.com",
   "author": "AMidili <tonywinslow@yahoo.com>",
   "license": "MIT",
   "private": true,
