@@ -14,4 +14,12 @@ module UsersHelper
       'users/add_admin'
     end
   end
+
+  def profile_or_edit(user)
+    if correct_user?(user) && @to_edit
+      edit_user_path(user)
+    else
+      user
+    end
+  end
 end

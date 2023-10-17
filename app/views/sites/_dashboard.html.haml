@@ -9,7 +9,7 @@
             %i.fa-solid.fa-trash
             Delete User
           %br/
-        = link_to @user, class: "mb-1" do
+        = link_to @user, class: "btn btn-info btn-sm mb-1" do
           %i.fa-solid.fa-user
           view my profile
       = render 'users/avatar_info', user: @user

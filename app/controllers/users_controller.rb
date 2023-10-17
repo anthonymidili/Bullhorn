@@ -30,6 +30,8 @@ class UsersController < ApplicationController
       relationship = Relationship.find_by(id: params[:relationship_id])
       relationship.read_user_notifications(current_user) if relationship
     end
+
+    @to_edit = true
   end
 
   def edit

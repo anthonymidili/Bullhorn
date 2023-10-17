@@ -1,7 +1,7 @@
 .profile_info
   - if user.try(:full_name).present?
     .info
-      %b name:
+      %b Name:
       = user.full_name
   - if user.profile.try(:bio).present?
     .info

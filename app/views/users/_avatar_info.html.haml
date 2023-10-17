@@ -1,5 +1,5 @@
 .avatar.mb-1
-  = link_to user, data: { turbo: false } do
+  = link_to profile_or_edit(user), data: { turbo: false } do
     - if user.avatar.attached?
       = image_tag thumb_image(user.avatar)
     - else
