@@ -1,3 +1,4 @@
 .index-card.callout
   = render 'users/avatar_info', user: user
-  = render admin_form(user), user: user, users: users if current_user.is_admin
+  - if current_user.is_admin && @show_admin_form
+    = render admin_form(user), user: user, users: users

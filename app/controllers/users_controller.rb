@@ -75,6 +75,7 @@ class UsersController < ApplicationController
       else
         User.by_username.with_attached_avatar.includes(:profile)
       end
+    @show_admin_form = true
   end
 
   def add_admin
