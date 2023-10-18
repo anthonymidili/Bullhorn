@@ -4,11 +4,43 @@
   .col-8
     %h1 Notification settings
 
+    .mb-3
+      %em
+        %b How email notifications work
+        %ul
+          %li 
+            Be careful with these settings, email is the only means of notifying 
+            you of new activity when not online. 
+          %li 
+            You will not receive any email notifications while your 
+            status is online.
+          %li 
+            You will receive 1 email notification when all your notifications 
+            are marked as read and your status is offline.
+          %li 
+            If you have unread notification messages, 
+            you will not receive another email until your
+            [Send after] setting, times out.
+
     = form_with model: @receive_mail, url: notifications_path, 
     data: { turbo: false } do |f|
       = render 'notifications/error_messages', object: f.object
-
-      .mb-3 Receive email notifications when users you follow:
+      
+      .feild.mb-3
+        .mb-1 
+          How often would you like to receive an email notification even if 
+          you have unread notification messages?
+          %br/
+          %em Be careful, if set too high, you might be missing out.
+        .row
+          .col-12.col-lg-6
+            .input-group
+              = f.label :send_after_amount, "Send after", class: "input-group-text"
+              = f.number_field :send_after_amount, class: "form-control"
+              = f.select :send_after_unit, 
+              options_for_select([["Hour(s)", "hours"] , ["Day(s)", "days"]], 
+              f.object.send_after_unit), {}, class: "form-select"
+      .mb-1 Receive email notifications when users you follow:
       .feild.mb-1
         = f.check_box :for_new_posts, id: 'cb_posts'
         = f.label :for_new_posts, 'create a new Post', for: 'cb_posts'
@@ -21,9 +53,9 @@
         'Comment on something you have posted or commented on', for: 'cb_comments'
       .feild.mb-1
         = f.check_box :for_new_relationships, id: 'cb_relationships'
-        = f.label :for_new_relationships, 'start following you', for: 'cb_relationships'
+        = f.label :for_new_relationships, 'start Following you', for: 'cb_relationships'
       .feild.mb-3
         = f.check_box :for_new_likes, id: 'cb_likes'
-        = f.label :for_new_likes, 'liked your content', for: 'cb_likes'
+        = f.label :for_new_likes, 'Like your content', for: 'cb_likes'
       .actions.mb-3
         = f.submit 'Update Notification settings', class: 'btn btn-primary'

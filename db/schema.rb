@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_145155) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_18_040220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -169,6 +169,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_145155) do
     t.boolean "for_new_relationships", default: true
     t.boolean "for_new_likes", default: true
     t.datetime "last_mail_received", precision: nil
+    t.integer "send_after_amount", default: 24
+    t.string "send_after_unit", default: "hours"
     t.index ["user_id"], name: "index_receive_mails_on_user_id"
   end
 
