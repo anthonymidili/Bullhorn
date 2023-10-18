@@ -3,7 +3,7 @@ class ThemeController < ApplicationController
     if params[:theme].blank?
       cookies.delete(:theme)
     else
-      cookies[:theme] = params[:theme]
+      cookies.permanent[:theme] = params[:theme]
     end
     redirect_to(request.referrer || root_path)
   end
