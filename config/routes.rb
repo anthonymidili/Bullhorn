@@ -45,6 +45,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reposts, only: [:create, :destroy] do 
+    collection do
+      get :who
+    end
+  end
+
   resource :timezones, only: [:edit, :update]
 
   resources :bug_reports

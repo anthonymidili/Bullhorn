@@ -83,7 +83,7 @@ private
   def action_statement(notifiable)
     case notifiable.class.name
     when 'Post'
-      "Added a New Post - #{notifiable.body.truncate(40)}"
+      "Added a New Post - #{notifiable.body.truncate(40) if notifiable.body}"
     when 'Event'
       "Created a New Event - #{notifiable.name}"
     when 'Relationship'
@@ -91,7 +91,7 @@ private
     when 'Comment'
       "Commented on
       #{commentable_action_statement(notifiable.commentable)}
-      (Comment - #{notifiable.body.truncate(40)})"
+      (Comment - #{notifiable.body.truncate(40) if notifiable.body})"
     when "Like"
       "Liked your #{likeable_action_statement(notifiable.likeable)}"
     else
@@ -102,7 +102,7 @@ private
   def commentable_action_statement(commentable)
     case commentable.class.name
     when "Post"
-      "a Post - #{commentable.body.truncate(40)}"
+      "a Post - #{commentable.body.truncate(40) if commentable.body}"
     when "Event"
       "an Event - #{commentable.name}"
     else
@@ -113,9 +113,9 @@ private
   def likeable_action_statement(likeable)
     case likeable.class.name
     when "Post"
-      "Post - #{likeable.body.truncate(40)}"
+      "Post - #{likeable.body.truncate(40) if likeable.body}"
     when "Comment"
-      "Comment - #{likeable.body.truncate(40)}"
+      "Comment - #{likeable.body.truncate(40) if likeable.body}"
     else
       "Liked something"
     end
