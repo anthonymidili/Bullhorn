@@ -83,7 +83,14 @@ private
   def action_statement(notifiable)
     case notifiable.class.name
     when 'Post'
-      "Added a New Post - #{notifiable.body.truncate(40) if notifiable.body}"
+      if notifiable.reposted
+        "Reposted 
+        #{notifiable.reposted.user.username} 
+        Post - 
+        #{notifiable.reposted.body.truncate(40) if notifiable.reposted.body}"
+      else
+        "Added a New Post - #{notifiable.body.truncate(40) if notifiable.body}"
+      end
     when 'Event'
       "Created a New Event - #{notifiable.name}"
     when 'Relationship'
