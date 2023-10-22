@@ -9,6 +9,13 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
+  # Post that reposted post.
+  has_one :repost, dependent: :destroy
+  has_one :reposted, through: :repost, source: :reposted
+  # Post that has been reposted by other posts.
+  has_many :reposts, foreign_key: :reposted_id, 
+  class_name: 'Repost', dependent: :destroy
+  has_many :repostings, through: :reposts, source: :post
 
   # validates :body, presence: true
   validates :images, file_content_type: {
@@ -28,6 +35,11 @@ class Post < ApplicationRecord
   #   users = self.likes.pluck(:user_id)
   #   User.where(id: users)
   # end
+
+  def users_who_reposted
+    users = repostings.pluck(:user_id)
+    User.where(id: users)
+  end
   
   default_scope { order(created_at: :desc) }
 

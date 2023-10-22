@@ -32,6 +32,7 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :reposts, dependent: :destroy
 
   has_many :invitations, dependent: :destroy
   has_many :events, through: :invitations
@@ -90,6 +91,10 @@ class User < ApplicationRecord
 
   def has_liked?(likeable)
     likes.find_by(likeable_type: likeable.class.name, likeable_id: likeable.id)
+  end
+
+  def has_reposted?(post)
+    reposts.find_by(reposted_id: post.id)
   end
 
   # All user relationships both followers and following.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_18_040220) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_18_224001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -184,6 +184,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_040220) do
     t.index ["user_id"], name: "index_relationships_on_user_id"
   end
 
+  create_table "reposts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.bigint "reposted_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id", "reposted_id"], name: "index_reposts_on_post_id_and_reposted_id", unique: true
+    t.index ["post_id"], name: "index_reposts_on_post_id"
+    t.index ["reposted_id"], name: "index_reposts_on_reposted_id"
+    t.index ["user_id"], name: "index_reposts_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -233,5 +245,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_040220) do
   add_foreign_key "receive_mails", "users"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
+  add_foreign_key "reposts", "posts"
+  add_foreign_key "reposts", "users"
   add_foreign_key "websites", "users"
 end

@@ -1,0 +1,4 @@
+= button_to repost_path(post, repost: { post_id: post.id }), 
+method: :delete, class: "btn btn-link delete-link",
+form_class: "reposts-form", title: "Un-repost" do
+  %i.fa-solid.fa-repeat.fa-xl.green

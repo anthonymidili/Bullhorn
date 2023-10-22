@@ -19,8 +19,15 @@
                 = image_tag medium_image(image), class: "img-thumbnail"
           .timestamp
             Posted #{time_ago_in_words(post.created_at)} ago
-        .d-flex.justify-content-between.align-items-center
-          - unless @hidden
-            = render "comments/count", commentable: post
-          = render "likes/count", likeable: post
-          = render "likes/form", likeable: post
+        - unless post.reposted
+          .d-flex.justify-content-between.align-items-center
+            - unless @hidden
+              = render "comments/count", commentable: post
+            .reposts
+              = render "reposts/form", post: post
+              = render "reposts/count", post: post
+            .likes
+              = render "likes/form", likeable: post
+              = render "likes/count", likeable: post
+        - else
+          .mt-3= render post.reposted

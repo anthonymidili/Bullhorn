@@ -8,12 +8,12 @@ class LikesController < ApplicationController
       if @like.save
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(
-              helpers.dom_id(@likeable, "likes_form"),
+            turbo_stream.replace_all(
+              ".#{helpers.dom_id(@likeable, "likes_form")}",
               partial: "likes/form", locals: { likeable: @likeable }
             ),
-            turbo_stream.replace(
-              helpers.dom_id(@likeable, "who_liked"),
+            turbo_stream.replace_all(
+              ".#{helpers.dom_id(@likeable, "who_liked")}",
               partial: "likes/count", locals: { likeable: @likeable }
             )
           ]      
@@ -36,12 +36,12 @@ class LikesController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.replace(
-            helpers.dom_id(@likeable, "likes_form"),
+          turbo_stream.replace_all(
+            ".#{helpers.dom_id(@likeable, "likes_form")}",
             partial: "likes/form", locals: { likeable: @likeable }
           ),
-          turbo_stream.replace(
-            helpers.dom_id(@likeable, "who_liked"),
+          turbo_stream.replace_all(
+            ".#{helpers.dom_id(@likeable, "who_liked")}",
             partial: "likes/count", locals: { likeable: @likeable }
           )
         ]      

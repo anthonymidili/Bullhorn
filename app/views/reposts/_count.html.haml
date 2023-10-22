@@ -1,0 +1,5 @@
+= turbo_frame_tag dom_id(post, "who_reposted"), 
+class: dom_id(post, "who_reposted") do
+  - if post.repostings.any?
+    = link_to who_reposts_path(repost: { post_id: post.id }) do
+      = pluralize(number_to_human(post.repostings.count), 'repost')
