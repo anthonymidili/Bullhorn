@@ -4,7 +4,7 @@ class RepostsController < ApplicationController
 
   def create
     @post = current_user.posts.build
-    @new_repost = @post.build_repost(user: current_user, reposted: @repost)
+    @repost = @post.build_repost(user: current_user, reposted: @reposted)
     respond_to do |format|
       if @post.save
         format.turbo_stream do
@@ -14,12 +14,12 @@ class RepostsController < ApplicationController
               locals: { post: @post }
             ),
             turbo_stream.replace_all(
-              ".#{helpers.dom_id(@repost, "repost_form")}",
-              partial: "reposts/form", locals: { post: @repost }
+              ".#{helpers.dom_id(@reposted, "repost_form")}",
+              partial: "reposts/form", locals: { post: @reposted }
             ),
             turbo_stream.replace_all(
-              ".#{helpers.dom_id(@repost, "who_reposted")}",
-              partial: "reposts/count", locals: { post: @repost }
+              ".#{helpers.dom_id(@reposted, "who_reposted")}",
+              partial: "reposts/count", locals: { post: @reposted }
             )
           ]      
         end
@@ -37,19 +37,19 @@ class RepostsController < ApplicationController
   end
 
   def destroy
-    @post = current_user.reposts.find_by(reposted: @repost).post
+    @post = current_user.reposts.find_by(reposted: @reposted).post
     @post.destroy
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.remove(@post),
           turbo_stream.replace_all(
-            ".#{helpers.dom_id(@repost, "repost_form")}",
-            partial: "reposts/form", locals: { post: @repost }
+            ".#{helpers.dom_id(@reposted, "repost_form")}",
+            partial: "reposts/form", locals: { post: @reposted }
           ),
           turbo_stream.replace_all(
-            ".#{helpers.dom_id(@repost, "who_reposted")}",
-            partial: "reposts/count", locals: { post: @repost }
+            ".#{helpers.dom_id(@reposted, "who_reposted")}",
+            partial: "reposts/count", locals: { post: @reposted }
           )
           
         ]      
@@ -70,7 +70,7 @@ private
   end
 
   def set_repost
-    @repost = Post.find_by(id: repost_params[:post_id])
-    redirect_to root_path unless @repost
+    @reposted = Post.find_by(id: repost_params[:post_id])
+    redirect_to root_path unless @reposted
   end
 end

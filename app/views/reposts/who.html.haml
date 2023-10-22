@@ -1,12 +1,12 @@
-= turbo_frame_tag dom_id(@repost, "who_reposted") do
+= turbo_frame_tag dom_id(@reposted, "who_reposted") do
   .modal
     .modal_content
       .row
         .col-12
-          = link_to @repost, class: "close-btn", title: "Close" do
+          = link_to @reposted, class: "close-btn", title: "Close" do
             %i.fa-solid.fa-xmark
           %h1 Who reposted this post
           %p
-            = @repost.users_who_reposted.count
+            = @reposted.users_who_reposted.count
             users
-          = render 'users/badge', users: @repost.users_who_reposted
+          = render 'users/badge', users: @reposted.users_who_reposted
