@@ -9,10 +9,10 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
-  # Post that reposted post.
+  # Post that reposted a post.
   has_one :repost, dependent: :destroy
   has_one :reposted, through: :repost, source: :reposted
-  # Post that has been reposted by other posts.
+  # Posts that have been reposted by other posts.
   has_many :reposts, foreign_key: :reposted_id, 
   class_name: 'Repost', dependent: :destroy
   has_many :repostings, through: :reposts, source: :post
@@ -48,9 +48,32 @@ class Post < ApplicationRecord
     where(user_id: following_ids)
   end
 
+  # Grab only posts with images.
   def self.with_images
     ActiveStorage::Attachment.includes(:record, :blob).
     where(record_type: 'Post', record_id: pluck(:id)).
     order(created_at: :desc)
+  end
+
+  def post_type
+    if !!reposted && body?
+      "quoted_repost"
+    elsif !!reposted
+      "repost"
+    else
+      "post"
+    end
+  end
+
+  def is_post?
+    post_type == "post"
+  end
+
+  def is_repost?
+    post_type == "repost"
+  end
+
+  def is_quoted_repost?
+    post_type == "quoted_repost"
   end
 end
