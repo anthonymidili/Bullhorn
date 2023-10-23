@@ -3,8 +3,13 @@
     .modal_content
       .row.center-content
         .col-12
-          = link_to root_path(new_link: true), class: "close-btn", 
-          data: { turbo_stream: "new_post" }, title: 'Close' do
-            %i.fa-solid.fa-xmark
+          - if @reposted
+            = link_to select_reposts_path(repost: { post_id: @reposted.id }), 
+            class: "close-btn", title: 'Close' do
+              %i.fa-solid.fa-xmark
+          - else
+            = link_to root_path(new_link: true), class: "close-btn", 
+            data: { turbo_stream: "new_post" }, title: 'Close' do
+              %i.fa-solid.fa-xmark
           %h1 New post
           = render 'form', post: @post

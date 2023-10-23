@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   resources :reposts, only: [:create, :destroy] do 
     collection do
       get :who
+      get :select
     end
   end
 

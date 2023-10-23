@@ -3,4 +3,7 @@ class: dom_id(post, "repost_form") do
   - if current_user.has_reposted?(post)
     = render "reposts/unrepost_button", post: post
   - else
-    = render "reposts/repost_button", post: post
+    = turbo_frame_tag dom_id(post, "select_repost_type") do
+      = link_to select_reposts_path(repost: { post_id: post.id }),
+      class: "btn btn-link black", title: "Repost" do
+        %i.fa-solid.fa-repeat.fa-xl.black

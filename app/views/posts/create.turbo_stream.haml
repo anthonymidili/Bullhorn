@@ -1,0 +1,12 @@
+= turbo_stream.prepend "posts" do
+  = render "posts/post", post: @post
+
+- if @reposted
+  = turbo_stream.replace_all ".#{dom_id(@reposted, "repost_form")}" do
+    = render "reposts/form", post: @reposted
+
+  = turbo_stream.replace_all ".#{dom_id(@reposted, "who_reposted")}" do
+    = render "reposts/count", post: @reposted
+    
+= turbo_stream.update "new_post" do
+  = render "posts/new_link"

@@ -1,5 +1,6 @@
 = form_with model: post, id: dom_id(post, "form")  do |f|
   = render 'notifications/error_messages', object: f.object
+  = hidden_field_tag "repost[#{:post_id}]", @reposted.id if @reposted
 
   .field.mb-3
     = f.label :body, 'Compose a new post (HTML safe)', 

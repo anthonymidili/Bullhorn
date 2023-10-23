@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :deny_access!, only: [:edit, :update, :destroy],
   unless:  -> { correct_user?(@post.user) }
+  before_action :set_repost, only: [:new, :create]
   before_action :set_as_read!, only: [:show]
 
   # GET /posts/1
@@ -28,16 +29,11 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = current_user.posts.build(post_params)
+    @repost = @post.build_repost(user: current_user, reposted: @reposted) if @reposted
 
     respond_to do |format|
       if @post.save
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.prepend("posts", partial: "posts/post", 
-            locals: { post: @post }),
-            turbo_stream.update("new_post", partial: "posts/new_link")
-          ]
-        end
+        format.turbo_stream
         format.html {
           redirect_to root_path(anchor: "post_#{@post.id}"),
           notice: 'Post was successfully created.'
@@ -111,5 +107,13 @@ private
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
     params.require(:post).permit(:body, images: [])
+  end
+
+  def set_repost
+    @reposted = Post.find_by(id: repost_params[:post_id]) if params[:repost]
+  end
+
+  def repost_params
+    params.require(:repost).permit(:post_id)
   end
 end

@@ -63,6 +63,9 @@ class RepostsController < ApplicationController
   def who
   end
 
+  def select
+  end
+
 private
 
   def repost_params
