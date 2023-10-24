@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = current_user.posts.build(post_params)
-    @repost = @post.build_repost(user: current_user, reposted: @reposted) if @reposted
+    @repost = @post.build_repost(user: current_user, reposted: @reposting) if @reposting
 
     respond_to do |format|
       if @post.save
@@ -110,7 +110,7 @@ private
   end
 
   def set_repost
-    @reposted = Post.find_by(id: repost_params[:post_id]) if params[:repost]
+    @reposting = Post.find_by(id: repost_params[:post_id]) if params[:repost]
   end
 
   def repost_params

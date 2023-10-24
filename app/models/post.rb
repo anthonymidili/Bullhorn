@@ -11,7 +11,7 @@ class Post < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   # Post that reposted a post.
   has_one :repost, dependent: :destroy
-  has_one :reposted, through: :repost, source: :reposted
+  has_one :reposting, through: :repost, source: :reposted
   # Posts that have been reposted by other posts.
   has_many :reposts, foreign_key: :reposted_id, 
   class_name: 'Repost', dependent: :destroy
@@ -56,9 +56,9 @@ class Post < ApplicationRecord
   end
 
   def post_type
-    if !!reposted && body?
+    if !!reposting && body?
       "quoted_repost"
-    elsif !!reposted
+    elsif !!reposting
       "repost"
     else
       "post"

@@ -3,13 +3,17 @@
     .modal_content
       .row.center-content
         .col-12
-          - if @reposted
-            = link_to select_reposts_path(repost: { post_id: @reposted.id }), 
+          - if @reposting
+            = link_to select_reposts_path(repost: { post_id: @reposting.id }), 
             class: "close-btn", title: 'Close' do
               %i.fa-solid.fa-xmark
+            %h1 New Quoted Repost
           - else
             = link_to root_path(new_link: true), class: "close-btn", 
             data: { turbo_stream: "new_post" }, title: 'Close' do
               %i.fa-solid.fa-xmark
-          %h1 New post
+            %h1 New Post
           = render 'form', post: @post
+          - if @reposting
+            %h3 Reposting Post
+            = render @reposting, new_quoted_post: true

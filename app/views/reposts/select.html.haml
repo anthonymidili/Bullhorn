@@ -1,16 +1,18 @@
-= turbo_frame_tag dom_id(@reposted, "select_repost_type") do
+= turbo_frame_tag dom_id(@reposting, "select_repost_type") do
   .modal
     .modal_content
       = turbo_frame_tag "new_post" do
-        = link_to root_path, class: "close-btn",
-        data: { turbo_frame: dom_id(@reposted, "repost_form") }, 
-        title: 'Close' do
-          %i.fa-solid.fa-xmark
-        .row.center-all
+        .row.mb-3
+          .col-12
+            = link_to root_path, class: "close-btn",
+            data: { turbo_frame: dom_id(@reposting, "repost_form") }, 
+            title: 'Close' do
+              %i.fa-solid.fa-xmark
+        .row.center-all.mb-3
           .col-6.col-lg-4
-            = render "reposts/repost_button", post: @reposted
+            = render "reposts/repost_button", post: @reposting
           .col-6.col-lg-4
-            = link_to new_post_path(repost: { post_id: @reposted.id }), 
+            = link_to new_post_path(repost: { post_id: @reposting.id }), 
             class: "btn btn-link black" do
               %i.fa-solid.fa-quote-left.fa-sm
               %i.me-1.fa-solid.fa-repeat.fa-xl

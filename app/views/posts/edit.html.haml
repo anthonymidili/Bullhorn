@@ -6,6 +6,6 @@
           = link_to root_path(anchor: "post_#{@post.id}"), 
           class: "close-btn", title: 'Cancel' do
             %i.fa-solid.fa-xmark
-          %h1 Editing post
+          %h1 Editing Post
 
           = render 'form', post: @post

@@ -83,11 +83,11 @@ private
   def action_statement(notifiable)
     case notifiable.class.name
     when 'Post'
-      if notifiable.reposted
+      if notifiable.reposting
         "Reposted 
-        #{notifiable.reposted.user.username} 
+        #{notifiable.reposting.user.username} 
         Post - 
-        #{notifiable.reposted.body.truncate(40) if notifiable.reposted.body}"
+        #{notifiable.reposting.body.truncate(40) if notifiable.reposting.body}"
       else
         "Added a New Post - #{notifiable.body.truncate(40) if notifiable.body}"
       end

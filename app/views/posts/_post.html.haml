@@ -1,34 +1,36 @@
 - if post.persisted?
   = turbo_frame_tag post do
-    .callout
-      %div{id: "post_#{post.id}", class: 'post'}
-        - if correct_user?(post.user)
-          .links-end
-            = link_to edit_post_path(post), title: 'Edit' do
-              %i.fa-solid.fa-pen-to-square
-              Edit
-            = link_to post, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
-            class: 'delete-link', title: 'Delete' do
-              %i.fa-solid.fa-trash
-        = render 'users/post_user', user: post.user
-        = link_to post, data: { turbo: false }, class: "black" do
-          .content= simple_format(post.body)
-          - if post.images.attached?
-            - post.images.each do |image|
-              .photo
-                = image_tag medium_image(image), class: "img-thumbnail"
-          .timestamp
-            Posted #{time_ago_in_words(post.created_at)} ago
-        - unless post.is_repost?
-          .d-flex.justify-content-between.align-items-center
-            - unless @hidden
-              = render "comments/count", commentable: post
-            - unless post.reposted && post.is_quoted_repost?
-              .reposts
-                = render "reposts/form", post: post
-                = render "reposts/count", post: post
-            .likes
-              = render "likes/form", likeable: post
-              = render "likes/count", likeable: post
-        - if post.reposted
-          .mt-3= render post.reposted
+    - unless post.is_repost?
+      -# Handle posts and quoted reposts.
+      .callout
+        %div{id: "post_#{post.id}", class: 'post'}
+          - if correct_user?(post.user)
+            .links-end
+              = link_to edit_post_path(post), title: 'Edit' do
+                %i.fa-solid.fa-pen-to-square
+                Edit
+              = link_to post, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
+              class: 'delete-link', title: 'Delete' do
+                %i.fa-solid.fa-trash
+          = render 'users/post_user', user: post.user
+          = link_to post, data: { turbo: false }, class: "black" do
+            .content= simple_format(post.body)
+            - if post.images.attached?
+              - post.images.each do |image|
+                .photo
+                  = image_tag medium_image(image), class: "img-thumbnail"
+            .timestamp
+              Posted #{time_ago_in_words(post.created_at)} ago
+          = render "posts/controls", post: post, 
+          new_quoted_post: new_quoted_post ||= false
+          - if post.reposting
+            .mt-3= render post.reposting
+    - else
+      -# Handle reposts.
+      .reposting-header
+        = link_to post.user, data: { turbo: false } do
+          %i.fa-solid.fa-repeat.fa-lg.me-2
+          = post.user.username
+          reposted
+      - if post.reposting
+        .mt-1= render post.reposting

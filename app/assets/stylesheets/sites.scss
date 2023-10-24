@@ -41,8 +41,7 @@ a {
   background-color: var(--callout-background);
 }
 
-.center {
-  text-align: center;
+.reposting-header {
 }
 
 select {
@@ -104,6 +103,10 @@ nav.pagination {
   li {
     padding: 0 5px 0 5px;
   }
+}
+
+.center {
+  text-align: center;
 }
 
 .center-content {
