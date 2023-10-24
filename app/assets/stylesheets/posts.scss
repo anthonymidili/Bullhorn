@@ -13,6 +13,7 @@
 }
 
 .photo {
+  @extend .center;
   padding-bottom: 10px;
 }
 

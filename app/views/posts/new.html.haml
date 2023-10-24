@@ -7,7 +7,7 @@
             = link_to select_reposts_path(repost: { post_id: @reposting.id }), 
             class: "close-btn", title: 'Close' do
               %i.fa-solid.fa-xmark
-            %h1 New Quoted Repost
+            %h1 New Repost
           - else
             = link_to root_path(new_link: true), class: "close-btn", 
             data: { turbo_stream: "new_post" }, title: 'Close' do
@@ -16,4 +16,4 @@
           = render 'form', post: @post
           - if @reposting
             %h3 Reposting Post
-            = render @reposting, new_quoted_post: true
+            = render @reposting, quoted_post_form: true

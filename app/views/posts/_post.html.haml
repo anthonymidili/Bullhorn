@@ -22,15 +22,20 @@
             .timestamp
               Posted #{time_ago_in_words(post.created_at)} ago
           = render "posts/controls", post: post, 
-          new_quoted_post: new_quoted_post ||= false
+          quoted_post_form: quoted_post_form ||= false
           - if post.reposting
             .mt-3= render post.reposting
     - else
       -# Handle reposts.
-      .reposting-header
+      %div{id: "post_#{post.id}", class: 'post'}
+        - if correct_user?(post.user)
+          .links-end
+            = link_to edit_post_path(post), title: 'Edit' do
+              %i.fa-solid.fa-pen-to-square
+              Edit
         = link_to post.user, data: { turbo: false } do
           %i.fa-solid.fa-repeat.fa-lg.me-2
           = post.user.username
           reposted
-      - if post.reposting
-        .mt-1= render post.reposting
+        - if post.reposting
+          .mt-1= render post.reposting
