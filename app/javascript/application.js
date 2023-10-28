@@ -3,6 +3,8 @@ import "@hotwired/turbo-rails"
 import "@rails/activestorage"
 import "./channels"
 import "./controllers"
+import "trix"
+import "@rails/actiontext"
 import "./jquery"
 
 import * as bootstrap from "bootstrap"
