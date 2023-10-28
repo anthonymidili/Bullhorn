@@ -14,7 +14,7 @@
                 %i.fa-solid.fa-trash
           = render 'users/post_user', user: post.user
           = link_to post, data: { turbo: false }, class: "black" do
-            .content= simple_format(post.body)
+            .content= post.body
             - if post.images.attached?
               - post.images.each do |image|
                 .photo

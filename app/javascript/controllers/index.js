@@ -4,8 +4,11 @@
 
 import { application } from "./application"
 
+import AutosubmitFormController from "./autosubmit_form_controller"
+application.register("autosubmit-form", AutosubmitFormController)
+
 import CheckBoxSelectAllController from "./check_box_select_all_controller"
 application.register("check-box-select-all", CheckBoxSelectAllController)
 
-import AutosubmitFormController from "./autosubmit_form_controller"
-application.register("autosubmit-form", AutosubmitFormController)
+import DisableUploadsController from "./disable_uploads_controller"
+application.register("disable-uploads", DisableUploadsController)

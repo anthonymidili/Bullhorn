@@ -2,10 +2,10 @@
   = render 'notifications/error_messages', object: f.object
   = hidden_field_tag "repost[#{:post_id}]", @reposting.id if @reposting
 
-  .field.mb-3
+  .field.mb-3{data: {controller: "disable-uploads"}}
     = f.label :body, 'Compose a new post (HTML safe)', 
     class: "form-label"
-    = f.text_area :body, rows: '3', class: "form-control", autofocus: true
+    = f.rich_text_area :body, class: "form-control", autofocus: true
   .field.mb-3
     - if f.object.images.attached?
       - f.object.images.uniq.each do |image|

@@ -3,6 +3,8 @@ class Post < ApplicationRecord
     NotifierJob.perform_later(self)
   end
 
+  has_rich_text :body
+
   belongs_to :user
 
   has_many_attached :images
