@@ -9,13 +9,6 @@ local:
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 amazon:
   service: S3
-  access_key_id: <%= Rails.application.credentials[:aws_sky][:access_key_id] %>
-  secret_access_key: <%= Rails.application.credentials[:aws_sky][:secret_access_key] %>
-  region: <%= Rails.application.credentials[:aws_sky][:region] %>
-  bucket: <%= Rails.application.credentials[:aws_sky][:s3_bucket] %>
-
-amazon_bullhorn_bucket:
-  service: S3
   access_key_id: <%= Rails.application.credentials[:aws][:access_key_id] %>
   secret_access_key: <%= Rails.application.credentials[:aws][:secret_access_key] %>
   region: <%= Rails.application.credentials[:aws][:region] %>
@@ -35,8 +28,8 @@ amazon_bullhorn_bucket:
 #   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
 #   container: your_container_name
 
-mirror:
-  service: Mirror
-  primary: amazon
-  mirrors: 
-    - amazon_bullhorn_bucket
+# mirror:
+#   service: Mirror
+#   primary: amazon
+#   mirrors: 
+#     - bucket
