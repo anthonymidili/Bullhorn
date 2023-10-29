@@ -87,9 +87,9 @@ private
         "Reposted 
         #{notifiable.reposting.user.username} 
         Post - 
-        #{notifiable.reposting.body.truncate(40) if notifiable.reposting.body}"
+        #{notifiable.reposting.body.to_plain_text.truncate(40) if notifiable.reposting.body}"
       else
-        "Added a New Post - #{notifiable.body.truncate(40) if notifiable.body}"
+        "Added a New Post - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
       end
     when 'Event'
       "Created a New Event - #{notifiable.name}"
@@ -109,7 +109,7 @@ private
   def commentable_action_statement(commentable)
     case commentable.class.name
     when "Post"
-      "a Post - #{commentable.body.truncate(40) if commentable.body}"
+      "a Post - #{commentable.body.to_plain_text.truncate(40) if commentable.body}"
     when "Event"
       "an Event - #{commentable.name}"
     else
@@ -120,7 +120,7 @@ private
   def likeable_action_statement(likeable)
     case likeable.class.name
     when "Post"
-      "Post - #{likeable.body.truncate(40) if likeable.body}"
+      "Post - #{likeable.body.to_plain_text.truncate(40) if likeable.body}"
     when "Comment"
       "Comment - #{likeable.body.truncate(40) if likeable.body}"
     else
