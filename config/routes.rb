@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get :remove_avatar
       patch :add_admin
       patch :remove_admin
-      get :photos
+      get :media
       get :followers
       get :following
     end

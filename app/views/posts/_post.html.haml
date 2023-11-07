@@ -15,6 +15,11 @@
           = render 'users/post_user', user: post.user
           = link_to post, data: { turbo: false }, class: "black" do
             .content= post.body
+            -# Show non trix attachment images.
+            - if post.images.any?
+              - post.images.each do |image|
+                .photo
+                  = image_tag medium_image(image), class: "img-thumbnail"
             .timestamp
               Posted #{time_ago_in_words(post.created_at)} ago
           = render "posts/controls", post: post, 

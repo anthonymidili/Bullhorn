@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   :add_admin, :remove_admin]
   before_action :set_user,
   only: [:edit, :update, :destroy, :remove_avatar, :add_admin, 
-  :remove_admin, :photos, :followers, :following]
+  :remove_admin, :media, :followers, :following]
   before_action :deny_access!, only: [:edit, :update, :remove_avatar],
   unless: -> { correct_user?(@user) }
 
@@ -90,7 +90,7 @@ class UsersController < ApplicationController
     redirect_to site_admins_users_path
   end
 
-  def photos
+  def media
   end
 
   def followers
