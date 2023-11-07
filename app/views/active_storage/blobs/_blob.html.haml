@@ -1,9 +1,18 @@
-%figure{class: "attachment attachment--#{blob.representable? ? "preview" : "file"} attachment--#{blob.filename.extension}"}
-  - if blob.representable?
-    = image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ])
+%figure{class: "attachment attachment--#{blob.representable? ? 'preview' : 'file'} attachment--#{blob.filename.extension}"}
+  - if blob.video?
+    %video.img-thumbnail{controls: "true",
+    poster: "#{polymorphic_url(blob.representation(resize_to_limit: [ 600, 600 ]))}"}
+      %source{src: "#{rails_blob_url(blob)}", type: "#{blob.content_type}"}
+  - elsif blob.audio?
+    %audio{controls: "true", preload: "metadata"}
+      %source{src: "#{rails_blob_url(blob)}", type: "#{blob.content_type}"}
+  - elsif blob.image?
+    .photo= image_tag blob.representation(resize_to_limit: [ 600, 600 ]), class: "img-thumbnail"
   %figcaption.attachment__caption
     - if caption = blob.try(:caption)
       = caption
     - else
       %span.attachment__name= blob.filename
       %span.attachment__size= number_to_human_size blob.byte_size
+    %span •
+    = link_to "Download", rails_blob_path(blob, disposition: "attachment")

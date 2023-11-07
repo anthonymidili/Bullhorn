@@ -15,7 +15,8 @@
       .field.mb-3
         = f.hidden_field :avatar, value: f.object.avatar.signed_id if f.object.avatar.attached?
         = f.label :avatar, 'Your avatar', class: "form-label"
-        = f.file_field :avatar, direct_upload: true, class: "form-control mb-3"
+        = f.file_field :avatar, direct_upload: true, class: "form-control mb-3", 
+        accept: 'image/png,image/jpg,image/jpeg,image/gif'
         - if f.object.avatar.attached?
           %div= image_tag thumb_image(f.object.avatar)
           %br

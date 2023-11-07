@@ -1,22 +1,9 @@
-= form_with model: post, id: dom_id(post, "form")  do |f|
+= form_with model: post, id: dom_id(post, "form"), 
+data: {controller: "action_text_whitelist"} do |f|
   = render 'notifications/error_messages', object: f.object
   = hidden_field_tag "repost[#{:post_id}]", @reposting.id if @reposting
-
-  .field.mb-3{data: {controller: "disable-uploads"}}
-    = f.label :body, 'Compose a new post (HTML safe)', 
-    class: "form-label"
-    = f.rich_text_area :body, class: "form-control", autofocus: true
   .field.mb-3
-    - if f.object.images.attached?
-      - f.object.images.uniq.each do |image|
-        .photo
-          = image_tag medium_image(image), class: "img-thumbnail"
-
-    = f.label :images, class: "form-label"
-    - if f.object.images.attached?
-      - f.object.images.uniq.each do |image|
-        = f.hidden_field :images, multiple: true, value: image.signed_id
-    = f.file_field :images, multiple: true, direct_upload: true, 
-    class: "form-control"
+    = f.label :body, 'Compose a new post', class: "form-label"
+    = f.rich_text_area :body, class: "form-control"
   .actions.mb-3
     = f.submit class: 'btn btn-primary'

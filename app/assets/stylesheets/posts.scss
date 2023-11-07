@@ -12,11 +12,6 @@
   }
 }
 
-.photo {
-  @extend .center;
-  padding-bottom: 10px;
-}
-
 .timestamp {
   color: var(--dark-gray-color);
 }

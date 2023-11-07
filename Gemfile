@@ -38,8 +38,6 @@ gem "cssbundling-rails", "~> 1.1"
 gem "ruby-vips"
 gem 'image_processing', '~> 1.6'
 gem 'aws-sdk-s3', require: false
-# Validate images
-gem 'file_validators'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

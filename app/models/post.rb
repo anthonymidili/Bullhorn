@@ -20,9 +20,6 @@ class Post < ApplicationRecord
   has_many :repostings, through: :reposts, source: :post
 
   # validates :body, presence: true
-  validates :images, file_content_type: {
-    allow: ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
-  }, if: -> { images.attached? }
 
   include ReadNotifications
   # def read_user_notifications(current_user)
