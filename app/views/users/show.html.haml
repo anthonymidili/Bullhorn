@@ -9,10 +9,10 @@
             %i.fa-solid.fa-pen-to-square
             Edit Profile
           %br/
-        = link_to photos_user_path(@user), 
+        = link_to media_user_path(@user), 
         class: "btn btn-secondary btn-sm" do
           %i.fa-solid.fa-images
-          My Photos
+          My Media
       = render 'users/avatar_info', user: @user
     = render 'users/profile_info', user: @user
 

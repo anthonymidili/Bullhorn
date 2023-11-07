@@ -39,13 +39,12 @@ class User < ApplicationRecord
   has_many :events, dependent: :destroy
   has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
   has_many :comments, foreign_key: 'created_by_id', dependent: :destroy
+  has_many :bug_reports, dependent: :destroy
 
   has_one_attached :avatar
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates :avatar, file_content_type: {
-    allow: ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
-  }, if: -> { avatar.attached? }
+  validate :is_image_type
 
   def self.search_by(term)
     where(
@@ -110,5 +109,14 @@ class User < ApplicationRecord
   def online?
     users_online_ids = User.users_online.ids
     users_online_ids.include?(id)
+  end
+
+private
+
+  def is_image_type
+    if avatar.attached? && !avatar.content_type.in?(['image/jpg', 'image/jpeg', 'image/gif', 'image/png'])
+      avatar.purge # delete the uploaded file
+      errors.add(:avatar, 'Must be an image file.')
+    end
   end
 end

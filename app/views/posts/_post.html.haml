@@ -15,7 +15,8 @@
           = render 'users/post_user', user: post.user
           = link_to post, data: { turbo: false }, class: "black" do
             .content= post.body
-            - if post.images.attached?
+            -# Show non trix attachment images.
+            - if post.images.any?
               - post.images.each do |image|
                 .photo
                   = image_tag medium_image(image), class: "img-thumbnail"

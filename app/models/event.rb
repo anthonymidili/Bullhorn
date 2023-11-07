@@ -21,9 +21,7 @@ class Event < ApplicationRecord
   validates :end_date, presence: true
   validate :future_start_date?
   validate :ends_before_it_starts?
-  validates :image, file_content_type: {
-    allow: ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
-  }, if: -> { image.attached? }
+  validate :is_image_type
 
   default_scope  { order(start_date: :asc) }
 
@@ -76,6 +74,13 @@ private
   def ends_before_it_starts?
     unless end_date > start_date
       errors.add(:end_date, 'must be greater than the start date.')
+    end
+  end
+
+  def is_image_type
+    if image.attached? && !image.content_type.in?(['image/jpg', 'image/jpeg', 'image/gif', 'image/png'])
+      image.purge # delete the uploaded file
+      errors.add(:image, 'Must be an image file.')
     end
   end
 end

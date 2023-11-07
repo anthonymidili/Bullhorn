@@ -10,5 +10,5 @@ application.register("autosubmit-form", AutosubmitFormController)
 import CheckBoxSelectAllController from "./check_box_select_all_controller"
 application.register("check-box-select-all", CheckBoxSelectAllController)
 
-import DisableUploadsController from "./disable_uploads_controller"
-application.register("disable-uploads", DisableUploadsController)
+import ActionTextWhitelistController from "./action_text_whitelist_controller"
+application.register("action_text_whitelist", ActionTextWhitelistController)

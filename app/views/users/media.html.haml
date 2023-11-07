@@ -1,0 +1,23 @@
+- provide :title, 'My Media'
+.row
+  .col-12
+    %h1= "#{@user.username}'s Media"
+.row
+  - @user.posts.each do |post|
+    - post.body.body.attachments.each do |attachment|
+      .col-12.col-md-6.col-lg-3
+        = link_to post do
+          = render "active_storage/blobs/blob", blob: attachment
+-# Show non trix attachment images.
+.row
+  - @user.posts.with_images.each do |post|
+    .col-12.col-md-6.col-lg-3
+      = link_to post.record do
+        = image_tag medium_image(post),
+        class: 'thumbnail size-250 mb-3'
+.row
+  .col-12
+    .links.mb-3
+      = link_to @user do
+        %i.fa-solid.fa-hand-point-left
+        Back
