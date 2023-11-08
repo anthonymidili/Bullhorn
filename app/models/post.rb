@@ -6,7 +6,10 @@ class Post < ApplicationRecord
   has_rich_text :body
 
   belongs_to :user
-
+  
+  # Remove after migration run in production.
+  has_many_attached :images
+  
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
