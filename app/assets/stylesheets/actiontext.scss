@@ -102,3 +102,12 @@ trix-editor {
 .img-thumbnail {
   overflow: hidden;
 }
+
+.trix-content .attachment--file {
+  video {
+    margin: unset;
+    padding: unset;
+    border: unset;
+    border-radius: unset;
+  }
+}
