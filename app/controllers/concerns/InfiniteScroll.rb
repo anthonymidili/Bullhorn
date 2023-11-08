@@ -29,7 +29,7 @@ module InfiniteScroll
   def sites_objects
     setup_page
     @objects =
-      Post.by_following(current_user).with_attached_images
+      Post.by_following(current_user)
       .includes(:likes, :comments, user: [avatar_attachment: :blob])
     @append_to = "posts"
     set_scrolled_objects
@@ -40,7 +40,7 @@ module InfiniteScroll
     setup_page
     @user = User.find_by(id: @id)
     @objects = 
-      @user.posts.with_attached_images
+      @user.posts
       .includes(:likes, :comments, user: [avatar_attachment: :blob])
     @append_to = "posts"
     set_scrolled_objects
@@ -59,7 +59,7 @@ module InfiniteScroll
 
   def post_comment_objects
     setup_page
-    @post = Post.with_attached_images.includes(comments: :created_by).find_by(id: @id)
+    @post = Post.includes(comments: :created_by).find_by(id: @id)
     @objects = @post.comments
     @append_to = "comments"
     set_scrolled_objects
