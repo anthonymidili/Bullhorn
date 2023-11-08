@@ -3,7 +3,7 @@
     - unless post.is_repost?
       -# Handle posts and quoted reposts.
       .callout
-        %div{id: "post_#{post.id}", class: 'post'}
+        .post
           - if correct_user?(post.user)
             .links-end
               = link_to edit_post_path(post), title: 'Edit' do
