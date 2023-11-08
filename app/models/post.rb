@@ -7,6 +7,9 @@ class Post < ApplicationRecord
 
   belongs_to :user
   
+  # Need to for old non-trix images.
+  has_many_attached :images
+  
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
