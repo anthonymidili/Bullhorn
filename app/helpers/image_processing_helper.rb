@@ -1,6 +1,6 @@
 module ImageProcessingHelper
   def medium_image(image)
-    image.variant(resize_to_limit: [400, 400])
+    image.variant(resize_to_limit: [600, 600])
   end
 
   def thumb_image(image)

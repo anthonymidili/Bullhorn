@@ -7,7 +7,6 @@ class Post < ApplicationRecord
 
   belongs_to :user
 
-  has_many_attached :images
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
@@ -45,13 +44,6 @@ class Post < ApplicationRecord
   def self.by_following(user)
     following_ids = user.following.ids << user.id
     where(user_id: following_ids)
-  end
-
-  # Grab only posts with images.
-  def self.with_images
-    ActiveStorage::Attachment.includes(:record, :blob).
-    where(record_type: 'Post', record_id: pluck(:id)).
-    order(created_at: :desc)
   end
 
   def post_type

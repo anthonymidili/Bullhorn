@@ -106,7 +106,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:body, images: [])
+    params.require(:post).permit(:body)
   end
 
   def set_repost

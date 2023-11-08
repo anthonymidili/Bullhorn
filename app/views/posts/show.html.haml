@@ -6,9 +6,9 @@
       = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do
         %i.fa-solid.fa-hand-point-left
         Back
-      - if @post.images.attached?
-        = link_to photos_user_path(@post.user), title: "#{@post.user.username} Photos" do
+      - if @post.body.body.attachments.any?
+        = link_to media_user_path(@post.user), title: "#{@post.user.username} Photos" do
           %i.fa-solid.fa-images
-          #{@post.user.username} Photos
+          #{@post.user.username} Media
     = render 'comments/form', commentable: @post, comment: @comment
     = render 'comments/box', commentable: @post
