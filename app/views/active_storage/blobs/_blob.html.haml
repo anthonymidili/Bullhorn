@@ -1,4 +1,4 @@
-%figure{class: "attachment attachment--#{blob.representable? ? 'preview' : 'file'} attachment--#{blob.filename.extension}"}
+%figure{class: "attachment attachment--#{blob.audio? ? 'file' : 'preview'} attachment--#{blob.filename.extension}"}
   - if blob.video?
     = video_tag rails_blob_url(blob), controls: true, preload: "metadata", 
     class: "img-thumbnail"
