@@ -11,9 +11,9 @@ export default class extends Controller {
 
     document.addEventListener("trix-file-accept", e => {
       if (!allowedTypes.includes(e.file.type)) {
-        e.preventDefault();
-        alert("This filetype is not supported.");
-      };
-    });
-  };
-};
+        e.preventDefault()
+        alert("This filetype is not supported.")
+      }
+    })
+  }
+}

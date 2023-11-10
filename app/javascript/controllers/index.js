@@ -4,11 +4,11 @@
 
 import { application } from "./application"
 
+import ActionTextWhitelistController from "./action_text_whitelist_controller"
+application.register("action_text_whitelist", ActionTextWhitelistController)
+
 import AutosubmitFormController from "./autosubmit_form_controller"
 application.register("autosubmit-form", AutosubmitFormController)
 
 import CheckBoxSelectAllController from "./check_box_select_all_controller"
 application.register("check-box-select-all", CheckBoxSelectAllController)
-
-import ActionTextWhitelistController from "./action_text_whitelist_controller"
-application.register("action_text_whitelist", ActionTextWhitelistController)

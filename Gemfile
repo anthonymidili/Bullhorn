@@ -67,12 +67,10 @@ group :development do
   # Better Errors
   gem 'better_errors'
   gem 'binding_of_caller'
-
   # Add console tables with Hirb.enable.
   # gem 'hirb'
   # IRB colors.
-  # gem 'irbtools', require: 'irbtools/binding'
-
+  gem 'irbtools', require: 'irbtools/binding'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   # gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.2.0'
