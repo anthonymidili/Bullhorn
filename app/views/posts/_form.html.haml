@@ -1,6 +1,6 @@
 = form_with model: post, id: dom_id(post, "form"), 
 data: { controller: "trix-form", 
-action: "trix-change->trix-form#checkTypeDisableSubmit" } do |f|
+action: "trix-file-accept->trix-form#checkType trix-change->trix-form#disableSubmit" } do |f|
   = render 'notifications/error_messages', object: f.object
   = hidden_field_tag "repost[#{:post_id}]", @reposting.id if @reposting
   .field.mb-3
