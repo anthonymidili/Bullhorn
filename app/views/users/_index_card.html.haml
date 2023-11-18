@@ -1,4 +1,9 @@
 .index-card.callout
   = render 'users/avatar_info', user: user
   - if current_user.is_admin && @show_admin_form
-    = render admin_form(user), user: user, users: users
+    .d-flex.justify-content-between.mt-3
+      = render admin_form(user), user: user, users: users
+      - unless correct_user?(user)
+        = link_to user, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
+        class: 'btn btn-danger btn-sm', title: 'Delete user' do
+          Delete User

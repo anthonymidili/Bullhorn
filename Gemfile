@@ -11,14 +11,14 @@ gem "sprockets-rails"
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 # gem 'puma', '~> 3.12'
-gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'
+gem 'passenger', '>= 6.0.18', require: 'phusion_passenger/rack_handler'
 # Use Uglifier as compressor for JavaScript assets
 # gem 'uglifier', '>= 1.3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # Background Jobs
-gem 'sidekiq', '~> 7.1.2'
+gem 'sidekiq', '~> 7.2.0'
 gem 'redis', '~> 5.0'
 # Use kredis encapsulates higher-level types and 
 # data structures around a single key for Redis
