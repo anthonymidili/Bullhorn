@@ -2,13 +2,6 @@
   .col-12.col-md-5.col-lg-4
     .profile_head.mb-3
       .links-end
-        - unless @user.try(:is_admin) && @users && @users.by_admin.count < 2
-          = link_to @user,
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will PERMANENTLY delete the user and all the user's related data." },
-          class: 'delete-link', title: 'Delete user permanently' do
-            %i.fa-solid.fa-trash
-            Delete User
-          %br/
         = link_to @user, class: "btn btn-info btn-sm mb-1" do
           %i.fa-solid.fa-user
           view my profile
