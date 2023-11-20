@@ -8,6 +8,12 @@
       = render 'users/avatar_info', user: @user
   .col-12.col-md-7.col-lg-8
     %h2 Community Feed
+    - if @posts.empty?
+      .callout
+        %p Start following users...
+        = link_to users_path, title: 'Explore Users', class: "btn btn-primary btn-lg" do
+          %i.fa-solid.fa-users
+          Explore Users
     = turbo_frame_tag "posts" do
       = render @posts
     -# Infinate scroll posts with turbo.

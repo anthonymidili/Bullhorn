@@ -18,6 +18,8 @@
 
   .col-12.col-md-8
     %h2 My Posts
+    - if correct_user?(@user) && @posts.empty?
+      You haven't created any content yet...
     = turbo_frame_tag "posts" do
       = render @posts
     -# Infinate scroll posts with turbo.
