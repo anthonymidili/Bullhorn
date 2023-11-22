@@ -41,6 +41,9 @@ class User < ApplicationRecord
   has_many :comments, foreign_key: 'created_by_id', dependent: :destroy
   has_many :bug_reports, dependent: :destroy
 
+  has_many :conversations, dependent: :destroy
+  has_many :directs, through: :conversations
+
   has_one_attached :avatar
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
@@ -109,6 +112,22 @@ class User < ApplicationRecord
   def online?
     users_online_ids = User.users_online.ids
     users_online_ids.include?(id)
+  end
+
+  def find_or_create_direct_message(user)
+    # Find all directs that both users are in together and reject the directs
+    # that have move than 2 users attached.
+    existing_directs = (self.directs & user.directs).reject { |d| d.users.length > 2 }
+    personal_direct = existing_directs.first
+    if personal_direct
+      return personal_direct
+    else
+      # Create a direct object for the current user.
+      new_direct = self.directs.create
+      # Add profile user to newly created direct.
+      new_direct.users << user
+      return new_direct
+    end
   end
 
 private

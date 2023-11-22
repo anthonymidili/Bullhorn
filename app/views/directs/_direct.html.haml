@@ -1,0 +1,15 @@
+.directs
+  .links-end.mb-3
+    = link_to direct, class: "btn btn-primary btn-sm" do
+      %i.fa-regular.fa-message
+      Enter
+    = link_to edit_direct_path(direct) do
+      %i.fa-solid.fa-pen-to-square
+    = link_to direct, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
+    class: 'delete-link', title: 'Delete' do
+      %i.fa-solid.fa-trash
+  - if direct.name
+    %h3= direct.name
+  .inline
+    - direct.users.all_but_current(current_user).each do |user|
+      = render 'users/post_user', user: user

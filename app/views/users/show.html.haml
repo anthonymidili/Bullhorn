@@ -1,14 +1,17 @@
 - provide :title, 'My Profile'
 .row
-  .col-12.col-md-4
+  .col-12.col-md-5.col-lg-4
     .profile_head
-      .links-end
+      .links-end.d-grid.gap-2
         - if correct_user?(@user)
           = link_to edit_user_path(@user), 
-          class: "btn btn-info btn-sm mb-2" do
+          class: "btn btn-info btn-sm" do
             %i.fa-solid.fa-pen-to-square
             Edit Profile
-          %br/
+        - else
+          = link_to personal_directs_path(@user), class: "btn btn-info btn-sm" do
+            %i.fa-regular.fa-message
+            Message Me
         = link_to media_user_path(@user), 
         class: "btn btn-secondary btn-sm" do
           %i.fa-solid.fa-images
@@ -16,7 +19,7 @@
       = render 'users/avatar_info', user: @user
     = render 'users/profile_info', user: @user
 
-  .col-12.col-md-8
+  .col-12.col-md-7.col-lg-8
     %h2 My Posts
     - if correct_user?(@user) && @posts.empty?
       You haven't created any content yet...

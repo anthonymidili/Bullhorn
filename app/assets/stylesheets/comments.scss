@@ -5,6 +5,7 @@
   &:first-child {
     border-top: 0;
   }
+  
   img {
     height: 33px;
     width: 33px;
@@ -17,6 +18,7 @@
     width: 17px;
   }
 }
+
 .comments_box {
   background-color: var(--comments-background);
   border: 2px solid var(--comments-border);

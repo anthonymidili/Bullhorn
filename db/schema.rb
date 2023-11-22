@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_20_123152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -87,6 +87,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "created_by_id", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "direct_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["direct_id"], name: "index_conversations_on_direct_id"
+    t.index ["user_id", "direct_id"], name: "index_conversations_on_user_id_and_direct_id", unique: true
+    t.index ["user_id"], name: "index_conversations_on_user_id"
+  end
+
+  create_table "directs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -243,6 +259,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bug_reports", "users"
+  add_foreign_key "conversations", "directs"
+  add_foreign_key "conversations", "users"
   add_foreign_key "events", "users"
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "users"
