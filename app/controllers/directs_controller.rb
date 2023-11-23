@@ -21,10 +21,11 @@ class DirectsController < ApplicationController
 
   # POST /directs or /directs.json
   def create
-    @direct = current_user.directs.build(direct_params)
+    user = User.search_by(params[:search]).first
+    @direct = current_user.find_or_create_direct_message(user)
 
     respond_to do |format|
-      if @direct.save
+      if @direct.update(direct_params)
         format.html { redirect_to direct_url(@direct), notice: "Direct was successfully created." }
         format.json { render :show, status: :created, location: @direct }
       else
@@ -36,6 +37,9 @@ class DirectsController < ApplicationController
 
   # PATCH/PUT /directs/1 or /directs/1.json
   def update
+    user = User.search_by(params[:search]).first
+    @direct.users << user if user && !@direct.users.include?(user)
+
     respond_to do |format|
       if @direct.update(direct_params)
         format.html { redirect_to direct_url(@direct), notice: "Direct was successfully updated." }

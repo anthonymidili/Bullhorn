@@ -1,5 +1,7 @@
 .callout
-  %h1 Direct Messages
+  .d-flex.justify-content-between
+    %h1 Direct Messages
+    = link_to new_direct_path do
+      %i.fa-regular.fa-envelope
+      New Direct Message
   = render @directs
-
-= link_to 'New Direct Message', new_direct_path
