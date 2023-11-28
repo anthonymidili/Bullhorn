@@ -38,6 +38,8 @@ en:
         images: 'Add images'
       direct:
         name: "Name (optional)"
+      message:
+        body: 'Compose a message'
     models:
       direct: "Direct Message"
   number:

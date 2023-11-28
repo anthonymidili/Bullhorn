@@ -43,6 +43,7 @@ class User < ApplicationRecord
 
   has_many :conversations, dependent: :destroy
   has_many :directs, through: :conversations
+  has_many :messages, dependent: :destroy
 
   has_one_attached :avatar
 

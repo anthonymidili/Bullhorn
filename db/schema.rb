@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_20_123152) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_25_001445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -139,6 +139,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_123152) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.bigint "direct_id", null: false
+    t.bigint "created_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_messages_on_created_by_id"
+    t.index ["direct_id"], name: "index_messages_on_direct_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.bigint "recipient_id", null: false
     t.bigint "notifier_id", null: false
@@ -265,6 +275,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_123152) do
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "directs"
   add_foreign_key "notifications", "users", column: "notifier_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "posts", "users"

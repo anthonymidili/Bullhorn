@@ -8,6 +8,7 @@ class DirectsController < ApplicationController
 
   # GET /directs/1 or /directs/1.json
   def show
+    @message = @direct.messages.build
   end
 
   # GET /directs/new

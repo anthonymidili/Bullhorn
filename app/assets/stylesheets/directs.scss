@@ -5,15 +5,4 @@
   &:first-child {
     border-top: 0;
   }
-  
-  .inline {
-    display: inline-flex;
-    gap: 15px;
-    img {
-      height: 33px;
-      width: 33px;
-      border: solid 1px var(--avatar-border);
-      background-color: var(--avatar-background);
-    }
-  }
 }
