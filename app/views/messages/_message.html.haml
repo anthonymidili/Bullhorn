@@ -1,5 +1,5 @@
 - if message.persisted?
-  = turbo_frame_tag message, class: "messages", data: { turbo: false } do
+  = turbo_frame_tag message, class: "messages" do
     .callout{class: "#{current_or_others(message.created_by)}"}
       - if correct_user?(message.created_by)
         .links-end

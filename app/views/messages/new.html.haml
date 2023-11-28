@@ -1,5 +1,10 @@
-%h1 New message
+= turbo_frame_tag "new_message" do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12
+          %h1 New message
 
-= render 'form', direct: @direct, message: @message
+          = render 'form', direct: @direct, message: @message
 
-= link_to 'Back', @direct
+          = link_to 'Back', @direct

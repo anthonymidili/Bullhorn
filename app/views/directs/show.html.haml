@@ -17,4 +17,5 @@
 = render "messages/form", direct: @direct, message: @message
 
 %h1 Messages
-= render @direct.messages
+= turbo_frame_tag "messages" do
+  = render @direct.messages

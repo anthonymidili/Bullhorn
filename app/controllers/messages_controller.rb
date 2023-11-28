@@ -20,9 +20,23 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.prepend("messages", partial: "messages/message", 
+            locals: { message: @message }),
+            turbo_stream.replace("form_message", partial: "messages/form", 
+            locals: { direct: @direct, message: @direct.messages.build })
+          ]
+        end
         format.html { redirect_to direct_url(@direct), notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @direct }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("form_message", partial: "messages/form", 
+            locals: { direct: @direct, message: @message })
+          ]
+        end
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
@@ -33,9 +47,22 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@message, partial: "messages/message", 
+            locals: { message: @message })
+          ]
+        end
         format.html { redirect_to direct_url(@direct), notice: "Message was successfully updated." }
         format.json { render :show, status: :ok, location: @direct }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(helpers.dom_id(@message, "form"), 
+            partial: "messages/form",
+            locals: { direct: @direct, message: @message })
+          ]
+        end
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
@@ -47,6 +74,9 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
+      format.turbo_stream { 
+        render turbo_stream: turbo_stream.remove(@message) 
+      }
       format.html { redirect_to messages_url, notice: "Message was successfully destroyed." }
       format.json { head :no_content }
     end
