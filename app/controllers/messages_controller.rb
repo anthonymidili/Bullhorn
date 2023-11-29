@@ -1,7 +1,13 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_direct
-  before_action :set_message, only: %i[ edit update destroy ]
+  before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :deny_access!, only: [:edit, :update, :destroy],
+  unless:  -> { correct_user?(@message.created_by) }
+
+  def show
+    # Calls messages/message_frame to include current_user.
+  end
 
   # GET /messages or /messages.json
   # GET /messages/new
@@ -20,10 +26,12 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        @message.broadcast_prepend_to(@direct, target: "messages", partial: "messages/message_frame", 
+        locals: { message: @message })
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.prepend("messages", partial: "messages/message", 
-            locals: { message: @message }),
+            # turbo_stream.prepend("messages", partial: "messages/message", 
+            # locals: { message: @message }),
             turbo_stream.replace("form_message", partial: "messages/form", 
             locals: { direct: @direct, message: @direct.messages.build })
           ]
@@ -47,10 +55,12 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
+        @message.broadcast_replace_to(@direct, target: @message, partial: "messages/message_frame", 
+        locals: { message: @message })
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(@message, partial: "messages/message", 
-            locals: { message: @message })
+            # turbo_stream.replace(@message, partial: "messages/message", 
+            # locals: { message: @message })
           ]
         end
         format.html { redirect_to direct_url(@direct), notice: "Message was successfully updated." }
@@ -74,8 +84,9 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
+      @message.broadcast_remove_to(@direct, target: @message)
       format.turbo_stream { 
-        render turbo_stream: turbo_stream.remove(@message) 
+        # render turbo_stream: turbo_stream.remove(@message) 
       }
       format.html { redirect_to messages_url, notice: "Message was successfully destroyed." }
       format.json { head :no_content }

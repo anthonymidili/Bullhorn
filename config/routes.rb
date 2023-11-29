@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   get 'set_theme', to: 'theme#update'
 
   resources :directs, path: 'direct_messages' do
-    resources :messages, except: [:index, :show]
+    resources :messages, except: [:index]
     collection do
       get "user/:user_id", as: :personal, to: "directs#personal"
     end
