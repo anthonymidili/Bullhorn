@@ -3,8 +3,8 @@
     .modal_content
       .row.center-content
         .col-12
+          = link_to @direct, class: "close-btn", title: 'Cancel' do
+            %i.fa-solid.fa-xmark
           %h1 Editing message
 
           = render 'form', direct: @direct, message: @message
-
-          = link_to 'Back', @direct

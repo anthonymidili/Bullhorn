@@ -1,8 +1,10 @@
-= form_with model: [direct, message], id: dom_id(message, "form") do |f|
+= form_with model: [direct, message], id: dom_id(message, "form"), 
+data: { controller: "trix-form", 
+action: "trix-file-accept->trix-form#checkType trix-change->trix-form#disableSubmit" } do |f|
   = render 'notifications/error_messages', object: f.object
 
   .field.mb-3
     = f.label :body, class: "form-label"
-    = f.text_area :body, rows: '2', class: "form-control"
+    = f.rich_text_area :body, class: "form-control"
   .actions.mb-3
-    = f.submit class: "btn btn-primary"
+    = f.submit class: "btn btn-primary", data: { trix_form_target: "submit" }

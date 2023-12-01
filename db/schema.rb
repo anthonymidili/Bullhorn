@@ -140,7 +140,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_25_001445) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.text "body"
     t.bigint "direct_id", null: false
     t.bigint "created_by_id", null: false
     t.datetime "created_at", null: false

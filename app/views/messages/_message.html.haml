@@ -11,6 +11,6 @@
           class: 'delete-link', title: 'Delete' do
             %i.fa-solid.fa-trash
       = render 'users/post_user', user: message.created_by
-      .content= simple_format(message.body)
+      .content= message.body
       .timestamp
         Posted #{time_ago_in_words(message.created_at)} ago
