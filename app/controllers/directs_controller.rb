@@ -4,6 +4,7 @@ class DirectsController < ApplicationController
   # GET /directs or /directs.json
   def index
     @directs = current_user.directs
+    @show_direct_link = true
   end
 
   # GET /directs/1 or /directs/1.json
@@ -22,14 +23,35 @@ class DirectsController < ApplicationController
 
   # POST /directs or /directs.json
   def create
-    user = User.search_by(params[:search]).first
-    @direct = current_user.find_or_create_direct_message(user)
-
+    user = User.search_by(params[:search]).first unless params[:search].blank?
+    @direct = 
+      if user
+        current_user.find_or_init_direct_message(user, direct_params)
+      else
+        current_user.directs.build(direct_params)
+      end
+    
     respond_to do |format|
-      if @direct.update(direct_params)
-        format.html { redirect_to direct_url(@direct), notice: "Direct was successfully created." }
+      if @direct.save
+        format.turbo_stream do
+          flash[:notice] = "Direct message was successfully created."
+          render turbo_stream: turbo_stream.action(:redirect, direct_url(@direct)) 
+        end
+        #   render turbo_stream: [
+        #     turbo_stream.prepend("directs", partial: "directs/direct",
+        #     locals: { direct: @direct }),
+        #     turbo_stream.replace("new_direct", partial: "directs/new_direct_link")
+        #   ]
+        # end
+        format.html { redirect_to direct_url(@direct), notice: "Direct message was successfully created." }
         format.json { render :show, status: :created, location: @direct }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("form_direct", partial: "directs/form",
+            locals: { direct: @direct })
+          ]
+        end
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @direct.errors, status: :unprocessable_entity }
       end
@@ -43,9 +65,21 @@ class DirectsController < ApplicationController
 
     respond_to do |format|
       if @direct.update(direct_params)
-        format.html { redirect_to direct_url(@direct), notice: "Direct was successfully updated." }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@direct, partial: "directs/direct",
+            locals: { direct: @direct })
+          ]
+        end
+        format.html { redirect_to direct_url(@direct), notice: "Direct message was successfully updated." }
         format.json { render :show, status: :ok, location: @direct }
       else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(helpers.dom_id(@direct, "form"), 
+            partial: "directs/form", locals: { direct: @direct })
+          ]
+        end
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @direct.errors, status: :unprocessable_entity }
       end
@@ -57,7 +91,8 @@ class DirectsController < ApplicationController
     @direct.destroy
 
     respond_to do |format|
-      format.html { redirect_to directs_url, notice: "Direct was successfully destroyed." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@direct) }
+      format.html { redirect_to directs_url, notice: "Direct message was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,21 +100,22 @@ class DirectsController < ApplicationController
   def personal
     user = User.find_by(id: params[:user_id])
     if user
-      direct = current_user.find_or_create_direct_message(user)
+      direct = current_user.find_or_init_direct_message(user, nil)
+      direct.save if direct.new_record?
       redirect_to direct
     else
       redirect_to root
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_direct
-      @direct = current_user.directs.find(params[:id])
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_direct
+    @direct = current_user.directs.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def direct_params
-      params.require(:direct).permit(:name)
-    end
+  # Only allow a list of trusted parameters through.
+  def direct_params
+    params.require(:direct).permit(:name)
+  end
 end

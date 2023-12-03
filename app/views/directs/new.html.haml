@@ -1,5 +1,10 @@
-%h1 New Direct Message
+= turbo_frame_tag "new_direct" do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12
+          = link_to directs_path, class: "close-btn", title: 'Close' do
+            %i.fa-solid.fa-xmark
+          %h1 New Direct Message
 
-= render 'form', direct: @direct
-
-= link_to 'Back', directs_path
+          = render 'form', direct: @direct

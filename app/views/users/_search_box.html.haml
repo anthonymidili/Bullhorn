@@ -8,5 +8,5 @@
               %i.fa-solid.fa-magnifying-glass
             = text_field_tag :search, params[:search], id: 'search_submit',
             class: 'form-control',
-            data: { autocomplete_source: search_users_path }
+            data: { controller: "search-box-submit", autocomplete_source: search_users_path }
             = submit_tag 'Search Users', name: nil, class: 'btn btn-outline-primary'

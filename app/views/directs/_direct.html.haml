@@ -1,13 +1,16 @@
-.directs
+= turbo_frame_tag direct, class: "direct" do
   - if direct.name
     %h3= direct.name
   .inline
+    %b DM With:
     - direct.users.all_but_current(current_user).each do |user|
       = render 'users/post_user', user: user
   .links-end.mb-3
-    = link_to direct, class: "btn btn-primary btn-sm" do
-      %i.fa-solid.fa-envelope
-      Message
+    - if @show_direct_link
+      = link_to direct, class: "btn btn-primary btn-sm", 
+      data: { turbo: false } do
+        %i.fa-solid.fa-envelope
+        Message
     = link_to edit_direct_path(direct) do
       %i.fa-solid.fa-pen-to-square
     = link_to direct, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 

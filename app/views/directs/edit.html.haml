@@ -1,7 +1,14 @@
-%h1 Editing Direct Message
+= turbo_frame_tag @direct, class: "directs" do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12
+          = link_to directs_path, class: "close-btn", title: 'Close' do
+            %i.fa-solid.fa-xmark
+          %h1 Editing Direct Message
+          .inline.mb-3
+            %b DM With:
+            - @direct.users.all_but_current(current_user).each do |user|
+              = render 'users/post_user', user: user
 
-= render 'form', direct: @direct
-
-= link_to 'Show', @direct
-\|
-= link_to 'Back', directs_path
+          = render 'form', direct: @direct

@@ -10,5 +10,11 @@ application.register("autosubmit-form", AutosubmitFormController)
 import CheckBoxSelectAllController from "./check_box_select_all_controller"
 application.register("check-box-select-all", CheckBoxSelectAllController)
 
+import SearchBoxController from "./search_box_controller"
+application.register("search-box", SearchBoxController)
+
+import SearchBoxSubmitController from "./search_box_submit_controller"
+application.register("search-box-submit", SearchBoxSubmitController)
+
 import TrixFormController from "./trix_form_controller"
 application.register("trix-form", TrixFormController)

@@ -38,6 +38,7 @@ en:
         images: 'Add images'
       direct:
         name: "Name (optional)"
+        search: "Add user"
       message:
         body: 'Compose a message'
     models:

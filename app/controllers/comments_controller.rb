@@ -95,23 +95,23 @@ class CommentsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_commentable
-      @commentable =
-        if post_id = params[:post_id]
-          Post.all.find_by(id: post_id)
-        elsif event_id = params[:event_id]
-          Event.all.find_by(id: event_id)
-        end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_commentable
+    @commentable =
+      if post_id = params[:post_id]
+        Post.all.find_by(id: post_id)
+      elsif event_id = params[:event_id]
+        Event.all.find_by(id: event_id)
       end
-
-    def set_comment
-      @comment = @commentable.comments.find_by(id: params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def comment_params
-      params.require(:comment).permit(:body)
-    end
+  def set_comment
+    @comment = @commentable.comments.find_by(id: params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
 end

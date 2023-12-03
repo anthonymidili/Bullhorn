@@ -115,7 +115,7 @@ class User < ApplicationRecord
     users_online_ids.include?(id)
   end
 
-  def find_or_create_direct_message(user)
+  def find_or_init_direct_message(user, params)
     # Find all directs that both users are in together and reject the directs
     # that have move than 2 users attached.
     existing_directs = (self.directs & user.directs).reject { |d| d.users.length > 2 }
@@ -123,9 +123,9 @@ class User < ApplicationRecord
     if personal_direct
       return personal_direct
     else
-      # Create a direct object for the current user.
-      new_direct = self.directs.create
-      # Add profile user to newly created direct.
+      # Build a direct object for the current user.
+      new_direct = self.directs.build(params)
+      # Add profile user to newly built direct.
       new_direct.users << user
       return new_direct
     end

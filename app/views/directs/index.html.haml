@@ -1,7 +1,6 @@
 .callout
   .d-flex.justify-content-between
     %h1 Direct Messages
-    = link_to new_direct_path do
-      %i.fa-solid.fa-envelope
-      New Direct Message
-  = render @directs
+    = render "directs/new_direct_link"
+  = turbo_frame_tag "directs" do
+    = render @directs

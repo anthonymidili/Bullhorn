@@ -1,20 +1,12 @@
 = turbo_stream_from @direct
 .callout
-  .links-end.mb-3
-    = link_to directs_path do
-      %i.fa-solid.fa-hand-point-left
-      Back
-    = link_to edit_direct_path(@direct), title: 'Edit' do
-      %i.fa-solid.fa-pen-to-square
-    = link_to @direct, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
-    class: 'delete-link', title: 'Delete' do
-      %i.fa-solid.fa-trash
-  - if @direct.name
-    %h2= @direct.name
-  .inline
-    %b DM With:
-    - @direct.users.all_but_current(current_user).each do |user|
-      = render 'users/post_user', user: user
+  = render @direct
+
+.mb-3
+  = link_to directs_path do
+    %i.fa-solid.fa-hand-point-left
+    Back
+
 = render "messages/form", direct: @direct, message: @message
 
 %h1 Messages

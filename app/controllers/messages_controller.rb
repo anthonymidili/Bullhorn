@@ -93,18 +93,18 @@ class MessagesController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_direct
-      @direct = current_user.directs.find_by(id: params[:direct_id])
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_direct
+    @direct = current_user.directs.find_by(id: params[:direct_id])
+  end
 
-    def set_message
-      @message = @direct.messages.find_by(id: params[:id])
-    end
+  def set_message
+    @message = @direct.messages.find_by(id: params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def message_params
-      params.require(:message).permit(:body)
-    end
+  # Only allow a list of trusted parameters through.
+  def message_params
+    params.require(:message).permit(:body)
+  end
 end
