@@ -3,4 +3,4 @@
     %h1 Direct Messages
     = render "directs/new_direct_link"
   = turbo_frame_tag "directs" do
-    = render @directs
+    = render @directs, from_show: @from_show

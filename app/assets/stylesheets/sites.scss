@@ -65,9 +65,11 @@ nav.pagination {
 }
 
 .delete-link {
-  color: var(--delete-link-color);
+  background: none;
+  border: none;
+  color: var(--delete-link-color) !important;
   &:hover {
-    color: var(--delete-link-color-hover);
+    color: var(--delete-link-color-hover) !important;
   }
 }
 
@@ -129,13 +131,20 @@ nav.pagination {
 
 .links-end {
   @extend .float-end;
-  a {
+  a, button {
     margin-left: 20px;
+  }
+  form {
+    display: contents;
   }
 }
 
 .btn-link {
   text-decoration: none;
+  color: var(--link-color);
+  &:hover {
+    color: var(--link-color-hover);
+  }
 }
 
 .img-thumbnail {

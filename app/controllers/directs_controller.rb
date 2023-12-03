@@ -10,6 +10,7 @@ class DirectsController < ApplicationController
   # GET /directs/1 or /directs/1.json
   def show
     @message = @direct.messages.build
+    @from_show = true
   end
 
   # GET /directs/new
@@ -89,9 +90,10 @@ class DirectsController < ApplicationController
   # DELETE /directs/1 or /directs/1.json
   def destroy
     @direct.destroy
-
+    @from_show = params[:from_show]
+    
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(@direct) }
+      format.turbo_stream
       format.html { redirect_to directs_url, notice: "Direct message was successfully destroyed." }
       format.json { head :no_content }
     end
