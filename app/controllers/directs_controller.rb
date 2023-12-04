@@ -1,5 +1,7 @@
 class DirectsController < ApplicationController
-  before_action :set_direct, only: %i[ show edit update destroy ]
+  include InfiniteScroll
+
+  before_action :set_direct, only: %i[ edit update destroy ]
 
   # GET /directs or /directs.json
   def index
@@ -9,6 +11,8 @@ class DirectsController < ApplicationController
 
   # GET /directs/1 or /directs/1.json
   def show
+    # @direct set in InfiniteScroll.rb.
+    @messages = @scrolled_objects # Returned objects in batches of 10.
     @message = @direct.messages.build
     @from_show = true
   end
