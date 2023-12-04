@@ -11,4 +11,6 @@
 
 %h1 Messages
 = turbo_frame_tag "messages" do
-  = render @direct.messages
+  = render @messages
+-# Infinate scroll comments with turbo.
+= render "infinate_scroll/load_more"
