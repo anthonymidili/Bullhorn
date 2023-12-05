@@ -1,0 +1,5 @@
+- if @from_show == "true"
+  - flash[:notice] = "Post was successfully destroyed."
+  = turbo_stream.action :redirect, root_url
+- else
+  = turbo_stream.remove @post

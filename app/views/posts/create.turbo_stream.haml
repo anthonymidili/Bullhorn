@@ -1,5 +1,5 @@
 = turbo_stream.prepend "posts" do
-  = render "posts/post", post: @post
+  = render @post
 
 - if @reposting
   = turbo_stream.replace_all ".#{dom_id(@reposting, "repost_form")}" do

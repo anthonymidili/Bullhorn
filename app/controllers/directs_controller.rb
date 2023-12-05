@@ -14,7 +14,6 @@ class DirectsController < ApplicationController
     # @direct set in InfiniteScroll.rb.
     @messages = @scrolled_objects # Returned objects in batches of 10.
     @message = @direct.messages.build
-    @from_show = true
   end
 
   # GET /directs/new

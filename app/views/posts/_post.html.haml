@@ -9,7 +9,8 @@
               = link_to edit_post_path(post), title: 'Edit' do
                 %i.fa-solid.fa-pen-to-square
                 Edit
-              = link_to post, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
+              = button_to post_path(post, from_show: from_show ||= nil), method: :delete,
+              data: { turbo_confirm: 'Are you sure?' }, 
               class: 'delete-link', title: 'Delete' do
                 %i.fa-solid.fa-trash
           = render 'users/post_user', user: post.user
