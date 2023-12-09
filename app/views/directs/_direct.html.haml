@@ -6,11 +6,10 @@
     - direct.users.all_but_current(current_user).each do |user|
       = render 'users/post_user', user: user
   .links-end.mb-3
-    - if @show_direct_link
-      = link_to direct, class: "btn btn-primary btn-sm", 
-      data: { turbo: false } do
-        %i.fa-solid.fa-envelope
-        Message
+    = link_to direct, class: "btn btn-primary btn-sm", 
+    data: { turbo: false } do
+      %i.fa-solid.fa-envelope
+      Message
     = link_to edit_direct_path(direct) do
       %i.fa-solid.fa-pen-to-square
     = button_to direct_path(direct, from_show: from_show ||= nil), method: :delete,

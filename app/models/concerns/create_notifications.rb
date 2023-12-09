@@ -29,6 +29,8 @@ private
       notifiable.users - [ notifiable.user ]
     when "Like"
       [ notifiable.likeable.send(comment_or_other_user(notifiable.likeable)) ] - [ notifiable.user ]
+    when "Message"
+      notifiable.direct.users - [ notifiable.created_by ]
     else
       notifiable.user.all_relationships - [ notifiable.user ]
     end
@@ -65,7 +67,7 @@ private
   end
 
   def comment_or_other_user(notifiable)
-    if notifiable.class.name == 'Comment'
+    if notifiable.class.name == 'Comment' || notifiable.class.name == 'Message'
       'created_by'
     else
       'user'
@@ -86,8 +88,7 @@ private
       if notifiable.reposting
         "Reposted 
         #{notifiable.reposting.user.username} 
-        Post - 
-        #{notifiable.reposting.body.to_plain_text.truncate(40) if notifiable.reposting.body}"
+        Post - #{notifiable.reposting.body.to_plain_text.truncate(40) if notifiable.reposting.body}"
       else
         "Added a New Post - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
       end
@@ -101,6 +102,8 @@ private
       (Comment - #{notifiable.body.truncate(40) if notifiable.body})"
     when "Like"
       "Liked your #{likeable_action_statement(notifiable.likeable)}"
+    when "Message"
+      "Direct Messaged - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
     else
       'Posted Something New'
     end

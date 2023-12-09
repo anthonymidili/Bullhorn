@@ -2,11 +2,11 @@ class DirectsController < ApplicationController
   include InfiniteScroll
 
   before_action :set_direct, only: %i[ edit update destroy ]
+  before_action :set_as_read!, only: [:show]
 
   # GET /directs or /directs.json
   def index
     @directs = current_user.directs
-    @show_direct_link = true
   end
 
   # GET /directs/1 or /directs/1.json
