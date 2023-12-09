@@ -1,0 +1,8 @@
+.direct {
+  display: block;
+  padding: 10px 0 10px 0;
+  border-top: 1px solid var(--comments-border);
+  &:first-child {
+    border-top: 0;
+  }
+}

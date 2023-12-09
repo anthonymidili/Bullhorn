@@ -1,0 +1,16 @@
+- if message.persisted?
+  = turbo_frame_tag message, class: "messages" do
+    .callout{class: "#{current_or_others(message.created_by)}"}
+      - if correct_user?(message.created_by)
+        .links-end
+          = link_to [:edit, message.direct, message], title: 'Edit' do
+            %i.fa-solid.fa-pen-to-square
+            Edit
+          = link_to [message.direct, message],
+          data: { turbo_method: :delete, turbo_confirm: 'Are you sure.' },
+          class: 'delete-link', title: 'Delete' do
+            %i.fa-solid.fa-trash
+      = render 'users/post_user', user: message.created_by
+      .content= message.body
+      .timestamp
+        Posted #{time_ago_in_words(message.created_at)} ago

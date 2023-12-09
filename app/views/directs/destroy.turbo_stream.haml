@@ -1,0 +1,5 @@
+- if @from_show == "true"
+  - flash[:notice] = "Direct message was successfully destroyed."
+  = turbo_stream.action :redirect, directs_url
+- else
+  = turbo_stream.remove @direct

@@ -68,11 +68,11 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   # Add console tables with Hirb.enable.
-  # gem 'hirb'
+  gem 'hirb', '~> 0.7.3'
   # IRB colors.
   gem 'irbtools', require: 'irbtools/binding'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  # gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.2.0'
     # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 4.0'

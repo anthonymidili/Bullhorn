@@ -23,6 +23,8 @@ module InfiniteScroll
       post_comment_objects
     elsif @from_controller == "events" && @from_action == "show"
       event_comment_objects
+    elsif @from_controller == "directs" && @from_action == "show"
+      direct_message_objects
     end
   end
 
@@ -73,6 +75,15 @@ module InfiniteScroll
     find_by(id: params[:id])
     @objects = @event.comments
     @append_to = "comments"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def direct_message_objects
+    setup_page
+    @direct = current_user.directs.find_by(id: @id)
+    @objects = @direct.messages
+    @append_to = "messages"
     set_scrolled_objects
     set_next_page
   end

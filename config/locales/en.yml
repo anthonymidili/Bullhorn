@@ -36,6 +36,13 @@ en:
         body: 'Compose a comment'
       post:
         images: 'Add images'
+      direct:
+        name: "Name (optional)"
+        search: "Add user"
+      message:
+        body: 'Compose a message'
+    models:
+      direct: "Direct Message"
   number:
     human:
       decimal_units:

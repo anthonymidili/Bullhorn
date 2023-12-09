@@ -60,14 +60,14 @@ class BugReportsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bug_report
-      @bug_report = BugReport.find(params[:id])
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bug_report
+    @bug_report = BugReport.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def bug_report_params
-      params.require(:bug_report).permit(:subject, :body, :name, :email, :status)
-    end
+  # Only allow a list of trusted parameters through.
+  def bug_report_params
+    params.require(:bug_report).permit(:subject, :body, :name, :email, :status)
+  end
 end

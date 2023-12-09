@@ -13,9 +13,10 @@ import * as bootstrap from "bootstrap"
 import "./packs/jquery-ui"
 
 // Custom JavaScripts.
-import './packs/autocomplete'
-import './packs/autocompleteSubmit'
 import './packs/direct_uploads'
+
+// Custom Turbo Stream Actions.
+import './packs/turbo_stream_actions'
 
 // fontawesome setup.
 import '@fortawesome/fontawesome-free/js/all'

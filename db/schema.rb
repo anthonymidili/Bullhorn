@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_09_020123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -89,6 +89,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "direct_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["direct_id"], name: "index_conversations_on_direct_id"
+    t.index ["user_id", "direct_id"], name: "index_conversations_on_user_id_and_direct_id", unique: true
+    t.index ["user_id"], name: "index_conversations_on_user_id"
+  end
+
+  create_table "directs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
@@ -121,6 +137,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id", "likeable_type", "likeable_id"], name: "index_likes_on_user_id_and_likeable_type_and_likeable_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "direct_id", null: false
+    t.bigint "created_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_messages_on_created_by_id"
+    t.index ["direct_id"], name: "index_messages_on_direct_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -180,6 +205,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
     t.datetime "last_mail_received", precision: nil
     t.integer "send_after_amount", default: 24
     t.string "send_after_unit", default: "hours"
+    t.boolean "for_new_messages", default: true
     t.index ["user_id"], name: "index_receive_mails_on_user_id"
   end
 
@@ -243,10 +269,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_021726) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bug_reports", "users"
+  add_foreign_key "conversations", "directs"
+  add_foreign_key "conversations", "users"
   add_foreign_key "events", "users"
   add_foreign_key "invitations", "events"
   add_foreign_key "invitations", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "directs"
   add_foreign_key "notifications", "users", column: "notifier_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "posts", "users"

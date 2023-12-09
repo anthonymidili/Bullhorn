@@ -1,10 +1,10 @@
 .row
   .col-12.col-md-5.col-lg-4
     .profile_head.mb-3
-      .links-end
+      .links-end.d-grid.gap-2
         = link_to @user, class: "btn btn-info btn-sm mb-1" do
           %i.fa-solid.fa-user
-          view my profile
+          View My Profile
       = render 'users/avatar_info', user: @user
   .col-12.col-md-7.col-lg-8
     %h2 Community Feed

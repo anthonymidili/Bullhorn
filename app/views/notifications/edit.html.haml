@@ -54,8 +54,11 @@
       .feild.mb-1
         = f.check_box :for_new_relationships, id: 'cb_relationships'
         = f.label :for_new_relationships, 'start Following you', for: 'cb_relationships'
-      .feild.mb-3
+      .feild.mb-1
         = f.check_box :for_new_likes, id: 'cb_likes'
-        = f.label :for_new_likes, 'Like your content', for: 'cb_likes'
+        = f.label :for_new_likes, 'Likes your content', for: 'cb_likes'
+      .feild.mb-3
+        = f.check_box :for_new_messages, id: 'cb_messages'
+        = f.label :for_new_likes, 'Direct Messages you', for: 'cb_messages'
       .actions.mb-3
         = f.submit 'Update Notification settings', class: 'btn btn-primary'

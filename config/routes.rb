@@ -60,5 +60,12 @@ Rails.application.routes.draw do
 
   get 'set_theme', to: 'theme#update'
 
+  resources :directs, path: 'direct_messages' do
+    resources :messages, except: [:index]
+    collection do
+      get "user/:user_id", as: :personal, to: "directs#personal"
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

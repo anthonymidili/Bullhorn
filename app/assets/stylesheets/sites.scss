@@ -65,9 +65,11 @@ nav.pagination {
 }
 
 .delete-link {
-  color: var(--delete-link-color);
+  background: none;
+  border: none;
+  color: var(--delete-link-color) !important;
   &:hover {
-    color: var(--delete-link-color-hover);
+    color: var(--delete-link-color-hover) !important;
   }
 }
 
@@ -129,19 +131,41 @@ nav.pagination {
 
 .links-end {
   @extend .float-end;
-  a {
+  a, button {
     margin-left: 20px;
+  }
+  form {
+    display: contents;
   }
 }
 
 .btn-link {
   text-decoration: none;
+  color: var(--link-color);
+  &:hover {
+    color: var(--link-color-hover);
+  }
 }
 
 .img-thumbnail {
   border: 1px solid var(--border-color);
   padding: unset;
   border-radius: 4px;
+}
+
+.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  img {
+    height: 33px;
+    width: 33px;
+    border: solid 1px var(--avatar-border);
+    background-color: var(--avatar-background);
+  }
+  .post_user.mb-3 {
+    margin-bottom: unset !important;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {

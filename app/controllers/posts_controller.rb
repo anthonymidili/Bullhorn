@@ -85,10 +85,10 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post.destroy
+    @from_show = params[:from_show]
+
     respond_to do |format|
-      format.turbo_stream { 
-        render turbo_stream: turbo_stream.remove(@post) 
-      }
+      format.turbo_stream
       format.html {
         redirect_to root_path,
         notice: 'Post was successfully destroyed.'

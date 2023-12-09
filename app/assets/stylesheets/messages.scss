@@ -1,0 +1,21 @@
+.messages {
+  .callout {
+    width: 90%;
+  }
+
+  .callout.current {
+    // background-color: darkslategrey;
+    margin-left: auto;
+  }
+
+  .callout.others {
+    // background-color: darkolivegreen;
+  }
+
+  .post_user img {
+    height: 33px;
+    width: 33px;
+    border: solid 1px var(--avatar-border);
+    background-color: var(--avatar-background);
+  }
+}
