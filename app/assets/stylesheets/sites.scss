@@ -139,6 +139,22 @@ nav.pagination {
   }
 }
 
+.links-end-md {
+  @include media-breakpoint-up(md) {
+    display: block;
+    float: right;
+  }
+  a, button {
+    margin-left: 20px;
+    &:first-child {
+      margin-left: unset;
+    }
+  }
+  form {
+    display: contents;
+  }
+}
+
 .btn-link {
   text-decoration: none;
   color: var(--link-color);
@@ -170,6 +186,11 @@ nav.pagination {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--header-color);
+}
+
+hr {
+  color: var(--comments-border);
+  opacity: unset;
 }
 
 // Header shadow for dark theme
