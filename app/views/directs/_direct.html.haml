@@ -1,18 +1,21 @@
 = turbo_frame_tag direct, class: "direct" do
   - if direct.name
     %h3= direct.name
-  .inline
-    %b DM With:
-    - direct.users.all_but_current(current_user).each do |user|
-      = render 'users/post_user', user: user
-  .links-end.mb-3
-    = link_to direct, class: "btn btn-primary btn-sm", 
-    data: { turbo: false } do
-      %i.fa-solid.fa-envelope
-      Message
-    = link_to edit_direct_path(direct) do
-      %i.fa-solid.fa-pen-to-square
-    = button_to direct_path(direct, from_show: from_show ||= nil), method: :delete,
-    data: { turbo_confirm: 'Are you sure?' }, 
-    class: 'delete-link', title: 'Delete' do
-      %i.fa-solid.fa-trash
+  .row
+    .col-12.col-md-6
+      .inline.mb-3
+        %b DM With:
+        - direct.users.all_but_current(current_user).each do |user|
+          = render 'users/post_user', user: user
+    .col-12.col-md-6
+      .links-end-md.mb-3
+        = link_to direct, class: "btn btn-primary btn-sm", 
+        data: { turbo: false } do
+          %i.fa-solid.fa-envelope
+          Message
+        = link_to edit_direct_path(direct) do
+          %i.fa-solid.fa-pen-to-square
+        = button_to direct_path(direct, from_show: from_show ||= nil), method: :delete,
+        data: { turbo_confirm: 'Are you sure?' }, 
+        class: 'delete-link', title: 'Delete' do
+          %i.fa-solid.fa-trash
