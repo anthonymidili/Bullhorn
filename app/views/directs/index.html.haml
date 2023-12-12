@@ -3,7 +3,6 @@
     .col-12.col-md-6
       %h1 Direct Messages
     .col-12.col-md-6
-      .links-end-md= render "directs/new_direct_link"
-  %hr/
+      .links-end-md.mb-3= render "directs/new_direct_link"
   = turbo_frame_tag "directs" do
     = render @directs
