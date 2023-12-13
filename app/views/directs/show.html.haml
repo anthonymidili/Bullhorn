@@ -7,10 +7,11 @@
     %i.fa-solid.fa-hand-point-left
     Back
 
-= render "messages/form", direct: @direct, message: @message
-
 %h1 Messages
-= turbo_frame_tag "messages" do
-  = render @messages
--# Infinate scroll comments with turbo.
-= render "infinate_scroll/load_more"
+.message-box
+  = turbo_frame_tag "messages" do
+    = render @messages
+  -# Infinate scroll comments with turbo.
+  = render "infinate_scroll/load_more"
+
+= render "messages/form", direct: @direct, message: @message

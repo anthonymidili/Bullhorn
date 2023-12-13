@@ -1,3 +1,15 @@
+#messages {
+  height: 100vh;
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+  border: 2px solid var(--messages-border);
+  background-color: var(--messages-background);
+  border-radius: 10px;
+  padding: 5px;
+}
+
 .messages {
   .callout {
     width: 90%;
