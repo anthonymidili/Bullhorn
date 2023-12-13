@@ -9,7 +9,7 @@
           = render 'users/post_user', user: user
     .col-12.col-md-6
       .links-end-md.mb-3
-        = link_to direct, class: "btn btn-primary btn-sm", 
+        = link_to direct_path(direct, anchor: "footer"), class: "btn btn-primary btn-sm", 
         data: { turbo: false } do
           %i.fa-solid.fa-envelope
           Message

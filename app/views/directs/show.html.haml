@@ -13,5 +13,7 @@
     = render @messages
   -# Infinate scroll comments with turbo.
   = render "infinate_scroll/load_more"
+  -# New messages will push older messages up
+  .anchor
 
 = render "messages/form", direct: @direct, message: @message
