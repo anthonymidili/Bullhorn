@@ -11,6 +11,6 @@ Rails.application.config.after_initialize do
       ActionText::TrixAttachment.from_attributes(attributes)
     end
   end
-  ActionText::ContentHelper.allowed_attributes += %w[ style controls poster ]
-  ActionText::ContentHelper.allowed_tags += %w[ video audio source embed iframe ]
+  ActionText::ContentHelper.sanitizer.class.allowed_attributes += %w[ style controls poster ]
+  ActionText::ContentHelper.sanitizer.class.allowed_tags += %w[ video audio source embed iframe ]
 end
