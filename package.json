@@ -30,8 +30,8 @@
   },
   "engines": {
     "yarn": "1.22.x",
-    "node": "18.x",
-    "npm": "9.x"
+    "node": "21.x",
+    "npm": "10.x"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
