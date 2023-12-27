@@ -3,7 +3,7 @@
 .row
   .col-12.mb-3
     = link_to bug_reports_path, class: "btn btn-outline-primary" do
-      = pluralize(BugReport.count, 'Open bug report')
+      = pluralize(BugReport.by_status_open.count, 'Open bug report')
 .row
   .col-12
     %h1 Admins
