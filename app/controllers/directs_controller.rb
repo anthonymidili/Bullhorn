@@ -116,7 +116,8 @@ class DirectsController < ApplicationController
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_direct
-    @direct = current_user.directs.find(params[:id])
+    @direct = current_user.directs.find_by(id: params[:id])
+    redirect_to directs_path unless @direct
   end
 
   # Only allow a list of trusted parameters through.

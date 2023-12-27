@@ -62,6 +62,7 @@ module InfiniteScroll
   def post_comment_objects
     setup_page
     @post = Post.includes(comments: :created_by).find_by(id: @id)
+    return root_path unless @post
     @objects = @post.comments
     @append_to = "comments"
     set_scrolled_objects
@@ -73,6 +74,7 @@ module InfiniteScroll
     @event = current_user.relevant_events.with_attached_image.
     includes(comments: :created_by, users: [avatar_attachment: :blob]).
     find_by(id: params[:id])
+    return redirect_to events_path unless @event
     @objects = @event.comments
     @append_to = "comments"
     set_scrolled_objects
@@ -82,6 +84,7 @@ module InfiniteScroll
   def direct_message_objects
     setup_page
     @direct = current_user.directs.find_by(id: @id)
+    return redirect_to directs_path unless @direct
     @objects = @direct.messages
     @append_to = "messages"
     set_scrolled_objects
