@@ -64,9 +64,24 @@ nav.navbar {
       display: block !important;
     }
 
-    button.nav-link {
-      width: 100%;
-      display: flex !important;
+    .dropdown.with-button.nav-link {
+      padding: var(--bs-nav-link-padding-y);
+      button {
+        text-align: left;
+        border: unset;
+        background: unset;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+      }
+      &:hover {
+        border-radius: 8px;
+        background-color: var(--topbar-background-hover) !important;
+        color: var(--topbar-text-hover) !important;
+        &::after {
+          border-color: var(--topbar-text-hover) transparent transparent !important;
+        }
+      }
     }
   }
 
