@@ -10,6 +10,9 @@ application.register("autosubmit-form", AutosubmitFormController)
 import CheckBoxSelectAllController from "./check_box_select_all_controller"
 application.register("check-box-select-all", CheckBoxSelectAllController)
 
+import HideOnScrollController from "./hide_on_scroll_controller"
+application.register("hide-on-scroll", HideOnScrollController)
+
 import SearchBoxController from "./search_box_controller"
 application.register("search-box", SearchBoxController)
 
