@@ -193,13 +193,13 @@ hr {
   opacity: unset;
 }
 
-.is-hidden {
+.transition-hidden {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
 
-.is-visible {
+.transition-visible {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.3s linear;

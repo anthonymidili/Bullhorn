@@ -25,12 +25,12 @@ export default class extends Controller {
       let windowY = window.scrollY
       if (windowY < scrollPos) {
         // Scrolling UP
-        nav.classList.add('is-visible')
-        nav.classList.remove('is-hidden')
+        nav.classList.add('transition-visible')
+        nav.classList.remove('transition-hidden')
       } else {
         // Scrolling DOWN
-        nav.classList.add('is-hidden')
-        nav.classList.remove('is-visible')
+        nav.classList.add('transition-hidden')
+        nav.classList.remove('transition-visible')
       }
       scrollPos = windowY
     }
