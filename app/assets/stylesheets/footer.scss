@@ -10,7 +10,6 @@ html, body {height: 100%;}
 }
 
 footer {
-  z-index: 5;
   position: relative;
   margin-top: -$footer-size; /* negative value of footer height */
   min-height: $footer-size; /* footer size */

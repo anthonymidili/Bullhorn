@@ -193,6 +193,18 @@ hr {
   opacity: unset;
 }
 
+.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.3s, opacity 0.3s linear;
+}
+
+.is-visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s linear;
+}
+
 // Header shadow for dark theme
 // System theme dark
 @media (prefers-color-scheme: dark) {
