@@ -10,5 +10,6 @@
         = link_to media_user_path(@post.user), title: "#{@post.user.username} Photos" do
           %i.fa-solid.fa-images
           #{@post.user.username} Media
-    = render 'comments/form', commentable: @post, comment: @comment
+    #new_comment
+      = render 'comments/form', commentable: @post, comment: @comment
     = render 'comments/box', commentable: @post
