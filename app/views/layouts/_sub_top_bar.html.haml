@@ -9,6 +9,4 @@
     = link_to notifications_path, title: 'Notifications', class: "btn btn-link" do
       %i.fa-solid.fa-bell
       = render "notifications/count", user: current_user
-    = turbo_frame_tag "new_post" do
-      = render "posts/new_link"
       
