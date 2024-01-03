@@ -5,6 +5,7 @@ class Notification < ApplicationRecord
 
   default_scope  { order(created_at: :desc) }
   scope :by_unread, -> { where(is_read: false) }
+  scope :by_type, -> (type) { where(notifiable_type: type) }
 
   def self.recent
     time_range = (Time.current - 1.week)..Time.current
@@ -18,6 +19,22 @@ class Notification < ApplicationRecord
 
   def self.recent_unread_count
     recent.by_unread.count
+  end
+
+  def self.bell_message_types
+    ["Post", "Comment", "Relationship", "Like", "Event"]
+  end
+
+  def self.bell_messages
+    by_type(bell_message_types)
+  end
+
+  def self.recent_unread_bell_messages_count
+    recent.by_unread.bell_messages.count
+  end
+
+  def self.recent_unread_messages_count
+    recent.by_unread.by_type("Message").count
   end
 
   def self.has_recent_unread?

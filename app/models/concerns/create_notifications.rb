@@ -92,11 +92,11 @@ private
       else
         "Added a New Post - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
       end
-    when 'Event'
+    when "Event"
       "Created a New Event - #{notifiable.name}"
     when 'Relationship'
-      'Started Following You'
-    when 'Comment'
+      "Started Following You"
+    when "Comment"
       "Commented on
       #{commentable_action_statement(notifiable.commentable)}
       (Comment - #{notifiable.body.truncate(40) if notifiable.body})"
@@ -105,7 +105,7 @@ private
     when "Message"
       "Direct Messaged - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
     else
-      'Posted Something New'
+      "Posted Something New"
     end
   end
 

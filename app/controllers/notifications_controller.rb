@@ -2,10 +2,8 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @recent_notifications = current_user.notifications.recent.
-    includes(:notifiable, notifier: [avatar_attachment: :blob])
-    @earlier_notifications = current_user.notifications.earlier.
-    includes(:notifiable, notifier: [avatar_attachment: :blob])
+    @recent_notifications = current_user.notifications.bell_messages.recent
+    @earlier_notifications = current_user.notifications.bell_messages.earlier
   end
 
   def edit

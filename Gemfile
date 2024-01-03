@@ -22,7 +22,7 @@ gem 'sidekiq', '~> 7.2.0'
 gem 'redis', '~> 5.0'
 # Use kredis encapsulates higher-level types and 
 # data structures around a single key for Redis
-gem "kredis", "~>1.6.0"
+gem "kredis", "~>1.7.0"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
