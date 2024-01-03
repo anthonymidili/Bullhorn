@@ -32,10 +32,6 @@
             = link_to users_path, title: 'Explore Users', class: "nav-link" do
               %i.fa-solid.fa-users
               Explore Users
-          %li.nav-item
-            = link_to directs_path, title: 'Direct Messages', class: "nav-link" do
-              %i.fa-solid.fa-envelope
-              Messages
           - if current_user.is_admin
             %li.nav-item
               = link_to site_admins_users_path, title: 'Admin Controls', class: "nav-link" do

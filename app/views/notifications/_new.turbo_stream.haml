@@ -1,6 +1,11 @@
-= turbo_stream.replace "recent_unread_count" do
-  = render "notifications/count", user: user
+- if notification.notifiable_type == "Message"
+  = turbo_stream.replace "unread_messages_count" do
+    = render "messages/count", user: user
 
-= turbo_stream.prepend "unread_notifications_list" do
-  = render notification
+- elsif Notification.bell_message_types.include?(notification.notifiable_type)
+  = turbo_stream.replace "recent_unread_count" do
+    = render "notifications/count", user: user
+
+  = turbo_stream.prepend "unread_notifications_list" do
+    = render notification
   

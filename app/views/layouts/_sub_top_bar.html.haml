@@ -6,6 +6,9 @@
       %i.fa-regular.fa-calendar
       - if current_user.relevant_events.in_the_future.any?
         %span.count= current_user.relevant_events.in_the_future.count
+    = link_to directs_path, title: 'Direct Messages', class: "btn btn-link" do
+      %i.fa-solid.fa-envelope
+      = render "messages/count", user: current_user
     = link_to notifications_path, title: 'Notifications', class: "btn btn-link" do
       %i.fa-solid.fa-bell
       = render "notifications/count", user: current_user
