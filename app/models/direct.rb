@@ -13,6 +13,13 @@ class Direct < ApplicationRecord
   #   read_like_notifications(current_user) if self.try(:likes)
   # end
 
+  def unread_messages_count(current_user)
+    current_user.notifications.where(
+      notifiable: messages, 
+      is_read: false
+    ).count
+  end
+
 private
 
   def user_selected
