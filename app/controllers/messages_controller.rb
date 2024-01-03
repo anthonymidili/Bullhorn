@@ -7,6 +7,16 @@ class MessagesController < ApplicationController
 
   def show
     # Calls messages/message_frame to include current_user.
+    @direct.read_user_notifications(current_user)
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace("unread_messages_count", partial: "messages/count", 
+          locals: { user: current_user })
+        ]
+      end
+      format.html
+    end
   end
 
   # GET /messages or /messages.json

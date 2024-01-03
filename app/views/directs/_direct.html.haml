@@ -13,5 +13,9 @@
     data: { turbo: false } do
       %i.fa-solid.fa-envelope
       Message
+      - if direct.unread_messages_count(current_user) > 0
+        \-
+        = direct.unread_messages_count(current_user)
+        unread
     - direct.users.all_but_current(current_user).each do |user|
       = render 'users/post_user', user: user
