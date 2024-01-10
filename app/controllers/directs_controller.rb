@@ -1,6 +1,6 @@
 class DirectsController < ApplicationController
+  before_action :authenticate_user!
   include InfiniteScroll
-
   before_action :set_direct, only: %i[ edit update destroy ]
   before_action :set_as_read!, only: [:show]
 

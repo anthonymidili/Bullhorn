@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  include InfiniteScroll
-
   before_action :authenticate_user!
+  include InfiniteScroll
   before_action :authenticate_admin!, only: [:destroy, :site_admins, 
   :add_admin, :remove_admin]
   before_action :set_user,

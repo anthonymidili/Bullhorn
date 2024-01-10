@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
-  include InfiniteScroll
-  
   before_action :authenticate_user!
+  include InfiniteScroll
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :deny_access!, only: [:edit, :update, :destroy],
   unless:  -> { correct_user?(@post.user) }

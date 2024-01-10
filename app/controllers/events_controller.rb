@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
-  include InfiniteScroll
-
   before_action :authenticate_user!
+  include InfiniteScroll
   before_action :set_event, only: [:edit, :update, :destroy, :remove_image]
   before_action :deny_access!, only: [:edit, :update, :destroy, :remove_image],
     unless:  -> { correct_user?(@event.user) }
