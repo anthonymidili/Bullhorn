@@ -12,6 +12,12 @@ class User < ApplicationRecord
     class_name: 'Relationship', dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :user
 
+  # Notifications recieved.
+  has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
+  # Notifications sent.
+  has_many :sent_notifications, foreign_key: "notifier_id",
+  class_name: "Notification", dependent: :destroy
+
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile, reject_if: :all_blank, 
     allow_destroy: true
@@ -33,17 +39,14 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :reposts, dependent: :destroy
-
   has_many :invitations, dependent: :destroy
   has_many :events, through: :invitations
   has_many :events, dependent: :destroy
-  has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
   has_many :comments, foreign_key: 'created_by_id', dependent: :destroy
   has_many :bug_reports, dependent: :destroy
-
   has_many :conversations, dependent: :destroy
   has_many :directs, through: :conversations
-  has_many :messages, dependent: :destroy
+  has_many :messages, foreign_key: 'created_by_id', dependent: :destroy
 
   has_one_attached :avatar
 
