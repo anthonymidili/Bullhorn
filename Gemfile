@@ -18,7 +18,7 @@ gem 'passenger', '~> 6.0', '>= 6.0.18'
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # Background Jobs
-gem 'sidekiq', '~> 7.2.0'
+gem 'sidekiq', '~> 7.2.4'
 gem 'redis', '~> 5.0'
 # Use kredis encapsulates higher-level types and 
 # data structures around a single key for Redis
