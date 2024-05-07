@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.2'
+ruby '3.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.1.2'
@@ -51,7 +51,7 @@ gem 'kaminari', '~> 1.2.1'
 gem 'cocoon', '~> 1.2.8'
 # https://github.com/thoughtbot/scenic - Scenic adds methods to
 # ActiveRecord::Migration to create and manage database views in Rails.
-gem 'scenic', '~> 1.7.0'
+# gem 'scenic', '~> 1.7.0'
 # framework-agnostic XML Sitemap generator
 gem 'sitemap_generator'
 
