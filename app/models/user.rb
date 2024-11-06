@@ -77,6 +77,10 @@ class User < ApplicationRecord
   scope :by_other_user, -> { where(is_admin: false) }
   # scope :by_accepts_email, -> { where(receive_email: true) }
   scope :all_but_current, -> (current_user) { where.not(id: current_user) }
+  scope :by_unconfirmed, -> { 
+    where(confirmed_at: nil).
+    where("confirmation_sent_at < :date", date: (DateTime.current - 1.day)) 
+  }
 
   # Only show events user created or was invited to.
   def relevant_events

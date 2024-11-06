@@ -4,13 +4,13 @@
     .col-12.col-lg-6
       .field.mb-3
         = f.label :username, class: "form-label"
-        = f.text_field :username, class: "form-control"
+        = f.text_field :username, autocomplete: "username nickname", class: "form-control"
       .field.mb-3
         = f.label :first_name, class: "form-label"
-        = f.text_field :first_name, class: "form-control"
+        = f.text_field :first_name, autocomplete: "given-name", class: "form-control"
       .field.mb-3
         = f.label :last_name, class: "form-label"
-        = f.text_field :last_name, class: "form-control"
+        = f.text_field :last_name, autocomplete: "family-name", class: "form-control"
     .col-12.col-lg-6
       .field.mb-3
         = f.hidden_field :avatar, value: f.object.avatar.signed_id if f.object.avatar.attached?

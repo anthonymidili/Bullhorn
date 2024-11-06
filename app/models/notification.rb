@@ -6,6 +6,7 @@ class Notification < ApplicationRecord
   default_scope  { order(created_at: :desc) }
   scope :by_unread, -> { where(is_read: false) }
   scope :by_type, -> (type) { where(notifiable_type: type) }
+  scope :by_older_than_month, -> { where("created_at < :date", date: (DateTime.current - 1.month)) }
 
   def self.recent
     time_range = (Time.current - 1.week)..Time.current

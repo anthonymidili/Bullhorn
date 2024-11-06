@@ -1,6 +1,6 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.verbose = true
-SitemapGenerator::Sitemap.default_host = "https://skypatrol.life"
+SitemapGenerator::Sitemap.default_host = "https://bullhornxl.com"
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
