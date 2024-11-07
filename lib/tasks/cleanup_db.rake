@@ -5,12 +5,12 @@ task cleanup_db: :environment do
   puts "--------------------------------------------------------------------"
   puts "Cleaning old Notifications.........................................."
   notifications = Notification.by_older_than_month
-  notifications.delete_all
+  notifications.destroy_all
   puts "#{notifications.count} old Notifications have been removed."
   puts "--------------------------------------------------------------------"
   puts "Cleaning unconfirmed Users.........................................."
   users = User.by_unconfirmed
-  users.delete_all
+  users.destroy_all
   puts "#{users.count} unconfirmed Users have been removed."
   puts "--------------------------------------------------------------------"
   puts ">>>> Cleanup DB complete <<<<"
