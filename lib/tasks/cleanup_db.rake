@@ -9,7 +9,7 @@ task cleanup_db: :environment do
   puts "#{notifications.count} old Notifications have been removed."
   puts "--------------------------------------------------------------------"
   puts "Cleaning unconfirmed Users.........................................."
-  users = User.by_unconfirmed
+  users = User.by_unconfirmed.by_confirm_sent_after_day
   users.destroy_all
   puts "#{users.count} unconfirmed Users have been removed."
   puts "--------------------------------------------------------------------"
