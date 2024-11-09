@@ -14,5 +14,5 @@
     rufus_scheduler_options:
       max_work_threads: 5
     cleanup_db_cron:
-      cron: '0 0 * * *'   # Runs every night at midnight
+      cron: '0 * * * *'   # Runs every night at midnight
       class: CleanupDbCron
