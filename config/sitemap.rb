@@ -1,7 +1,19 @@
+require 'rubygems'
+require 'aws-sdk-s3'
+require 'sitemap_generator'
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.verbose = true
 SitemapGenerator::Sitemap.default_host = "https://bullhornxl.com"
+SitemapGenerator::Sitemap.compress = false
+SitemapGenerator::Sitemap.sitemaps_host = "https://console.aws.amazon.com/s3/buckets/#{Rails.application.credentials.dig(:aws, :s3_bucket)}/?region=#{Rails.application.credentials.dig(:aws, :region)}"
+SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
+
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(
+  Rails.application.credentials.dig(:aws, :s3_bucket),
+  aws_access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),
+  aws_secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
+  aws_region: Rails.application.credentials.dig(:aws, :region)
+)
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
@@ -23,8 +35,8 @@ SitemapGenerator::Sitemap.create do
   #
   # Add all articles:
   #
-  #   Article.find_each do |article|
-  #     add article_path(article), :lastmod => article.updated_at
-  #   end
+  # Article.find_each do |article|
+  #   add article_path(article), :lastmod => article.updated_at
+  # end
   add '/'
 end
