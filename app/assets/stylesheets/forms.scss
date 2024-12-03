@@ -5,3 +5,10 @@
 .form-control, .form-check-input, .form-select, .input-group-text {
   border-color: var(--form-input-border);
 }
+
+.honeypot {
+  position: absolute;
+  visibility: hidden;
+  left: -5000px;
+  top: -5000px;
+}

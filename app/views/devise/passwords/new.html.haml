@@ -8,8 +8,7 @@
       = render 'notifications/error_messages', object: f.object
       .field.mb-3
         = f.label :email, class: "form-label"
-        = f.email_field :email, autofocus: true, autocomplete: "email",
-        class: "form-control"
+        = f.email_field :email, autocomplete: "username", class: "form-control"
       .actions.mb-3
         = f.submit "Send me reset password instructions", class: 'btn btn-primary'
     .mb-3= render "devise/shared/links"
