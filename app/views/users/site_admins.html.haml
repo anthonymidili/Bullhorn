@@ -6,8 +6,8 @@
       = pluralize(BugReport.by_status_open.count, 'Open bug report')
 .row
   .col-12
-    %h1 Admins
-    = render 'users/badge', users: @users.by_admin
+    %h2= pluralize(@users.by_admins.count, 'Admin')
+    = render 'users/badge', users: @users.by_admins
     %hr/
-    %h2 Other users
-    = render 'users/badge', users: @users.by_other_user
+    %h2= pluralize(@users.by_other_users.count, 'Other user')
+    = render 'users/badge', users: @users.by_other_users
