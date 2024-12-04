@@ -7,7 +7,9 @@
 .row
   .col-12
     %h2= pluralize(@users.by_admins.count, 'Admin')
-    = render 'users/badge', users: @users.by_admins
+    = turbo_frame_tag "admin_users", class: "row" do
+      = render 'users/badge', users: @users.by_admins, show_admin_form: @show_admin_form
     %hr/
     %h2= pluralize(@users.by_other_users.count, 'Other user')
-    = render 'users/badge', users: @users.by_other_users
+    = turbo_frame_tag "other_users", class: "row" do
+      = render 'users/badge', users: @users.by_other_users, show_admin_form: @show_admin_form

@@ -1,4 +1,2 @@
-.row
-  - users.each do |user|
-    .col-12.col-md-6.col-lg-4
-      = render 'users/index_card', user: user, users: users
+- users.each do |user|
+  = render 'users/index_card', user: user, users: users, show_admin_form: show_admin_form ||= false

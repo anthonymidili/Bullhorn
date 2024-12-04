@@ -1,9 +1,12 @@
-.index-card.callout
-  = render 'users/avatar_info', user: user
-  - if current_user.is_admin && @show_admin_form
-    .d-flex.justify-content-between.mt-3
-      = render admin_form(user), user: user, users: users
-      - unless correct_user?(user)
-        = button_to user, method: :delete, data: { turbo_confirm: 'Are you sure?' }, 
-        class: 'btn btn-danger btn-sm', title: 'Delete user' do
-          Delete User
+= turbo_frame_tag user, class: "col-12 col-md-6 col-lg-4" do
+  .index-card.callout
+    = render 'users/avatar_info', user: user
+    - if current_user.is_admin && show_admin_form
+      .mt-1
+        = user.email
+      .d-flex.justify-content-between.mt-3
+        = render admin_form(user), user: user, users: users
+        - unless correct_user?(user)
+          = button_to user, method: :delete, data: { turbo_confirm: 'Are you sure?' }, 
+          class: 'btn btn-danger btn-sm', title: 'Delete user' do
+            Delete User
