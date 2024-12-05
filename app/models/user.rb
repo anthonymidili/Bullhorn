@@ -73,8 +73,8 @@ class User < ApplicationRecord
   end
 
   scope :by_username, -> { order(username: :asc) }
-  scope :by_admin, -> { where(is_admin: true) }
-  scope :by_other_user, -> { where(is_admin: false) }
+  scope :by_admins, -> { where(is_admin: true) }
+  scope :by_other_users, -> { where(is_admin: false) }
   # scope :by_accepts_email, -> { where(receive_email: true) }
   scope :all_but_current, -> (current_user) { where.not(id: current_user) }
   scope :by_unconfirmed, -> { where(confirmed_at: nil) }

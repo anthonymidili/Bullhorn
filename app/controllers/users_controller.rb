@@ -48,6 +48,17 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(@user),
+          turbo_stream.replace("admin_users_count",
+          partial: "users/count",
+          locals: { users: User.by_admins, name: "Admin" }),
+          turbo_stream.replace("other_users_count",
+          partial: "users/count",
+          locals: { users: User.by_other_users, name: "Other" })
+        ]
+      end
       format.html {
         redirect_to site_admins_users_path,
         notice: 'User was successfully destroyed.'
@@ -80,13 +91,45 @@ class UsersController < ApplicationController
   def add_admin
     @user.is_admin = true
     @user.save
-    redirect_to site_admins_users_path
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(@user),
+          turbo_stream.prepend("admin_users", 
+          partial: "users/index_card",
+          locals: { user: @user, users: User.by_admins, show_admin_form: true }),
+          turbo_stream.replace("admin_users_count",
+          partial: "users/count",
+          locals: { users: User.by_admins, name: "Admin" }),
+          turbo_stream.replace("other_users_count",
+          partial: "users/count",
+          locals: { users: User.by_other_users, name: "Other" })
+        ]
+      end
+      format.html { redirect_to site_admins_users_path }
+    end
   end
 
   def remove_admin
     @user.is_admin = false
     @user.save
-    redirect_to site_admins_users_path
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(@user),
+          turbo_stream.prepend("other_users", 
+          partial: "users/index_card",
+          locals: { user: @user, users: User.by_admins, show_admin_form: true }),
+          turbo_stream.replace("admin_users_count",
+          partial: "users/count",
+          locals: { users: User.by_admins, name: "Admin" }),
+          turbo_stream.replace("other_users_count",
+          partial: "users/count",
+          locals: { users: User.by_other_users, name: "Other" })
+        ]
+      end
+      format.html { redirect_to site_admins_users_path }
+    end
   end
 
   def media
