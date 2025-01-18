@@ -1,5 +1,5 @@
 class Like < ApplicationRecord
-  after_commit on: [:create] do
+  after_commit on: [ :create ] do
     NotifierJob.perform_later(self)
   end
 

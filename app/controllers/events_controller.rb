@@ -1,17 +1,17 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
   include InfiniteScroll
-  before_action :set_event, only: [:edit, :update, :destroy, :remove_image]
-  before_action :deny_access!, only: [:edit, :update, :destroy, :remove_image],
+  before_action :set_event, only: [ :edit, :update, :destroy, :remove_image ]
+  before_action :deny_access!, only: [ :edit, :update, :destroy, :remove_image ],
     unless:  -> { correct_user?(@event.user) }
-  before_action :set_timezone, only: [:create, :update]
-  before_action :set_as_read!, only: [:show]
+  before_action :set_timezone, only: [ :create, :update ]
+  before_action :set_as_read!, only: [ :show ]
 
   # GET /events
   # GET /events.json
   def index
     @future_events = current_user.relevant_events.in_the_future.with_attached_image.
-    includes(:comments, :address, user: [avatar_attachment: :blob])
+    includes(:comments, :address, user: [ avatar_attachment: :blob ])
     @past_events = @scrolled_objects # Returned objects in batches of 10.
   end
 
@@ -42,7 +42,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to @event, notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -57,7 +57,7 @@ class EventsController < ApplicationController
     @event.address || @event.build_address
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to @event, notice: "Event was successfully updated." }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit }
@@ -71,14 +71,14 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to events_url, notice: "Event was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def remove_image
     @event.image.purge
-    redirect_to @event, notice: 'Image has been removed.'
+    redirect_to @event, notice: "Image has been removed."
   end
 
   def calendar
@@ -88,7 +88,7 @@ class EventsController < ApplicationController
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = current_user.relevant_events.with_attached_image.includes(comments: :created_by, users: [avatar_attachment: :blob]).find_by(id: params[:id])
+    @event = current_user.relevant_events.with_attached_image.includes(comments: :created_by, users: [ avatar_attachment: :blob ]).find_by(id: params[:id])
     redirect_to events_path unless @event
   end
 
@@ -100,7 +100,7 @@ private
   def event_params
     params.require(:event).permit(:name, :description, :start_date, :end_date,
       :timezone, :image, user_ids: [],
-      address_attributes: [:id, :street_1, :street_2, :city, :state, :zip,
-      :location, :_destroy])
+      address_attributes: [ :id, :street_1, :street_2, :city, :state, :zip,
+      :location, :_destroy ])
   end
 end

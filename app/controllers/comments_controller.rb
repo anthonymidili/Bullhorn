@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_commentable
-  before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :deny_access!, only: [:edit, :update, :destroy],
+  before_action :set_comment, only: [ :edit, :update, :destroy ]
+  before_action :deny_access!, only: [ :edit, :update, :destroy ],
   unless:  -> { correct_user?(@comment.created_by) }
 
   # GET /comments/new
@@ -24,22 +24,22 @@ class CommentsController < ApplicationController
       if @comment.save
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.prepend("comments", 
+            turbo_stream.prepend("comments",
             partial: "comments/comment",
             locals: { comment: @comment }),
-            turbo_stream.replace("form_comment", 
+            turbo_stream.replace("form_comment",
             partial: "comments/form",
             locals: { commentable: @commentable, comment: @commentable.comments.build })
           ]
         end
         format.html {
-          redirect_to @commentable, notice: 'Comment was successfully created.'
+          redirect_to @commentable, notice: "Comment was successfully created."
         }
         format.json { render :show, status: :created, location: @comment }
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("form_comment", 
+            turbo_stream.replace("form_comment",
             partial: "comments/form",
             locals: { commentable: @commentable, comment: @comment })
           ]
@@ -57,19 +57,19 @@ class CommentsController < ApplicationController
       if @comment.update(comment_params)
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(@comment, 
+            turbo_stream.replace(@comment,
             partial: "comments/comment",
             locals: { comment: @comment })
           ]
         end
         format.html {
-          redirect_to @commentable, notice: 'Comment was successfully updated.'
+          redirect_to @commentable, notice: "Comment was successfully updated."
         }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@comment, "form"), 
+            turbo_stream.replace(helpers.dom_id(@comment, "form"),
             partial: "comments/form",
             locals: { commentable: @commentable, comment: @comment })
           ]
@@ -85,11 +85,11 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.turbo_stream { 
-        render turbo_stream: turbo_stream.remove(@comment) 
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.remove(@comment)
       }
       format.html {
-        redirect_to @commentable, notice: 'Comment was successfully destroyed.'
+        redirect_to @commentable, notice: "Comment was successfully destroyed."
       }
       format.json { head :no_content }
     end

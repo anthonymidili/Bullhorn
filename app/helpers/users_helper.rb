@@ -9,9 +9,9 @@ module UsersHelper
 
   def admin_form(user)
     if user.is_admin
-      'users/remove_admin'
+      "users/remove_admin"
     else
-      'users/add_admin'
+      "users/add_admin"
     end
   end
 

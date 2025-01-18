@@ -5,7 +5,7 @@ class Website < ApplicationRecord
   validates :address, presence: true
 
   def self.list_links
-    all.map { |website| website.create_link }.join(', ').html_safe
+    all.map { |website| website.create_link }.join(", ").html_safe
   end
 
   def create_link

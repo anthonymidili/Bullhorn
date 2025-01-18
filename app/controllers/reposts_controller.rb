@@ -10,7 +10,7 @@ class RepostsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.prepend(
-              "posts", partial: "posts/post", 
+              "posts", partial: "posts/post",
               locals: { post: @post }
             ),
             turbo_stream.replace_all(
@@ -21,15 +21,15 @@ class RepostsController < ApplicationController
               ".#{helpers.dom_id(@reposting, "who_reposted")}",
               partial: "reposts/count", locals: { post: @reposting }
             )
-          ]      
+          ]
         end
         format.html {
-          redirect_back(fallback_location: root_path, notice: 'Successfully reposted.')
+          redirect_back(fallback_location: root_path, notice: "Successfully reposted.")
         }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { 
-          redirect_back(fallback_location: root_path, notice: 'Repost already exists.')
+        format.html {
+          redirect_back(fallback_location: root_path, notice: "Repost already exists.")
         }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -51,11 +51,10 @@ class RepostsController < ApplicationController
             ".#{helpers.dom_id(@reposting, "who_reposted")}",
             partial: "reposts/count", locals: { post: @reposting }
           )
-          
-        ]      
+        ]
       end
       format.html {
-        redirect_back(fallback_location: root_path, notice: 'Successfully Unreposted.')
+        redirect_back(fallback_location: root_path, notice: "Successfully Unreposted.")
       }
     end
   end

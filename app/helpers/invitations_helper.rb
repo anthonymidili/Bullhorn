@@ -5,14 +5,14 @@ module InvitationsHelper
 
   def status_icon(status)
     case status
-    when 'going'
+    when "going"
       raw('<i class="fa-solid fa-circle-check" style="color: green;"></i>')
-    when 'maybe'
+    when "maybe"
       raw('<i class="fa-solid fa-question-circle" style="color: #ffa933;"></i>')
-    when 'cant_go'
+    when "cant_go"
       raw('<i class="fa-solid fa-times-circle" style="color: red;"></i>')
     else
-      ''
+      ""
     end
   end
 end

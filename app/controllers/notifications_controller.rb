@@ -17,7 +17,7 @@ class NotificationsController < ApplicationController
       if @receive_mail.update(receive_mail_params)
         format.html {
           redirect_to root_path,
-          notice: 'Notification settings were successfully updated.'
+          notice: "Notification settings were successfully updated."
         }
         format.json { render :show, status: :ok, location: @receive_mail }
       else
@@ -33,7 +33,7 @@ class NotificationsController < ApplicationController
     respond_to do |format|
       format.html {
         redirect_to root_path,
-        notice: 'ALL Notification were marked as read.'
+        notice: "ALL Notification were marked as read."
       }
     end
   end
@@ -42,7 +42,7 @@ private
 
   def receive_mail_params
     params.require(:receive_mail).permit(:for_new_posts,
-      :for_new_events, :for_new_comments, :for_new_relationships, 
+      :for_new_events, :for_new_comments, :for_new_relationships,
       :for_new_likes, :for_new_messages, :send_after_amount, :send_after_unit)
   end
 end

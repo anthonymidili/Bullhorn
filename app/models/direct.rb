@@ -15,7 +15,7 @@ class Direct < ApplicationRecord
 
   def unread_messages_count(current_user)
     current_user.notifications.where(
-      notifiable: messages, 
+      notifiable: messages,
       is_read: false
     ).count
   end
@@ -23,6 +23,6 @@ class Direct < ApplicationRecord
 private
 
   def user_selected
-    errors.add(:base, 'Search and select a user to message.') unless users.length > 0
+    errors.add(:base, "Search and select a user to message.") unless users.length > 0
   end
 end

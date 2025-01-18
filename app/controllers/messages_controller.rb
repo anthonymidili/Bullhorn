@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_direct
   before_action :set_message, only: %i[ show edit update destroy ]
-  before_action :deny_access!, only: [:edit, :update, :destroy],
+  before_action :deny_access!, only: [ :edit, :update, :destroy ],
   unless:  -> { correct_user?(@message.created_by) }
 
   def show
@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.replace("unread_messages_count", partial: "messages/count", 
+          turbo_stream.replace("unread_messages_count", partial: "messages/count",
           locals: { user: current_user })
         ]
       end
@@ -36,13 +36,13 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        @message.broadcast_prepend_to(@direct, target: "messages", partial: "messages/message_frame", 
+        @message.broadcast_prepend_to(@direct, target: "messages", partial: "messages/message_frame",
         locals: { message: @message })
         format.turbo_stream do
           render turbo_stream: [
-            # turbo_stream.prepend("messages", partial: "messages/message", 
+            # turbo_stream.prepend("messages", partial: "messages/message",
             # locals: { message: @message }),
-            turbo_stream.replace("form_message", partial: "messages/form", 
+            turbo_stream.replace("form_message", partial: "messages/form",
             locals: { direct: @direct, message: @direct.messages.build })
           ]
         end
@@ -51,7 +51,7 @@ class MessagesController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("form_message", partial: "messages/form", 
+            turbo_stream.replace("form_message", partial: "messages/form",
             locals: { direct: @direct, message: @message })
           ]
         end
@@ -65,11 +65,11 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
-        @message.broadcast_replace_to(@direct, target: @message, partial: "messages/message_frame", 
+        @message.broadcast_replace_to(@direct, target: @message, partial: "messages/message_frame",
         locals: { message: @message })
         format.turbo_stream do
           render turbo_stream: [
-            # turbo_stream.replace(@message, partial: "messages/message", 
+            # turbo_stream.replace(@message, partial: "messages/message",
             # locals: { message: @message })
           ]
         end
@@ -78,7 +78,7 @@ class MessagesController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@message, "form"), 
+            turbo_stream.replace(helpers.dom_id(@message, "form"),
             partial: "messages/form",
             locals: { direct: @direct, message: @message })
           ]
@@ -95,8 +95,8 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       @message.broadcast_remove_to(@direct, target: @message)
-      format.turbo_stream { 
-        # render turbo_stream: turbo_stream.remove(@message) 
+      format.turbo_stream {
+        # render turbo_stream: turbo_stream.remove(@message)
       }
       format.html { redirect_to messages_url, notice: "Message was successfully destroyed." }
       format.json { head :no_content }
