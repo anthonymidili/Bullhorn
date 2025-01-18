@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   include InfiniteScroll
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :deny_access!, only: [:edit, :update, :destroy],
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :deny_access!, only: [ :edit, :update, :destroy ],
   unless:  -> { correct_user?(@post.user) }
-  before_action :set_repost, only: [:new, :create]
-  before_action :set_as_read!, only: [:show]
+  before_action :set_repost, only: [ :new, :create ]
+  before_action :set_as_read!, only: [ :show ]
 
   # GET /posts/1
   # GET /posts/1.json
@@ -35,13 +35,13 @@ class PostsController < ApplicationController
         format.turbo_stream
         format.html {
           redirect_to root_path(anchor: "post_#{@post.id}"),
-          notice: 'Post was successfully created.'
+          notice: "Post was successfully created."
         }
         format.json { render :show, status: :created, location: @post }
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form", 
+            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form",
             locals: { post: @post })
           ]
         end
@@ -58,19 +58,19 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(@post, partial: "posts/post", 
+            turbo_stream.replace(@post, partial: "posts/post",
             locals: { post: @post })
           ]
         end
         format.html {
           redirect_to root_path(anchor: "post_#{@post.id}"),
-          notice: 'Post was successfully updated.'
+          notice: "Post was successfully updated."
         }
         format.json { render :show, status: :ok, location: @post }
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form", 
+            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form",
             locals: { post: @post })
           ]
         end
@@ -90,7 +90,7 @@ class PostsController < ApplicationController
       format.turbo_stream
       format.html {
         redirect_to root_path,
-        notice: 'Post was successfully destroyed.'
+        notice: "Post was successfully destroyed."
       }
       format.json { head :no_content }
     end

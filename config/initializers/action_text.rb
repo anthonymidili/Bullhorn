@@ -4,7 +4,7 @@ Rails.application.config.after_initialize do
       attributes = full_attributes.dup
       attributes["content"] = content if content
       if previewable_attachable? && previewable? && preview_image.try(:blob)
-        attributes["url"] = 
+        attributes["url"] =
           Rails.application.routes.url_helpers.
           rails_blob_url(preview_image.blob, only_path: true)
       end

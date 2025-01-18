@@ -13,7 +13,7 @@ class NewActivityMailer < ApplicationMailer
     @notifiable = notifiable
     @action_statement = action_statement
 
-    attachments.inline['bullhorn.png'] = File.read("#{Rails.root}/app/assets/images/bullhorn.png")
+    attachments.inline["bullhorn.png"] = File.read("#{Rails.root}/app/assets/images/bullhorn.png")
 
     mail to: @to_user.email,
     subject: "New Activity - #{@from_user.username} has #{@action_statement}"

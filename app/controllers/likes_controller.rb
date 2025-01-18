@@ -16,15 +16,15 @@ class LikesController < ApplicationController
               ".#{helpers.dom_id(@likeable, "who_liked")}",
               partial: "likes/count", locals: { likeable: @likeable }
             )
-          ]      
+          ]
         end
         format.html {
-          redirect_back(fallback_location: root_path, notice: 'Successfully liked.')
+          redirect_back(fallback_location: root_path, notice: "Successfully liked.")
         }
         format.json { render :show, status: :created, location: @likeable }
       else
-        format.html { 
-          redirect_back(fallback_location: root_path, notice: 'Like already exists.')
+        format.html {
+          redirect_back(fallback_location: root_path, notice: "Like already exists.")
         }
         format.json { render json: @likeable.errors, status: :unprocessable_entity }
       end
@@ -44,10 +44,10 @@ class LikesController < ApplicationController
             ".#{helpers.dom_id(@likeable, "who_liked")}",
             partial: "likes/count", locals: { likeable: @likeable }
           )
-        ]      
+        ]
       end
       format.html {
-        redirect_back(fallback_location: root_path, notice: 'Successfully Unliked.')
+        redirect_back(fallback_location: root_path, notice: "Successfully Unliked.")
       }
     end
   end

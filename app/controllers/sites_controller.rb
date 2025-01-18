@@ -1,7 +1,7 @@
 class SitesController < ApplicationController
   include InfiniteScroll
-  
-  before_action :render_new_link, only: [:index]
+
+  before_action :render_new_link, only: [ :index ]
 
   def index
     if user_signed_in?

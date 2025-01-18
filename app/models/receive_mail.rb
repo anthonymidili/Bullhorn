@@ -4,7 +4,7 @@ class ReceiveMail < ApplicationRecord
   def recent_mail_timed_out?
     if time = last_mail_received
       send_after = send_after_amount.send(send_after_unit)
-      time + send_after < Time.current 
+      time + send_after < Time.current
     else
       true
     end

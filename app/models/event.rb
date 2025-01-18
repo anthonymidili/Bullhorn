@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
-  after_commit :set_as_going, on: [:create]
-  after_commit on: [:create] do
+  after_commit :set_as_going, on: [ :create ]
+  after_commit on: [ :create ] do
     NotifierJob.perform_later(self)
   end
 
@@ -51,36 +51,36 @@ class Event < ApplicationRecord
   end
 
   include ReadNotifications
-  # def read_user_notifications(current_user)
-  #   self.notifications.by_unread.where(recipient: current_user).
-  #   update_all(is_read: true)
-  #   read_comment_notifications(current_user) if self.try(:comments)
-  #   read_like_notifications(current_user) if self.try(:likes)
-  # end
+# def read_user_notifications(current_user)
+#   self.notifications.by_unread.where(recipient: current_user).
+#   update_all(is_read: true)
+#   read_comment_notifications(current_user) if self.try(:comments)
+#   read_like_notifications(current_user) if self.try(:likes)
+# end
 
 private
 
   def set_as_going
     creators_invitation = self.invitations.find_or_create_by(user: self.user)
-    creators_invitation.update_attribute(:status, 'going')
+    creators_invitation.update_attribute(:status, "going")
   end
 
   def future_start_date?
     unless start_date > Time.current
-      errors.add(:start_date, 'must be in the future.')
+      errors.add(:start_date, "must be in the future.")
     end
   end
 
   def ends_before_it_starts?
     unless end_date > start_date
-      errors.add(:end_date, 'must be greater than the start date.')
+      errors.add(:end_date, "must be greater than the start date.")
     end
   end
 
   def is_image_type
-    if image.attached? && !image.content_type.in?(['image/jpg', 'image/jpeg', 'image/gif', 'image/png'])
+    if image.attached? && !image.content_type.in?([ "image/jpg", "image/jpeg", "image/gif", "image/png" ])
       image.purge # delete the uploaded file
-      errors.add(:image, 'Must be an image file.')
+      errors.add(:image, "Must be an image file.")
     end
   end
 end

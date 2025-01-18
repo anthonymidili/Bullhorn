@@ -1,11 +1,11 @@
 class Notification < ApplicationRecord
-  belongs_to :recipient, class_name: 'User', foreign_key: 'recipient_id'
-  belongs_to :notifier, class_name: 'User', foreign_key: 'notifier_id'
+  belongs_to :recipient, class_name: "User", foreign_key: "recipient_id"
+  belongs_to :notifier, class_name: "User", foreign_key: "notifier_id"
   belongs_to :notifiable, polymorphic: true
 
   default_scope  { order(created_at: :desc) }
   scope :by_unread, -> { where(is_read: false) }
-  scope :by_type, -> (type) { where(notifiable_type: type) }
+  scope :by_type, ->(type) { where(notifiable_type: type) }
   scope :by_older_than_month, -> { where("created_at < :date", date: (DateTime.current - 1.month)) }
 
   def self.recent
@@ -23,7 +23,7 @@ class Notification < ApplicationRecord
   end
 
   def self.bell_message_types
-    ["Post", "Comment", "Relationship", "Like", "Event"]
+    [ "Post", "Comment", "Relationship", "Like", "Event" ]
   end
 
   def self.bell_messages

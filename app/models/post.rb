@@ -1,12 +1,12 @@
 class Post < ApplicationRecord
-  after_commit on: [:create] do
+  after_commit on: [ :create ] do
     NotifierJob.perform_later(self)
   end
 
   has_rich_text :body
 
   belongs_to :user
-  
+
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
@@ -14,8 +14,8 @@ class Post < ApplicationRecord
   has_one :repost, dependent: :destroy
   has_one :reposting, through: :repost, source: :reposted
   # Posts that have been reposted by other posts.
-  has_many :reposts, foreign_key: :reposted_id, 
-  class_name: 'Repost', dependent: :destroy
+  has_many :reposts, foreign_key: :reposted_id,
+  class_name: "Repost", dependent: :destroy
   has_many :repostings, through: :reposts, source: :post
 
   # validates :body, presence: true
@@ -38,7 +38,7 @@ class Post < ApplicationRecord
     users = repostings.pluck(:user_id)
     User.where(id: users)
   end
-  
+
   default_scope { order(created_at: :desc) }
 
   def self.by_following(user)

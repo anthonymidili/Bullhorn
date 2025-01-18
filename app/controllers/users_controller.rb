@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   include InfiniteScroll
-  before_action :authenticate_admin!, only: [:destroy, :site_admins, 
-  :add_admin, :remove_admin]
+  before_action :authenticate_admin!, only: [ :destroy, :site_admins,
+  :add_admin, :remove_admin ]
   before_action :set_user,
-  only: [:edit, :update, :destroy, :remove_avatar, :add_admin, 
-  :remove_admin, :media, :followers, :following]
-  before_action :deny_access!, only: [:edit, :update, :remove_avatar],
+  only: [ :edit, :update, :destroy, :remove_avatar, :add_admin,
+  :remove_admin, :media, :followers, :following ]
+  before_action :deny_access!, only: [ :edit, :update, :remove_avatar ],
   unless: -> { correct_user?(@user) }
 
   def index
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'Your profile was updated successfully.'
+      redirect_to @user, notice: "Your profile was updated successfully."
     else
       render :edit
     end
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
       end
       format.html {
         redirect_to site_admins_users_path,
-        notice: 'User was successfully destroyed.'
+        notice: "User was successfully destroyed."
       }
       format.json { head :no_content }
     end
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
 
   def remove_avatar
     @user.avatar.purge
-    redirect_to edit_user_path(@user), notice: 'Your avatar was remove successfully.'
+    redirect_to edit_user_path(@user), notice: "Your avatar was remove successfully."
   end
 
   def search
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.remove(@user),
-          turbo_stream.prepend("admin_users", 
+          turbo_stream.prepend("admin_users",
           partial: "users/index_card",
           locals: { user: @user, users: User.by_admins, show_admin_form: true }),
           turbo_stream.replace("admin_users_count",
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.remove(@user),
-          turbo_stream.prepend("other_users", 
+          turbo_stream.prepend("other_users",
           partial: "users/index_card",
           locals: { user: @user, users: User.by_admins, show_admin_form: true }),
           turbo_stream.replace("admin_users_count",
@@ -150,9 +150,9 @@ private
   def user_params
     params.require(:user).permit(
       :username, :first_name, :last_name, :avatar, :timezone,
-      profile_attributes: [:id, :bio, :workplace, :position, :birthday,
-      :graduated_in, :show_email, :user_id, :_destroy],
-      websites_attributes: [:id, :name, :address, :_destroy]
+      profile_attributes: [ :id, :bio, :workplace, :position, :birthday,
+      :graduated_in, :show_email, :user_id, :_destroy ],
+      websites_attributes: [ :id, :name, :address, :_destroy ]
     )
   end
 end

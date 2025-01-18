@@ -10,7 +10,7 @@ module ApplicationCable
 
     def find_verfied_user
       # User must be logged in or will be rejected from connection.
-      if verified_user = env['warden'].user
+      if verified_user = env["warden"].user
         verified_user
       else
         reject_unauthorized_connection

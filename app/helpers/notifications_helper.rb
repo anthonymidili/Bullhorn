@@ -6,17 +6,17 @@ module NotificationsHelper
 
   def path_to_notifiable(notifiable, anchor = nil)
     case notifiable.class.name
-    when 'Post'
+    when "Post"
       post_url(notifiable, anchor: anchor)
-    when 'Event'
+    when "Event"
       event_url(notifiable, anchor: anchor)
-    when 'Relationship'
+    when "Relationship"
       user_url(notifiable.user, relationship_id: notifiable.id)
     when "Message"
       direct_url(notifiable.direct, anchor: "message_#{notifiable.id}")
     when "Like"
       path_to_notifiable(notifiable.likeable)
-    when 'Comment'
+    when "Comment"
       path_to_notifiable(notifiable.commentable, "comment_#{notifiable.id}")
     else root_url
     end

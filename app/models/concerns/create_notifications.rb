@@ -50,15 +50,15 @@ private
       r_r_m.update_last_mail_received
     end
   end
-  
+
   def create_notification(notifiable, recipient, notifier)
-    notification = 
+    notification =
       notifiable.notifications.create(
         recipient: recipient,
         notifier: notifier,
         action: action_statement(notifiable)
       )
-    
+
     Turbo::StreamsChannel.broadcast_render_later_to(
       "notifications_channel:#{recipient.to_gid_param}",
       partial: "notifications/new",
@@ -67,10 +67,10 @@ private
   end
 
   def comment_or_other_user(notifiable)
-    if notifiable.class.name == 'Comment' || notifiable.class.name == 'Message'
-      'created_by'
+    if notifiable.class.name == "Comment" || notifiable.class.name == "Message"
+      "created_by"
     else
-      'user'
+      "user"
     end
   end
 
@@ -84,17 +84,17 @@ private
 
   def action_statement(notifiable)
     case notifiable.class.name
-    when 'Post'
+    when "Post"
       if notifiable.reposting
-        "Reposted 
-        #{notifiable.reposting.user.username} 
+        "Reposted
+        #{notifiable.reposting.user.username}
         Post - #{notifiable.reposting.body.to_plain_text.truncate(40) if notifiable.reposting.body}"
       else
         "Added a New Post - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
       end
     when "Event"
       "Created a New Event - #{notifiable.name}"
-    when 'Relationship'
+    when "Relationship"
       "Started Following You"
     when "Comment"
       "Commented on

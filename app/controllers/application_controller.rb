@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     @set_timezone ||=
       if user_signed_in?
         unless current_user.timezone
-          current_user.update_attribute(:timezone, 'Eastern Time (US & Canada)')
+          current_user.update_attribute(:timezone, "Eastern Time (US & Canada)")
         end
         Time.zone = current_user.timezone
       end
@@ -27,6 +27,6 @@ class ApplicationController < ActionController::Base
 protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :username ])
   end
 end

@@ -1,10 +1,10 @@
 class RelationshipsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
     @relationship = current_user.relationships.build(relationship_params)
     @user = @relationship.followed
-    
+
     respond_to do |format|
       if @relationship.save
         format.turbo_stream do
@@ -16,7 +16,7 @@ class RelationshipsController < ApplicationController
             turbo_stream.update("following_count_#{current_user.id}", html: current_user.following.count)
           ]
         end
-        format.html { redirect_to @relationship.followed, notice: 'Relationship was successfully created.' }
+        format.html { redirect_to @relationship.followed, notice: "Relationship was successfully created." }
         format.json { render :show, status: :created, location: @relationship.followed }
       else
         format.html { render :new }
@@ -40,7 +40,7 @@ class RelationshipsController < ApplicationController
           turbo_stream.update("following_count_#{current_user.id}", html: current_user.following.count)
         ]
       end
-      format.html { redirect_to @user, notice: 'Relationship was successfully destroyed.' }
+      format.html { redirect_to @user, notice: "Relationship was successfully destroyed." }
       format.json { head :no_content }
     end
   end

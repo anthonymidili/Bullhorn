@@ -2,7 +2,7 @@ class DirectsController < ApplicationController
   before_action :authenticate_user!
   include InfiniteScroll
   before_action :set_direct, only: %i[ edit update destroy ]
-  before_action :set_as_read!, only: [:show]
+  before_action :set_as_read!, only: [ :show ]
 
   # GET /directs or /directs.json
   def index
@@ -28,18 +28,18 @@ class DirectsController < ApplicationController
   # POST /directs or /directs.json
   def create
     user = User.search_by(params[:search]).first unless params[:search].blank?
-    @direct = 
+    @direct =
       if user
         current_user.find_or_init_direct_message(user, direct_params)
       else
         current_user.directs.build(direct_params)
       end
-    
+
     respond_to do |format|
       if @direct.save
         format.turbo_stream do
           flash[:notice] = "Direct message was successfully created."
-          render turbo_stream: turbo_stream.action(:redirect, direct_url(@direct)) 
+          render turbo_stream: turbo_stream.action(:redirect, direct_url(@direct))
         end
         #   render turbo_stream: [
         #     turbo_stream.prepend("directs", partial: "directs/direct",
@@ -80,7 +80,7 @@ class DirectsController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@direct, "form"), 
+            turbo_stream.replace(helpers.dom_id(@direct, "form"),
             partial: "directs/form", locals: { direct: @direct })
           ]
         end
@@ -94,7 +94,7 @@ class DirectsController < ApplicationController
   def destroy
     @direct.destroy
     @from_show = params[:from_show]
-    
+
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to directs_url, notice: "Direct message was successfully destroyed." }
