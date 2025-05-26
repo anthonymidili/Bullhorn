@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.4"
+ruby "3.4.4"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 8.0.1"
@@ -22,9 +22,9 @@ gem "sidekiq", "~> 7.3.4"
 gem "redis", "~> 5.0"
 # Use kredis encapsulates higher-level types and
 # data structures around a single key for Redis
-gem "kredis", "~>1.7.0"
+gem "kredis", "~>1.8.0"
 # Cron like jobs
-gem "sidekiq-scheduler"
+gem "sidekiq-scheduler", "~> 5.0.6"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -66,6 +66,7 @@ gem "hirb", "~> 0.7.3"
 group :development, :test do
   # Call 'binding.b or debugger' anywhere in the code to stop execution and get a debugger console
   gem "debug", ">= 1.0.0"
+  gem "dotenv"
 end
 
 group :development do
