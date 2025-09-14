@@ -6,7 +6,7 @@ ruby "3.4.4"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 8.0.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft", "~> 1.1.0"
+gem "propshaft", "~> 1.2.1"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
@@ -18,13 +18,13 @@ gem "passenger", "~> 6.0", ">= 6.0.18"
 gem "jbuilder", "~> 2.5"
 # Use Redis adapter to run Action Cable in production
 # Background Jobs
-gem "sidekiq", "~> 7.3.4"
+gem "sidekiq", "~> 8.0.7"
 gem "redis", "~> 5.0"
 # Use kredis encapsulates higher-level types and
 # data structures around a single key for Redis
 gem "kredis", "~>1.8.0"
 # Cron like jobs
-gem "sidekiq-scheduler", "~> 5.0.6"
+gem "sidekiq-scheduler", "~> 6.0.1"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -66,7 +66,6 @@ gem "hirb", "~> 0.7.3"
 group :development, :test do
   # Call 'binding.b or debugger' anywhere in the code to stop execution and get a debugger console
   gem "debug", ">= 1.0.0"
-  gem "dotenv"
 end
 
 group :development do
@@ -84,4 +83,4 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]
+gem "tzinfo-data", "~> 1.2025" if Gem.win_platform?

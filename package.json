@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.2.1",
+    "@fortawesome/fontawesome-free": "^7.0.1",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.2",
     "@popperjs/core": "^2.11.6",
@@ -30,8 +30,8 @@
   },
   "engines": {
     "yarn": ">=1.22",
-    "node": ">=21.7",
-    "npm": ">=10.5"
+    "node": ">=22.11",
+    "npm": ">=10.9"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
