@@ -15,6 +15,7 @@
                 %i.fa-solid.fa-trash
           = render 'users/post_user', user: post.user
           .content= post.body
+          -# = render "posts/body", post: post
           .timestamp
             Posted #{time_ago_in_words(post.created_at)} ago
           = render "posts/controls", post: post, 

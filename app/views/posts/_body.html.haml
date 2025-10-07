@@ -1,0 +1,32 @@
+- images = post.body.embeds.select { |e| e.image? }
+
+- if images.any?
+  .carousel.slide{ id: "image-carousel_#{post.id}" }
+    / Carousel indicators
+    .carousel-indicators
+      - images.each_with_index do |image, index|
+        %button{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", bs_slide_to: index }, class: (index == 0 ? 'active' : nil), 'aria-current' => (index == 0 ? 'true' : nil), 'aria-label' => "Slide #{index + 1}" }
+
+    / Carousel items (slides)
+    .carousel-inner
+      - images.each_with_index do |image, index|
+        .center-items.carousel-item{ class: (index == 0 ? 'active' : nil) }
+          = image_tag medium_image(image), class: "d-block img-thumbnail"
+          / Optional: Add a caption
+          .carousel-caption.d-none.d-md-block
+            %figcaption.attachment__caption
+              - if caption = image.try(:caption)
+                = caption
+              - else
+                %span.attachment__name= image.filename
+                %span.attachment__size= number_to_human_size image.byte_size
+              %span •
+              = link_to "Download", rails_blob_path(image, disposition: "attachment")
+
+    / Carousel controls (previous and next buttons)
+    %button.carousel-control-prev{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", bs_slide: :prev } }
+      %span.carousel-control-prev-icon{ 'aria-hidden' => 'true' }
+      %span.visually-hidden Previous
+    %button.carousel-control-next{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", bs_slide: :next } }
+      %span.carousel-control-next-icon{ 'aria-hidden' => 'true' }
+      %span.visually-hidden Next

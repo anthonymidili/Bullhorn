@@ -6,28 +6,6 @@
           %i.fa-solid.fa-user
           View My Profile
       = render 'users/avatar_info', user: @user
-
-.row 
-  .col-4 
-    #carouselExampleIndicators.carousel.slide
-      .carousel-indicators
-        %button.active{type: "button", data: { bs_target: "#carouselExampleIndicators", bs_slide_to: "0" }, aria: { current: "true", label: "Slide 1" }}
-        %button{type: "button", data: { bs_target: "#carouselExampleIndicators", bs_slide_to: "1" }, aria: { label: "Slide 2" }}
-        %button{type: "button", data: { bs_target: "#carouselExampleIndicators", bs_slide_to: "2" }, aria: { label: "Slide 3" }}
-      .carousel-inner
-        .carousel-item.active
-          = image_tag("bullhorn.svg", class: "d-block img-thumbnail", alt: "Welcome to Bullhorn", title: "Welcome to Bullhorn")
-        .carousel-item
-          = image_tag("layout.svg", class: "d-block img-thumbnail", alt: "Layout", title: "Layout")
-        .carousel-item
-          = image_tag("default_avatar.png", class: "d-block img-thumbnail", alt: "Avatar", title: "Avatar")
-      %button.carousel-control-prev{type: "button", data: { bs_target: "#carouselExampleIndicators", bs_slide: "prev" }}
-        %span.carousel-control-prev-icon{aria: { hidden: "true" }}
-        %span.visually-hidden Previous
-      %button.carousel-control-next{type: "button", data: { bs_target: "#carouselExampleIndicators", bs_slide: "next" }}
-        %span.carousel-control-next-icon{aria: { hidden: "true" }}
-        %span.visually-hidden Next
-
   .col-12.col-md-7.col-lg-8
     %h2 Community Feed
     - if @posts.empty?
