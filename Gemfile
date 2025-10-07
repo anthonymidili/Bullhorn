@@ -80,6 +80,7 @@ group :development do
   gem "brakeman", require: false
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "dotenv-rails", "~> 3.1.8"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
