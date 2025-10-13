@@ -13,7 +13,7 @@
             data: { turbo_stream: "new_post" }, title: 'Close' do
               %i.fa-solid.fa-xmark
             %h1 New Post
-          = render 'form', post: @post
+          = render 'posts/form', post: @post
           - if @reposting
             %h3 Reposting Post
             = render @reposting, quoted_post_form: true

@@ -14,8 +14,9 @@
               class: 'delete-link', title: 'Delete' do
                 %i.fa-solid.fa-trash
           = render 'users/post_user', user: post.user
-          .content= post.body
-          -# = render "posts/body", post: post
+          .content
+            = post.body
+            = render "posts/body", post: post, embeds: post.body.embeds
           .timestamp
             Posted #{time_ago_in_words(post.created_at)} ago
           = render "posts/controls", post: post, 

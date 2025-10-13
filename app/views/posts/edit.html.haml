@@ -11,7 +11,7 @@
           - else
             %h1 Edit Post
 
-          = render 'form', post: @post
+          = render 'posts/form', post: @post
           - if @post.reposting
             %h3 Reposting Post
             = render @post.reposting, quoted_post_form: true
