@@ -1,16 +1,18 @@
-%figure{class: "attachment attachment--#{blob.audio? ? 'file' : 'preview'} attachment--#{blob.filename.extension}"}
-  - if blob.video?
-    = video_tag rails_blob_url(blob), controls: true, preload: "metadata", 
-    class: "img-thumbnail"
-  - elsif blob.audio?
-    = audio_tag rails_blob_url(blob), controls: true, preload: "metadata"
-  - elsif blob.image?
-    .photo= image_tag medium_image(blob), class: "img-thumbnail"
-  %figcaption.attachment__caption
-    - if caption = blob.try(:caption)
-      = caption
-    - else
-      %span.attachment__name= blob.filename
-      %span.attachment__size= number_to_human_size blob.byte_size
-    %span •
-    = link_to "Download", rails_blob_path(blob, disposition: "attachment")
+-# Only displaing formated text. Images and other media are handled in _body.html.haml.
+
+-# %figure{class: "attachment attachment--#{blob.audio? ? 'file' : 'preview'} attachment--#{blob.filename.extension}"}
+-#   - if blob.video?
+-#     = video_tag rails_blob_url(blob), controls: true, preload: "metadata", 
+-#     class: "img-thumbnail"
+-#   - elsif blob.audio?
+-#     = audio_tag rails_blob_url(blob), controls: true, preload: "metadata"
+-#   - elsif blob.image?
+-#     .photo= image_tag medium_image(blob), class: "img-thumbnail"
+-#   %figcaption.attachment__caption
+-#     - if caption = blob.try(:caption)
+-#       = caption
+-#     - else
+-#       %span.attachment__name= blob.filename
+-#       %span.attachment__size= number_to_human_size blob.byte_size
+-#     %span •
+-#     = link_to "Download", rails_blob_path(blob, disposition: "attachment")

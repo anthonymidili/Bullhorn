@@ -1,0 +1,43 @@
+- if embeds.any?
+  .carousel.slide{ id: "image-carousel_#{post.id}" }
+    / Carousel indicators
+    - if embeds.size > 1
+      .carousel-indicators
+        - embeds.each_with_index do |attachment, index|
+          %button{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", 
+          bs_slide_to: index }, class: (index == 0 ? 'active' : nil), 
+          'aria-current' => (index == 0 ? 'true' : nil), 
+          'aria-label' => "Slide #{index + 1}" }
+
+    / Carousel items (slides)
+    .carousel-inner
+      - embeds.each_with_index do |attachment, index|
+        %figure{class: "attachment attachment--#{attachment.audio? ? 'file' : 'preview'} attachment--#{attachment.filename.extension}"}
+
+          .center-items.carousel-item{ class: (index == 0 ? 'active' : nil) }
+            - if attachment.video?
+              = video_tag rails_blob_url(attachment), controls: true, preload: "metadata", 
+              class: "img-thumbnail"
+            - elsif attachment.audio?
+              = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata"
+            - elsif attachment.image?
+              .photo= image_tag medium_image(attachment), class: "img-thumbnail"
+            .carousel-caption.d-none.d-md-block
+              %figcaption.attachment__caption
+                - if caption = attachment.try(:caption)
+                  -# Not able to retrieve caption from attachment.
+                  %span.attachment__text= caption
+                - else
+                  %span.attachment__name= attachment.filename
+                  %span.attachment__size= number_to_human_size attachment.byte_size
+                %span •
+                = link_to "Download", rails_blob_path(attachment, disposition: "attachment")
+
+    / Carousel controls (previous and next buttons)
+    - if embeds.size > 1
+      %button.carousel-control-prev{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", bs_slide: :prev } }
+        %span.carousel-control-prev-icon{ 'aria-hidden' => 'true' }
+        %span.visually-hidden Previous
+      %button.carousel-control-next{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", bs_slide: :next } }
+        %span.carousel-control-next-icon{ 'aria-hidden' => 'true' }
+        %span.visually-hidden Next

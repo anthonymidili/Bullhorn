@@ -6,7 +6,7 @@ ruby "3.4.4"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 8.0.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft", "~> 1.2.1"
+gem "propshaft", "~> 1.3.1"
 # Use postgresql as the database for Active Record
 gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
@@ -44,7 +44,7 @@ gem "aws-sdk-s3", require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
 # Haml and haml generator
-gem "haml-rails", "~> 2.0"
+gem "haml-rails", "~> 3.0"
 # devise
 gem "devise", "~> 4.9.0"
 # pagination
@@ -80,6 +80,7 @@ group :development do
   gem "brakeman", require: false
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "dotenv-rails", "~> 3.1.8"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

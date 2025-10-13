@@ -44,13 +44,10 @@ trix-toolbar button.trix-button {
   display: inline-flex;
 }
 
-.trix-content {
-  video, audio, embed, iframe, img {
-    max-height: 600px;
+.content {
+  video, embed, iframe, img {
+    max-height: 500px !important;
     object-fit: contain;
-  }
-  audio {
-    width: 98%;
   }
 }
 
@@ -101,4 +98,22 @@ trix-editor {
 
 .img-thumbnail {
   overflow: hidden;
+}
+
+.carousel-caption {
+  position: unset !important;
+}
+
+.carousel-indicators {
+  position: unset !important;
+}
+
+.trix-content .attachment--file {
+  border: unset !important;
+}
+
+.carousel.slide {
+  background-color: #151515;
+  padding-top: 10px;
+  border-radius: 6px;
 }
