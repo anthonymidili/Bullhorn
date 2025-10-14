@@ -118,6 +118,9 @@
   --table-link-color: var(--link-color);
   --table-link-color-hover: var(--link-color-hover);
 
+  // Carousel
+  --carousel-background: var(--light-blue);
+
   --bs-body-bg: var(--white);
 }
 
@@ -206,6 +209,9 @@
   --table-today-background: var(--light-goldenrod);
   --table-link-color: var(--red);
   --table-link-color-hover: var(--dark-red);
+  
+  // Carousel
+  --carousel-background: var(--black);
 
   --bs-body-bg: var(--light-gray);
 }
