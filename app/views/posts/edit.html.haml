@@ -3,7 +3,7 @@
     .modal_content
       .row.center-content
         .col-12
-          = link_to root_path(anchor: "post_#{@post.id}"), 
+          = link_to close_modal_post_path(@post, anchor: "post_#{@post.id}"), 
           class: "close-btn", title: 'Cancel' do
             %i.fa-solid.fa-xmark
           - if @post.reposting
