@@ -6,9 +6,10 @@
   - @user.posts.each do |post|
     - if post.has_media?
       - post.body.body.attachments.each do |attachment|
-        .col-12.col-md-6.col-lg-3
-          = link_to post do
-            = render "active_storage/blobs/blob", blob: attachment
+        .col-12.col-md-6.col-lg-3 
+          .mt-2.mb-4
+            = link_to post do
+              = render "active_storage/blobs/blob", blob: attachment
 .row
   .col-12
     .links.mb-3
