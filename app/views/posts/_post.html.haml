@@ -15,8 +15,7 @@
                 %i.fa-solid.fa-trash
           = render 'users/post_user', user: post.user
           .content
-            = post.body
-            = render "posts/body", post: post, embeds: post.body.embeds
+            = render "posts/body", post: post, formated_text: formated_text(post), attachments: attachments(post)
           .timestamp
             Posted #{time_ago_in_words(post.created_at)} ago
           = render "posts/controls", post: post, 
