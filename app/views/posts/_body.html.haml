@@ -22,9 +22,9 @@
             - elsif attachment.audio?
               = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata"
             - elsif attachment.image?
-              = link_to rails_blob_path(attachment) do
+              = link_to rails_blob_path(attachment), target: "_blank" do
                 .photo= image_tag medium_image(attachment), class: "img-thumbnail"
-            .carousel-caption.d-none.d-md-block
+            .carousel-caption
               %figcaption.attachment__caption
                 - if caption = attachment.try(:caption)
                   %span.attachment__text= caption
