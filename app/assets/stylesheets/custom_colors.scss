@@ -24,6 +24,7 @@
   --dark-green-ting: #022c02;
   --blue-ting: #fafafb;
   --ice-blue: #d4e6f0;
+  --carousel-blue: #b6d3e3;
   --light-blue: #85d5ff;
   --shakespear: #55acd9;
   --blue: #0d6efd;
@@ -119,7 +120,7 @@
   --table-link-color-hover: var(--link-color-hover);
 
   // Carousel
-  --carousel-background: var(--light-blue);
+  --carousel-background: var(--carousel-blue);
 
   --bs-body-bg: var(--white);
 }
