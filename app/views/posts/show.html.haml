@@ -1,7 +1,8 @@
 - provide :title, 'Comments'
 .row.center-content
   .col-12.col-md-10
-    = render @post, from_show: true
+    %div{data: { controller: "media" }}
+      = render @post, from_show: true
     .links.mb-3
       = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do
         %i.fa-solid.fa-hand-point-left

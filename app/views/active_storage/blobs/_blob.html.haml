@@ -1,9 +1,10 @@
 %figure{class: "attachment attachment--#{blob.audio? ? 'file' : 'preview'} attachment--#{blob.filename.extension}"}
   - if blob.video?
     = video_tag rails_blob_url(blob), controls: true, preload: "metadata", 
-    class: "img-thumbnail"
+    class: "img-thumbnail", data: { action: "play->media#play", media_target: "player" }
   - elsif blob.audio?
-    = audio_tag rails_blob_url(blob), controls: true, preload: "metadata"
+    = audio_tag rails_blob_url(blob), controls: true, preload: "metadata", 
+    data: { action: "play->media#play", media_target: "player" }
   - elsif blob.image?
     .photo= image_tag medium_image(blob), class: "img-thumbnail"
   %figcaption.attachment__caption

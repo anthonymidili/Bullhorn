@@ -14,7 +14,7 @@
         = link_to users_path, title: 'Explore Users', class: "btn btn-primary btn-lg" do
           %i.fa-solid.fa-users
           Explore Users
-    = turbo_frame_tag "posts" do
+    = turbo_frame_tag "posts", data: { controller: "media" } do
       = render @posts
     -# Infinate scroll posts with turbo.
     = render "infinate_scroll/load_more"
