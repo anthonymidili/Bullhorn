@@ -18,9 +18,10 @@
           .center-items.carousel-item{ class: (index == 0 ? 'active' : nil) }
             - if attachment.video?
               = video_tag rails_blob_url(attachment), controls: true, preload: "metadata", 
-              class: "img-thumbnail"
+              class: "img-thumbnail", data: { action: "play->media#play", media_target: "player" }
             - elsif attachment.audio?
-              = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata"
+              = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata",
+              data: { action: "play->media#play", media_target: "player" }
             - elsif attachment.image?
               = link_to rails_blob_path(attachment), target: "_blank" do
                 .photo= image_tag medium_image(attachment), class: "img-thumbnail"

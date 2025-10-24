@@ -9,7 +9,7 @@
 
 %h1 Messages
 .message-box
-  = turbo_frame_tag "messages" do
+  = turbo_frame_tag "messages", data: { controller: "media" } do
     = render @messages
   -# Infinate scroll comments with turbo.
   = render "infinate_scroll/load_more"

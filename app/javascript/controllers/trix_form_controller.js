@@ -8,7 +8,7 @@ export default class extends Controller {
     const allowedTypes = ["image/png", "image/jpg", "image/jpeg", "image/gif", 
     "image/tiff", "image/bmp", "image/webp", "video/mp4", "video/mpeg", "video/mpg", 
     "video/mov", "video/avi", "video/wmv", "video/m4v", "video/flv", "video/webm", 
-    "video/mkv", "video/m2v", "audio/mp3", "audio/ogg", "audio/m4a", "audio/wma", 
+    "video/mkv", "video/m2v", "audio/mp3", "audio/ogg", "audio/m4a", "audio/wma", "audio/x-ms-wma", 
     "audio/wav", "audio/aac", "audio/flac", "audio/aiff", "audio/aif", "audio/mpeg"]
 
     if (!allowedTypes.includes(event.file.type)) {
