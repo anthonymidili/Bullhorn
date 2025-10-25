@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.4.4"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 8.0.1"
+gem "rails", "~> 8.1.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", "~> 1.3.1"
 # Use postgresql as the database for Active Record
@@ -12,6 +12,8 @@ gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
 # gem 'puma', '~> 3.12'
 gem "passenger", "~> 6.0", ">= 6.0.18"
+# Fiddle is an extension to translate a foreign function interface (FFI) with ruby.
+gem "fiddle", "~> 1.1.8"
 # Use Uglifier as compressor for JavaScript assets
 # gem 'uglifier', '>= 1.3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
