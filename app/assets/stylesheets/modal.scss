@@ -28,7 +28,7 @@
 .close-btn {
   float: right;
   @extend .red;
-  height: 1em;
+  height: auto;
   svg {
     height: 1em;
     width: unset;

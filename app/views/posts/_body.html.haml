@@ -23,8 +23,8 @@
               = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata",
               data: { action: "play->media#play", media_target: "player" }
             - elsif attachment.image?
-              = link_to rails_blob_path(attachment), target: "_blank" do
-                .photo= image_tag medium_image(attachment), class: "img-thumbnail"
+              = link_to large_image_post_path(post) do
+                .photo= image_tag large_or_medium_image(attachment, size = nil), class: "img-thumbnail"
             .carousel-caption
               %figcaption.attachment__caption
                 - if caption = attachment.try(:caption)

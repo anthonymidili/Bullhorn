@@ -1,0 +1,11 @@
+= turbo_frame_tag @post do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12
+          = link_to close_modal_post_path(@post, anchor: "post_#{@post.id}"), 
+          class: "close-btn", title: 'Cancel' do
+            %i.fa-solid.fa-xmark
+        .col-12
+          = render "posts/body", post: @post, formated_text: formated_text(@post), 
+          attachments: attachments(@post), size: :large

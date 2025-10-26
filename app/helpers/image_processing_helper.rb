@@ -1,10 +1,22 @@
 module ImageProcessingHelper
+  def large_image(image)
+    image.variant(resize_to_limit: [ 1300, 1300 ])
+  end
+
   def medium_image(image)
     image.variant(resize_to_limit: [ 600, 600 ])
   end
 
   def thumb_image(image)
     image.variant(resize_to_fill: [ 250, 250 ]).processed.url
+  end
+
+  def large_or_medium_image(image, size = nil)
+    if size.present?
+      medium_image(image)
+    else
+      large_image(image)
+    end
   end
 
   def display_file(file)
