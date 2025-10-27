@@ -1,6 +1,6 @@
 = formated_text
 - if attachments.any?
-  .carousel.slide{ id: "image-carousel_#{post.id}" }
+  .carousel.slide{ id: "image-carousel_#{post.id}", data: { bs_interval: "false", bs_touch: "false" }}
     / Carousel indicators
     - if attachments.size > 1
       .carousel-indicators
