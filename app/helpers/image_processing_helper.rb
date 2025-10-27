@@ -32,7 +32,7 @@ module ImageProcessingHelper
           class: "img-thumbnail image-to-view",
           data: {
             image_viewer_target: "image",
-            action: "dblclick->image-viewer#toggleZoom mousedown->image-viewer#mouseDown mousemove->image-viewer#mouseMove mouseup->image-viewer#mouseUp"
+            action: "dblclick->image-viewer#toggleZoom mousedown->image-viewer#mouseDown mousemove->image-viewer#mouseMove mouseup->image-viewer#mouseUp touchstart->image-viewer#touchStart touchmove->image-viewer#touchMove touchend->image-viewer#touchEnd"
           },
           draggable: false
         )
