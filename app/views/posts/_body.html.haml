@@ -23,8 +23,7 @@
               = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata",
               data: { action: "play->media#play", media_target: "player" }
             - elsif attachment.image?
-              = link_to large_image_post_path(post) do
-                .photo= image_tag large_or_medium_image(attachment, size = nil), class: "img-thumbnail"
+              .photo= large_or_link_image(post, attachment, fullscreen ||= nil)
             .carousel-caption
               %figcaption.attachment__caption
                 - if caption = attachment.try(:caption)

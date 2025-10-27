@@ -11,14 +11,6 @@ module ImageProcessingHelper
     image.variant(resize_to_fill: [ 250, 250 ]).processed.url
   end
 
-  def large_or_medium_image(image, size = nil)
-    if size.present?
-      medium_image(image)
-    else
-      large_image(image)
-    end
-  end
-
   def display_file(file)
     if file.variable?
       link_to image_tag(file.variant(resize_to_limit: [ 1000, 1000 ])),
@@ -30,6 +22,16 @@ module ImageProcessingHelper
       link_to image_tag(file, width: 1000), file
     else
       link_to file.filename, rails_blob_path(file, disposition: :attachment)
+    end
+  end
+
+  def large_or_link_image(post, attachment, fullscreen = nil)
+    if fullscreen
+      image_tag large_image(attachment), class: "img-thumbnail"
+    else
+      link_to large_image_post_path(post) do
+        image_tag medium_image(attachment), class: "img-thumbnail"
+      end
     end
   end
 end
