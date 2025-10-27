@@ -13,6 +13,9 @@ application.register("check-box-select-all", CheckBoxSelectAllController)
 import HideOnScrollController from "./hide_on_scroll_controller"
 application.register("hide-on-scroll", HideOnScrollController)
 
+import ImageViewerController from "./image_viewer_controller"
+application.register("image-viewer", ImageViewerController)
+
 import MediaController from "./media_controller"
 application.register("media", MediaController)
 

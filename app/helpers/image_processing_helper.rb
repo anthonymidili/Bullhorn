@@ -27,7 +27,16 @@ module ImageProcessingHelper
 
   def large_or_link_image(post, attachment, fullscreen = nil)
     if fullscreen
-      image_tag large_image(attachment), class: "img-thumbnail"
+      content_tag(:div, class: "image-viewer-container", data: { controller: "image-viewer" }) do
+        image_tag(large_image(attachment),
+          class: "img-thumbnail image-to-view",
+          data: {
+            image_viewer_target: "image",
+            action: "dblclick->image-viewer#toggleZoom mousedown->image-viewer#mouseDown mousemove->image-viewer#mouseMove mouseup->image-viewer#mouseUp"
+          },
+          draggable: false
+        )
+      end
     else
       link_to large_image_post_path(post) do
         image_tag medium_image(attachment), class: "img-thumbnail"

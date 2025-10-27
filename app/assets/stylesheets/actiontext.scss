@@ -118,3 +118,23 @@ trix-editor {
   padding-top: 10px;
   border-radius: 6px;
 }
+
+.image-viewer-container {
+  /* Restrict the size of the visible area */
+  overflow: hidden;
+  position: relative;
+}
+
+.image-to-view {
+  width: 100%;
+  transform-origin: 0 0; /* Ensures the image scales and pans from its top-left corner */
+  cursor: grab;
+  transition: transform 0.2s ease-in-out;
+  user-select: none; /* Prevents text selection during drag */
+}
+
+/* Optional: Add a smooth transition for the transform */
+.image-to-view.grabbing {
+  cursor: grabbing;
+  transition: none; /* Disables transition while dragging */
+}
