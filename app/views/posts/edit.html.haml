@@ -6,6 +6,7 @@
           = link_to close_modal_post_path(@post, anchor: "post_#{@post.id}"), 
           class: "close-btn", title: 'Cancel' do
             %i.fa-solid.fa-xmark
+        .col-12
           - if @post.reposting
             %h1 Edit Repost
           - else

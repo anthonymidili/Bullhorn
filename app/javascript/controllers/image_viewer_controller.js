@@ -6,9 +6,9 @@ export default class extends Controller {
   static targets = ["image"];
   static values = {
     scale: { type: Number, default: 1 },
-    zoomLevel: { type: Number, default: 2 },
-    dragDamping: { type: Number, default: 0.5 },
-    dragThreshold: { type: Number, default: 5 },
+    zoomLevel: { type: Number, default: 3 },
+    dragDamping: { type: Number, default: 2.0 },
+    dragThreshold: { type: Number, default: 2 },
   };
 
   initialize() {
