@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   include InfiniteScroll
-  before_action :set_post, only: [ :show, :edit, :update, :destroy, :close_modal, :large_image ]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy, :large_image ]
   before_action :deny_access!, only: [ :edit, :update, :destroy ],
   unless:  -> { correct_user?(@post.user) }
   before_action :set_repost, only: [ :new, :create ]
@@ -12,7 +12,6 @@ class PostsController < ApplicationController
   def show
     # @post set in InfiniteScroll.rb.
     @comment = @post.comments.build
-    @hidden = true
   end
 
   # GET /posts/new
@@ -94,10 +93,6 @@ class PostsController < ApplicationController
       }
       format.json { head :no_content }
     end
-  end
-
-  def close_modal
-    # @post set in InfiniteScroll.rb.
   end
 
   def large_image

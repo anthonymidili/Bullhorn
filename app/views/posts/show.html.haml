@@ -1,16 +1,1 @@
-- provide :title, 'Comments'
-.row.center-content
-  .col-12.col-md-10
-    %div{data: { controller: "media" }}
-      = render @post, from_show: true
-    .links.mb-3
-      = link_to root_path(anchor: "post_#{@post.id}"), title: 'Back' do
-        %i.fa-solid.fa-hand-point-left
-        Back
-      - if @post.has_media?
-        = link_to media_user_path(@post.user), title: "#{@post.user.username} Photos" do
-          %i.fa-solid.fa-images
-          #{@post.user.username} Media
-    #new_comment
-      = render 'comments/form', commentable: @post, comment: @comment
-    = render 'comments/box', commentable: @post
+= render @post

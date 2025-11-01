@@ -1,11 +1,10 @@
-- provide :title, 'New comment'
-.row.center-content
-  .col-12.col-md-8
-    .mb-3= render @commentable
-    .links.mb-3
-      = link_to path_to_commentable(@commentable), title: 'Back' do
-        %i.fa-solid.fa-hand-point-left
-        Back
-    = render 'form', commentable: @commentable, comment: @comment
-    = render 'comments/box', commentable: @commentable
-    
+= turbo_frame_tag dom_id(@commentable, :new_comment) do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12
+          = link_to @commentable, class: "close-btn", title: 'Cancel' do
+            %i.fa-solid.fa-xmark
+        .col-12
+          = render 'form', commentable: @commentable, comment: @comment
+          = render 'comments/box', commentable: @commentable

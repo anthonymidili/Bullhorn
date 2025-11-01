@@ -1,7 +1,6 @@
-= link_to polymorphic_path(commentable.class.name.downcase, 
-id: commentable.id, anchor: "new_comment"), data: { turbo: false } do
-  %i.fa-regular.fa-comment.fa-xl
-  - if commentable.comments.any?
-    %span.comments-count
-      = commentable.comments.count
-      
+= turbo_frame_tag dom_id(commentable, :new_comment) do 
+  = link_to new_polymorphic_path([ commentable, commentable.comments.build ]) do
+    %i.fa-regular.fa-comment.fa-xl
+    - if commentable.comments.exists?
+      %span.comments-count
+        = commentable.comments.count

@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
             turbo_stream.prepend("comments",
             partial: "comments/comment",
             locals: { comment: @comment }),
-            turbo_stream.replace("form_comment",
+            turbo_stream.replace("form_#{helpers.dom_id(@commentable)}_new_comment",
             partial: "comments/form",
             locals: { commentable: @commentable, comment: @commentable.comments.build })
           ]
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("form_comment",
+            turbo_stream.replace("form_#{helpers.dom_id(@commentable)}_new_comment",
             partial: "comments/form",
             locals: { commentable: @commentable, comment: @comment })
           ]
@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@comment, "form"),
+            turbo_stream.replace("form_#{helpers.dom_id(@commentable)}_#{helpers.dom_id(@comment)}",
             partial: "comments/form",
             locals: { commentable: @commentable, comment: @comment })
           ]
@@ -104,7 +104,7 @@ private
       elsif event_id = params[:event_id]
         Event.all.find_by(id: event_id)
       end
-    end
+  end
 
   def set_comment
     @comment = @commentable.comments.find_by(id: params[:id])

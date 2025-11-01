@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :posts, except: [ :index ] do
     resources :comments, except: [ :index, :show ]
     member do
-      get :close_modal
       get :large_image
     end
   end

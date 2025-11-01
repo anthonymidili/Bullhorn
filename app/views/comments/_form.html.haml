@@ -1,4 +1,5 @@
-= form_with model: [commentable, comment], id: dom_id(comment, "form") do |f|
+= form_with model: [ commentable, comment ], 
+id: "form_#{dom_id(commentable)}_#{dom_id(comment)}" do |f|
   = render 'notifications/error_messages', object: f.object
 
   .field.mb-3

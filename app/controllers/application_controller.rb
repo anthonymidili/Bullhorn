@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_timezone
   include UsersHelper
-  include CommentsHelper
   include NotificationsHelper
 
   def set_timezone
