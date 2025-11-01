@@ -1,4 +1,4 @@
-= turbo_frame_tag @comment, class: "comments" do
+= turbo_frame_tag @comment, class: "comment" do
   = link_to @commentable, class: "close-btn", title: 'Close' do
     %i.fa-solid.fa-xmark
   = render 'users/post_user', user: @comment.created_by

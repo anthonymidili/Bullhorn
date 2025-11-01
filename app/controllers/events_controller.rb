@@ -20,7 +20,6 @@ class EventsController < ApplicationController
   def show
     # @event set in InfiniteScroll.rb.
     @comment = @event.comments.build
-    @hidden = true
   end
 
   # GET /events/new

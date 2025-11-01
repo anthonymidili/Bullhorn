@@ -7,7 +7,7 @@ export default class extends Controller {
   static values = {
     scale: { type: Number, default: 1 },
     zoomLevel: { type: Number, default: 3 },
-    dragDamping: { type: Number, default: 2.0 },
+    dragDamping: { type: Number, default: 1.5 },
     dragThreshold: { type: Number, default: 2 },
   };
 
