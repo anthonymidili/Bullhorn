@@ -9,13 +9,14 @@
   - if direct.name
     %h3= direct.name
   .inline
-    = link_to direct_path(direct, anchor: "footer"), class: "btn btn-primary btn-sm", 
-    data: { turbo: false } do
-      %i.fa-solid.fa-envelope
-      Message
-      - if direct.unread_messages_count(current_user) > 0
-        \-
-        = direct.unread_messages_count(current_user)
-        unread
+    - if from_show.nil?
+      = link_to direct_path(direct, anchor: "footer"), class: "btn btn-primary", 
+      data: { turbo: false } do
+        %i.fa-solid.fa-envelope
+        Message
+        - if direct.unread_messages_count(current_user) > 0
+          \-
+          = direct.unread_messages_count(current_user)
+          unread
     - direct.users.all_but_current(current_user).each do |user|
       = render 'users/post_user', user: user

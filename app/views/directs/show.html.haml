@@ -17,3 +17,9 @@
   .anchor
 
 = render "messages/form", direct: @direct, message: @message
+
+.mb-3
+  = link_to directs_path do
+    %i.fa-solid.fa-hand-point-left
+    Back
+    
