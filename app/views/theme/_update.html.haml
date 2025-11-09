@@ -5,17 +5,17 @@
     Theme
   %ul{class: "dropdown-menu dropdown-menu-end dropdown-menu-dark "}
     %li
-      = link_to set_theme_path(theme: 'light'), data: { turbo: false },
+      = link_to set_theme_path(theme: 'light'), data: { turbo_stream: true },
       class: "dropdown-item #{return_active_for_current_theme(:light)}" do
         %i.fa-solid.fa-sun
         Light
     %li
-      = link_to set_theme_path(theme: 'dark'), data: { turbo: false },
+      = link_to set_theme_path(theme: 'dark'), data: { turbo_stream: true },
       class: "dropdown-item #{return_active_for_current_theme(:dark)}" do
         %i.fa-regular.fa-moon
         Dark
     %li
-      = link_to set_theme_path, data: { turbo: false },
+      = link_to set_theme_path, data: { turbo_stream: true },
       class: "dropdown-item #{return_active_for_current_theme(:system)}" do
         %i.fa-solid.fa-clone
         System

@@ -5,7 +5,10 @@ class ThemeController < ApplicationController
     else
       cookies.permanent[:theme] = theme_params[:theme]
     end
-    redirect_to(request.referrer || root_path)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to(request.referrer || root_path, notice: "Theme updated.") }
+    end
   end
 
 private
