@@ -71,5 +71,6 @@ Rails.application.routes.draw do
   end
 
   get "sitemap.xml", to: "sites#sitemap", format: :xml
+  get :privacy_policy, to: "sites#privacy_policy"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -16,6 +16,9 @@ class SitesController < ApplicationController
     allow_other_host: true
   end
 
+  def privacy_policy
+  end
+
 private
 
   def render_new_link

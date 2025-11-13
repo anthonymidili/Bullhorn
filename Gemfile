@@ -47,6 +47,7 @@ gem "aws-sdk-s3", require: false
 gem "bootsnap", ">= 1.1.0", require: false
 # Haml and haml generator
 gem "haml-rails", "~> 3.0"
+gem "html2haml", "~> 2.3.0"
 # devise
 gem "devise", "~> 4.9.0"
 # pagination
