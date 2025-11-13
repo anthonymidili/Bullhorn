@@ -59,6 +59,12 @@ trix-toolbar button.trix-button {
   text-align: center;
 }
 
+figcaption {
+  overflow-wrap: break-word; /* Modern browsers */
+  word-wrap: break-word;    /* Older browsers */
+  overflow: hidden;
+}
+
 // Edit box.
 trix-editor {
   // Button to remove.
