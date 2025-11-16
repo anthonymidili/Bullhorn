@@ -22,23 +22,32 @@ export default class extends Controller {
     this.initialDragX = 0;
     this.initialDragY = 0;
     
-    // Prevent default browser behavior on double-click
-    this.imageTarget.addEventListener('dblclick', (e) => {
-      e.preventDefault();
-    });
     // Prevent default browser behavior like scrolling while dragging on touch devices
     this.imageTarget.addEventListener('touchstart', (e) => {
-      if (this.scaleValue > 1) {
+      // Prevent default scrolling only if we are using a single finger to interact
+      if (e.touches.length === 1) {
         e.preventDefault();
       }
     }, { passive: false });
   }
 
   // Double-click/double-tap logic
-  toggleZoom() {
+  toggleZoom(event) {
     if (this.scaleValue > 1) {
       this.resetZoom();
     } else {
+      // Logic to center zoom on the interaction point (mouse/touch coordinates)
+      const rect = this.element.getBoundingClientRect();
+      const clientX = event.clientX || event.touches[0].clientX;
+      const clientY = event.clientY || event.touches[0].clientY;
+
+      const clickX = clientX - rect.left;
+      const clickY = clientY - rect.top;
+
+      // Calculate new translation values to center zoom on click point
+      this.translateX = (rect.width / 2 - clickX) / this.zoomLevelValue;
+      this.translateY = (rect.height / 2 - clickY) / this.zoomLevelValue;
+
       this.scaleValue = this.zoomLevelValue;
       this.applyConstrainedTransform();
     }
@@ -60,7 +69,7 @@ export default class extends Controller {
       this.initialDragY = event.clientY;
       this.lastX = event.clientX;
       this.lastY = event.clientY;
-      this.imageTarget.style.cursor = "grabbing";
+      this.element.classList.add('grabbing'); // Add CSS class
     }
   }
 
@@ -85,31 +94,34 @@ export default class extends Controller {
   mouseUp() {
     this.isDragging = false;
     this.dragStarted = false;
-    this.imageTarget.style.cursor = "grab";
+    this.element.classList.remove('grab'); // Remove CSS class
   }
 
   // --- Touch events for dragging AND double-tap ---
   touchStart(event) {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - this.lastTap;
+    if (event.touches.length === 1) {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - this.lastTap;
 
-    if (tapLength < 500 && tapLength > 0) {
-      this.lastTap = 0;
-      this.toggleZoom();
-      event.preventDefault();
-      return;
-    } else {
-      this.lastTap = currentTime;
-    }
+      if (tapLength < 500 && tapLength > 0) {
+        this.lastTap = 0;
+        // Pass event to toggleZoom for centering logic
+        this.toggleZoom(event);
+        // event.preventDefault() is handled by the initialize listener
+        return;
+      } else {
+        this.lastTap = currentTime;
+      }
 
-    if (this.scaleValue > 1 && event.touches.length === 1) {
-      this.isDragging = true;
-      const touch = event.touches[0];
-      this.initialDragX = touch.clientX;
-      this.initialDragY = touch.clientY;
-      this.lastX = touch.clientX;
-      this.lastY = touch.clientY;
-      this.imageTarget.style.cursor = "grabbing";
+      if (this.scaleValue > 1) {
+        this.isDragging = true;
+        const touch = event.touches[0];
+        this.initialDragX = touch.clientX;
+        this.initialDragY = touch.clientY;
+        this.lastX = touch.clientX;
+        this.lastY = touch.clientY;
+        this.element.classList.add('grabbing');
+      }
     }
   }
 
@@ -136,7 +148,11 @@ export default class extends Controller {
   touchEnd() {
     this.isDragging = false;
     this.dragStarted = false;
-    this.imageTarget.style.cursor = "grab";
+    this.element.classList.remove('grab');
+  }
+  
+  touchCancel() {
+    this.touchEnd();
   }
 
   // --- Utility methods ---
@@ -157,22 +173,21 @@ export default class extends Controller {
   applyConstrainedTransform() {
     const container = this.element;
     const containerRect = container.getBoundingClientRect();
+    const imageRect = this.imageTarget.getBoundingClientRect();
 
-    // The amount the image overflows its container at the current scale
-    const overflowX = (containerRect.width * this.scaleValue - containerRect.width);
-    const overflowY = (containerRect.height * this.scaleValue - containerRect.height);
-
-    // Calculate the translation limits
-    const maxX = overflowX / 2 / this.scaleValue;
-    const minX = -maxX;
-    const maxY = overflowY / 2 / this.scaleValue;
-    const minY = -maxY;
-
+    // Max movement is half the difference between image width and container width
+    const maxX = (imageRect.width - containerRect.width) / 2 / this.scaleValue;
+    const maxY = (imageRect.height - containerRect.height) / 2 / this.scaleValue;
+    
     // Clamp the translation values
-    const clampedX = clamp(this.translateX, minX, maxX);
-    const clampedY = clamp(this.translateY, minY, maxY);
+    const clampedX = clamp(this.translateX, -maxX, maxX);
+    const clampedY = clamp(this.translateY, -maxY, maxY);
 
-    this.imageTarget.style.transform = `scale(${this.scaleValue}) translate(${clampedX}px, ${clampedY}px)`;
+    // Update internal tracking variables to the clamped values
+    this.translateX = clampedX;
+    this.translateY = clampedY;
+
+    this.applyTransform();
   }
 
   applyTransform() {
