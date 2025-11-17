@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [ :show, :edit, :update, :destroy, :large_image ]
   before_action :deny_access!, only: [ :edit, :update, :destroy ],
   unless:  -> { correct_user?(@post.user) }
-  before_action :set_repost, only: [ :new, :create ]
+  before_action :set_repost, only: [ :show, :new, :create, :edit, :update, :large_image ]
   before_action :set_as_read!, only: [ :show ]
 
   # GET /posts/1
@@ -40,7 +40,8 @@ class PostsController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form",
+            turbo_stream.replace(helpers.dom_id(@post, "form"),
+            partial: "posts/form",
             locals: { post: @post })
           ]
         end
@@ -57,8 +58,9 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(@post, partial: "posts/post",
-            locals: { post: @post })
+            turbo_stream.replace(@post,
+            partial: "posts/post",
+            locals: { post: @post, reposting: @reposting })
           ]
         end
         format.html {
@@ -69,8 +71,9 @@ class PostsController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace(helpers.dom_id(@post, "form"), partial: "posts/form",
-            locals: { post: @post })
+            turbo_stream.replace(helpers.dom_id(@post, "form"),
+            partial: "posts/form",
+            locals: { post: @post, reposting: @reposting })
           ]
         end
         format.html { render :edit }

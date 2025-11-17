@@ -3,7 +3,8 @@
     .modal_content
       .row.center-content
         .col-12
-          = link_to @post, class: "close-btn", title: 'Cancel' do
+          = link_to post_path(@post, "repost[#{:post_id}]" => @reposting.try(:id)), 
+          class: "close-btn", title: 'Cancel' do
             %i.fa-solid.fa-xmark
         .col-12
           - if @post.reposting

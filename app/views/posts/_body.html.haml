@@ -1,11 +1,13 @@
 = formated_text
 - if attachments.any?
-  .carousel.slide{ id: "image-carousel_#{post.id}", data: { bs_interval: "false", bs_touch: "false" }}
+  .carousel.slide{ id: "image-carousel_#{post_reposting_id(post, reposting)}", 
+  data: { bs_interval: "false", bs_touch: "false" }}
     / Carousel indicators
     - if attachments.size > 1
       .carousel-indicators
         - attachments.each_with_index do |attachment, index|
-          %button{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", 
+          %button{ type: :button, 
+          data: { bs_target: "#image-carousel_#{post_reposting_id(post, reposting)}", 
           bs_slide_to: index }, class: (index == 0 ? 'active' : nil), 
           'aria-current' => (index == 0 ? 'true' : nil), 
           'aria-label' => "Slide #{index + 1}" }
@@ -23,7 +25,7 @@
               = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata",
               data: { action: "play->media#play", media_target: "player" }
             - elsif attachment.image?
-              .photo= large_or_link_image(post, attachment, fullscreen ||= nil)
+              .photo= large_or_link_image(post, attachment, fullscreen ||= nil, reposting)
             .carousel-caption
               %figcaption.attachment__caption
                 - if caption = attachment.try(:caption)
@@ -36,9 +38,13 @@
 
     / Carousel controls (previous and next buttons)
     - if attachments.size > 1
-      %button.carousel-control-prev{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", bs_slide: :prev } }
+      %button.carousel-control-prev{ type: :button, 
+      data: { bs_target: "#image-carousel_#{post_reposting_id(post, reposting)}", 
+      bs_slide: :prev } }
         %span.carousel-control-prev-icon{ 'aria-hidden' => 'true' }
         %span.visually-hidden Previous
-      %button.carousel-control-next{ type: :button, data: { bs_target: "#image-carousel_#{post.id}", bs_slide: :next } }
+      %button.carousel-control-next{ type: :button, 
+      data: { bs_target: "#image-carousel_#{post_reposting_id(post, reposting)}", 
+      bs_slide: :next } }
         %span.carousel-control-next-icon{ 'aria-hidden' => 'true' }
         %span.visually-hidden Next

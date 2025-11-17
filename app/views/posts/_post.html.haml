@@ -1,4 +1,6 @@
 - if post.persisted?
+  - reposting ||= nil
+
   = turbo_frame_tag post do
     - unless post.is_repost?
       -# Handle posts and quoted reposts.
@@ -6,7 +8,7 @@
         .post
           - if correct_user?(post.user)
             .links-end
-              = link_to edit_post_path(post), title: 'Edit' do
+              = link_to edit_post_path(post, "repost[#{:post_id}]" => reposting.try(:id)), title: 'Edit' do
                 %i.fa-solid.fa-pen-to-square
                 Edit
               = button_to post_path(post, from_show: from_show ||= nil), method: :delete,
@@ -15,14 +17,14 @@
                 %i.fa-solid.fa-trash
           = render 'users/post_user', user: post.user
           .content
-            = render "posts/body", post: post, formated_text: formated_text(post), 
+            = render "posts/body", post: post, reposting: reposting, formated_text: formated_text(post), 
             attachments: attachments(post)
           .timestamp
             Posted #{time_ago_in_words(post.created_at)} ago
           = render "posts/controls", post: post, 
           quoted_post_form: quoted_post_form ||= false
           - if post.reposting
-            .mt-3= render post.reposting
+            .mt-3= render post.reposting, reposting: post
     - else
       -# Handle reposts.
       %div{id: "post_#{post.id}", class: 'post'}
@@ -36,4 +38,4 @@
           = post.user.username
           reposted
         - if post.reposting
-          .mt-1= render post.reposting
+          .mt-1= render post.reposting, reposting: post
