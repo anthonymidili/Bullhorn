@@ -22,6 +22,10 @@
         = f.label :password_confirmation, class: "form-label"
         = f.password_field :password_confirmation, autocomplete: "off",
         class: "form-control"
+      .mb-3
+        Please read the 
+        = link_to "Privacy Policy", privacy_policy_path, target: "_blank"
+        before signing up.
       .honeypot.mb-3
         = label_tag :body, "Body", for: "body", class: "form-label"
         = text_field_tag :body, nil, id: "body", class: "form-control",

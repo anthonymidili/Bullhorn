@@ -1,6 +1,6 @@
 {
   "name": "BullhornXL",
-  "version": "v-2.5.2511",
+  "version": "v-2.6.2511",
   "description": "Social media site.",
   "main": "index.js",
   "repository": "bullhornxl.com",
@@ -20,7 +20,7 @@
     "bootstrap-icons": "^1.10.3",
     "cocoon-js": "^0.0.5",
     "coffeescript": "^2.7.0",
-    "esbuild": "^0.25.3",
+    "esbuild": "^0.27.0",
     "jquery": "^3.4.1",
     "math": "^0.0.3",
     "postcss": "^8.4.20",

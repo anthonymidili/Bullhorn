@@ -5,5 +5,6 @@
         = link_to 'https://ttfh.co', target: '_blank' do
           = image_tag 'TinFoilHat_WebDesign_LetterHead.svg'
       .col-6.col-md-9.col-lg-10
-        .float-end
-          = link_to 'Find a bug? Report it!', new_bug_report_path
+        .links-end
+          = link_to 'Find a bug? Report it!', new_bug_report_path, class: "text-nowrap"
+          = link_to "Privacy Policy", privacy_policy_path, class: "text-nowrap"
