@@ -1,11 +1,16 @@
 .row
-  .col-12.col-md-6.col-lg-4
-    .center
-      %b Welcome to
-      %h1 BullhornXL
-      A place to shout to the world
-  .col-12.col-md-6.col-lg-8
-    = link_to 'Log in', user_session_path
-    or
-    = link_to 'Sign up', new_user_registration_path
-    to get started
+  .col-12.col-md-6
+    .vertical-center
+      .center-all
+        %b Welcome to
+        %h1 BullhornXL
+        .logo-background 
+          = image_tag "bullhorn.svg", alt: "BullhornXL Logo", class: "logo-main mb-3"
+        .mb-1 A place to shout to the world
+  .col-12.col-md-6
+    .vertical-center.mb-4
+      .d-grid.gap-2.col-8
+        = link_to 'Log in', user_session_path, class: "btn btn-primary btn-lg"
+        .line-around-text
+          %span or
+        = link_to 'Sign up', new_user_registration_path, class: "btn btn-success btn-lg"

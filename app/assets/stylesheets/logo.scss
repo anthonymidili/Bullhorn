@@ -1,0 +1,15 @@
+.logo-main {
+  height: 215px;
+  width: auto;
+}
+
+.logo-background {
+  height: 250px;
+  width: 250px;
+  background-color: var(--logo-background);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
