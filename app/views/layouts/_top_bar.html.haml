@@ -49,12 +49,12 @@
                 sign out
         - else
           %li.nav-item
-            = link_to new_user_registration_path, title: 'Sign up', class: "nav-link" do
-              %i.fa-solid.fa-user-plus
-              Sign up
-          %li.nav-item
             = link_to user_session_path, title: 'Log in', class: "nav-link" do
               %i.fa-solid.fa-sign-in-alt
               Log in
+          %li.nav-item
+            = link_to new_user_registration_path, title: 'Sign up', class: "nav-link" do
+              %i.fa-solid.fa-user-plus
+              Sign up
 
 = render 'layouts/sub_top_bar' if user_signed_in?
