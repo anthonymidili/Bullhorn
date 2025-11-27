@@ -10,13 +10,7 @@ class UsersController < ApplicationController
   unless: -> { correct_user?(@user) }
 
   def index
-    @users =
-      if params[:search]
-        User.by_username.search_by(params[:search]).
-        with_attached_avatar.includes(:profile)
-      else
-        User.by_username.with_attached_avatar.includes(:profile)
-      end
+    @users = @scrolled_objects # Returned objects in batches of 10.
     @show_occupation = true
   end
 

@@ -15,8 +15,10 @@ module InfiniteScroll
   def set_objects
     if user_signed_in? && @from_controller == "sites" && @from_action == "index"
       sites_objects
-    elsif @from_controller == "users" && @from_action == "show"
+    elsif @from_controller == "users" && @from_action == "index"
       users_objects
+    elsif @from_controller == "users" && @from_action == "show"
+      user_posts_objects
     elsif @from_controller == "events" && @from_action == "index"
       events_objects
     elsif @from_controller == "posts" && @from_action == "show"
@@ -39,6 +41,20 @@ module InfiniteScroll
   end
 
   def users_objects
+    setup_page
+    @objects =
+      if params[:search]
+        User.by_username.search_by(params[:search]).
+        with_attached_avatar.includes(:profile)
+      else
+        User.by_username.with_attached_avatar.includes(:profile)
+      end
+    @append_to = "users"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def user_posts_objects
     setup_page
     @user = User.find_by(id: @id)
     @objects =

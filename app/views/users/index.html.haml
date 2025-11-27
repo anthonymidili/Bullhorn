@@ -4,6 +4,9 @@
   .col-12
     %h1 Explore Users
     %p
-      = @users.count
+      = @objects.count
       users
-  = render 'users/badge', users: @users
+= turbo_frame_tag "users", class: "row" do
+  = render @users
+-# Infinate scroll users with turbo.
+= render "infinate_scroll/load_more"

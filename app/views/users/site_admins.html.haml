@@ -8,8 +8,8 @@
   .col-12
     %h2= render "users/count", users: @users.by_admins, name: "Admin"
     = turbo_frame_tag "admin_users", class: "row" do
-      = render 'users/badge', users: @users.by_admins, show_admin_form: @show_admin_form
+      = render @users.by_admins, show_admin_form: @show_admin_form
     %hr/
     %h2= render "users/count", users: @users.by_other_users, name: "Other"
     = turbo_frame_tag "other_users", class: "row" do
-      = render 'users/badge', users: @users.by_other_users, show_admin_form: @show_admin_form
+      = render @users.by_other_users, show_admin_form: @show_admin_form
