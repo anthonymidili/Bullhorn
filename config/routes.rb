@@ -59,7 +59,7 @@ Rails.application.routes.draw do
 
   resources :bug_reports
 
-  resources :infinate_scroll, only: [ :index ]
+  resources :infinite_scroll, only: [ :index ]
 
   get "set_theme", to: "theme#update"
 

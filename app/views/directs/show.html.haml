@@ -11,8 +11,8 @@
 .message-box
   = turbo_frame_tag "messages", data: { controller: "media" } do
     = render @messages
-  -# Infinate scroll comments with turbo.
-  = render "infinate_scroll/load_more"
+  -# Infinite scroll comments with turbo.
+  = render "infinite_scroll/load_more"
   -# New messages will push older messages up
   .anchor
 

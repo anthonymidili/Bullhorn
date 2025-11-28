@@ -11,7 +11,7 @@ module InfiniteScroll
     @from_action = params[:from_action] || self.action_name
   end
 
-  # Load objects to infinately scroll and where to append them.
+  # Load objects to infinitely scroll and where to append them.
   def set_objects
     if user_signed_in? && @from_controller == "sites" && @from_action == "index"
       sites_objects

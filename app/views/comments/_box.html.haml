@@ -2,5 +2,5 @@
   %h3 Comments
   = turbo_frame_tag "comments" do
     = render @scrolled_objects || commentable.comments
-  -# Infinate scroll comments with turbo.
-  = render "infinate_scroll/load_more"
+  -# Infinite scroll comments with turbo.
+  = render "infinite_scroll/load_more"

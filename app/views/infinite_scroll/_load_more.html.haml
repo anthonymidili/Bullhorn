@@ -1,0 +1,9 @@
+- if @next_page
+  - if request.format.turbo_stream?
+    = turbo_stream.replace "load_more_#{@from_controller}" do
+      = render "infinite_scroll/loading_frame"
+  - else
+    = render "infinite_scroll/loading_frame"
+- else
+  = turbo_stream.remove "load_more_#{@from_controller}"
+  

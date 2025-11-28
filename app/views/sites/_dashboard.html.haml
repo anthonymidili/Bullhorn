@@ -16,8 +16,8 @@
           Explore Users
     = turbo_frame_tag "posts", data: { controller: "media" } do
       = render @posts
-    -# Infinate scroll posts with turbo.
-    = render "infinate_scroll/load_more"
+    -# Infinite scroll posts with turbo.
+    = render "infinite_scroll/load_more"
 
 = turbo_frame_tag "new_post" do
   = render "posts/new_link"

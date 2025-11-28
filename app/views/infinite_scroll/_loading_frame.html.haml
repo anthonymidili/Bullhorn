@@ -1,0 +1,5 @@
+= turbo_frame_tag "load_more_#{@from_controller}",
+src: infinite_scroll_index_path(from_controller: @from_controller, 
+from_action: @from_action, page: @next_page, id: @id, search: params[:search], 
+format: :turbo_stream), loading: :lazy do
+  Loading more ...
