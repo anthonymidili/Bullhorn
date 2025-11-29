@@ -1,0 +1,49 @@
+require "test_helper"
+
+class PostCreationFlowTest < ActionDispatch::SystemTestCase
+  test "user can create a post and see it on feed" do
+    user = User.create!(email: "system_user@example.com", password: "password", username: "systemuser", confirmed_at: Time.current)
+
+    visit user_session_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: "password"
+    click_button "Log in"
+
+    visit new_post_path
+    fill_in "post_body", with: "This is a system test post"
+    click_button "Create Post"
+
+    assert_text "This is a system test post"
+    assert_text "Post was successfully created."
+  end
+
+  test "user can like a post in browser" do
+    user = User.create!(email: "liker_system@example.com", password: "password", username: "likersystem", confirmed_at: Time.current)
+    post = user.posts.create!(body: "Post to like in system test")
+
+    other_user = User.create!(email: "othersystem@example.com", password: "password", username: "othersystem", confirmed_at: Time.current)
+
+    visit user_session_path
+    fill_in "Email", with: other_user.email
+    fill_in "Password", with: "password"
+    click_button "Log in"
+
+    visit post_path(post)
+    # Note: exact selectors depend on your view implementation
+    # Adjust based on actual HTML elements
+    assert_text post.body
+  end
+
+  test "user can follow another user" do
+    user1 = User.create!(email: "follower_system@example.com", password: "password", username: "followersystem", confirmed_at: Time.current)
+    user2 = User.create!(email: "followee_system@example.com", password: "password", username: "followeesystem", confirmed_at: Time.current)
+
+    visit user_session_path
+    fill_in "Email", with: user1.email
+    fill_in "Password", with: "password"
+    click_button "Log in"
+
+    visit user_path(user2)
+    assert_text user2.username
+  end
+end

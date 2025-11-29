@@ -69,6 +69,10 @@ gem "hirb", "~> 0.7.3"
 group :development, :test do
   # Call 'binding.b or debugger' anywhere in the code to stop execution and get a debugger console
   gem "debug", ">= 1.0.0"
+  # Capybara for browser-based system tests
+  gem "capybara", ">= 3.26"
+  gem "selenium-webdriver", "~> 4.18"
+  gem "webdrivers", "~> 5.0"
 end
 
 group :development do
