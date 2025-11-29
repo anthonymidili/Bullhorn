@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "users/registrations" }
 
-  resources :users, only: [ :index, :show, :edit, :update, :destroy ] do
+  resources :users, only: %i[index show edit update destroy] do
     member do
       get :remove_avatar
       patch :add_admin
@@ -18,18 +18,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :relationships, only: [ :create, :destroy ]
+  resources :relationships, only: %i[create destroy]
 
-  resources :posts, except: [ :index ] do
-    resources :comments, except: [ :index, :show ]
+  resources :posts, except: %i[index] do
+    resources :comments, except: %i[index show]
     member do
       get :large_image
     end
   end
 
   resources :events do
-    resources :invitations, only: [ :create, :update ]
-    resources :comments, except: [ :index, :show ]
+    resources :invitations, only: %i[create update]
+    resources :comments, except: %i[index show]
     member do
       get :remove_image
     end
@@ -38,33 +38,33 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :notifications, only: [ :show, :edit, :update ], path_names: { edit: "settings" } do
+  resource :notifications, only: %i[show edit update], path_names: { edit: "settings" } do
     patch :mark_all_as_read
   end
 
-  resources :likes, only: [ :create, :destroy ] do
+  resources :likes, only: %i[create destroy] do
     collection do
       get :who
     end
   end
 
-  resources :reposts, only: [ :create, :destroy ] do
+  resources :reposts, only: %i[create destroy] do
     collection do
       get :who
       get :select
     end
   end
 
-  resource :timezones, only: [ :edit, :update ]
+  resource :timezones, only: %i[edit update]
 
   resources :bug_reports
 
-  resources :infinite_scroll, only: [ :index ]
+  resources :infinite_scroll, only: %i[index]
 
   get "set_theme", to: "theme#update"
 
   resources :directs, path: "direct_messages" do
-    resources :messages, except: [ :index ]
+    resources :messages, except: %i[index]
     collection do
       get "user/:user_id", as: :personal, to: "directs#personal"
     end
@@ -72,5 +72,4 @@ Rails.application.routes.draw do
 
   get "sitemap.xml", to: "sites#sitemap", format: :xml
   get :privacy_policy, to: "sites#privacy_policy"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
