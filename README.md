@@ -29,6 +29,3 @@ bin/rubocop
 # brakeman (security)
 bin/brakeman
 ```
-
-CI: A GitHub Actions workflow at `.github/workflows/ci.yml` will run tests,
-RuboCop and Brakeman on push and pull requests.
