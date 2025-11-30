@@ -15,7 +15,7 @@
     
   = turbo_stream_from "online_users", channel: OnlineChannel
   = turbo_stream_from ["notifications_channel", current_user]
-  %body{class: "#{cookies[:theme]}"}
+  %body{class: safe_theme_class}
     #wrap
       = render 'layouts/top_bar'
 
