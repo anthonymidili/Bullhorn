@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.4.4"
+ruby "4.0.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 8.1.0"
+gem "rails", "~> 8.1.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", "~> 1.3.1"
 # Use postgresql as the database for Active Record
@@ -20,7 +20,7 @@ gem "fiddle", "~> 1.1.8"
 gem "jbuilder", "~> 2.5"
 # Use Redis adapter to run Action Cable in production
 # Background Jobs
-gem "sidekiq", "~> 8.0.7"
+gem "sidekiq", "~> 8.1.0"
 gem "redis", "~> 5.0"
 # Use kredis encapsulates higher-level types and
 # data structures around a single key for Redis
@@ -73,6 +73,8 @@ group :development, :test do
   gem "capybara", ">= 3.26"
   gem "selenium-webdriver", "~> 4.18"
   gem "webdrivers", "~> 5.0"
+  # Pin minitest to 5.x to avoid Rails 8.1 compatibility issues with 6.x
+  gem "minitest", "~> 5.27"
 end
 
 group :development do
@@ -81,13 +83,13 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem "web-console", ">= 3.3.0"
   gem "listen", "~> 3.3"
-  gem "better_errors"
-  gem "binding_of_caller"
+  # gem "better_errors"
+  # gem "binding_of_caller"
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-  gem "dotenv-rails", "~> 3.1.8"
+  gem "dotenv-rails", "~> 3.2.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

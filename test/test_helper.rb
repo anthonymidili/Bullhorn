@@ -1,16 +1,26 @@
 ENV["RAILS_ENV"] ||= "test"
+
+# Ensure test directory is in load path for requiring test_helper
+test_dir = File.expand_path(__dir__)
+$LOAD_PATH.unshift(test_dir) unless $LOAD_PATH.include?(test_dir)
+
 require_relative "../config/environment"
 require "rails/test_help"
+require "active_job/test_helper"
 
-class ActiveSupport::TestCase
-  # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+module ActiveSupport
+  class TestCase
+    # Run tests serially to avoid issues with parallel test execution
+    # Note: Rails 8.1.x has a known issue where `bin/rails test` doesn't load test files properly.
+    parallelize(workers: 1)
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+    fixtures :all
 
-  # Add more helper methods to be used by all tests here...
-  include Devise::Test::IntegrationHelpers
+    # Add more helper methods to be used by all tests here...
+    include Devise::Test::IntegrationHelpers
+    include ActiveJob::TestHelper
+  end
 end
 
 begin
