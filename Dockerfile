@@ -5,41 +5,53 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install Ubuntu system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential curl git libvips-dev libssl-dev libyaml-dev \
-    zlib1g-dev libffi-dev libreadline-dev nodejs npm \
+    build-essential \
+    curl \
+    git \
+    libvips-dev \
+    libssl-dev \
+    libyaml-dev \
+    zlib1g-dev \
+    libffi-dev \
+    libreadline-dev \
+    nodejs \
+    npm \
+    libreadline-dev \
+    nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Install asdf for Ruby and Node management
-RUN git clone github.com /root/.asdf --branch v0.14.0 --depth 1
+RUN git clone https://github.com/asdf-vm/asdf.git /root/.asdf --branch v0.14.0 --depth 1
 ENV PATH="/root/.asdf/bin:/root/.asdf/shims:$PATH"
 
+# SET WORKDIR: Critical to prevent /bin naming conflicts in Ubuntu 24.04
 WORKDIR /app
 
-# 1. Install Ruby and Node (Must match your .tool-versions)
+# Install Ruby and Node (Must match your .tool-versions)
 COPY .tool-versions ./
 RUN asdf plugin add ruby && \
     asdf plugin add nodejs && \
     asdf install
 
-# 2. COREPACK: Handles the Yarn version requirement in your package.json
+# COREPACK: Handles the Yarn version requirement in your package.json
 # This replaces the need for Homebrew in the container
 RUN corepack enable && corepack prepare yarn@1.22.22 --activate
 
-# 3. Install Ruby Gems
+# Install Ruby Gems
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler:4.0.3 && bundle install --jobs 4 --retry 3
 
-# 4. Install JavaScript dependencies using Yarn
+# Install JavaScript dependencies using Yarn
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-# 5. Copy app and precompile assets
+# Copy app and precompile assets
 # Rails will execute "yarn build" and "yarn build:css" from your package.json automatically
 COPY . .
 RUN SECRET_KEY_BASE=dummy_for_build bundle exec rake assets:precompile
 
 
-# Stage 2: Final Runtime (Optimized for Railway)
+# Stage 2: Final Runtime Image
 FROM ubuntu:24.04
 
 ENV RAILS_ENV=production \
