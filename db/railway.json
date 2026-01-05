@@ -3,11 +3,8 @@
   "build": {
     "builder": "RAILPACK",
     "env": {
-      "RAILPACK_PACKAGES": "libvips42 libvips-dev",
+      "RAILPACK_PACKAGES": "libvips-dev libvips-tools",
       "LD_LIBRARY_PATH": "/usr/lib/x86_64-linux-gnu"
     }
-  },
-  "deploy": {
-    "runtime": "v2"
   }
 }
