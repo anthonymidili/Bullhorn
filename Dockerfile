@@ -24,7 +24,7 @@ ENV MISE_RUBY_VERSION=4.0.0
 ENV MISE_NODEJS_VERSION=22.11.0
 
 # Install Ruby and Node
-RUN mise install
+RUN /usr/local/bin/mise install
 
 # Set environment variables
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
