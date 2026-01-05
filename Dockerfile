@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install mise
-RUN curl https://mise.jdx.dev/install.sh | sh
-ENV PATH="/root/.local/share/mise/shims:/root/.local/bin:$PATH"
+RUN curl -L https://github.com/jdx/mise/releases/download/v2025.12.13/mise-v2025.12.13-linux-x64.tar.gz | tar -xz -C /usr/local/bin --strip-components=1 mise-v2025.12.13-linux-x64/mise
+ENV PATH="/usr/local/bin:$PATH"
 ENV MISE_RUBY_VERSION=4.0.0
 ENV MISE_NODEJS_VERSION=22.11.0
 
