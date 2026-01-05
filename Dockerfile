@@ -54,5 +54,14 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /usr/local /usr/local
 COPY --from=builder /app /app
 
+# Create entrypoint script
+RUN echo '#!/bin/sh\n\
+set -e\n\
+echo "Running database migrations..."\n\
+bundle exec rails db:migrate 2>&1\n\
+echo "Starting Passenger on port ${PORT:-3000}..."\n\
+exec bundle exec passenger start -e production --port ${PORT:-3000} --address 0.0.0.0 --log-level 3\n\
+' > /app/docker-entrypoint.sh && chmod +x /app/docker-entrypoint.sh
+
 EXPOSE 3000
-CMD ["sh", "-c", "exec bundle exec passenger start -e production --port ${PORT:-3000} --address 0.0.0.0"]
+CMD ["/app/docker-entrypoint.sh"]
