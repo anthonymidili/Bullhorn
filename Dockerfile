@@ -55,4 +55,4 @@ COPY --from=builder /usr/local /usr/local
 COPY --from=builder /app /app
 
 EXPOSE 3000
-CMD ["bundle", "exec", "passenger", "start", "-e", "production", "--port", "3000", "--address", "0.0.0.0"]
+CMD bundle exec passenger start -e production --port ${PORT:-3000} --address 0.0.0.0
