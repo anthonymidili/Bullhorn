@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. FIXED: Fully qualified URL for asdf-vm
-RUN git clone https://github.com/asdf-vm/asdf.git /root/.asdf --branch v0.14.0 --depth 1
-ENV PATH="/root/.asdf/bin:/root/.asdf/shims:$PATH"
+RUN git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.14.0 --depth 1
+ENV PATH="/opt/asdf/bin:/opt/asdf/shims:$PATH"
 
 # 3. SET WORKDIR: Prevents naming conflicts with system /bin
 WORKDIR /app
@@ -41,7 +41,7 @@ ENV RAILS_ENV=production \
     RAILS_LOG_TO_STDOUT=true \
     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu \
     LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2 \
-    PATH="/root/.asdf/bin:/root/.asdf/shims:$PATH"
+    PATH="/opt/asdf/bin:/opt/asdf/shims:$PATH"
 
 WORKDIR /app
 
@@ -50,7 +50,7 @@ RUN apt-get update && apt-get install -y \
     libvips42 libvips-tools libjemalloc2 curl libyaml-0-2 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /root/.asdf /root/.asdf
+COPY --from=builder /opt/asdf /opt/asdf
 COPY --from=builder /app /app
 
 RUN useradd -m rails && chown -R rails:rails /app
