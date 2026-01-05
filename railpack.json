@@ -4,7 +4,8 @@
   "deploy": {
     "aptPackages": ["libvips42", "libjemalloc2"],
     "variables": {
-      "LD_LIBRARY_PATH": "/usr/lib/x86_64-linux-gnu"
+      "LD_LIBRARY_PATH": "/usr/lib/x86_64-linux-gnu",
+      "RUBY_DISABLE_JEMALLOC": "1"
     }
   }
 }
