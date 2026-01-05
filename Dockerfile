@@ -21,19 +21,15 @@ RUN asdf plugin add ruby && \
     asdf plugin add nodejs && \
     asdf install
 
-# 5. FIXED: Use npm to install yarn globally within asdf. 
-# This ensures "yarn" is found globally in subsequent Docker layers.
-RUN npm install -g yarn && asdf reshim nodejs
-
-# 6. Install Ruby Gems
+# 5. Install Ruby Gems
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler:4.0.3 && bundle install --jobs 4 --retry 3
 
-# 7. Install JS Dependencies (yarn will now be recognized)
+# 6. Install JS Dependencies using corepack (built into Node.js)
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN corepack enable && yarn install --frozen-lockfile
 
-# 8. Copy app and precompile assets
+# 7. Copy app and precompile assets
 COPY . .
 RUN SECRET_KEY_BASE=dummy_for_build bundle exec rake assets:precompile
 
@@ -61,4 +57,4 @@ RUN useradd -m rails && chown -R rails:rails /app
 USER rails
 
 EXPOSE 3000
-CMD ["bundle", "exec", "passenger", "start", "-e", "production"]
+CMD ["bundle", "exec", "passenger", "start", "-e", "production", "--port", "3000", "--address", "0.0.0.0"]
