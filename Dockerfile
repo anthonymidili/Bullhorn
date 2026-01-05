@@ -9,6 +9,11 @@ RUN apt-get update && apt-get install -y \
     npm \
     curl \
     git \
+    libssl-dev \
+    libyaml-dev \
+    zlib1g-dev \
+    libffi-dev \
+    libreadline-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install mise
