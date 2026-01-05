@@ -27,7 +27,6 @@ bundler_stubs/
 
 # Ignore environment vars
 .env
-.tool-versions
 *.pid*
 
 # Ignore master key for decrypting credentials and more.
