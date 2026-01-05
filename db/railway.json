@@ -1,0 +1,10 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "RAILPACK",
+    "env": {
+      "RAILPACK_BUILD_APT_PACKAGES": "libvips-dev",
+      "RAILPACK_DEPLOY_APT_PACKAGES": "libvips42 libvips-tools"
+    }
+  }
+}
