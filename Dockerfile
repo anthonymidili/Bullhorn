@@ -14,10 +14,6 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libffi-dev \
     libreadline-dev \
-    nodejs \
-    npm \
-    libreadline-dev \
-    nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Install asdf for Ruby and Node management
@@ -31,7 +27,8 @@ WORKDIR /app
 COPY .tool-versions ./
 RUN asdf plugin add ruby && \
     asdf plugin add nodejs && \
-    asdf install
+    asdf install && \
+    asdf reshim nodejs
 
 # COREPACK: Handles the Yarn version requirement in your package.json
 # This replaces the need for Homebrew in the container
