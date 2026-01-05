@@ -1,14 +1,15 @@
-FROM ubuntu:24.04
+# Stage 1: Build environment
+FROM ubuntu:24.04 AS builder
 
-# Install system dependencies
+# Prevent interactive prompts during build
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install only necessary build dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
-    libvips42 \
-    libjemalloc2 \
-    nodejs \
-    npm \
     curl \
     git \
+    libvips-dev \
     libssl-dev \
     libyaml-dev \
     zlib1g-dev \
@@ -16,34 +17,54 @@ RUN apt-get update && apt-get install -y \
     libreadline-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install asdf
-RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+# Install asdf and plugins
+RUN git clone github.com /root/.asdf --branch v0.14.0
 ENV PATH="/root/.asdf/bin:/root/.asdf/shims:$PATH"
 RUN asdf plugin add ruby
-RUN asdf plugin add nodejs
 
-# Set versions
-RUN echo "ruby 4.0.0" >> ~/.tool-versions && echo "nodejs 22.11.0" >> ~/.tool-versions
+# Set up app directory
+WORKDIR /app
 
-# Install Ruby and Node
-RUN asdf install
+# Cache dependencies: Copy only files needed for install first
+COPY .tool-versions Gemfile Gemfile.lock ./
+RUN asdf install && \
+    gem install bundler:4.0.3 && \
+    bundle install --jobs 4 --retry 3
 
-# Set environment variables
-ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so
-
-# Copy Gemfile and install gems
-COPY Gemfile Gemfile.lock ./
-RUN bundle install --jobs 4 --retry 3
-
-# Copy the rest of the app
+# Copy the rest of the application
 COPY . .
 
-# Precompile assets
-RUN bundle exec rake assets:precompile
+# Precompile assets (requires SECRET_KEY_BASE even if dummy)
+RUN SECRET_KEY_BASE=dummy bundle exec rake assets:precompile
 
-# Expose port
+
+# Stage 2: Final Runtime Image (Smaller & More Secure)
+FROM ubuntu:24.04
+
+WORKDIR /app
+
+# Install only runtime libraries (not build tools)
+RUN apt-get update && apt-get install -y \
+    libvips42 \
+    libjemalloc2 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Ruby and gems from the builder stage
+COPY --from=builder /root/.asdf /root/.asdf
+COPY --from=builder /app /app
+
+# Set environment paths
+ENV PATH="/root/.asdf/bin:/root/.asdf/shims:$PATH"
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+ENV RAILS_ENV=production
+ENV RAILS_LOG_TO_STDOUT=true
+
+# Security: Run as a non-root user
+RUN useradd -m rails && chown -R rails:rails /app
+USER rails
+
 EXPOSE 3000
 
-# Start the app
-CMD ["bundle", "exec", "passenger", "start", "-e", "production"]
+# Start app with passenger or puma
+CMD ["bundle", "exec", "passenger", "start"]
