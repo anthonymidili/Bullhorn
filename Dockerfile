@@ -43,23 +43,16 @@ ENV RAILS_ENV=production \
 
 WORKDIR /app
 
-# Install Node.js 22.x, runtime libraries and Ruby build deps
+# Install Node.js 22.x and runtime libraries only
 RUN apt-get update && apt-get install -y \
     libvips42 libvips-tools libjemalloc2 curl libyaml-0-2 ca-certificates gnupg \
-    build-essential git libssl-dev zlib1g-dev libffi-dev libreadline-dev \
-    autoconf bison patch rustc libgmp-dev \
     && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Install ruby-build and compile Ruby 4.0.0
-RUN git clone https://github.com/rbenv/ruby-build.git /tmp/ruby-build && \
-    cd /tmp/ruby-build && ./install.sh && \
-    ruby-build 4.0.0 /usr/local && \
-    rm -rf /tmp/ruby-build
-
+# Copy Ruby installation from builder
+COPY --from=builder /usr/local /usr/local
 COPY --from=builder /app /app
-COPY --from=builder /usr/local/bundle /usr/local/bundle
 
 RUN useradd -m rails && chown -R rails:rails /app
 USER rails
