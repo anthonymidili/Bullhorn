@@ -54,8 +54,5 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /usr/local /usr/local
 COPY --from=builder /app /app
 
-RUN useradd -m rails && chown -R rails:rails /app
-USER rails
-
 EXPOSE 3000
 CMD ["bundle", "exec", "passenger", "start", "-e", "production", "--port", "3000", "--address", "0.0.0.0"]
