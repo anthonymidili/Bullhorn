@@ -14,15 +14,19 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libffi-dev \
     libreadline-dev \
-    mise \
     && rm -rf /var/lib/apt/lists/*
 
-# Set mise versions
-ENV MISE_RUBY_VERSION=4.0.0
-ENV MISE_NODEJS_VERSION=22.11.0
+# Install asdf
+RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+ENV PATH="/root/.asdf/bin:/root/.asdf/shims:$PATH"
+RUN asdf plugin add ruby
+RUN asdf plugin add nodejs
+
+# Set versions
+RUN echo "ruby 4.0.0" >> ~/.tool-versions && echo "nodejs 22.11.0" >> ~/.tool-versions
 
 # Install Ruby and Node
-RUN mise install
+RUN asdf install
 
 # Set environment variables
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
