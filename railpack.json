@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.railpack.com",
-  "buildAptPackages": ["libvips42"],
+  "buildAptPackages": ["libvips42", "libjemalloc2"],
   "deploy": {
     "aptPackages": ["libvips42", "libjemalloc2"],
     "variables": {
