@@ -27,7 +27,7 @@ RUN gem install bundler:4.0.3 && bundle install --jobs 4 --retry 3
 
 # 6. Install JS Dependencies using corepack (built into Node.js)
 COPY package.json yarn.lock ./
-RUN corepack enable && yarn install --frozen-lockfile
+RUN corepack enable && asdf reshim nodejs && yarn install --frozen-lockfile
 
 # 7. Copy app and precompile assets
 COPY . .
