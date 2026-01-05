@@ -14,17 +14,15 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libffi-dev \
     libreadline-dev \
+    mise \
     && rm -rf /var/lib/apt/lists/*
 
-# Install mise
-ENV MISE_INSTALL_PATH=/usr/local/bin
-RUN curl https://mise.jdx.dev/install.sh | sh
-ENV PATH="/usr/local/bin:$PATH"
+# Set mise versions
 ENV MISE_RUBY_VERSION=4.0.0
 ENV MISE_NODEJS_VERSION=22.11.0
 
 # Install Ruby and Node
-RUN /usr/local/bin/mise install
+RUN mise install
 
 # Set environment variables
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
