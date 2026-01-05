@@ -14,9 +14,10 @@ RUN apt-get update && apt-get install -y \
 # Install mise
 RUN curl https://mise.jdx.dev/install.sh | sh
 ENV PATH="/root/.local/share/mise/shims:/root/.local/bin:$PATH"
+ENV MISE_RUBY_VERSION=4.0.0
+ENV MISE_NODEJS_VERSION=22.11.0
 
-# Copy .tool-versions and install Ruby
-COPY .tool-versions ./
+# Install Ruby and Node
 RUN mise install
 
 # Set environment variables
