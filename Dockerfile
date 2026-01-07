@@ -31,7 +31,8 @@ FROM ruby:4.0-slim
 ENV RAILS_ENV=production \
     RAILS_LOG_TO_STDOUT=true \
     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu \
-    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2 \
+    PATH="/usr/local/bin:$PATH"
 
 WORKDIR /app
 
@@ -44,6 +45,9 @@ RUN apt-get update && apt-get install -y \
 
 # Copy gems from builder
 COPY --from=builder /usr/local/lib/ruby/gems/4.0.0 /usr/local/lib/ruby/gems/4.0.0
+
+# Install bundler executable
+RUN gem install bundler
 
 # Copy app from builder
 COPY --from=builder /app /app
