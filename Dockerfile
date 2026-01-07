@@ -31,8 +31,7 @@ FROM ruby:4.0-slim
 ENV RAILS_ENV=production \
     RAILS_LOG_TO_STDOUT=true \
     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu \
-    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2 \
-    PATH="/usr/local/bin:$PATH"
+    LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 WORKDIR /app
 
@@ -43,17 +42,11 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy gems from builder
-COPY --from=builder /usr/local/lib/ruby/gems/4.0.0 /usr/local/lib/ruby/gems/4.0.0
+# Copy bundler config and gems from builder
+COPY --from=builder /usr/local/bundle /usr/local/bundle
 
-# Install bundler executable
-RUN gem install bundler
-
-# Copy app from builder
+# Copy app from builder (includes node_modules and compiled assets)
 COPY --from=builder /app /app
-
-# Ensure gems are installed in runtime
-RUN bundle install --deployment
 
 # Copy and set up entrypoint script
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
