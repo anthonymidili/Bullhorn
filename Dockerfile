@@ -12,9 +12,9 @@ RUN apt-get update && apt-get install -y \
 # Set WORKDIR
 WORKDIR /app
 
-# Install Ruby Gems
+# Install Bundler and Ruby Gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle install --jobs 4 --retry 3
+RUN gem install bundler:4.0.3 && bundle install --jobs 4 --retry 3
 
 # Install JS Dependencies using corepack (built into Node.js)
 COPY package.json yarn.lock ./
@@ -42,7 +42,10 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy from builder
+# Copy gems from builder
+COPY --from=builder /usr/local/lib/ruby/gems/4.0.0 /usr/local/lib/ruby/gems/4.0.0
+
+# Copy app from builder
 COPY --from=builder /app /app
 
 # Copy and set up entrypoint script
