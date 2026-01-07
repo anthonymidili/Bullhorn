@@ -52,6 +52,9 @@ RUN gem install bundler
 # Copy app from builder
 COPY --from=builder /app /app
 
+# Ensure gems are installed in runtime
+RUN bundle install --deployment
+
 # Copy and set up entrypoint script
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN chmod +x /app/docker-entrypoint.sh
