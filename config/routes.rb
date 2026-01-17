@@ -72,4 +72,8 @@ Rails.application.routes.draw do
 
   get "sitemap.xml", to: "sites#sitemap", format: :xml
   get :privacy_policy, to: "sites#privacy_policy"
+
+  # PWA files
+  get "manifest.json", to: redirect("/manifest.json")
+  get "service-worker.js", to: redirect("/service-worker.js")
 end

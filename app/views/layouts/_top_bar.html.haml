@@ -7,7 +7,7 @@
       %span.inline
         = render inline: Rails.root.join('app/assets/images/bullhorn.svg').read
 
-    %button.navbar-toggler{aria: {
+    %button.navbar-toggler.ms-auto{aria: {
     controls: "navbarNavDropdown",
     expanded: "false", label: "Toggle navigation" },
     data: { bs_target: "#navbarNavDropdown",
@@ -56,5 +56,11 @@
             = link_to new_user_registration_path, title: 'Sign up', class: "nav-link" do
               %i.fa-solid.fa-user-plus
               Sign up
+
+    / Install PWA button (hidden by default, shown when installable on mobile only)
+    .d-flex.justify-content-center.align-items-center.w-100.d-lg-none.py-2
+      = link_to '#', id: "pwa-install-button", class: "text-decoration-none", style: "display: none;" do
+        %i.fas.fa-download.me-2
+        Install App
 
 = render 'layouts/sub_top_bar' if user_signed_in?

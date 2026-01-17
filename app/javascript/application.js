@@ -6,6 +6,7 @@ import "./controllers"
 import "trix"
 import "@rails/actiontext"
 import "./jquery"
+import "./pwa"
 
 import * as bootstrap from "bootstrap"
 

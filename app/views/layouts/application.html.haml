@@ -8,6 +8,8 @@
     = favicon_link_tag "bullhorn.png"
     %title= content_for?(:title) ? "BullhornXL | #{yield(:title)}" : "BullhornXL"
 
+    = render 'layouts/pwa_meta_tags'
+
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
