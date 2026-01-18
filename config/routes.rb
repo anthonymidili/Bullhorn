@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       get :media
       get :followers
       get :following
+      post :mark_away
+      post :mark_back
     end
     collection do
       get :search

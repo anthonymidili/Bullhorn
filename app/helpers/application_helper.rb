@@ -5,4 +5,13 @@ module ApplicationHelper
     return root_path unless return_to.start_with?("/")
     return_to
   end
+
+  def body_data_attributes
+    return {} unless user_signed_in?
+
+    {
+      controller: "page-visibility",
+      page_visibility_user_id_value: current_user.id
+    }
+  end
 end

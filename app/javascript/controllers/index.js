@@ -19,6 +19,9 @@ application.register("image-viewer", ImageViewerController)
 import MediaController from "./media_controller"
 application.register("media", MediaController)
 
+import PageVisibilityController from "./page_visibility_controller"
+application.register("page-visibility", PageVisibilityController)
+
 import PushNotificationsController from "./push_notifications_controller"
 application.register("push-notifications", PushNotificationsController)
 

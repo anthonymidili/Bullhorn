@@ -135,7 +135,30 @@ class UsersController < ApplicationController
   def following
   end
 
+  def mark_away
+    users_online = Kredis.unique_list "users_online"
+    users_online.remove current_user.id
+    broadcast_status
+    head :ok
+  end
+
+  def mark_back
+    users_online = Kredis.unique_list "users_online"
+    users_online << current_user.id
+    broadcast_status
+    head :ok
+  end
+
 private
+
+  def broadcast_status
+    Turbo::StreamsChannel.broadcast_update_later_to(
+      "online_users",
+      target: "user_#{current_user.id}_status",
+      partial: "users/status",
+      locals: { user: current_user }
+    )
+  end
 
   def set_user
     @user = User.find_by(id: params[:id])

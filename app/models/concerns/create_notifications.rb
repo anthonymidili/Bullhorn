@@ -84,21 +84,23 @@ private
   end
 
   def push_notification_title(notifiable, notifier)
+    notifier_name = notifier.username || notifier.full_name || "Someone"
+
     case notifiable.class.name
     when "Like"
-      "New Like"
+      "#{notifier_name} liked your content"
     when "Comment"
-      "New Comment"
+      "#{notifier_name} commented"
     when "Relationship"
-      "New Follower"
+      "#{notifier_name} followed you"
     when "Post"
-      notifiable.reposting ? "Post Reshared" : "New Post"
+      notifiable.reposting ? "#{notifier_name} reshared a post" : "#{notifier_name} created a post"
     when "Event"
-      "New Event"
+      "#{notifier_name} created an event"
     when "Message"
-      "New Message"
+      "#{notifier_name} sent you a message"
     else
-      "BullhornXL"
+      "#{notifier_name} - BullhornXL"
     end
   end
 

@@ -15,9 +15,10 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
     
-  = turbo_stream_from "online_users", channel: OnlineChannel
-  = turbo_stream_from ["notifications_channel", current_user]
-  %body{class: safe_theme_class}
+  - if user_signed_in?
+    = turbo_stream_from "online_users", channel: OnlineChannel
+    = turbo_stream_from ["notifications_channel", current_user]
+  %body{class: safe_theme_class, data: body_data_attributes}
     #wrap
       = render 'layouts/top_bar'
 
