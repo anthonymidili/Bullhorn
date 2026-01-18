@@ -19,6 +19,12 @@ application.register("image-viewer", ImageViewerController)
 import MediaController from "./media_controller"
 application.register("media", MediaController)
 
+import PushNotificationsController from "./push_notifications_controller"
+application.register("push-notifications", PushNotificationsController)
+
+import PushNotificationStatusController from "./push_notification_status_controller"
+application.register("push-notification-status", PushNotificationStatusController)
+
 import SearchBoxController from "./search_box_controller"
 application.register("search-box", SearchBoxController)
 
