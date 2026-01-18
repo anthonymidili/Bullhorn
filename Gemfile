@@ -63,6 +63,9 @@ gem "sitemap_generator"
 gem "simple_calendar", "~> 3.0"
 gem "sib-api-v3-sdk"
 
+# Web Push notifications
+gem "web-push"
+
 # Add console tables with Hirb.enable.
 gem "hirb", "~> 0.7.3"
 

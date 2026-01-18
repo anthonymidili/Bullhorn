@@ -73,6 +73,14 @@ Rails.application.routes.draw do
   get "sitemap.xml", to: "sites#sitemap", format: :xml
   get :privacy_policy, to: "sites#privacy_policy"
 
+  # Push notification subscriptions
+  resources :push_subscriptions, only: [ :create ] do
+    collection do
+      delete :destroy
+      get :vapid_public_key
+    end
+  end
+
   # PWA files
   get "manifest.json", to: redirect("/manifest.json")
   get "service-worker.js", to: redirect("/service-worker.js")

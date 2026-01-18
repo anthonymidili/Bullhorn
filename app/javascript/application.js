@@ -7,6 +7,7 @@ import "trix"
 import "@rails/actiontext"
 import "./jquery"
 import "./pwa"
+import "./push_notifications"
 
 import * as bootstrap from "bootstrap"
 

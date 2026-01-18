@@ -18,6 +18,9 @@ class User < ApplicationRecord
   has_many :sent_notifications, foreign_key: "notifier_id",
   class_name: "Notification", dependent: :destroy
 
+  # Push notification subscriptions
+  has_many :push_subscriptions, dependent: :destroy
+
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile, reject_if: :all_blank,
     allow_destroy: true

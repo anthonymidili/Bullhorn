@@ -1,4 +1,6 @@
 class CreateNotifications
+  include Rails.application.routes.url_helpers
+
   def initialize(notifiable)
     notifier = notifiable.send(comment_or_other_user(notifiable))
     recipients = get_recipients(notifiable)
@@ -64,6 +66,72 @@ private
       partial: "notifications/new",
       locals: { user: recipient, notification: notification }
     )
+
+    # Send push notification if user has subscriptions
+    send_push_notification(notifiable, recipient, notifier)
+  end
+
+  def send_push_notification(notifiable, recipient, notifier)
+    return unless recipient.push_subscriptions.any?
+    return if recipient.online? # Only send push if user is offline
+
+    PushNotificationService.send_notification(
+      recipient,
+      title: push_notification_title(notifiable, notifier),
+      body: action_statement(notifiable),
+      url: push_notification_url(notifiable)
+    )
+  end
+
+  def push_notification_title(notifiable, notifier)
+    case notifiable.class.name
+    when "Like"
+      "New Like"
+    when "Comment"
+      "New Comment"
+    when "Relationship"
+      "New Follower"
+    when "Post"
+      notifiable.reposting ? "Post Reshared" : "New Post"
+    when "Event"
+      "New Event"
+    when "Message"
+      "New Message"
+    else
+      "BullhornXL"
+    end
+  end
+
+  def push_notification_url(notifiable)
+    case notifiable.class.name
+    when "Relationship"
+      user_path(notifiable.user_id)
+    when "Post"
+      post_path(notifiable)
+    when "Event"
+      event_path(notifiable)
+    when "Comment"
+      if notifiable.commentable_type == "Post"
+        post_path(notifiable.commentable_id)
+      elsif notifiable.commentable_type == "Event"
+        event_path(notifiable.commentable_id)
+      else
+        root_path
+      end
+    when "Like"
+      if notifiable.likeable_type == "Post"
+        post_path(notifiable.likeable_id)
+      elsif notifiable.likeable_type == "Comment"
+        comment = Comment.find_by(id: notifiable.likeable_id)
+        comment ? post_path(comment.post_id) : root_path
+      else
+        root_path
+      end
+    when "Message"
+      direct_path(notifiable.direct_id)
+    else
+      root_path
+    end
   end
 
   def comment_or_other_user(notifiable)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_29_210415) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_18_031728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -193,6 +193,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_29_210415) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "push_subscriptions", force: :cascade do |t|
+    t.string "auth", null: false
+    t.datetime "created_at", null: false
+    t.text "endpoint", null: false
+    t.string "p256dh", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "endpoint"], name: "index_push_subscriptions_on_user_id_and_endpoint", unique: true
+    t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
+  end
+
   create_table "receive_mails", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.boolean "for_new_comments", default: true
@@ -280,6 +291,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_29_210415) do
   add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "push_subscriptions", "users"
   add_foreign_key "receive_mails", "users"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "followed_id"

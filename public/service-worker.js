@@ -86,3 +86,62 @@ self.addEventListener('fetch', (event) => {
       })
   );
 });
+
+// Push notification event - handle incoming push notifications
+self.addEventListener('push', (event) => {
+  console.log('Push notification received:', event);
+  
+  let notificationData = {
+    title: 'BullhornXL',
+    body: 'You have a new notification',
+    icon: '/icon-192-v5.png',
+    badge: '/icon-192-v5.png',
+    data: { url: '/' }
+  };
+  
+  // Parse the push data if available
+  if (event.data) {
+    try {
+      const data = event.data.json();
+      notificationData = {
+        title: data.title || notificationData.title,
+        body: data.body || data.message || notificationData.body,
+        icon: data.icon || notificationData.icon,
+        badge: data.badge || notificationData.badge,
+        data: { url: data.url || '/' }
+      };
+    } catch (e) {
+      console.error('Error parsing push data:', e);
+    }
+  }
+  
+  event.waitUntil(
+    self.registration.showNotification(notificationData.title, {
+      body: notificationData.body,
+      icon: notificationData.icon,
+      badge: notificationData.badge,
+      data: notificationData.data
+    })
+  );
+});
+
+// Notification click event - handle when user clicks the notification
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      // Check if there's already a window open
+      for (let client of clientList) {
+        if (client.url === event.notification.data.url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // If no window is open, open a new one
+      if (clients.openWindow) {
+        return clients.openWindow(event.notification.data.url);
+      }
+    })
+  );
+});
+

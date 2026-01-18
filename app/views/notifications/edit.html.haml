@@ -1,7 +1,7 @@
 - provide :title, 'Notification settings'
 
 .row.center-content
-  .col-8
+  .col-12.col-lg-10
     %h1 Notification settings
 
     .mb-3
@@ -62,3 +62,30 @@
         = f.label :for_new_likes, 'Direct Messages you', for: 'cb_messages'
       .actions.mb-3
         = f.submit 'Update Notification settings', class: 'btn btn-primary'
+    
+    %hr.my-4
+    
+    %h2 Push Notifications
+    
+    .mb-3
+      %em
+        %b How push notifications work
+        %ul
+          %li
+            Push notifications alert you of new activity even when your browser is closed
+            or the app is not open.
+          %li
+            You will only receive push notifications when you are offline.
+            While online, you'll see real-time notifications in the app.
+          %li
+            %strong Desktop (Chrome, Firefox, Edge, Safari):
+            Works immediately after enabling - notifications arrive even when browser is closed.
+          %li
+            %strong Android:
+            Works in Chrome and most browsers - notifications arrive even when browser is closed.
+          %li
+            %strong iOS (iPhone/iPad):
+            Requires Safari and iOS 16.4+. You must add Bullhorn to your home screen 
+            (tap Share → Add to Home Screen) for notifications to work when Safari is closed.
+    
+    = render "push_subscriptions/enable_button"
