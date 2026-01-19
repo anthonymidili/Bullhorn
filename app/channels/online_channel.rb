@@ -1,4 +1,6 @@
 class OnlineChannel < Turbo::StreamsChannel
+  OFFLINE_DELAY = 3.seconds
+
   def subscribed
     super
     return unless current_user
@@ -7,7 +9,7 @@ class OnlineChannel < Turbo::StreamsChannel
 
   def unsubscribed
     return unless current_user
-    mark_offline
+    schedule_mark_offline
   end
 
 private
@@ -18,10 +20,9 @@ private
     broadcast_status
   end
 
-  def mark_offline
-    users_online = Kredis.unique_list "users_online"
-    users_online.remove current_user.id
-    broadcast_status
+  def schedule_mark_offline
+    # Delay marking offline to prevent flickering during quick navigation
+    MarkOfflineJob.set(wait: OFFLINE_DELAY).perform_later(current_user.id)
   end
 
   def broadcast_status
