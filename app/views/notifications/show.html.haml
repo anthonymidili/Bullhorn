@@ -1,19 +1,18 @@
 .row.center-content
   .col-12.col-md-8
     #notifications{ data: { controller: "push-notification-status" } }
-      %p
-        .links
-          = button_to 'mark ALL as read', mark_all_as_read_notifications_path,
-          title: 'mark ALL notifications as read', class: 'btn btn-primary', 
-          method: :patch, data: { turbo: false }
-          = link_to edit_notifications_path,
-          title: 'Notification Settings', class: 'btn btn-primary' do
-            %i.fa-solid.fa-gear
-            Settings
-          = link_to edit_notifications_path(anchor: "push-notification"), 
-          class: "btn btn-success d-none", id: "setup-push-notifications-button" do
-            %i.fa-solid.fa-bell
-            Setup Push Notifications
+      .mb-3.d-flex.flex-wrap.gap-3
+        = button_to 'mark ALL as read', mark_all_as_read_notifications_path,
+        title: 'mark ALL notifications as read', class: 'btn btn-primary', 
+        method: :patch, data: { turbo: false }
+        = link_to edit_notifications_path,
+        title: 'Notification Settings', class: 'btn btn-primary' do
+          %i.fa-solid.fa-gear
+          Settings
+        = link_to edit_notifications_path(anchor: "push-notification"), 
+        class: "btn btn-success d-none", id: "setup-push-notifications-button" do
+          %i.fa-solid.fa-bell
+          Setup Push Notifications
       .notifications-box.d-flex.flex-column.mb-3
         %h2 Notifications
         - if @recent_notifications.any?
