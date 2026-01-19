@@ -107,32 +107,32 @@ private
   def push_notification_url(notifiable)
     case notifiable.class.name
     when "Relationship"
-      user_path(notifiable.user_id)
+      user_url(notifiable.user_id)
     when "Post"
-      post_path(notifiable)
+      post_url(notifiable)
     when "Event"
-      event_path(notifiable)
+      event_url(notifiable)
     when "Comment"
       if notifiable.commentable_type == "Post"
-        post_path(notifiable.commentable_id)
+        post_url(notifiable.commentable_id)
       elsif notifiable.commentable_type == "Event"
-        event_path(notifiable.commentable_id)
+        event_url(notifiable.commentable_id)
       else
-        root_path
+        root_url
       end
     when "Like"
       if notifiable.likeable_type == "Post"
-        post_path(notifiable.likeable_id)
+        post_url(notifiable.likeable_id)
       elsif notifiable.likeable_type == "Comment"
         comment = Comment.find_by(id: notifiable.likeable_id)
-        comment ? post_path(comment.post_id) : root_path
+        comment ? post_url(comment.post_id) : root_url
       else
-        root_path
+        root_url
       end
     when "Message"
-      direct_path(notifiable.direct_id)
+      direct_url(notifiable.direct_id, anchor: "footer")
     else
-      root_path
+      root_url
     end
   end
 
