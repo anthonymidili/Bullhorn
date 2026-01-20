@@ -94,8 +94,8 @@ self.addEventListener('push', (event) => {
   let notificationData = {
     title: 'BullhornXL',
     body: 'You have a new notification',
-    icon: '/icon-192-v5.png',
-    badge: '/icon-192-v5.png',
+    icon: '/icon-192.png',
+    badge: '/icon-192.png',
     data: { url: '/' }
   };
   
