@@ -1,9 +1,4 @@
 Rails.application.configure do
-  # Devise mailer
-  # config.action_mailer.default_url_options = {
-  #   host: ENV.fetch("DEFAULT_URL") { "localhost:3000" }
-  # }
-
   # SMTP Mailer
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
