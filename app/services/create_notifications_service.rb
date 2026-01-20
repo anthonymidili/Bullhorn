@@ -1,4 +1,4 @@
-class CreateNotifications
+class CreateNotificationsService
   include Rails.application.routes.url_helpers
 
   def initialize(notifiable)

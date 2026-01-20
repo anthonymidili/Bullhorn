@@ -1,7 +1,7 @@
 require "test_helper"
 
 class NotifierJobTest < ActiveSupport::TestCase
-  test "perform enqueues CreateNotifications" do
+  test "perform enqueues CreateNotificationsService" do
     user = User.create!(email: "jobuser@example.com", password: "password", username: "jobuser", confirmed_at: Time.current)
     post = user.posts.create!(body: "Job test post")
 
