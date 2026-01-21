@@ -1,4 +1,4 @@
-class CreateNotifications
+class CreateNotificationsService
   include Rails.application.routes.url_helpers
 
   def initialize(notifiable)
@@ -6,7 +6,8 @@ class CreateNotifications
     recipients = get_recipients(notifiable)
     recipients.each do |recipient|
       if notifiable && recipient && notifier
-        mail_notification(notifiable, recipient, notifier)
+        send_mail_notification(notifiable, recipient, notifier)
+        send_push_notification(notifiable, recipient, notifier)
         create_notification(notifiable, recipient, notifier)
       end
     end
@@ -38,19 +39,42 @@ private
     end
   end
 
-  def mail_notification(notifiable, recipient, notifier)
-    r_r_m = recipient.receive_mail || recipient.create_receive_mail
-    if mail_permitted?(notifiable, recipient) && !recipient.online? &&
-    (!recipient.notifications.has_recent_unread? ||
-    r_r_m.recent_mail_timed_out?)
-      NewActivityMailer.new_activity(
-        recipient,
-        notifier,
-        notifiable,
-        action_statement(notifiable)
-      ).deliver_now
-      r_r_m.update_last_mail_received
-    end
+  def send_mail_notification(notifiable, recipient, notifier)
+    receive_mail = recipient.receive_mail || recipient.create_receive_mail
+
+    return unless sending_permitted?(:mail, notifiable, recipient)
+    return if recipient.online? # Only send mail if user is offline
+    # If no unread notifications, or last mail was long enough ago
+    return unless !recipient.notifications.has_recent_unread? ||
+      receive_mail.recent_mail_timed_out?
+
+    NewActivityMailer.new_activity(
+      recipient,
+      notifier,
+      notifiable,
+      action_statement(notifiable)
+    ).deliver_now
+
+    receive_mail.update_last_mail_received
+  end
+
+  def send_push_notification(notifiable, recipient, notifier)
+    receive_push = recipient.receive_push || recipient.create_receive_push
+
+    return unless recipient.push_subscriptions.any?
+    return unless sending_permitted?(:push, notifiable, recipient)
+    return if recipient.online? # Only send push if user is offline
+    # If last push was long enough ago
+    return unless receive_push.recent_push_timed_out?
+
+    PushNotificationService.send_notification(
+      recipient,
+      title: push_notification_title(notifiable, notifier),
+      body: action_statement(notifiable),
+      url: push_notification_url(notifiable)
+    )
+
+    receive_push.update_last_push_received
   end
 
   def create_notification(notifiable, recipient, notifier)
@@ -65,21 +89,6 @@ private
       "notifications_channel:#{recipient.to_gid_param}",
       partial: "notifications/new",
       locals: { user: recipient, notification: notification }
-    )
-
-    # Send push notification if user has subscriptions
-    send_push_notification(notifiable, recipient, notifier)
-  end
-
-  def send_push_notification(notifiable, recipient, notifier)
-    return unless recipient.push_subscriptions.any?
-    return if recipient.online? # Only send push if user is offline
-
-    PushNotificationService.send_notification(
-      recipient,
-      title: push_notification_title(notifiable, notifier),
-      body: action_statement(notifiable),
-      url: push_notification_url(notifiable)
     )
   end
 
@@ -144,11 +153,11 @@ private
     end
   end
 
-  def mail_permitted?(notifiable, recipient)
-    if recipient.receive_mail
+  def sending_permitted?(type, notifiable, recipient)
+    if type == :mail && recipient.receive_mail
       recipient.receive_mail.send("for_new_#{notifiable.class.name.downcase.pluralize}")
-    else
-      true
+    elsif type == :push && recipient.receive_push
+      recipient.receive_push.send("for_new_#{notifiable.class.name.downcase.pluralize}")
     end
   end
 

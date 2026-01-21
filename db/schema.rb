@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_18_031728) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_20_014306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -220,6 +220,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_18_031728) do
     t.index ["user_id"], name: "index_receive_mails_on_user_id"
   end
 
+  create_table "receive_pushes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "for_new_comments", default: true, null: false
+    t.boolean "for_new_events", default: true, null: false
+    t.boolean "for_new_likes", default: true, null: false
+    t.boolean "for_new_messages", default: true, null: false
+    t.boolean "for_new_posts", default: true, null: false
+    t.boolean "for_new_relationships", default: true, null: false
+    t.datetime "last_push_received", precision: nil
+    t.integer "send_after_amount", default: 0, null: false
+    t.string "send_after_unit", default: "minutes", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_receive_pushes_on_user_id", unique: true
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "followed_id", null: false
@@ -293,6 +309,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_18_031728) do
   add_foreign_key "profiles", "users"
   add_foreign_key "push_subscriptions", "users"
   add_foreign_key "receive_mails", "users"
+  add_foreign_key "receive_pushes", "users"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "reposts", "posts"

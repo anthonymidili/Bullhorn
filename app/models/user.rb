@@ -26,6 +26,7 @@ class User < ApplicationRecord
     allow_destroy: true
 
   has_one :receive_mail, dependent: :destroy
+  has_one :receive_push, dependent: :destroy
 
   has_many :phones, as: :callable, dependent: :destroy
   accepts_nested_attributes_for :phones, reject_if: :all_blank,

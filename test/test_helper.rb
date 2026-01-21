@@ -8,6 +8,17 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "active_job/test_helper"
 
+# Stub PushNotificationService for tests to avoid actual HTTP calls
+module PushNotificationServiceTestStub
+  def send_notification(user, title:, body:, url: "/")
+    # Don't actually send push notifications in tests
+    Rails.logger.debug "Test: Skipping actual push notification to user #{user.id}"
+    true
+  end
+end
+
+PushNotificationService.singleton_class.prepend(PushNotificationServiceTestStub)
+
 module ActiveSupport
   class TestCase
     # Run tests serially to avoid issues with parallel test execution
@@ -16,6 +27,9 @@ module ActiveSupport
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
+
+    # Set default URL options for tests
+    Rails.application.routes.default_url_options[:host] = "localhost:3000"
 
     # Add more helper methods to be used by all tests here...
     include Devise::Test::IntegrationHelpers
