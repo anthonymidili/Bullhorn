@@ -49,7 +49,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "haml-rails", "~> 3.0"
 gem "html2haml", "~> 2.3.0"
 # devise
-gem "devise", "~> 4.9.0"
+gem "devise", "~> 5.0.0"
 # pagination
 gem "kaminari", "~> 1.2.1"
 # https://github.com/nathanvda/cocoon - Dynamic nested forms using jQuery
@@ -75,7 +75,7 @@ group :development, :test do
   # Capybara for browser-based system tests
   gem "capybara", ">= 3.26"
   gem "selenium-webdriver", "~> 4.18"
-  gem "webdrivers", "~> 5.0"
+  gem "webdrivers", "~> 5.2"
   # Pin minitest to 5.x to avoid Rails 8.1 compatibility issues with 6.x
   gem "minitest", "~> 5.27"
 end
