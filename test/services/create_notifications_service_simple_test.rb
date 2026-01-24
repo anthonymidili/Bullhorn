@@ -1,6 +1,8 @@
 require "test_helper"
 
 class CreateNotificationsServiceSimpleTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   test "checks user online status via Redis for push notifications" do
     author = User.create!(email: "author@test.com", password: "password", username: "author", confirmed_at: Time.current)
     recipient = User.create!(email: "recipient@test.com", password: "password", username: "recipient", confirmed_at: Time.current)
@@ -97,5 +99,53 @@ class CreateNotificationsServiceSimpleTest < ActiveSupport::TestCase
     CreateNotificationsService.new(post2)
     receive_push.reload
     assert_equal first_push_time.to_i, receive_push.last_push_received.to_i, "Push timestamp should not change within throttle window"
+  end
+
+  test "sends email fallback when push subscription expires" do
+    author = User.create!(email: "author_expired@test.com", password: "password", username: "author_expired", confirmed_at: Time.current)
+    recipient = User.create!(email: "recipient_expired@test.com", password: "password", username: "recipient_expired", confirmed_at: Time.current)
+    Relationship.create!(user: recipient, followed: author)
+
+    # Set up push preferences (user previously had push enabled)
+    receive_push = recipient.create_receive_push(for_new_posts: true)
+    receive_mail = recipient.create_receive_mail(for_new_posts: false) # Email disabled for posts
+
+    # User is offline
+    users_online = Kredis.unique_list "users_online"
+    users_online.remove recipient.id
+
+    # No active push subscriptions (expired)
+    assert_equal 0, recipient.push_subscriptions.count
+
+    # Should send email as fallback, honoring push preferences (not email preferences)
+    post = author.posts.create!(body: "Test post")
+
+    assert_enqueued_emails 1 do
+      CreateNotificationsService.new(post)
+    end
+
+    # Email timestamp should be updated, not push timestamp
+    receive_mail.reload
+    assert_not_nil receive_mail.last_mail_received, "Email timestamp should be updated when push expired"
+  end
+
+  test "does not send email fallback for users who never had push" do
+    author = User.create!(email: "author_never@test.com", password: "password", username: "author_never", confirmed_at: Time.current)
+    recipient = User.create!(email: "recipient_never@test.com", password: "password", username: "recipient_never", confirmed_at: Time.current)
+    Relationship.create!(user: recipient, followed: author)
+
+    # No receive_push record (user never enabled push)
+    receive_mail = recipient.create_receive_mail(for_new_posts: false) # Email disabled
+
+    # User is offline
+    users_online = Kredis.unique_list "users_online"
+    users_online.remove recipient.id
+
+    # Should NOT send email (user never had push, email is disabled)
+    post = author.posts.create!(body: "Test post")
+
+    assert_no_enqueued_emails do
+      CreateNotificationsService.new(post)
+    end
   end
 end

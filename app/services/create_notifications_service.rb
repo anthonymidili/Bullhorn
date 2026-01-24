@@ -42,11 +42,7 @@ private
   def send_mail_notification(notifiable, recipient, notifier)
     receive_mail = recipient.receive_mail || recipient.create_receive_mail
 
-    # If user previously had push subscription but it expired (has receive_push record but no active subscriptions),
-    # send email regardless of settings to ensure they get notifications
-    had_push_subscription = recipient.receive_push.present? && recipient.push_subscriptions.none?
-
-    return unless had_push_subscription ? true : sending_permitted?(:mail, notifiable, recipient)
+    return unless sending_permitted?(:mail, notifiable, recipient)
     return if recipient.online? # Only send mail if user is offline
     # If no unread notifications, or last mail was long enough ago
     return unless !recipient.notifications.has_recent_unread? ||
@@ -63,22 +59,43 @@ private
   end
 
   def send_push_notification(notifiable, recipient, notifier)
-    receive_push = recipient.receive_push || recipient.create_receive_push
+    # Check if user has expired push subscription BEFORE creating records
+    # (had receive_push record before but now has no active subscriptions)
+    receive_push = recipient.receive_push
+    has_expired_push = receive_push.present? && recipient.push_subscriptions.none?
 
-    return unless recipient.push_subscriptions.any?
+    # Now ensure receive_push and receive_mail exist for the rest of the logic
+    receive_push ||= recipient.create_receive_push
+    receive_mail = recipient.receive_mail || recipient.create_receive_mail
+
+    # Only proceed if user has active subscriptions OR expired subscription
+    return unless recipient.push_subscriptions.any? || has_expired_push
     return unless sending_permitted?(:push, notifiable, recipient)
     return if recipient.online? # Only send push if user is offline
     # If last push was long enough ago
     return unless receive_push.recent_push_timed_out?
 
-    PushNotificationService.send_notification(
-      recipient,
-      title: push_notification_title(notifiable, notifier),
-      body: action_statement(notifiable),
-      url: push_notification_url(notifiable)
-    )
+    # If push subscription expired, send email as fallback
+    if has_expired_push
+      NewActivityMailer.new_activity(
+        recipient,
+        notifier,
+        notifiable,
+        action_statement(notifiable)
+      ).deliver_later
 
-    receive_push.update_last_push_received
+      receive_mail.update_last_mail_received
+    else
+      # Normal push notification
+      PushNotificationService.send_notification(
+        recipient,
+        title: push_notification_title(notifiable, notifier),
+        body: action_statement(notifiable),
+        url: push_notification_url(notifiable)
+      )
+
+      receive_push.update_last_push_received
+    end
   end
 
   def create_notification(notifiable, recipient, notifier)
