@@ -1,6 +1,7 @@
 require "rubygems"
 require "aws-sdk-s3"
 require "sitemap_generator"
+
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "https://bullhornxl.com"
 SitemapGenerator::Sitemap.compress = false
@@ -8,11 +9,15 @@ SitemapGenerator::Sitemap.sitemaps_host = "https://#{Rails.application.credentia
 SitemapGenerator::Sitemap.public_path = "tmp/"
 SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/bullhorn/"
 
+# Disable automatic search engine pinging (causes cgi/session error in Ruby 3.3+)
+SitemapGenerator::Sitemap.search_engines = {}
+
+# Use AwsSdkAdapter for S3 uploads
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(
   Rails.application.credentials.dig(:sitemap, :s3_bucket),
-  aws_access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),
-  aws_secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
-  aws_region: Rails.application.credentials.dig(:aws, :region)
+  access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),
+  secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
+  region: Rails.application.credentials.dig(:aws, :region)
 )
 
 SitemapGenerator::Sitemap.create do
