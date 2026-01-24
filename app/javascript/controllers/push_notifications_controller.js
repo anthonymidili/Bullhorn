@@ -8,6 +8,9 @@ export default class extends Controller {
     this.permission = Notification.permission
     await this.checkSubscriptionStatus()
     this.updateButtons()
+    
+    // Auto-resubscribe if permission granted but subscription expired
+    await this.autoResubscribeIfNeeded()
   }
 
   // Convert base64 string to Uint8Array for VAPID key
@@ -172,15 +175,32 @@ export default class extends Controller {
       // Only mark as granted if both permission is granted AND subscription exists
       if (subscription && Notification.permission === 'granted') {
         this.permission = 'granted'
+        this.hasActiveSubscription = true
       } else if (Notification.permission === 'denied') {
         this.permission = 'denied'
+        this.hasActiveSubscription = false
       } else {
         // Permission is granted or default, but no subscription exists
         this.permission = 'default'
+        this.hasActiveSubscription = false
       }
     } catch (error) {
       console.error('Error checking subscription status:', error)
       this.permission = 'default'
+      this.hasActiveSubscription = false
+    }
+  }
+
+  async autoResubscribeIfNeeded() {
+    // If user has granted permission but no active subscription, silently re-subscribe
+    if (Notification.permission === 'granted' && !this.hasActiveSubscription) {
+      console.log('Push subscription expired, automatically re-subscribing...')
+      const success = await this.subscribe()
+      if (success) {
+        console.log('Successfully re-subscribed to push notifications')
+      } else {
+        console.warn('Failed to auto re-subscribe. User may need to manually re-enable.')
+      }
     }
   }
 

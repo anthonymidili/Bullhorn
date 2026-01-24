@@ -42,7 +42,11 @@ private
   def send_mail_notification(notifiable, recipient, notifier)
     receive_mail = recipient.receive_mail || recipient.create_receive_mail
 
-    return unless sending_permitted?(:mail, notifiable, recipient)
+    # If user previously had push subscription but it expired (has receive_push record but no active subscriptions),
+    # send email regardless of settings to ensure they get notifications
+    had_push_subscription = recipient.receive_push.present? && recipient.push_subscriptions.none?
+
+    return unless had_push_subscription ? true : sending_permitted?(:mail, notifiable, recipient)
     return if recipient.online? # Only send mail if user is offline
     # If no unread notifications, or last mail was long enough ago
     return unless !recipient.notifications.has_recent_unread? ||
