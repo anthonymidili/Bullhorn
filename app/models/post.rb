@@ -46,6 +46,34 @@ class Post < ApplicationRecord
     where(user_id: following_ids)
   end
 
+  def self.suggested_for(user)
+    # Posts from users that your followers follow (followers-of-followers)
+    # Prioritized by engagement (likes + comments) and recency
+
+    # Get IDs of users that the current user's followers follow
+    followers_of_followers_ids = User
+      .joins(:relationships)
+      .where(relationships: { user_id: user.followers.select(:id) })
+      .distinct
+      .pluck(:id)
+
+    # Exclude users the current user already follows and themselves
+    following_ids = user.following.ids << user.id
+    suggested_user_ids = followers_of_followers_ids - following_ids
+
+    # If no suggested users, show trending posts from everyone (except current user)
+    if suggested_user_ids.empty?
+      suggested_user_ids = User.where.not(id: user.id).pluck(:id)
+    end
+
+    # Return posts from these users, ordered by engagement then recency
+    where(user_id: suggested_user_ids)
+      .select("posts.*, COUNT(DISTINCT likes.id) as likes_count, COUNT(DISTINCT comments.id) as comments_count")
+      .left_joins(:likes, :comments)
+      .group("posts.id")
+      .order(Arel.sql("likes_count DESC, comments_count DESC, posts.created_at DESC"))
+  end
+
   def post_type
     if !!reposting && body?
       "quoted_repost"

@@ -7,13 +7,27 @@
           View My Profile
       = render 'users/avatar_info', user: @user
   .col-12.col-md-7.col-lg-8
-    %h2 Community Feed
+    - feed_type = params[:feed_type] || 'discovery'
+    .mb-3
+      .btn-group(role="group")
+        %a.btn.btn-outline-primary{href: root_path(feed_type: 'discovery'), class: feed_type == 'discovery' ? 'active' : ''}
+          %i.fa-solid.fa-compass
+          For You
+        %a.btn.btn-outline-primary{href: root_path(feed_type: 'community'), class: feed_type == 'community' ? 'active' : ''}
+          %i.fa-solid.fa-users
+          Community Feed
     - if @posts.empty?
       .callout
-        %p Start following users...
-        = link_to users_path, title: 'Explore Users', class: "btn btn-primary btn-lg" do
-          %i.fa-solid.fa-users
-          Explore Users
+        - if feed_type == 'community'
+          %p Start following users...
+          = link_to users_path, title: 'Explore Users', class: "btn btn-primary btn-lg" do
+            %i.fa-solid.fa-users
+            Explore Users
+        - else
+          %p No new posts available. Try following more users!
+          = link_to users_path, title: 'Explore Users', class: "btn btn-primary btn-lg" do
+            %i.fa-solid.fa-users
+            Explore Users
     = turbo_frame_tag "posts", data: { controller: "media" } do
       = render @posts
     -# Infinite scroll posts with turbo.
