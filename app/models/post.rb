@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   has_one :reposting, through: :repost, source: :reposted
   # Posts that have been reposted by other posts.
   has_many :reposts, foreign_key: :reposted_id,
-  class_name: "Repost", dependent: :destroy
+    class_name: "Repost", dependent: :destroy
   has_many :repostings, through: :reposts, source: :post
 
   # validates :body, presence: true
@@ -47,31 +47,41 @@ class Post < ApplicationRecord
   end
 
   def self.suggested_for(user)
-    # Posts from users that your followers follow (followers-of-followers)
-    # Prioritized by engagement (likes + comments) and recency
+    # Posts from users that your followers follow (followers-of-followers), ordered by
+    # engagement (likes + comments) and recency, with a hard fallback to trending posts
+    # from everyone else if that network is empty.
 
-    # Get IDs of users that the current user's followers follow
     followers_of_followers_ids = User
       .joins(:relationships)
       .where(relationships: { user_id: user.followers.select(:id) })
       .distinct
       .pluck(:id)
 
-    # Exclude users the current user already follows and themselves
     following_ids = user.following.ids << user.id
     suggested_user_ids = followers_of_followers_ids - following_ids
 
-    # If no suggested users, show trending posts from everyone (except current user)
-    if suggested_user_ids.empty?
-      suggested_user_ids = User.where.not(id: user.id).pluck(:id)
+    engagement_order = Arel.sql("likes_count DESC, comments_count DESC, posts.created_at DESC")
+
+    base_scope = Post
+      .unscope(:order) # remove default_scope ordering
+      .left_joins(:likes, :comments)
+      .select("posts.*, COUNT(DISTINCT likes.id) AS likes_count, COUNT(DISTINCT comments.id) AS comments_count")
+      .group("posts.id")
+
+    preferred_scope = if suggested_user_ids.any?
+      base_scope.where(user_id: suggested_user_ids)
+    else
+      base_scope.where.not(user_id: user.id)
     end
 
-    # Return posts from these users, ordered by engagement then recency
-    where(user_id: suggested_user_ids)
-      .select("posts.*, COUNT(DISTINCT likes.id) as likes_count, COUNT(DISTINCT comments.id) as comments_count")
-      .left_joins(:likes, :comments)
-      .group("posts.id")
-      .order(Arel.sql("likes_count DESC, comments_count DESC, posts.created_at DESC"))
+    preferred_relation = preferred_scope.order(engagement_order)
+
+    return preferred_relation if preferred_relation.exists?
+
+    # Fallback: trending posts from everyone except the current user
+    base_scope
+      .where.not(user_id: user.id)
+      .order(engagement_order)
   end
 
   def post_type

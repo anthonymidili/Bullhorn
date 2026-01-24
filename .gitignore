@@ -12,6 +12,8 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/development.log
+/log/development.log.*
 /tmp
 
 # Ignore other unneeded files

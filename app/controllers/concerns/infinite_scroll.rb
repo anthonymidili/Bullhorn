@@ -14,10 +14,11 @@ module InfiniteScroll
   # Load objects to infinitely scroll and where to append them.
   def set_objects
     if user_signed_in? && @from_controller == "sites" && @from_action == "index"
-      if params[:feed_type] == "discovery"
-        sites_objects_discovery
-      else
+      feed_type = params[:feed_type] || "discovery"
+      if feed_type == "community"
         sites_objects
+      else
+        sites_objects_discovery
       end
     elsif @from_controller == "users" && @from_action == "index"
       users_objects
@@ -136,7 +137,9 @@ module InfiniteScroll
   # Increment next page by 1 if all objects count is greater than
   # page_limit * current_page + page_limit (10, 20, 30), ect.
   def set_next_page
-    if @objects.reorder(nil).count(:all).size > @page_limit * @current_page + @page_limit
+    count = @objects.reorder(nil).count(:all)
+    total_count = count.is_a?(Hash) ? count.size : count
+    if total_count > @page_limit * @current_page + @page_limit
       @next_page = @current_page + 1
     end
   end
