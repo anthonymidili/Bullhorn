@@ -1,3 +1,7 @@
+## Available tasks:
+# rails "notifications:status[em@il.com]"
+# rails "notifications:expire_push[em@il.com]"
+
 namespace :notifications do
   desc "Expire push subscriptions for a user (for testing email fallback)"
   task :expire_push, [ :email ] => :environment do |t, args|
