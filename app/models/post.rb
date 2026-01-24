@@ -47,9 +47,8 @@ class Post < ApplicationRecord
   end
 
   def self.suggested_for(user)
-    # Posts from users that your followers follow (followers-of-followers), ordered by
-    # engagement (likes + comments) and recency, with a hard fallback to trending posts
-    # from everyone else if that network is empty.
+    # Posts from users you follow + users your followers follow (followers-of-followers),
+    # ordered chronologically (newest first) with fallback to all users except current user.
 
     followers_of_followers_ids = User
       .joins(:relationships)
@@ -57,31 +56,17 @@ class Post < ApplicationRecord
       .distinct
       .pluck(:id)
 
-    following_ids = user.following.ids << user.id
-    suggested_user_ids = followers_of_followers_ids - following_ids
+    following_ids = user.following.ids
+    suggested_user_ids = (followers_of_followers_ids + following_ids).uniq - [ user.id ]
 
-    engagement_order = Arel.sql("likes_count DESC, comments_count DESC, posts.created_at DESC")
-
-    base_scope = Post
-      .unscope(:order) # remove default_scope ordering
-      .left_joins(:likes, :comments)
-      .select("posts.*, COUNT(DISTINCT likes.id) AS likes_count, COUNT(DISTINCT comments.id) AS comments_count")
-      .group("posts.id")
-
-    preferred_scope = if suggested_user_ids.any?
-      base_scope.where(user_id: suggested_user_ids)
-    else
-      base_scope.where.not(user_id: user.id)
+    # Try suggested users first
+    if suggested_user_ids.any?
+      relation = where(user_id: suggested_user_ids)
+      return relation if relation.exists?
     end
 
-    preferred_relation = preferred_scope.order(engagement_order)
-
-    return preferred_relation if preferred_relation.exists?
-
-    # Fallback: trending posts from everyone except the current user
-    base_scope
-      .where.not(user_id: user.id)
-      .order(engagement_order)
+    # Fallback: all users except current user
+    where.not(user_id: user.id)
   end
 
   def post_type

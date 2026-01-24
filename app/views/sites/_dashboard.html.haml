@@ -10,12 +10,12 @@
     - feed_type = params[:feed_type] || 'discovery'
     .mb-3
       .btn-group(role="group")
-        %a.btn.btn-outline-primary{href: root_path(feed_type: 'discovery', 
-        page: 0), class: feed_type == 'discovery' ? 'active' : '', data: { turbo_frame: '_top' }}
+        %a.btn.btn-outline-primary{href: root_path(feed_type: 'discovery'), 
+        class: feed_type == 'discovery' ? 'active' : '', data: { turbo_frame: '_top' }}
           %i.fa-solid.fa-compass
           For You
-        %a.btn.btn-outline-primary{href: root_path(feed_type: 'community', 
-        page: 0), class: feed_type == 'community' ? 'active' : '', data: { turbo_frame: '_top' }}
+        %a.btn.btn-outline-primary{href: root_path(feed_type: 'community'), 
+        class: feed_type == 'community' ? 'active' : '', data: { turbo_frame: '_top' }}
           %i.fa-solid.fa-users
           Community Feed
     - if @posts.empty?
