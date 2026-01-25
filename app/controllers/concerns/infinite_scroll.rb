@@ -15,7 +15,7 @@ module InfiniteScroll
   # Load objects to infinitely scroll and where to append them.
   def set_objects
     if user_signed_in? && @from_controller == "sites" && @from_action == "index"
-      @feed_type ||= "discovery"
+      @feed_type ||= "community"
       if @feed_type == "community"
         sites_objects
       else

@@ -7,17 +7,17 @@
           View My Profile
       = render 'users/avatar_info', user: @user
   .col-12.col-md-7.col-lg-8
-    - feed_type = params[:feed_type] || 'discovery'
+    - feed_type = params[:feed_type] || 'community'
     .mb-3
       .btn-group(role="group")
-        %a.btn.btn-outline-primary{href: root_path(feed_type: 'discovery'), 
-        class: feed_type == 'discovery' ? 'active' : '', data: { turbo_frame: '_top' }}
-          %i.fa-solid.fa-compass
-          For You
         %a.btn.btn-outline-primary{href: root_path(feed_type: 'community'), 
         class: feed_type == 'community' ? 'active' : '', data: { turbo_frame: '_top' }}
           %i.fa-solid.fa-users
           Community Feed
+        %a.btn.btn-outline-primary{href: root_path(feed_type: 'discovery'), 
+        class: feed_type == 'discovery' ? 'active' : '', data: { turbo_frame: '_top' }}
+          %i.fa-solid.fa-compass
+          For You
     - if @posts.empty?
       .callout
         - if feed_type == 'community'
