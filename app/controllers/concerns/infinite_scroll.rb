@@ -137,7 +137,9 @@ module InfiniteScroll
   # Increment next page by 1 if all objects count is greater than
   # page_limit * current_page + page_limit (10, 20, 30), ect.
   def set_next_page
-    if @objects.count > @page_limit * @current_page + @page_limit
+    count = @objects.reorder(nil).count(:all)
+    total_count = count.is_a?(Hash) ? count.size : count
+    if total_count > @page_limit * @current_page + @page_limit
       @next_page = @current_page + 1
     end
   end
