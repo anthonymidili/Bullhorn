@@ -9,13 +9,14 @@ module InfiniteScroll
   def set_from_controller
     @from_controller = params[:from_controller] || self.controller_name
     @from_action = params[:from_action] || self.action_name
+    @feed_type = params[:feed_type]
   end
 
   # Load objects to infinitely scroll and where to append them.
   def set_objects
     if user_signed_in? && @from_controller == "sites" && @from_action == "index"
-      feed_type = params[:feed_type] || "discovery"
-      if feed_type == "community"
+      @feed_type ||= "discovery"
+      if @feed_type == "community"
         sites_objects
       else
         sites_objects_discovery

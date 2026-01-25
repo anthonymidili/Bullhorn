@@ -26,7 +26,8 @@ namespace :generate do
         email: "user#{i + 1}@example.com",
         username: "user#{i + 1}",
         password: "password123",
-        password_confirmation: "password123"
+        password_confirmation: "password123",
+        confirmed_at: Time.current
       )
 
       users << user
