@@ -74,10 +74,9 @@ group :development, :test do
   gem "debug", ">= 1.0.0"
   # Capybara for browser-based system tests
   gem "capybara", ">= 3.26"
-  gem "selenium-webdriver", "~> 4.18"
-  gem "webdrivers", "~> 5.2"
-  # Pin minitest to 5.x to avoid Rails 8.1 compatibility issues with 6.x
-  gem "minitest", "~> 5.27"
+  # gem "selenium-webdriver", "~> 4.18"
+  # gem "webdrivers", "~> 5.2"
+  gem "minitest", "~> 6.0"
 end
 
 group :development do
