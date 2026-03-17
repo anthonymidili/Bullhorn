@@ -49,7 +49,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "haml-rails", "~> 3.0"
 gem "html2haml", "~> 2.3.0"
 # devise
-gem "devise", "~> 5.0.0"
+gem "devise", "~> 5.0.3"
 # pagination
 gem "kaminari", "~> 1.2.1"
 # https://github.com/nathanvda/cocoon - Dynamic nested forms using jQuery
