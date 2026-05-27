@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "4.0.2"
+ruby "4.0.5"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", "~> 1.3.1"
 # Use postgresql as the database for Active Record
@@ -40,7 +40,7 @@ gem "cssbundling-rails", "~> 1.1"
 
 # Use ActiveStorage variant
 gem "ruby-vips"
-gem "image_processing", "~> 1.6"
+gem "image_processing", "~> 2.0"
 gem "aws-sdk-s3", require: false
 
 # Reduces boot times through caching; required in config/boot.rb
