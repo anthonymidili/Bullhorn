@@ -9,6 +9,7 @@
   --light-gray: #c6c9cb;
   --gray: #868686;
   --dark-gray: #595959;
+  --black-gray: #3b3a3a;
   --tundora: #2a2828;
   --light-black: #1b1b1b;
   --black: #010101;
@@ -31,6 +32,7 @@
   --troy-blue: #1552a2;
   --dark-troy-blue: #104182;
   --dark-blue: #13395f;
+  --dark-purple: #120038;
 }
 
 // Light theme
@@ -147,7 +149,7 @@
   --red-color: var(--red);
   --dark-red-color: var(--dark-red);
   --dark-gray-color: var(--dark-gray);
-  --header-color: var(--off-white);
+  --header-color: var(--dark-purple);
 
   // Topbar
   --topbar-background: var(--black);
@@ -155,7 +157,7 @@
   --topbar-text: var(--off-white);
   --topbar-text-hover: var(--ice-blue);
   --topbar-logo: var(--off-white);
-  --topbar-logo-hover: var(--ice-blue);
+  --topbar-logo-hover: var(--black-gray);
   --toggler-color: var(--off-white);
   --toggler-clicked: var(--ice-blue);
 
@@ -218,7 +220,7 @@
   --carousel-background: var(--black);
 
   // Logo
-  --logo-background: var(--carousel-blue);
+  --logo-background: var(--black-gray);
 
   --bs-body-bg: var(--light-gray);
 }

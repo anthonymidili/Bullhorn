@@ -12,7 +12,7 @@ nav.navbar {
 
   .topbar-logo {
     h1 {
-      color: var(--topbar-logo);
+      // color: var(--topbar-logo);
       &::before {
         font-weight: bold !important;
       }
@@ -115,3 +115,29 @@ nav.navbar {
 .dropdown-menu {
   z-index: 1030;
 }
+
+// Logo visibility based on theme
+.logo-dark-wrapper {
+  display: none !important;
+}
+
+body.dark {
+  .logo-light-wrapper {
+    display: none !important;
+  }
+  .logo-dark-wrapper {
+    display: inline-block !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not(.light) {
+    .logo-light-wrapper {
+      display: none !important;
+    }
+    .logo-dark-wrapper {
+      display: inline-block !important;
+    }
+  }
+}
+

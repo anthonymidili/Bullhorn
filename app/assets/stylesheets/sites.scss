@@ -240,9 +240,14 @@ hr {
 @media (prefers-color-scheme: dark) {
   h1, h2, h3, h4, h5, h6 {
     text-shadow:
-      0 0 2px #ffffff,
-      0 0 5px #bc13fe,
-      0 0 7px #bc13fe
+      -1px -1px 2px #f3d3e9,
+      0px 0px 2px #f3d3e9,
+      1px 1px 2px #f3d3e9,
+      2px 2px 1px #de62da,
+      3px 3px 1px #e411e6,
+      4px 4px 1px #a004e4,
+      5px 5px 0 #6115db,
+      6px 6px 0 #1503e5;
   }
   // Force to light theme
   .light {
@@ -261,9 +266,14 @@ hr {
   .dark {
     h1, h2, h3, h4, h5, h6 {
       text-shadow:
-      0 0 2px #ffffff,
-      0 0 5px #bc13fe,
-      0 0 7px #bc13fe
+        -1px -1px 2px #f3d3e9,
+        0px 0px 2px #f3d3e9,
+        1px 1px 2px #f3d3e9,
+        2px 2px 1px #de62da,
+        3px 3px 1px #e411e6,
+        4px 4px 1px #a004e4,
+        5px 5px 0 #6115db,
+        6px 6px 0 #1503e5;
     }
   }
 }

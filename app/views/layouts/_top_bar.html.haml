@@ -4,8 +4,10 @@
     = link_to root_path, class: "topbar-logo" do
       %span.inline 
         %h1 BullhornXL
-      %span.inline
+      %span.inline.logo-light-wrapper
         = render inline: Rails.root.join('app/assets/images/bullhorn.svg').read
+      %span.inline.logo-dark-wrapper
+        = render inline: Rails.root.join('app/assets/images/bullhorn-neon.svg').read
 
     %button.navbar-toggler.ms-auto{aria: {
     controls: "navbarNavDropdown",
