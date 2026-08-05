@@ -12,7 +12,7 @@ nav.navbar {
 
   .topbar-logo {
     h1 {
-      // color: var(--topbar-logo);
+      color: var(--topbar-logo);
       &::before {
         font-weight: bold !important;
       }

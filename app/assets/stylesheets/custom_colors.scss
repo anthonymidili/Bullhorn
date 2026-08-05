@@ -32,7 +32,7 @@
   --troy-blue: #1552a2;
   --dark-troy-blue: #104182;
   --dark-blue: #13395f;
-  --dark-purple: #120038;
+  --purple: #2a0070;
 }
 
 // Light theme
@@ -149,14 +149,14 @@
   --red-color: var(--red);
   --dark-red-color: var(--dark-red);
   --dark-gray-color: var(--dark-gray);
-  --header-color: var(--dark-purple);
+  --header-color: var(--purple);
 
   // Topbar
   --topbar-background: var(--black);
   --topbar-background-hover: var(--dark-blue);
   --topbar-text: var(--off-white);
   --topbar-text-hover: var(--ice-blue);
-  --topbar-logo: var(--off-white);
+  --topbar-logo: var(--purple);
   --topbar-logo-hover: var(--black-gray);
   --toggler-color: var(--off-white);
   --toggler-clicked: var(--ice-blue);

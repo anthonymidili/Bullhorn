@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Arial Rounded MT Bold';
+  src: font-url('ArialRoundedMTBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--header-color);
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+}
+
+// Header shadow for dark theme
+// System theme dark
+@media (prefers-color-scheme: dark) {
+  h1, h2, h3, h4, h5, h6 {
+    /* Bright hot pink inner border/tube definition */
+    -webkit-text-stroke: 1px #efc8e4;
+    
+    /* Layered glow: tight bright pink ring + soft outer halo */
+    text-shadow: 
+      1px 1px 0 #e412e6,
+      1px -1px 0 #e412e6,
+      -1px -1px 0 #e412e6,
+      -1px 1px 0 #e412e6;
+  }
+  // Force to light theme
+  .light {
+    h1, h2, h3, h4, h5, h6 {
+      -webkit-text-stroke: initial;
+      text-shadow: unset;
+    }
+  }
+}
+
+// System theme light
+@media (prefers-color-scheme: light) {
+  h1, h2, h3, h4, h5, h6 {
+    -webkit-text-stroke: initial;
+    text-shadow: unset;
+  }
+  // Force to dark theme
+  .dark {
+    h1, h2, h3, h4, h5, h6 {
+      /* Bright hot pink inner border/tube definition */
+      -webkit-text-stroke: 1px #efc8e4;
+      
+      /* Layered glow: tight bright pink ring + soft outer halo */
+      text-shadow: 
+        1px 1px 0 #e412e6,
+        1px -1px 0 #e412e6,
+        -1px -1px 0 #e412e6,
+        -1px 1px 0 #e412e6;
+    }
+  }
+}
