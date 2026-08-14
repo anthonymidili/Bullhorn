@@ -1,5 +1,5 @@
 // Service Worker for BullhornXL PWA
-const CACHE_NAME = 'bullhornxl-v2';
+const CACHE_NAME = 'bullhornxl-v3';
 const urlsToCache = [
   '/',  // Home page
   '/manifest.json'  // Web app manifest
