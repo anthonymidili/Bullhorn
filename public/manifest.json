@@ -4,8 +4,8 @@
   "description": "A social networking platform for sharing posts, events, and connecting with others.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f2d4fd",
-  "theme_color": "#0066cc",
+  "background_color": "#2a2828",
+  "theme_color": "#010101",
   "orientation": "portrait-primary",
   "icons": [
     {
