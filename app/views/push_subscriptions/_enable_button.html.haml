@@ -2,9 +2,9 @@
 -# Managed by Stimulus controller
 
 #push-notification.push-notification-control.mb-3{ data: { controller: "push-notifications" } }
-  %button.btn.btn-primary{ data: { push_notifications_target: "enableButton", action: "push-notifications#enable" } }
+  %button.btn.btn-primary{ type: "button", data: { push_notifications_target: "enableButton", action: "push-notifications#enable" } }
     %i.fa-solid.fa-bell
     Enable Push Notifications
-  %button.btn.btn-danger.d-none{ data: { push_notifications_target: "disableButton", action: "push-notifications#disable" } }
+  %button.btn.btn-danger.d-none{ type: "button", data: { push_notifications_target: "disableButton", action: "push-notifications#disable" } }
     %i.fa-solid.fa-bell-slash
     Disable Push Notifications

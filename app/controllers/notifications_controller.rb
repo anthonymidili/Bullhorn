@@ -16,32 +16,17 @@ class NotificationsController < ApplicationController
     @receive_push = current_user.receive_push
 
     respond_to do |format|
-      # Determine which form was submitted and update accordingly
-      if params[:receive_mail].present?
-        if @receive_mail.update(receive_mail_params)
-          format.html {
-            redirect_to edit_notifications_path,
-            notice: "Email notification settings were successfully updated."
-          }
-          format.json { render :show, status: :ok, location: @receive_mail }
-        else
-          format.html { render :edit }
-          format.json { render json: @receive_mail.errors, status: :unprocessable_entity }
-        end
-      elsif params[:receive_push].present?
-        if @receive_push.update(receive_push_params)
-          format.html {
-            redirect_to edit_notifications_path,
-            notice: "Push notification settings were successfully updated."
-          }
-          format.json { render :show, status: :ok, location: @receive_push }
-        else
-          format.html { render :edit }
-          format.json { render json: @receive_push.errors, status: :unprocessable_entity }
-        end
+      mail_updated = params[:receive_mail].present? ? @receive_mail.update(receive_mail_params) : true
+      push_updated = params[:receive_push].present? ? @receive_push.update(receive_push_params) : true
+
+      if mail_updated && push_updated
+        format.html { head :no_content }
+        format.turbo_stream { head :no_content }
+        format.json { render :show, status: :ok, location: @receive_mail }
       else
-        format.html { redirect_to edit_notifications_path, alert: "No settings to update." }
-        format.json { head :bad_request }
+        format.html { render :edit, status: :unprocessable_entity }
+        errors = @receive_mail.errors.messages.merge(@receive_push.errors.messages)
+        format.json { render json: errors, status: :unprocessable_entity }
       end
     end
   end

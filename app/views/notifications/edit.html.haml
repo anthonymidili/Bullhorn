@@ -22,124 +22,121 @@
             you will not receive another email until your
             [Send after] setting, times out.
 
-    = form_with model: @receive_mail, url: notifications_path, 
-    data: { turbo: false } do |f|
-      = render 'notifications/error_messages', object: f.object
+    = form_with url: notifications_path, method: :patch, data: { controller: "autosubmit-form", action: "change->autosubmit-form#submitChange" } do |f|
+      = fields_for :receive_mail, @receive_mail do |m|
+        = render 'notifications/error_messages', object: m.object
+        
+        .feild.mb-3
+          .mb-1 
+            How often would you like to receive an email notification even if 
+            you have unread notification messages?
+            %br/
+            %em Be careful, if set too high, you might be missing out.
+          .row
+            .col-12.col-lg-6
+              .input-group
+                = m.label :send_after_amount, "Send after", class: "input-group-text"
+                = m.number_field :send_after_amount, class: "form-control"
+                = m.select :send_after_unit, 
+                options_for_select([["Minute(s)", "minutes"], ["Hour(s)", "hours"], ["Day(s)", "days"]], 
+                m.object.send_after_unit), {}, class: "form-select"
+        .mb-1 Receive email notifications when users you follow:
+        .feild.mb-1
+          = m.check_box :for_new_posts, id: 'cb_posts'
+          = m.label :for_new_posts, 'create a new Post', for: 'cb_posts'
+        .feild.mb-1
+          = m.check_box :for_new_events, id: 'cb_events'
+          = m.label :for_new_events, 'create a new Event', for: 'cb_events'
+        .feild.mb-1
+          = m.check_box :for_new_comments, id: 'cb_comments'
+          = m.label :for_new_comments,
+          'Comment on something you have posted or commented on', for: 'cb_comments'
+        .feild.mb-1
+          = m.check_box :for_new_relationships, id: 'cb_relationships'
+          = m.label :for_new_relationships, 'start Following you', for: 'cb_relationships'
+        .feild.mb-1
+          = m.check_box :for_new_likes, id: 'cb_likes'
+          = m.label :for_new_likes, 'Likes your content', for: 'cb_likes'
+        .feild.mb-3
+          = m.check_box :for_new_messages, id: 'cb_messages'
+          = m.label :for_new_messages, 'Direct Messages you', for: 'cb_messages'
       
-      .feild.mb-3
-        .mb-1 
-          How often would you like to receive an email notification even if 
-          you have unread notification messages?
-          %br/
-          %em Be careful, if set too high, you might be missing out.
-        .row
-          .col-12.col-lg-6
-            .input-group
-              = f.label :send_after_amount, "Send after", class: "input-group-text"
-              = f.number_field :send_after_amount, class: "form-control"
-              = f.select :send_after_unit, 
-              options_for_select([["Minute(s)", "minutes"], ["Hour(s)", "hours"], ["Day(s)", "days"]], 
-              f.object.send_after_unit), {}, class: "form-select"
-      .mb-1 Receive email notifications when users you follow:
-      .feild.mb-1
-        = f.check_box :for_new_posts, id: 'cb_posts'
-        = f.label :for_new_posts, 'create a new Post', for: 'cb_posts'
-      .feild.mb-1
-        = f.check_box :for_new_events, id: 'cb_events'
-        = f.label :for_new_events, 'create a new Event', for: 'cb_events'
-      .feild.mb-1
-        = f.check_box :for_new_comments, id: 'cb_comments'
-        = f.label :for_new_comments,
-        'Comment on something you have posted or commented on', for: 'cb_comments'
-      .feild.mb-1
-        = f.check_box :for_new_relationships, id: 'cb_relationships'
-        = f.label :for_new_relationships, 'start Following you', for: 'cb_relationships'
-      .feild.mb-1
-        = f.check_box :for_new_likes, id: 'cb_likes'
-        = f.label :for_new_likes, 'Likes your content', for: 'cb_likes'
-      .feild.mb-3
-        = f.check_box :for_new_messages, id: 'cb_messages'
-        = f.label :for_new_likes, 'Direct Messages you', for: 'cb_messages'
-      .actions.mb-3
-        = f.submit 'Update Notification settings', class: 'btn btn-primary'
-    
-    %hr.my-4
-    
-    %h2 Push Notifications
-    
-    .mb-3
-      %em
-        %b How push notifications work
-        %ul
-          %li
-            Push notifications alert you of new activity even when your browser is closed
-            or the app is not open.
-          %li
-            You will only receive push notifications when you are offline.
-            While online, you'll see real-time notifications in the app.
-          %li
-            %strong Desktop (Chrome, Firefox, Edge, Safari):
-            Works immediately after enabling - notifications arrive even when browser is closed.
-          %li
-            %strong Android:
-            Works in Chrome and most browsers - notifications arrive even when browser is closed.
-          %li
-            %strong iOS (iPhone/iPad):
-            Requires Safari and iOS 16.4+. You must add Bullhorn to your home screen 
-            (tap Share → Add to Home Screen) for notifications to work when Safari is closed.
-
-    = render "push_subscriptions/enable_button"
-    
-    .alert.alert-info.mb-3
-      %i.fa-solid.fa-info-circle.me-2
-      %strong Automatic Email Backup:
-      If your push subscription expires (which can happen due to browser updates or security policies),
-      we'll automatically send you email notifications to ensure you don't miss anything. 
-      When you return to the site, push notifications will be automatically restored.
+      %hr.my-4
       
-    %em
+      %h2 Push Notifications
+      
       .mb-3
-        %strong Note:
-        Feel free to uncheck all email notification options if you prefer to rely solely on push notifications.
-
-    
-    = form_with model: @receive_push, url: notifications_path, 
-    data: { turbo: false } do |f|
-      = render 'notifications/error_messages', object: f.object
+        %em
+          %b How push notifications work
+          %ul
+            %li
+              Push notifications alert you of new activity even when your browser is closed
+              or the app is not open.
+            %li
+              You will only receive push notifications when you are offline.
+              While online, you'll see real-time notifications in the app.
+            %li
+              %strong Desktop (Chrome, Firefox, Edge, Safari):
+              Works immediately after enabling - notifications arrive even when browser is closed.
+            %li
+              %strong Android:
+              Works in Chrome and most browsers - notifications arrive even when browser is closed.
+            %li
+              %strong iOS (iPhone/iPad):
+              Requires Safari and iOS 16.4+. You must add Bullhorn to your home screen 
+              (tap Share → Add to Home Screen) for notifications to work when Safari is closed.
+  
+      = render "push_subscriptions/enable_button"
       
-      .feild.mb-3
-        .mb-1 
-          How often would you like to receive push notifications even if 
-          you have unread notification messages?
-          %br/
-          %em Set to 0 minutes to receive every push notification immediately.
-        .row
-          .col-12.col-lg-6
-            .input-group
-              = f.label :send_after_amount, "Send after", class: "input-group-text"
-              = f.number_field :send_after_amount, class: "form-control"
-              = f.select :send_after_unit, 
-              options_for_select([["Minute(s)", "minutes"], ["Hour(s)", "hours"], ["Day(s)", "days"]], 
-              f.object.send_after_unit), {}, class: "form-select"
-      .mb-1 Receive push notifications when users you follow:
-      .feild.mb-1
-        = f.check_box :for_new_posts, id: 'cb_push_posts'
-        = f.label :for_new_posts, 'create a new Post', for: 'cb_push_posts'
-      .feild.mb-1
-        = f.check_box :for_new_events, id: 'cb_push_events'
-        = f.label :for_new_events, 'create a new Event', for: 'cb_push_events'
-      .feild.mb-1
-        = f.check_box :for_new_comments, id: 'cb_push_comments'
-        = f.label :for_new_comments,
-        'Comment on something you have posted or commented on', for: 'cb_push_comments'
-      .feild.mb-1
-        = f.check_box :for_new_relationships, id: 'cb_push_relationships'
-        = f.label :for_new_relationships, 'start Following you', for: 'cb_push_relationships'
-      .feild.mb-1
-        = f.check_box :for_new_likes, id: 'cb_push_likes'
-        = f.label :for_new_likes, 'Likes your content', for: 'cb_push_likes'
-      .feild.mb-3
-        = f.check_box :for_new_messages, id: 'cb_push_messages'
-        = f.label :for_new_messages, 'Direct Messages you', for: 'cb_push_messages'
+      .alert.alert-info.mb-3
+        %i.fa-solid.fa-info-circle.me-2
+        %strong Automatic Email Backup:
+        If your push subscription expires (which can happen due to browser updates or security policies),
+        we'll automatically send you email notifications to ensure you don't miss anything. 
+        When you return to the site, push notifications will be automatically restored.
+        
+      %em
+        .mb-3
+          %strong Note:
+          Feel free to uncheck all email notification options if you prefer to rely solely on push notifications.
+  
+      = fields_for :receive_push, @receive_push do |p|
+        = render 'notifications/error_messages', object: p.object
+        
+        .feild.mb-3
+          .mb-1 
+            How often would you like to receive push notifications even if 
+            you have unread notification messages?
+            %br/
+            %em Set to 0 minutes to receive every push notification immediately.
+          .row
+            .col-12.col-lg-6
+              .input-group
+                = p.label :send_after_amount, "Send after", class: "input-group-text"
+                = p.number_field :send_after_amount, class: "form-control"
+                = p.select :send_after_unit, 
+                options_for_select([["Minute(s)", "minutes"], ["Hour(s)", "hours"], ["Day(s)", "days"]], 
+                p.object.send_after_unit), {}, class: "form-select"
+        .mb-1 Receive push notifications when users you follow:
+        .feild.mb-1
+          = p.check_box :for_new_posts, id: 'cb_push_posts'
+          = p.label :for_new_posts, 'create a new Post', for: 'cb_push_posts'
+        .feild.mb-1
+          = p.check_box :for_new_events, id: 'cb_push_events'
+          = p.label :for_new_events, 'create a new Event', for: 'cb_push_events'
+        .feild.mb-1
+          = p.check_box :for_new_comments, id: 'cb_push_comments'
+          = p.label :for_new_comments,
+          'Comment on something you have posted or commented on', for: 'cb_push_comments'
+        .feild.mb-1
+          = p.check_box :for_new_relationships, id: 'cb_push_relationships'
+          = p.label :for_new_relationships, 'start Following you', for: 'cb_push_relationships'
+        .feild.mb-1
+          = p.check_box :for_new_likes, id: 'cb_push_likes'
+          = p.label :for_new_likes, 'Likes your content', for: 'cb_push_likes'
+        .feild.mb-3
+          = p.check_box :for_new_messages, id: 'cb_push_messages'
+          = p.label :for_new_messages, 'Direct Messages you', for: 'cb_push_messages'
+      
       .actions.mb-3
-        = f.submit 'Update Push Notification settings', class: 'btn btn-primary'
+        = f.submit 'Update Settings', class: 'btn btn-primary'

@@ -29,7 +29,8 @@ export default class extends Controller {
     return outputArray
   }
 
-  async enable() {
+  async enable(event) {
+    if (event) event.preventDefault()
     if (!('Notification' in window)) {
       alert('This browser does not support notifications')
       return
@@ -39,6 +40,7 @@ export default class extends Controller {
     this.permission = permission
     
     if (permission === 'granted') {
+      localStorage.removeItem('push_notifications_disabled_by_user')
       await this.subscribe()
     } else if (permission === 'denied') {
       alert('Push notification permission denied. Please enable notifications in your browser settings.')
@@ -47,11 +49,13 @@ export default class extends Controller {
     this.updateButtons()
   }
 
-  async disable() {
+  async disable(event) {
+    if (event) event.preventDefault()
     const confirmed = confirm('Are you sure you want to disable push notifications?')
     if (confirmed) {
       const success = await this.unsubscribe()
       if (success) {
+        localStorage.setItem('push_notifications_disabled_by_user', 'true')
         // Force permission check after unsubscribing
         await this.checkSubscriptionStatus()
         this.updateButtons()
@@ -192,6 +196,11 @@ export default class extends Controller {
   }
 
   async autoResubscribeIfNeeded() {
+    if (localStorage.getItem('push_notifications_disabled_by_user') === 'true') {
+      console.log('Push notifications were manually disabled by user, skipping auto-resubscribe.')
+      return
+    }
+
     // If user has granted permission but no active subscription, silently re-subscribe
     if (Notification.permission === 'granted' && !this.hasActiveSubscription) {
       console.log('Push subscription expired, automatically re-subscribing...')
