@@ -13,6 +13,12 @@ class Direct < ApplicationRecord
   #   read_like_notifications(current_user) if self.try(:likes)
   # end
 
+  def self.sorted_by_unread_for(user)
+    order(updated_at: :desc).sort_by do |direct|
+      direct.unread_messages_count(user) > 0 ? 0 : 1
+    end
+  end
+
   def unread_messages_count(current_user)
     current_user.notifications.where(
       notifiable: messages,

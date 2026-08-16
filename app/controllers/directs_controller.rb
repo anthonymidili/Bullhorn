@@ -6,7 +6,7 @@ class DirectsController < ApplicationController
 
   # GET /directs or /directs.json
   def index
-    @directs = current_user.directs
+    @directs = current_user.directs.sorted_by_unread_for(current_user)
   end
 
   # GET /directs/1 or /directs/1.json
