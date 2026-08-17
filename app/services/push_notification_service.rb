@@ -7,7 +7,7 @@ class PushNotificationService
       body: body,
       url: url,
       icon: "/icon-192.png",
-      badge: "/icon-192.png"
+      badge: "/icon-72-transparent.png"
     }.to_json
 
     vapid_keys = {
