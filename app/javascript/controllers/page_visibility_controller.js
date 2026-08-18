@@ -102,15 +102,6 @@ export default class extends Controller {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content
     if (!csrfToken) return
     
-    // Prevent duplicate requests using global state
-    const now = Date.now()
-    if (globalState.pendingRequest || (now - globalState.lastRequestTime < this.minRequestInterval)) {
-      return
-    }
-    
-    // Mark request as pending
-    globalState.pendingRequest = action
-    
     try {
       await fetch(`/users/${this.userIdValue}/${action}`, {
         method: 'POST',
@@ -119,11 +110,8 @@ export default class extends Controller {
           'Content-Type': 'application/json'
         }
       })
-      globalState.lastRequestTime = Date.now()
     } catch (error) {
       console.error(`Status update failed: ${error}`)
-    } finally {
-      globalState.pendingRequest = null
     }
   }
 }
