@@ -9,6 +9,8 @@ class OnlineChannel < Turbo::StreamsChannel
 
   def unsubscribed
     return unless current_user
+    users_online = Kredis.unique_list "users_online"
+    users_online.remove current_user.id
     schedule_mark_offline
   end
 
