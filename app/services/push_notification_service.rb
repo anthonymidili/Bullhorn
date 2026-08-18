@@ -1,11 +1,12 @@
 class PushNotificationService
-  def self.send_notification(user, title:, body:, url: "/")
+  def self.send_notification(user, title:, body:, url: "/", tag: nil)
     return unless user.push_subscriptions.any?
 
     message = {
       title: title,
       body: body,
       url: url,
+      tag: tag,
       icon: "/icon-192.png",
       badge: "/icon-72-transparent.png"
     }.to_json

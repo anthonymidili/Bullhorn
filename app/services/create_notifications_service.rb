@@ -6,9 +6,23 @@ class CreateNotificationsService
     recipients = get_recipients(notifiable)
     recipients.each do |recipient|
       if notifiable && recipient && notifier
-        send_mail_notification(notifiable, recipient, notifier)
-        send_push_notification(notifiable, recipient, notifier)
-        create_notification(notifiable, recipient, notifier)
+        action_text = nil
+
+        if notifiable.class.name == "Message"
+          unread_count = recipient.notifications.where(
+            is_read: false,
+            notifier: notifier,
+            notifiable_type: "Message"
+          ).count
+          
+          if unread_count > 0
+            action_text = "Sent you #{unread_count + 1} new messages"
+          end
+        end
+
+        send_mail_notification(notifiable, recipient, notifier, action_text)
+        send_push_notification(notifiable, recipient, notifier, action_text)
+        create_notification(notifiable, recipient, notifier, nil)
       end
     end
   end
@@ -39,7 +53,7 @@ private
     end
   end
 
-  def send_mail_notification(notifiable, recipient, notifier)
+  def send_mail_notification(notifiable, recipient, notifier, action_text = nil)
     receive_mail = recipient.receive_mail || recipient.create_receive_mail
 
     return unless sending_permitted?(:mail, notifiable, recipient)
@@ -52,13 +66,13 @@ private
       recipient,
       notifier,
       notifiable,
-      action_statement(notifiable)
+      action_text || action_statement(notifiable)
     ).deliver_now
 
     receive_mail.update_last_mail_received
   end
 
-  def send_push_notification(notifiable, recipient, notifier)
+  def send_push_notification(notifiable, recipient, notifier, action_text = nil)
     # Check if user has expired push subscription BEFORE creating records
     # (had receive_push record before but now has no active subscriptions)
     receive_push = recipient.receive_push
@@ -81,7 +95,7 @@ private
         recipient,
         notifier,
         notifiable,
-        action_statement(notifiable)
+        action_text || action_statement(notifiable)
       ).deliver_later
 
       receive_mail.update_last_mail_received
@@ -90,26 +104,32 @@ private
       PushNotificationService.send_notification(
         recipient,
         title: push_notification_title(notifiable, notifier),
-        body: action_statement(notifiable),
-        url: push_notification_url(notifiable)
+        body: action_text || action_statement(notifiable),
+        url: push_notification_url(notifiable),
+        tag: (notifiable.class.name == "Message" ? "message-#{notifier.id}" : nil)
       )
 
       receive_push.update_last_push_received
     end
   end
 
-  def create_notification(notifiable, recipient, notifier)
+  def create_notification(notifiable, recipient, notifier, action_text = nil)
+    action_text ||= action_statement(notifiable)
+
     notification =
       notifiable.notifications.create(
         recipient: recipient,
         notifier: notifier,
-        action: action_statement(notifiable)
+        action: action_text
       )
 
-    Turbo::StreamsChannel.broadcast_render_later_to(
+    Turbo::StreamsChannel.broadcast_stream_to(
       "notifications_channel:#{recipient.to_gid_param}",
-      partial: "notifications/new",
-      locals: { user: recipient, notification: notification }
+      content: ApplicationController.render(
+        partial: "notifications/new",
+        formats: [:turbo_stream],
+        locals: { user: recipient, notification: notification }
+      )
     )
   end
 
@@ -137,32 +157,32 @@ private
   def push_notification_url(notifiable)
     case notifiable.class.name
     when "Relationship"
-      user_url(notifiable.user_id)
+      user_path(notifiable.user_id)
     when "Post"
-      post_url(notifiable)
+      post_path(notifiable)
     when "Event"
-      event_url(notifiable)
+      event_path(notifiable)
     when "Comment"
       if notifiable.commentable_type == "Post"
-        post_url(notifiable.commentable_id)
+        post_path(notifiable.commentable_id)
       elsif notifiable.commentable_type == "Event"
-        event_url(notifiable.commentable_id)
+        event_path(notifiable.commentable_id)
       else
-        root_url
+        root_path
       end
     when "Like"
       if notifiable.likeable_type == "Post"
-        post_url(notifiable.likeable_id)
+        post_path(notifiable.likeable_id)
       elsif notifiable.likeable_type == "Comment"
         comment = Comment.find_by(id: notifiable.likeable_id)
-        comment ? post_url(comment.post_id) : root_url
+        comment ? post_path(comment.post_id) : root_path
       else
-        root_url
+        root_path
       end
     when "Message"
-      direct_url(notifiable.direct_id, anchor: "footer")
+      direct_path(notifiable.direct_id, anchor: "footer")
     else
-      root_url
+      root_path
     end
   end
 

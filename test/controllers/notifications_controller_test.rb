@@ -49,8 +49,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to edit_notifications_path
-    assert_match(/Email notification settings/, flash[:notice])
+    assert_response :no_content
 
     @user.reload
     assert_not @user.receive_mail.for_new_posts
@@ -77,8 +76,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to edit_notifications_path
-    assert_match(/Push notification settings/, flash[:notice])
+    assert_response :no_content
 
     @user.reload
     assert @user.receive_push.for_new_posts
@@ -88,13 +86,12 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "minutes", @user.receive_push.send_after_unit
   end
 
-  test "redirects to edit when no params provided" do
+  test "returns no_content when no params provided" do
     sign_in @user
 
     patch notifications_url, params: {}
 
-    assert_redirected_to edit_notifications_path
-    assert_match(/No settings to update/, flash[:alert])
+    assert_response :no_content
   end
 
   test "requires authentication" do

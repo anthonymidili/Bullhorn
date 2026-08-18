@@ -10,8 +10,16 @@ require "active_job/test_helper"
 
 # Stub PushNotificationService for tests to avoid actual HTTP calls
 module PushNotificationServiceTestStub
-  def send_notification(user, title:, body:, url: "/")
-    # Don't actually send push notifications in tests
+  cattr_accessor :notifications_sent, default: []
+
+  def send_notification(user, title:, body:, url: "/", tag: nil)
+    self.notifications_sent << {
+      user: user,
+      title: title,
+      body: body,
+      url: url,
+      tag: tag
+    }
     Rails.logger.debug "Test: Skipping actual push notification to user #{user.id}"
     true
   end

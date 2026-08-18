@@ -108,6 +108,7 @@ self.addEventListener('push', (event) => {
         body: data.body || data.message || notificationData.body,
         icon: data.icon || notificationData.icon,
         badge: data.badge || notificationData.badge,
+        tag: data.tag || notificationData.tag,
         data: { url: data.url || '/' }
       };
     } catch (e) {
@@ -120,6 +121,7 @@ self.addEventListener('push', (event) => {
       body: notificationData.body,
       icon: notificationData.icon,
       badge: notificationData.badge,
+      tag: notificationData.tag,
       data: notificationData.data
     })
   );
