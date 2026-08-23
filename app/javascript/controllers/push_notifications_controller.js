@@ -114,6 +114,7 @@ export default class extends Controller {
         console.log('Successfully subscribed to push notifications')
         this.permission = 'granted'
         this.updateButtons()
+        window.dispatchEvent(new CustomEvent('push-subscription-changed'))
         return true
       } else {
         console.error('Failed to save subscription:', result.errors)
@@ -150,6 +151,7 @@ export default class extends Controller {
         
         if (unsubscribed) {
           console.log('Successfully unsubscribed from push notifications')
+          window.dispatchEvent(new CustomEvent('push-subscription-changed'))
           return true
         } else {
           console.error('Failed to unsubscribe from push service')
