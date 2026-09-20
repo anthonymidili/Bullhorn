@@ -1,5 +1,5 @@
 # Stage 1: Builder
-FROM ruby:4.0.6-slim AS builder
+FROM ruby:4.0.7-slim AS builder
 
 # Install build dependencies for gems and Node.js
 RUN apt-get update && apt-get install -y \
@@ -16,7 +16,7 @@ WORKDIR /app
 
 # Install Bundler and Ruby Gems
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler:4.0.19 && bundle install --jobs 4 --retry 3
+RUN gem install bundler:4.0.21 && bundle install --jobs 4 --retry 3
 
 # Install JS Dependencies
 COPY package.json yarn.lock .yarnrc.yml ./
@@ -28,7 +28,7 @@ RUN SECRET_KEY_BASE=dummy_for_build bundle exec rake assets:precompile
 
 
 # Stage 2: Final Runtime Image
-FROM ruby:4.0.6-slim
+FROM ruby:4.0.7-slim
 
 ENV RAILS_ENV=production \
     RAILS_LOG_TO_STDOUT=true
