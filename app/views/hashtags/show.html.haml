@@ -1,18 +1,15 @@
 - tag_name = @hashtag&.name || params[:name]
 - provide :title, "##{tag_name}"
-.row.justify-content-center
+.row
   .col-12.col-md-8
     .callout
-      .d-flex.align-items-center.justify-content-between
-        %h3
-          %i.fa-solid.fa-hashtag.text-primary.me-1
-          = tag_name
-        - if @hashtag
-          .d-flex.gap-2
-            %span.badge.bg-primary
-              = pluralize(@hashtag.posts.count, "post")
-            %span.badge.bg-secondary
-              = pluralize(@hashtag.comments.count, "comment")
+      %h3.text-break ##{tag_name}
+      - if @hashtag
+        .d-flex.gap-3
+          %span.badge.bg-primary
+            = pluralize(@hashtag.posts.count, "post")
+          %span.badge.bg-secondary
+            = pluralize(@hashtag.comments.count, "comment")
     - if @posts.empty?
       .callout
         %p No posts or comments found for ##{tag_name}.
