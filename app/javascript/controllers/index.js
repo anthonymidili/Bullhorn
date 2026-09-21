@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)
+
 import AutosubmitFormController from "./autosubmit_form_controller"
 application.register("autosubmit-form", AutosubmitFormController)
 
@@ -22,11 +25,11 @@ application.register("media", MediaController)
 import PageVisibilityController from "./page_visibility_controller"
 application.register("page-visibility", PageVisibilityController)
 
-import PushNotificationsController from "./push_notifications_controller"
-application.register("push-notifications", PushNotificationsController)
-
 import PushNotificationStatusController from "./push_notification_status_controller"
 application.register("push-notification-status", PushNotificationStatusController)
+
+import PushNotificationsController from "./push_notifications_controller"
+application.register("push-notifications", PushNotificationsController)
 
 import SearchBoxController from "./search_box_controller"
 application.register("search-box", SearchBoxController)

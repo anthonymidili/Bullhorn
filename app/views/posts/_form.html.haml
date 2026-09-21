@@ -1,10 +1,10 @@
 = form_with model: post, id: dom_id(post, "form"), 
-data: { controller: "trix-form", 
+data: { controller: "trix-form autocomplete", 
 action: "trix-file-accept->trix-form#checkType trix-change->trix-form#disableSubmit" } do |f|
   = render 'notifications/error_messages', object: f.object
   = hidden_field_tag "repost[#{:post_id}]", @reposting.id if @reposting
   .field.mb-3
     = f.label :body, 'Compose post', class: "form-label"
-    = f.rich_text_area :body, class: "form-control"
+    = f.rich_text_area :body, class: "form-control", data: { autocomplete_target: "input" }
   .actions.mb-3
     = f.submit class: 'btn btn-primary', data: { trix_form_target: "submit" }

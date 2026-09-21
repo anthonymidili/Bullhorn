@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_20_014306) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_20_223705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -115,6 +115,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_014306) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.citext "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_hashtags_on_name", unique: true
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -258,6 +265,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_014306) do
     t.index ["user_id"], name: "index_reposts_on_user_id"
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "hashtag_id", null: false
+    t.bigint "taggable_id", null: false
+    t.string "taggable_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hashtag_id", "taggable_type", "taggable_id"], name: "index_taggings_uniqueness", unique: true
+    t.index ["hashtag_id"], name: "index_taggings_on_hashtag_id"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "confirmation_sent_at", precision: nil
     t.string "confirmation_token"
@@ -314,5 +332,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_014306) do
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "reposts", "posts"
   add_foreign_key "reposts", "users"
+  add_foreign_key "taggings", "hashtags"
   add_foreign_key "websites", "users"
 end

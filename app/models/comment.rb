@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
+  include HashtaggableAndMentionable
   include ReadNotifications
   # def read_user_notifications(current_user)
   #   self.notifications.by_unread.where(recipient: current_user).

@@ -1,9 +1,10 @@
 = form_with model: [ commentable, comment ], 
-id: "form_#{dom_id(commentable)}_#{dom_id(comment)}" do |f|
+id: "form_#{dom_id(commentable)}_#{dom_id(comment)}",
+data: { controller: "autocomplete" } do |f|
   = render 'notifications/error_messages', object: f.object
 
   .field.mb-3
     = f.label :body, class: "form-label"
-    = f.text_area :body, rows: '2', class: "form-control"
+    = f.text_area :body, rows: '2', class: "form-control", data: { autocomplete_target: "input" }
   .actions.mb-3
     = f.submit class: 'btn btn-primary'

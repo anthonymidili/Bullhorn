@@ -1,0 +1,26 @@
+- tag_name = @hashtag&.name || params[:name]
+- provide :title, "##{tag_name}"
+.row.justify-content-center
+  .col-12.col-md-8
+    .card.mb-3
+      .card-body
+        .d-flex.align-items-center.justify-content-between
+          %h3.card-title.mb-0
+            %i.fa-solid.fa-hashtag.text-primary.me-1
+            = tag_name
+          - if @hashtag
+            %span.badge.bg-primary
+              = pluralize(@hashtag.posts.count, "post")
+    - if @posts.empty?
+      .callout
+        %p No posts found for ##{tag_name}.
+        = link_to root_path, class: "btn btn-primary" do
+          %i.fa-solid.fa-house.me-1
+          Back to Home
+    - else
+      = turbo_frame_tag "posts", data: { controller: "media" } do
+        = render @posts
+      = render "infinite_scroll/load_more"
+
+= turbo_frame_tag "new_post" do
+  = render "posts/new_link"

@@ -6,7 +6,7 @@
   - if user.profile.try(:bio).present?
     .info
       %b Bio:
-      = simple_format(user.profile.bio)
+      = format_comment_body(user.profile.bio)
   - if user.profile.try(:graduated_in).present?
     .info
       %b 

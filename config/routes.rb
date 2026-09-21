@@ -16,7 +16,16 @@ Rails.application.routes.draw do
     end
     collection do
       get :search
+      get :mentions
       get :site_admins
+    end
+  end
+
+  get "@:username", to: "users#show", as: :user_handle, constraints: { username: /[a-zA-Z0-9_.]+/ }
+
+  resources :hashtags, only: %i[show], param: :name do
+    collection do
+      get :search
     end
   end
 

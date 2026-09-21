@@ -15,8 +15,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user set in in InfiniteScroll.rb.
-    @posts = @scrolled_objects # Returned objects in batches of 10.
+    @user ||= User.find_by(id: params[:id]) || User.find_by(username: params[:id]) || (User.find_by(username: params[:username]) if params[:username])
+    redirect_to users_path, alert: "User not found." and return unless @user
+
+    # @posts set in in InfiniteScroll.rb.
+    @posts = @scrolled_objects || [] # Returned objects in batches of 10.
 
     # Mark following notification as read.
     if params[:relationship_id]
@@ -69,6 +72,32 @@ class UsersController < ApplicationController
   def search
     @users = User.search_by(params[:term])
     render json: @users.search_results
+  end
+
+  def mentions
+    term = params[:term].to_s.sub(/\A@/, "").strip
+    users = if term.present?
+      User.search_by(term).limit(8)
+    else
+      current_user.following.limit(8).presence || User.by_username.limit(8)
+    end
+
+    data = users.map do |u|
+      avatar_url = if u.avatar.attached?
+        rails_blob_path(u.avatar, only_path: true)
+      else
+        ActionController::Base.helpers.asset_path("default_avatar.png")
+      end
+
+      {
+        key: u.username,
+        value: u.username,
+        name: u.full_name || u.username,
+        avatar_url: avatar_url
+      }
+    end
+
+    render json: data
   end
 
   def site_admins
@@ -161,7 +190,7 @@ private
   end
 
   def set_user
-    @user = User.find_by(id: params[:id])
+    @user = User.find_by(id: params[:id]) || User.find_by(username: params[:id]) || (User.find_by(username: params[:username]) if params[:username])
   end
 
   def user_params

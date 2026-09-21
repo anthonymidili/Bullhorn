@@ -33,6 +33,8 @@ module InfiniteScroll
       event_comment_objects
     elsif @from_controller == "directs" && @from_action == "show"
       direct_message_objects
+    elsif @from_controller == "hashtags" && @from_action == "show"
+      hashtag_posts_objects
     end
   end
 
@@ -72,10 +74,26 @@ module InfiniteScroll
 
   def user_posts_objects
     setup_page
-    @user = User.find_by(id: @id)
+    @user = User.find_by(id: @id) || User.find_by(username: @id) || (User.find_by(username: params[:username]) if params[:username])
+    return unless @user
     @objects =
       @user.posts
       .includes(:likes, :comments, user: [ avatar_attachment: :blob ])
+    @append_to = "posts"
+    set_scrolled_objects
+    set_next_page
+  end
+
+  def hashtag_posts_objects
+    setup_page
+    hashtag_name = @id || params[:name]
+    @hashtag = Hashtag.find_by("name ILIKE ?", hashtag_name)
+    @objects = if @hashtag
+      @hashtag.posts
+        .includes(:likes, :comments, user: [ avatar_attachment: :blob ])
+    else
+      Post.none
+    end
     @append_to = "posts"
     set_scrolled_objects
     set_next_page
@@ -126,7 +144,7 @@ module InfiniteScroll
   def setup_page
     @page_limit = 10
     @current_page = params[:page].to_i
-    @id = params[:id]
+    @id = params[:id] || params[:name] || params[:username]
   end
 
   # Return @scrolled_objects in batches of page_limit(10).

@@ -4,11 +4,16 @@ class CreateNotificationsService
   def initialize(notifiable)
     notifier = notifiable.send(comment_or_other_user(notifiable))
     recipients = get_recipients(notifiable)
+    mentioned_ids = notifiable.respond_to?(:mentioned_users) ? notifiable.mentioned_users.pluck(:id) : []
+
     recipients.each do |recipient|
       if notifiable && recipient && notifier
+        is_mention = mentioned_ids.include?(recipient.id) && recipient != notifier
         action_text = nil
 
-        if notifiable.class.name == "Message"
+        if is_mention
+          action_text = mention_action_statement(notifiable)
+        elsif notifiable.class.name == "Message"
           unread_count = recipient.notifications.where(
             is_read: false,
             notifier: notifier,
@@ -21,8 +26,8 @@ class CreateNotificationsService
         end
 
         send_mail_notification(notifiable, recipient, notifier, action_text)
-        send_push_notification(notifiable, recipient, notifier, action_text)
-        create_notification(notifiable, recipient, notifier, nil)
+        send_push_notification(notifiable, recipient, notifier, action_text, is_mention)
+        create_notification(notifiable, recipient, notifier, action_text)
       end
     end
   end
@@ -35,13 +40,16 @@ private
       recipients = notifiable.commentable.comments.map(&:created_by)
       recipients << notifiable.commentable.user
       if notifiable.commentable.class.name == "Event"
-        recipients + notifiable.commentable.invitations.by_going_maybe.map(&:user)
+        recipients += notifiable.commentable.invitations.by_going_maybe.map(&:user)
       end
-      recipients = (recipients - [ notifiable.created_by ]).uniq
+      recipients += notifiable.mentioned_users.to_a if notifiable.respond_to?(:mentioned_users)
+      (recipients - [ notifiable.created_by ]).uniq
     when "Relationship"
       [ notifiable.followed ]
     when "Post"
-      notifiable.user.followers
+      recipients = notifiable.user.followers.to_a
+      recipients += notifiable.mentioned_users.to_a if notifiable.respond_to?(:mentioned_users)
+      (recipients - [ notifiable.user ]).uniq
     when "Event"
       notifiable.users - [ notifiable.user ]
     when "Like"
@@ -72,7 +80,7 @@ private
     receive_mail.update_last_mail_received
   end
 
-  def send_push_notification(notifiable, recipient, notifier, action_text = nil)
+  def send_push_notification(notifiable, recipient, notifier, action_text = nil, is_mention = false)
     # Check if user has expired push subscription BEFORE creating records
     # (had receive_push record before but now has no active subscriptions)
     receive_push = recipient.receive_push
@@ -103,7 +111,7 @@ private
       # Normal push notification
       PushNotificationService.send_notification(
         recipient,
-        title: push_notification_title(notifiable, notifier),
+        title: push_notification_title(notifiable, notifier, is_mention),
         body: action_text || action_statement(notifiable),
         url: push_notification_url(notifiable),
         tag: (notifiable.class.name == "Message" ? "message-#{notifier.id}" : nil)
@@ -133,24 +141,39 @@ private
     )
   end
 
-  def push_notification_title(notifiable, notifier)
+  def push_notification_title(notifiable, notifier, is_mention = false)
     notifier_name = notifier.username || notifier.full_name || "Someone"
 
-    case notifiable.class.name
-    when "Like"
-      "#{notifier_name} liked your content"
-    when "Comment"
-      "#{notifier_name} commented"
-    when "Relationship"
-      "#{notifier_name} followed you"
-    when "Post"
-      notifiable.reposting ? "#{notifier_name} reshared a post" : "#{notifier_name} created a post"
-    when "Event"
-      "#{notifier_name} created an event"
-    when "Message"
-      "#{notifier_name} sent you a message"
+    if is_mention
+      "#{notifier_name} mentioned you"
     else
-      "#{notifier_name} - BullhornXL"
+      case notifiable.class.name
+      when "Like"
+        "#{notifier_name} liked your content"
+      when "Comment"
+        "#{notifier_name} commented"
+      when "Relationship"
+        "#{notifier_name} followed you"
+      when "Post"
+        notifiable.reposting ? "#{notifier_name} reshared a post" : "#{notifier_name} created a post"
+      when "Event"
+        "#{notifier_name} created an event"
+      when "Message"
+        "#{notifier_name} sent you a message"
+      else
+        "#{notifier_name} - BullhornXL"
+      end
+    end
+  end
+
+  def mention_action_statement(notifiable)
+    case notifiable.class.name
+    when "Post"
+      "Mentioned you in a Post - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
+    when "Comment"
+      "Mentioned you in a Comment - #{notifiable.body.truncate(40) if notifiable.body}"
+    else
+      "Mentioned you"
     end
   end
 
