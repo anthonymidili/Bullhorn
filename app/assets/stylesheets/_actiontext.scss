@@ -72,10 +72,14 @@ trix-editor {
     top: 5px;
   }
   // Line-up items in a row.
-  & > div {
+  &:not([data-trix-internal]) > div:has(figure) {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+  // Ensure internal measurement container retains block display for Trix calculations
+  &[data-trix-internal] > div {
+    display: block !important;
   }
   // Set item container size.
   figure[contenteditable] {

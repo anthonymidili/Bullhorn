@@ -1,0 +1,11 @@
+= turbo_frame_tag @comment, class: "comment" do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12
+          = link_to [@commentable, @comment], class: "close-btn", title: 'Cancel' do
+            %i.fa-solid.fa-xmark
+        .col-12
+          = render "posts/body", post: @comment, reposting: nil, 
+          formated_text: formated_text(@comment), 
+          attachments: attachments(@comment), fullscreen: true

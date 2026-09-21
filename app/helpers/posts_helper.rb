@@ -1,9 +1,10 @@
 module PostsHelper
-  def post_reposting_id(post, reposting = nil)
+  def post_reposting_id(record, reposting = nil)
+    prefix = record.class.name.underscore
     if reposting
-      "post_#{post.id}_reposting_#{reposting.id}"
+      "#{prefix}_#{record.id}_reposting_#{reposting.id}"
     else
-      "post_#{post.id}"
+      "#{prefix}_#{record.id}"
     end
   end
 end

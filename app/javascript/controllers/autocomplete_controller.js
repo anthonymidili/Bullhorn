@@ -7,7 +7,6 @@ export default class extends Controller {
 
   connect() {
     this.isFormatting = false
-    this.resizeObservers = []
 
     this.boundTrixInit = this.handleTrixInit.bind(this)
     this.boundTrixChange = this.handleTrixChange.bind(this)
@@ -18,18 +17,12 @@ export default class extends Controller {
     this.element.addEventListener("trix-selection-change", this.boundTrixSelectionChange)
 
     this.initTribute()
-    this.initHighlighters()
   }
 
   disconnect() {
     this.element.removeEventListener("trix-initialize", this.boundTrixInit)
     this.element.removeEventListener("trix-change", this.boundTrixChange)
     this.element.removeEventListener("trix-selection-change", this.boundTrixSelectionChange)
-
-    if (this.resizeObservers) {
-      this.resizeObservers.forEach(ro => ro.disconnect())
-      this.resizeObservers = []
-    }
 
     if (this.tribute) {
       const elements = this.getTargetElements()
@@ -103,14 +96,29 @@ export default class extends Controller {
     this.isFormatting = true
     try {
       const doc = editor.getDocument()
+      if (!doc) return
+
+      // Never format while attachments are uploading / pending
+      if (doc.getAttachments) {
+        const attachments = doc.getAttachments()
+        if (attachments && attachments.some(a => a.isPending && a.isPending())) {
+          return
+        }
+      }
+
       const currentRange = editor.getSelectedRange()
 
-      // 1. Unlink any invalid hashtag or mention pieces
+      // 1. Unlink any invalid hashtag or mention pieces (skip attachment pieces)
       if (doc.getPieces) {
         let offset = 0
         const invalidRanges = []
         doc.getPieces().forEach(piece => {
           const len = piece.length || (piece.string ? piece.string.length : 0)
+          if (piece.attachment) {
+            offset += len
+            return
+          }
+
           const href = piece.attributes && piece.attributes.href
           if (href) {
             if (href.startsWith("/hashtags/")) {
@@ -135,6 +143,21 @@ export default class extends Controller {
       const currentText = currentDoc.toString()
       const toLink = []
 
+      const overlapsAttachment = (start, end) => {
+        if (!currentDoc.getPieces) return false
+        let pOffset = 0
+        for (const piece of currentDoc.getPieces()) {
+          const pLen = piece.length || (piece.string ? piece.string.length : 0)
+          if (piece.attachment) {
+            if (start < pOffset + pLen && end > pOffset) {
+              return true
+            }
+          }
+          pOffset += pLen
+        }
+        return false
+      }
+
       // Match hashtags: #tag
       const hashtagRegex = /(?<=^|[^\w#])#([a-zA-Z0-9_]+)\b/g
       let match
@@ -142,6 +165,8 @@ export default class extends Controller {
         const tag = match[1]
         const start = match.index
         const end = start + tag.length + 1
+        if (overlapsAttachment(start, end)) continue
+
         const attrs = currentDoc.getCommonAttributesAtRange([start, end])
         const expectedHref = `/hashtags/${tag}`
         if (attrs.href !== expectedHref) {
@@ -155,6 +180,8 @@ export default class extends Controller {
         const username = match[1]
         const start = match.index
         const end = start + username.length + 1
+        if (overlapsAttachment(start, end)) continue
+
         const attrs = currentDoc.getCommonAttributesAtRange([start, end])
         const expectedHref = `/users/${username}`
         if (attrs.href !== expectedHref) {
@@ -220,103 +247,6 @@ export default class extends Controller {
       this.isFormatting = false
     }
     return null
-  }
-
-  initHighlighters() {
-    const elements = this.getTargetElements()
-    elements.forEach(el => {
-      if (el.tagName.toLowerCase() === "textarea") {
-        this.setupTextareaHighlighter(el)
-      } else if (el.tagName.toLowerCase() === "trix-editor") {
-        this.setupTrixEditor(el)
-      }
-    })
-  }
-
-  setupTextareaHighlighter(textarea) {
-    if (textarea.dataset.highlighterInitialized) return
-    textarea.dataset.highlighterInitialized = "true"
-
-    // Create wrapper container
-    const wrapper = document.createElement("div")
-    wrapper.className = "tag-highlighter-wrapper"
-
-    textarea.parentNode.insertBefore(wrapper, textarea)
-    wrapper.appendChild(textarea)
-
-    // Create backdrop container
-    const backdrop = document.createElement("div")
-    backdrop.className = "tag-highlighter-backdrop"
-    wrapper.insertBefore(backdrop, textarea)
-
-    textarea.classList.add("tag-highlighter-input")
-
-    const syncStyles = () => {
-      const style = window.getComputedStyle(textarea)
-      backdrop.style.fontFamily = style.fontFamily
-      backdrop.style.fontSize = style.fontSize
-      backdrop.style.fontWeight = style.fontWeight
-      backdrop.style.lineHeight = style.lineHeight
-      backdrop.style.letterSpacing = style.letterSpacing
-      backdrop.style.paddingTop = style.paddingTop
-      backdrop.style.paddingRight = style.paddingRight
-      backdrop.style.paddingBottom = style.paddingBottom
-      backdrop.style.paddingLeft = style.paddingLeft
-      backdrop.style.borderWidth = style.borderWidth
-      backdrop.style.borderStyle = "solid"
-      backdrop.style.borderColor = "transparent"
-      backdrop.style.boxSizing = style.boxSizing
-      backdrop.style.borderRadius = style.borderRadius
-    }
-
-    const updateBackdrop = () => {
-      backdrop.innerHTML = this.highlightText(textarea.value)
-    }
-
-    const syncScroll = () => {
-      backdrop.scrollTop = textarea.scrollTop
-      backdrop.scrollLeft = textarea.scrollLeft
-    }
-
-    syncStyles()
-    updateBackdrop()
-
-    textarea.addEventListener("input", updateBackdrop)
-    textarea.addEventListener("scroll", syncScroll)
-
-    if (window.ResizeObserver) {
-      const ro = new ResizeObserver(() => {
-        backdrop.style.width = textarea.offsetWidth + "px"
-        backdrop.style.height = textarea.offsetHeight + "px"
-        syncStyles()
-      })
-      ro.observe(textarea)
-      this.resizeObservers.push(ro)
-    }
-  }
-
-  highlightText(text) {
-    if (!text) return ""
-
-    let escaped = text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;")
-
-    // Highlight mentions: @username
-    escaped = escaped.replace(/(?<=^|[^\w@])@([a-zA-Z0-9_]{1,30})\b/g, '<span class="mention-link">@$1</span>')
-
-    // Highlight hashtags: #hashtag
-    escaped = escaped.replace(/(?<=^|[^\w#])#([a-zA-Z0-9_]+)\b/g, '<span class="hashtag-link">#$1</span>')
-
-    // Ensure trailing newline renders with proper height
-    if (text.endsWith("\n")) {
-      escaped += "<br>&nbsp;"
-    }
-
-    return escaped
   }
 
   getTargetElements() {

@@ -171,7 +171,7 @@ private
     when "Post"
       "Mentioned you in a Post - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
     when "Comment"
-      "Mentioned you in a Comment - #{notifiable.body.truncate(40) if notifiable.body}"
+      "Mentioned you in a Comment - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body}"
     else
       "Mentioned you"
     end
@@ -242,7 +242,7 @@ private
     when "Comment"
       "Commented on
       #{commentable_action_statement(notifiable.commentable)}
-      (Comment - #{notifiable.body.truncate(40) if notifiable.body})"
+      (Comment - #{notifiable.body.to_plain_text.truncate(40) if notifiable.body})"
     when "Like"
       "Liked your #{likeable_action_statement(notifiable.likeable)}"
     when "Message"
@@ -268,7 +268,7 @@ private
     when "Post"
       "Post - #{likeable.body.to_plain_text.truncate(40) if likeable.body}"
     when "Comment"
-      "Comment - #{likeable.body.truncate(40) if likeable.body}"
+      "Comment - #{likeable.body.to_plain_text.truncate(40) if likeable.body}"
     else
       "Liked something"
     end

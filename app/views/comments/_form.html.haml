@@ -1,10 +1,13 @@
 = form_with model: [ commentable, comment ], 
 id: "form_#{dom_id(commentable)}_#{dom_id(comment)}",
-data: { controller: "autocomplete" } do |f|
+data: { controller: "trix-form autocomplete", 
+action: "trix-file-accept->trix-form#checkType trix-change->trix-form#disableSubmit" } do |f|
   = render 'notifications/error_messages', object: f.object
+  - if params[:in_feed] == "1"
+    = hidden_field_tag :in_feed, "1"
 
   .field.mb-3
-    = f.label :body, class: "form-label"
-    = f.text_area :body, rows: '2', class: "form-control", data: { autocomplete_target: "input" }
+    = f.label :body, 'Comment', class: "form-label"
+    = f.rich_text_area :body, class: "form-control", data: { autocomplete_target: "input" }
   .actions.mb-3
-    = f.submit class: 'btn btn-primary'
+    = f.submit class: 'btn btn-primary', data: { trix_form_target: "submit" }

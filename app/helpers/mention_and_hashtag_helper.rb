@@ -17,7 +17,7 @@ module MentionAndHashtagHelper
         username = Regexp.last_match(1)
         user = valid_users[username.downcase]
         if user
-          %(<a href="/users/#{user.id}" class="mention-link" data-turbo="false">@#{ERB::Util.html_escape(user.username)}</a>)
+          %(<a href="/users/#{user.id}" class="mention-link" data-turbo-frame="_top">@#{ERB::Util.html_escape(user.username)}</a>)
         else
           match
         end
@@ -26,10 +26,22 @@ module MentionAndHashtagHelper
       # Auto-link hashtags
       escaped = escaped.gsub(/(?<=^|[^\w#])#([a-zA-Z0-9_]+)\b/) do |_match|
         tag = Regexp.last_match(1)
-        %(<a href="/hashtags/#{ERB::Util.url_encode(tag)}" class="hashtag-link" data-turbo="false">##{ERB::Util.html_escape(tag)}</a>)
+        %(<a href="/hashtags/#{ERB::Util.url_encode(tag)}" class="hashtag-link" data-turbo-frame="_top">##{ERB::Util.html_escape(tag)}</a>)
       end
 
       node.replace(escaped)
+    end
+
+    doc.css("a").each do |link|
+      link["data-turbo-frame"] = "_top"
+      href = link["href"].to_s
+      if href.start_with?("/hashtags/")
+        classes = (link["class"] || "").split(" ")
+        link["class"] = (classes | ["hashtag-link"]).join(" ")
+      elsif href.start_with?("/users/") || href.start_with?("/@")
+        classes = (link["class"] || "").split(" ")
+        link["class"] = (classes | ["mention-link"]).join(" ")
+      end
     end
 
     doc.to_html.html_safe
@@ -48,7 +60,7 @@ module MentionAndHashtagHelper
       username = Regexp.last_match(1)
       user = valid_users[username.downcase]
       if user
-        %(<a href="/users/#{user.id}" class="mention-link" data-turbo="false">@#{ERB::Util.html_escape(user.username)}</a>)
+        %(<a href="/users/#{user.id}" class="mention-link" data-turbo-frame="_top">@#{ERB::Util.html_escape(user.username)}</a>)
       else
         match
       end
@@ -57,7 +69,7 @@ module MentionAndHashtagHelper
     # Auto-link hashtags
     escaped = escaped.gsub(/(?<=^|[^\w#])#([a-zA-Z0-9_]+)\b/) do |_match|
       tag = Regexp.last_match(1)
-      %(<a href="/hashtags/#{ERB::Util.url_encode(tag)}" class="hashtag-link" data-turbo="false">##{ERB::Util.html_escape(tag)}</a>)
+      %(<a href="/hashtags/#{ERB::Util.url_encode(tag)}" class="hashtag-link" data-turbo-frame="_top">##{ERB::Util.html_escape(tag)}</a>)
     end
 
     escaped.html_safe

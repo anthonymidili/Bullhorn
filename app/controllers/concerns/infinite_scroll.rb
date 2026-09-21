@@ -89,14 +89,44 @@ module InfiniteScroll
     hashtag_name = @id || params[:name]
     @hashtag = Hashtag.find_by("name ILIKE ?", hashtag_name)
     @objects = if @hashtag
-      @hashtag.posts
-        .includes(:likes, :comments, user: [ avatar_attachment: :blob ])
+      @hashtag.taggings
+        .where(taggable_type: ["Post", "Comment"])
+        .joins("LEFT JOIN posts ON taggings.taggable_type = 'Post' AND taggings.taggable_id = posts.id")
+        .joins("LEFT JOIN comments ON taggings.taggable_type = 'Comment' AND taggings.taggable_id = comments.id")
+        .order(Arel.sql("COALESCE(posts.created_at, comments.created_at, taggings.created_at) DESC, taggings.id DESC"))
     else
-      Post.none
+      Tagging.none
     end
     @append_to = "posts"
     set_scrolled_objects
+    preload_hashtag_taggables
     set_next_page
+  end
+
+  def preload_hashtag_taggables
+    return if @scrolled_objects.blank?
+
+    taggings = @scrolled_objects.includes(:taggable).to_a
+    taggings = taggings.select { |t| t.taggable.present? }
+
+    posts = taggings.map(&:taggable).select { |o| o.is_a?(Post) }
+    comments = taggings.map(&:taggable).select { |o| o.is_a?(Comment) }
+
+    if posts.any?
+      ActiveRecord::Associations::Preloader.new(
+        records: posts,
+        associations: [:likes, :comments, user: [avatar_attachment: :blob]]
+      ).call
+    end
+
+    if comments.any?
+      ActiveRecord::Associations::Preloader.new(
+        records: comments,
+        associations: [:likes, created_by: [avatar_attachment: :blob], commentable: [:user]]
+      ).call
+    end
+
+    @scrolled_objects = taggings
   end
 
   def events_objects

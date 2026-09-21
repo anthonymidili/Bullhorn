@@ -84,6 +84,9 @@
   // Comments
   --comments-background: var(--background-color);
   --comments-border: var(--border-color);
+  --feed-context-color: var(--dark-gray);
+  --feed-context-icon-color: var(--troy-blue);
+  --feed-context-border: rgba(0, 0, 0, 0.12);
 
   // Autocomplete
   --autocomplete-background: var(--background-color);
@@ -179,6 +182,9 @@
   // Comments
   --comments-background: var(--black);
   --comments-border: var(--border-color);
+  --feed-context-color: var(--dark-off-white);
+  --feed-context-icon-color: var(--light-blue);
+  --feed-context-border: rgba(255, 255, 255, 0.2);
 
   // Autocomplete
   --autocomplete-background: var(--background-color);

@@ -1,8 +1,14 @@
-= turbo_frame_tag @comment, class: "comment" do
-  = link_to @commentable, class: "close-btn", title: 'Close' do
-    %i.fa-solid.fa-xmark
-  = render 'users/post_user', user: @comment.created_by
-  %h3 Edit Comment
-  = render 'form', commentable: @commentable, comment: @comment
-  .timestamp
-    Posted #{time_ago_in_words(@comment.created_at)} ago
+- in_feed = params[:in_feed] == "1"
+= turbo_frame_tag @comment do
+  .modal
+    .modal_content
+      .row.center-content
+        .col-12
+          = link_to [@commentable, @comment, in_feed: (in_feed ? "1" : nil)], class: "close-btn", title: 'Cancel' do
+            %i.fa-solid.fa-xmark
+        .col-12
+          = render 'users/post_user', user: @comment.created_by
+          %h1 Edit Comment
+          = render 'form', commentable: @commentable, comment: @comment
+          .timestamp
+            Posted #{time_ago_in_words(@comment.created_at)} ago

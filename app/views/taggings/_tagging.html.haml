@@ -1,0 +1,6 @@
+- return unless tagging.taggable.present?
+
+- if tagging.taggable.is_a?(Post)
+  = render tagging.taggable
+- elsif tagging.taggable.is_a?(Comment)
+  = render "comments/comment", comment: tagging.taggable, in_feed: true

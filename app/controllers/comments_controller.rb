@@ -1,9 +1,29 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_commentable
-  before_action :set_comment, only: [ :edit, :update, :destroy ]
+  before_action :set_comment, only: [ :show, :edit, :update, :destroy, :large_image ]
   before_action :deny_access!, only: [ :edit, :update, :destroy ],
   unless:  -> { correct_user?(@comment.created_by) }
+
+  # GET /comments/1
+  # GET /comments/1.json
+  def show
+    respond_to do |format|
+      format.turbo_stream
+      format.html {
+        if turbo_frame_request?
+          render @comment
+        else
+          redirect_to polymorphic_path(@commentable, anchor: helpers.dom_id(@comment))
+        end
+      }
+      format.json { render :show, status: :ok, location: [@commentable, @comment] }
+    end
+  end
+
+  # GET /comments/1/large_image
+  def large_image
+  end
 
   # GET /comments/new
   def new

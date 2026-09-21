@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_223705) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_21_003638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -80,7 +80,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_223705) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "body"
     t.bigint "commentable_id"
     t.string "commentable_type"
     t.datetime "created_at", precision: nil, null: false

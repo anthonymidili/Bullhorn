@@ -25,7 +25,7 @@ module ImageProcessingHelper
     end
   end
 
-  def large_or_link_image(post, attachment, fullscreen = nil, reposting = nil)
+  def large_or_link_image(record, attachment, fullscreen = nil, reposting = nil)
     if fullscreen
       content_tag(:div, class: "image-viewer-container", data: { controller: "image-viewer" }) do
         image_tag(large_image(attachment),
@@ -37,8 +37,12 @@ module ImageProcessingHelper
           draggable: false
         )
       end
+    elsif record.is_a?(Comment)
+      link_to polymorphic_path([:large_image, record.commentable, record]) do
+        image_tag medium_image(attachment), class: "img-thumbnail"
+      end
     else
-      link_to large_image_post_path(post, "repost[#{:post_id}]" => reposting.try(:id)) do
+      link_to large_image_post_path(record, "repost[#{:post_id}]" => reposting.try(:id)) do
         image_tag medium_image(attachment), class: "img-thumbnail"
       end
     end

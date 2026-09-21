@@ -15,24 +15,24 @@
     / Carousel items (slides)
     .carousel-inner
       - attachments.each_with_index do |attachment, index|
-        %figure{class: "attachment attachment--#{attachment.audio? ? 'file' : 'preview'} attachment--#{attachment.filename.extension}"}
+        %figure{class: "attachment attachment--#{attachment.try(:audio?) ? 'file' : 'preview'} attachment--#{attachment.try(:filename)&.extension}"}
 
           .center-items.carousel-item{ class: (index == 0 ? 'active' : nil) }
-            - if attachment.video?
+            - if attachment.try(:video?)
               = video_tag rails_blob_url(attachment), controls: true, preload: "metadata", 
               class: "img-thumbnail", data: { action: "play->media#play", media_target: "player" }
-            - elsif attachment.audio?
+            - elsif attachment.try(:audio?)
               = audio_tag rails_blob_url(attachment), controls: true, preload: "metadata",
               data: { action: "play->media#play", media_target: "player" }
-            - elsif attachment.image?
+            - elsif attachment.try(:image?)
               .photo= large_or_link_image(post, attachment, fullscreen ||= nil, reposting)
             .carousel-caption
               %figcaption.attachment__caption
                 - if caption = attachment.try(:caption)
                   %span.attachment__text= caption
                 - else
-                  %span.attachment__name= attachment.filename
-                  %span.attachment__size= number_to_human_size attachment.byte_size
+                  %span.attachment__name= attachment.try(:filename)
+                  %span.attachment__size= number_to_human_size attachment.try(:byte_size)
                 %span •
                 = link_to "Download", rails_blob_path(attachment, disposition: "attachment")
 

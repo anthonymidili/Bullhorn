@@ -8,6 +8,11 @@ module TrixHelper
   end
 
   def attachments(object)
-    object.try(:body).try(:body).try(:attachments)
+    atts = object.try(:body).try(:body).try(:attachments)
+    return [] unless atts
+
+    atts.select do |att|
+      att.respond_to?(:attachable) && att.attachable.is_a?(ActiveStorage::Blob)
+    end
   end
 end

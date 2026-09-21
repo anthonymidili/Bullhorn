@@ -32,7 +32,11 @@ Rails.application.routes.draw do
   resources :relationships, only: %i[create destroy]
 
   resources :posts, except: %i[index] do
-    resources :comments, except: %i[index show]
+    resources :comments, except: %i[index] do
+      member do
+        get :large_image
+      end
+    end
     member do
       get :large_image
     end
@@ -40,7 +44,11 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :invitations, only: %i[create update]
-    resources :comments, except: %i[index show]
+    resources :comments, except: %i[index] do
+      member do
+        get :large_image
+      end
+    end
     member do
       get :remove_image
     end

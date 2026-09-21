@@ -11,8 +11,8 @@ class MentionAndHashtagHelperTest < ActionView::TestCase
     html = "<div><p>Hello @superstar and #Bullhorn rocks!</p></div>"
     result = render_mentions_and_hashtags_in_html(html)
 
-    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo="false">@superstar</a>)
-    assert_includes result, %(<a href="/hashtags/Bullhorn" class="hashtag-link" data-turbo="false">#Bullhorn</a>)
+    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo-frame="_top">@superstar</a>)
+    assert_includes result, %(<a href="/hashtags/Bullhorn" class="hashtag-link" data-turbo-frame="_top">#Bullhorn</a>)
   end
 
   test "render_mentions_and_hashtags_in_html leaves nonexistent users unlinked" do
@@ -21,15 +21,23 @@ class MentionAndHashtagHelperTest < ActionView::TestCase
 
     assert_includes result, "@ghost_user"
     assert_not_includes result, %(href="/users/)
-    assert_includes result, %(<a href="/hashtags/up" class="hashtag-link" data-turbo="false">#up</a>)
+    assert_includes result, %(<a href="/hashtags/up" class="hashtag-link" data-turbo-frame="_top">#up</a>)
   end
 
-  test "render_mentions_and_hashtags_in_html does not alter existing anchor tags" do
+  test "render_mentions_and_hashtags_in_html does not alter interior text of existing anchor tags but ensures data-turbo-frame" do
     html = '<p>Check <a href="/custom/path">#notatag and @superstar</a> outside @superstar</p>'
     result = render_mentions_and_hashtags_in_html(html)
 
-    assert_includes result, '<a href="/custom/path">#notatag and @superstar</a>'
-    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo="false">@superstar</a>)
+    assert_includes result, '<a href="/custom/path" data-turbo-frame="_top">#notatag and @superstar</a>'
+    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo-frame="_top">@superstar</a>)
+  end
+
+  test "render_mentions_and_hashtags_in_html ensures data-turbo-frame on already linked hashtags from rich text" do
+    html = '<div><a href="/hashtags/ruby">#ruby</a> and <a href="/users/superstar">@superstar</a></div>'
+    result = render_mentions_and_hashtags_in_html(html)
+
+    assert_includes result, '<a href="/hashtags/ruby" data-turbo-frame="_top" class="hashtag-link">#ruby</a>'
+    assert_includes result, '<a href="/users/superstar" data-turbo-frame="_top" class="mention-link">@superstar</a>'
   end
 
   test "render_mentions_and_hashtags_in_html ignores email addresses" do
@@ -44,8 +52,8 @@ class MentionAndHashtagHelperTest < ActionView::TestCase
     text = "Plain text with @superstar and #awesome & <script>alert('xss')</script>"
     result = render_mentions_and_hashtags_in_plain_text(text)
 
-    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo="false">@superstar</a>)
-    assert_includes result, %(<a href="/hashtags/awesome" class="hashtag-link" data-turbo="false">#awesome</a>)
+    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo-frame="_top">@superstar</a>)
+    assert_includes result, %(<a href="/hashtags/awesome" class="hashtag-link" data-turbo-frame="_top">#awesome</a>)
     assert_not_includes result, "<script>"
     assert_includes result, "&lt;script&gt;"
   end
@@ -55,7 +63,7 @@ class MentionAndHashtagHelperTest < ActionView::TestCase
     result = format_comment_body(text)
 
     assert_includes result, "<p>"
-    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo="false">@superstar</a>)
-    assert_includes result, %(<a href="/hashtags/awesome" class="hashtag-link" data-turbo="false">#awesome</a>)
+    assert_includes result, %(<a href="/users/#{@user.id}" class="mention-link" data-turbo-frame="_top">@superstar</a>)
+    assert_includes result, %(<a href="/hashtags/awesome" class="hashtag-link" data-turbo-frame="_top">#awesome</a>)
   end
 end

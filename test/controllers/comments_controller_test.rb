@@ -25,7 +25,24 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     patch post_comment_path(post, comment), params: { comment: { body: "Edited comment" } }
 
     comment.reload
-    assert_equal "Edited comment", comment.body
+    assert_equal "Edited comment", comment.body.to_plain_text
+  end
+
+  test "authenticated user can get edit modal for their own comment" do
+    user = User.create!(email: "edit_modal_user@example.com", password: "password", username: "editmodaluser", confirmed_at: Time.current)
+    post_record = user.posts.create!(body: "Post for editing comments modal")
+    comment = post_record.comments.create!(body: "Comment to edit in modal", created_by: user)
+
+    post user_session_path, params: { user: { email: user.email, password: "password" } }
+
+    get edit_post_comment_path(post_record, comment)
+    assert_response :success
+    assert_select "turbo-frame[id=?]", "comment_#{comment.id}" do
+      assert_select ".modal"
+      assert_select ".modal_content"
+      assert_select "h1", "Edit Comment"
+      assert_select "a.close-btn"
+    end
   end
 
   test "user cannot edit another user's comment" do
@@ -39,7 +56,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     patch post_comment_path(post, comment), params: { comment: { body: "Hacked comment" } }
 
     comment.reload
-    assert_equal "Author's comment", comment.body
+    assert_equal "Author's comment", comment.body.to_plain_text
   end
 
   test "authenticated user can delete their own comment" do
@@ -74,5 +91,78 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "Comment.count" do
       post post_comments_path(post), params: { comment: { body: "" } }
     end
+  end
+
+  test "authenticated user can view large_image for comment" do
+    user = User.create!(email: "viewer@example.com", password: "password", username: "viewer", confirmed_at: Time.current)
+    post_record = user.posts.create!(body: "Post with comment")
+    comment = post_record.comments.create!(body: "Comment to view image", created_by: user)
+
+    post user_session_path, params: { user: { email: user.email, password: "password" } }
+
+    get large_image_post_comment_path(post_record, comment)
+    assert_response :success
+    assert_select "turbo-frame[id=?]", "comment_#{comment.id}" do
+      assert_select ".modal"
+      assert_select "a.close-btn[href=?]", post_comment_path(post_record, comment)
+    end
+  end
+
+  test "comment show action renders comment in turbo frame or redirects to post" do
+    user = User.create!(email: "shower@example.com", password: "password", username: "shower", confirmed_at: Time.current)
+    post_record = user.posts.create!(body: "Post for comment show")
+    comment = post_record.comments.create!(body: "Show comment", created_by: user)
+
+    post user_session_path, params: { user: { email: user.email, password: "password" } }
+
+    # Turbo frame request (e.g. from closing the modal)
+    get post_comment_path(post_record, comment), headers: { "Turbo-Frame" => "comment_#{comment.id}" }
+    assert_response :success
+    assert_select "turbo-frame[id=?]", "comment_#{comment.id}"
+
+    # Non-turbo-frame request redirects to post anchor
+    get post_comment_path(post_record, comment)
+    assert_redirected_to "#{post_path(post_record)}#comment_#{comment.id}"
+  end
+
+  test "creating a comment from new comments modal on hashtag page does not display Commented on post by dialog" do
+    user = User.create!(email: "modal_commenter@example.com", password: "password", username: "modalcommenter", confirmed_at: Time.current)
+    post_record = user.posts.create!(body: "Post on #beer hashtag")
+
+    post user_session_path, params: { user: { email: user.email, password: "password" } }
+
+    # Open the new comments modal with referer set to /hashtags/beer
+    get new_post_comment_path(post_record), headers: { "HTTP_REFERER" => "http://www.example.com/hashtags/beer" }
+    assert_response :success
+    assert_not_includes @response.body, "Commented on post by"
+    assert_not_includes @response.body, "comment-feed-context"
+
+    # Create a comment with referer set to /hashtags/beer
+    post post_comments_path(post_record),
+         params: { comment: { body: "Tasty #beer review!" } },
+         headers: { "HTTP_REFERER" => "http://www.example.com/hashtags/beer", "Accept" => "text/vnd.turbo-stream.html" }
+
+    assert_response :success
+    assert_not_includes @response.body, "Commented on post by"
+    assert_not_includes @response.body, "comment-feed-context"
+  end
+
+  test "updating comment with missing or non-blob attachment does not raise NoMethodError audio?" do
+    user = User.create!(email: "audio_tester@example.com", password: "password", username: "audiotester", confirmed_at: Time.current)
+    post_record = user.posts.create!(body: "Post with comment to update")
+    comment = post_record.comments.create!(body: "Initial comment", created_by: user)
+
+    post user_session_path, params: { user: { email: user.email, password: "password" } }
+
+    # Body containing action-text-attachment without a valid blob/sgid
+    broken_attachment_body = '<div><figure data-trix-attachment="{&quot;contentType&quot;:&quot;image/jpeg&quot;,&quot;filename&quot;:&quot;test.jpg&quot;,&quot;href&quot;:&quot;/hashtags/beer&quot;}"><img src="blob:http://localhost/test"><figcaption>test.jpg</figcaption></figure>Drinking <a href="/hashtags/beer">#beer</a></div>'
+
+    patch post_comment_path(post_record, comment),
+          params: { comment: { body: broken_attachment_body } },
+          headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+    assert_response :success
+    assert_includes @response.body, "Drinking"
+    assert_includes @response.body, "#beer"
   end
 end

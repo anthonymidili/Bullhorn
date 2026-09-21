@@ -2,18 +2,20 @@
 - provide :title, "##{tag_name}"
 .row.justify-content-center
   .col-12.col-md-8
-    .card.mb-3
-      .card-body
-        .d-flex.align-items-center.justify-content-between
-          %h3.card-title.mb-0
-            %i.fa-solid.fa-hashtag.text-primary.me-1
-            = tag_name
-          - if @hashtag
+    .callout
+      .d-flex.align-items-center.justify-content-between
+        %h3
+          %i.fa-solid.fa-hashtag.text-primary.me-1
+          = tag_name
+        - if @hashtag
+          .d-flex.gap-2
             %span.badge.bg-primary
               = pluralize(@hashtag.posts.count, "post")
+            %span.badge.bg-secondary
+              = pluralize(@hashtag.comments.count, "comment")
     - if @posts.empty?
       .callout
-        %p No posts found for ##{tag_name}.
+        %p No posts or comments found for ##{tag_name}.
         = link_to root_path, class: "btn btn-primary" do
           %i.fa-solid.fa-house.me-1
           Back to Home

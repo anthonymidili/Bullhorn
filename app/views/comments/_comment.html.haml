@@ -1,8 +1,22 @@
+- in_feed = local_assigns.fetch(:in_feed, params[:in_feed] == "1")
 - if comment.persisted?
-  = turbo_frame_tag comment, class: "comment" do
+  = turbo_frame_tag comment, class: ["comment", ("callout comment-feed-item" if in_feed)] do
+    - if in_feed && comment.commentable.present?
+      .comment-feed-context
+        %i.fa-solid.fa-reply.me-1
+        Commented on
+        - if comment.commentable.is_a?(Post)
+          post by
+          - if comment.commentable.user
+            = link_to "@#{comment.commentable.user.username}", user_path(comment.commentable.user), data: { turbo: false }, class: "fw-semibold"
+            %span.context-separator ·
+          = link_to "View Post", post_path(comment.commentable, anchor: dom_id(comment)), data: { turbo: false }, class: "fw-semibold"
+        - elsif comment.commentable.is_a?(Event)
+          event
+          = link_to comment.commentable.name, event_path(comment.commentable, anchor: dom_id(comment)), data: { turbo: false }, class: "fw-semibold"
     - if correct_user?(comment.created_by)
       .links-end
-        = link_to [:edit, comment.commentable, comment], title: 'Edit' do
+        = link_to [:edit, comment.commentable, comment, in_feed: (in_feed ? "1" : nil)], title: 'Edit' do
           %i.fa-solid.fa-pen-to-square
           Edit
         = link_to [comment.commentable, comment],
@@ -10,7 +24,9 @@
         class: 'delete-link', title: 'Delete' do
           %i.fa-solid.fa-trash
     = render 'users/post_user', user: comment.created_by
-    .content= format_comment_body(comment.body)
+    .content
+      = render "posts/body", post: comment, reposting: nil, formated_text: formated_text(comment), 
+      attachments: attachments(comment)
     .timestamp
       Posted #{time_ago_in_words(comment.created_at)} ago
     .d-flex.justify-content-between.align-items-center
